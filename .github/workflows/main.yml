@@ -15,6 +15,6 @@ jobs:
         WPE_SSHG_KEY_PRIVATE: ${{ secrets.WPE_SSHG_KEY_PRIVATE }} 
         WPE_ENV: winmo
         # Deploy Options
-        SRC_PATH: "wp-content/"
+        PHP_LINT: TRUE
         REMOTE_PATH: "wp-content/"
         CACHE_CLEAR: TRUE
