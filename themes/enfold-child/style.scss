@@ -7,10 +7,11 @@ Author URI: http://launchsnap.com/
 Template: enfold
 */
 body {
-  b {
-    font-weight: normal;
-  }
-  i {
-    color: blue;
-  }
+ ul {
+  display: grid;
+  grid-template-areas: "media detail detail";
+  grid-template-columns: 200px 200px 200px 200px;
+  grid-auto-columns: 150px;
+  column-gap: 32px;
+ }
 }

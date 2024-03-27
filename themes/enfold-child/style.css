@@ -6,9 +6,11 @@ Author: Christie Wood
 Author URI: http://launchsnap.com/
 Template: enfold
 */
-body b {
-  font-weight: normal;
-}
-body i {
-  color: blue;
+body ul {
+  display: grid;
+  grid-template-areas: "media detail detail";
+  grid-template-columns: 200px 200px 200px 200px;
+  grid-auto-columns: 150px;
+  -moz-column-gap: 32px;
+       column-gap: 32px;
 }

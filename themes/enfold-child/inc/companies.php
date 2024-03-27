@@ -10,7 +10,7 @@ function set_company_transient()
 
     if ($file = fopen(get_stylesheet_directory() . "/inc/companies.csv", "r")) {
       while (($data = fgetcsv($file)) !== FALSE) {
-        $companies[$data[0]] = $data[1];
+        if ($data[0] <> 'Id') $companies[$data[0]] = $data[1];
       }
 
       // store the companies array and set it to expire in 1 week
