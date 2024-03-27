@@ -27,11 +27,13 @@ do_action('ava_page_template_after_header'); ?>
     // Create a transient for company information if it doesn't already exist
     if (is_page('companies')) :
       $companies = get_transient('winmo_companies');
-      print '<ul>';
-      foreach ($companies as $cid => $name) :
-        print '<li>' . $name . '</li>';
-      endforeach;
-      print '</ul>';
+      if (is_array($companies)) {
+        print '<ul>';
+        foreach ($companies as $cid => $name) :
+          print '<li>' . $name . '</li>';
+        endforeach;
+        print '</ul>';
+      }
     endif;
 
     ?>

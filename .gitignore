@@ -15,7 +15,6 @@
 /themes/*
 
 # DO NOT ignore these themes...
-!/themes/frost-child
 !/themes/enfold-child
 
 #---------------------------
