@@ -6,12 +6,23 @@ Author: Christie Wood
 Author URI: http://launchsnap.com/
 Template: enfold
 */
+
+@import 'assets/scss/elements/pager.scss';
+
 body {
- ul {
+ .container_wrap_first ul {
   display: grid;
   grid-template-areas: "media detail detail";
   grid-template-columns: 200px 200px 200px 200px;
   grid-auto-columns: 150px;
   column-gap: 32px;
  }
+ #error {
+  border: 5px #fcc solid;
+  padding: 50px;
+  font-size: 2em;
+  max-width: 800px;
+  margin: 30px auto;
+ }
+  
 }

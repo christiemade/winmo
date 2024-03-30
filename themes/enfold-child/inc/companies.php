@@ -15,10 +15,40 @@ function set_company_transient()
 
       // store the companies array and set it to expire in 1 week
       set_transient('winmo_companies', $companies, 604800);
-    } else {
-      print $file;
     }
     fclose($file);
   }
 }
 add_action('after_setup_theme', 'set_company_transient');
+
+
+function winmo_company_api($id)
+{
+  // Include Request and Response classes
+  $url = 'https://api.winmo.com/web_api/business?id=' . $id . '&entity_type=company';
+
+  $args = array(
+    'headers' => array(
+      'Content-Type' => 'application/json',
+      'Authorization' => 'Bearer ' . WINMO_TOKEN
+    ),
+  );
+
+  $request = wp_remote_get($url, $args);
+
+  if (!is_wp_error($request)) {
+    if ($request['response']['code'] == "404") {
+      return new WP_Error('broke', 'Page not found.');
+    } else {
+      $body = json_decode(wp_remote_retrieve_body($request), true);
+      return $body;
+    }
+  } else {
+    $body = wp_remote_retrieve_body($request);
+    if (isset($body['result'])) {
+      return $body;
+    } else {
+      return new WP_Error('broke', $request->get_error_message());
+    }
+  }
+}
