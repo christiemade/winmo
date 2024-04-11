@@ -8,6 +8,12 @@ if (is_wp_error($company_data)) {
   echo "<div id=\"error\"><h2>Error:</h2> <p>" . $error_message . '</p></div>';
 } else {
 ?>
+  <header id="business">
+
+  </header>
+  <div class="container">
+  </div><!--end container-->
+
   Here is all we get from the API:<br>
   <ul class="preview">
     <li>id: <?php print $company_data['id']; ?></li>
