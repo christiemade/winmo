@@ -6,10 +6,136 @@ Author: Christie Wood
 Author URI: http://launchsnap.com/
 Template: enfold
 */
+@import url(https://use.typekit.net/bmm6xuf.css);
+body {
+  font-size: 16px;
+  font-family: "proxima-nova";
+  color: #021C26;
+}
+
+h1 {
+  font-size: 58px;
+  font-weight: 500;
+  line-height: 1.05em;
+  margin-bottom: 25px;
+}
+.main_color h1 {
+  color: #074058;
+}
+
+h2 {
+  font-size: 38px;
+}
+
+h3 {
+  font-size: 25px;
+}
+
+h4 {
+  font-size: 20px;
+}
+.main_color h4 {
+  color: #074058;
+}
+
+.av-logo-container .inner-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 43px;
+  align-items: start;
+}
+.av-logo-container .inner-container .button {
+  background: transparent;
+  padding: 0px;
+}
+.av-logo-container .inner-container .button img {
+  height: 60px;
+}
+.av-logo-container .inner-container span.logo {
+  float: none;
+  position: relative;
+}
+.av-logo-container .inner-container span.logo .subtext svg {
+  max-width: 210px;
+}
+
 /* CSS Document */
 #pager a {
   display: block;
   padding: 0px 5px;
+}
+
+body.companies #header_main nav {
+  display: none;
+}
+body.companies #main header > .container {
+  padding-top: 18vh;
+}
+
+header#business {
+  position: relative;
+}
+header#business:after {
+  content: "";
+  background-image: url(assets/img/companies/header-business.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center bottom;
+  -webkit-clip-path: ellipse(82% 83% at 51% 16%);
+          clip-path: ellipse(82% 83% at 51% 16%);
+  position: absolute;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  z-index: 0;
+}
+header#business > .container {
+  display: flex;
+  justify-content: start;
+  z-index: 1;
+}
+
+#overview {
+  border: 11px inset rgba(7, 64, 88, 0.2);
+  background: white;
+  border-radius: 20px;
+  padding: 40px;
+  flex-basis: 53.306%;
+  line-height: 1.6875em;
+  font-weight: 300;
+}
+#overview .contact {
+  display: flex;
+  padding-top: 3em;
+}
+#overview .contact > div {
+  flex: 1;
+}
+#overview .contact > div .iconbox .iconbox_content .iconbox_content_title {
+  text-transform: none;
+  letter-spacing: normal;
+  font-size: 1em;
+  color: #074058;
+  margin: 0px;
+}
+#overview .contact > div .iconbox .iconbox_content .iconbox_content_container {
+  clear: left;
+  top: -7px;
+  display: block;
+  position: relative;
+}
+#overview .contact > div .iconbox .iconbox_content .iconbox_content_container p {
+  margin-top: 5px;
+  font-weight: 300;
+}
+#overview .contact > div.phone .iconbox .iconbox_content .iconbox_content_container {
+  color: #25C9BA;
+}
+
+#data_boxes {
+  max-width: 359px;
+  padding-left: 20px;
 }
 
 body .container_wrap_first ul:not(.preview) {

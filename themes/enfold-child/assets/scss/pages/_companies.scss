@@ -1,6 +1,75 @@
-header {
-  min-height: 80vh;
-  &#business {
-    background-image: url(assets/img/companies/header.jpg);
+body.companies {
+  #header_main nav { display: none;}
+  #main header > .container { 
+    padding-top: 18vh;
   }
+}
+header {
+  &#business {
+    position: relative;
+    &:after {
+      content: "";
+      background-image: url(assets/img/companies/header-business.jpg);
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center bottom;
+      clip-path: ellipse(82% 83% at 51% 16%);
+      position: absolute;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      top: 0;
+      z-index: 0;
+    }
+    & > .container {
+      display: flex;
+      justify-content: start;
+      z-index: 1;
+    }
+  }
+}
+#overview {
+  border: 11px inset rgba(7,64,88,0.2);
+  background: white;
+  border-radius: 20px;
+  padding: 40px;
+  flex-basis: 53.306%;
+  line-height: 1.6875em;
+  font-weight: 300;
+  .contact {
+    display: flex;
+    padding-top: 3em;
+    & > div {
+      flex: 1;
+      .iconbox .iconbox_content {
+
+        .iconbox_content_title {
+          text-transform: none;
+          letter-spacing: normal;
+          font-size: 1em;
+          color: $blue;
+          margin: 0px;
+        }
+        .iconbox_content_container  {
+          clear: left;
+          top: -7px;
+          display: block;
+          position: relative;
+          p {
+            margin-top: 5px;
+            font-weight: 300;
+          }
+        }
+      }
+      &.phone {
+        .iconbox .iconbox_content .iconbox_content_container {
+          color:$teal;
+        }
+      }
+    }
+  }
+}
+#data_boxes {
+  max-width: 359px;
+  padding-left: 20px;
 }

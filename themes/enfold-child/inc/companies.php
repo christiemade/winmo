@@ -52,3 +52,11 @@ function winmo_company_api($id)
     }
   }
 }
+
+// Show unlock button in header of company pages
+add_filter('avf_main_menu_nav', function ($stuff) {
+  if (is_page('companies')) {
+    $stuff .= '<div class="button"><a href="https://www.winmo.com/profile-1/"><img src="' . get_stylesheet_directory_uri() . '/assets/img/companies/unlock.png"></a></div>';
+  }
+  return $stuff;
+});

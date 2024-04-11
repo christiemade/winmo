@@ -1,0 +1,22 @@
+.av-logo-container .inner-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 43px;
+  align-items: start;
+  .button {
+    background: transparent;
+    padding: 0px;
+    img {
+      height: 60px;
+    }
+  }
+  span.logo {
+    float: none;
+    position: relative;
+    .subtext {
+      svg {
+        max-width: 210px;
+      }
+    }
+  }
+}

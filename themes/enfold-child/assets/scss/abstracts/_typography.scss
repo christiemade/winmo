@@ -1,0 +1,28 @@
+@import url(https://use.typekit.net/bmm6xuf.css);
+
+body {
+  font-size: 16px;
+  font-family:"proxima-nova";
+  color: $black;
+}
+h1 {
+  font-size: 58px;
+  font-weight: 500;
+  line-height: 1.05em;
+  margin-bottom: 25px;
+  .main_color & {
+    color: $blue;
+  }
+}
+h2 {
+  font-size: 38px;
+}
+h3 {
+  font-size: 25px;
+}
+h4 {
+  font-size: 20px;
+  .main_color & {
+    color: $blue;
+  }
+}

@@ -3,9 +3,10 @@
 // Stylesheet caching version
 function avia_get_theme_version($which = 'parent')
 {
-  return '1.0.0.0.5';
+  return '1.0.0.0.16';
 }
 
+// Company display related hooks
 include("inc/companies.php");
 
 // Remove portfolio functionality from backend
@@ -26,7 +27,9 @@ add_filter('query_vars', 'winmo_query_var');
 // Custom URL rewriting for dynamic pages
 function winmo_rewrite_basic()
 {
-  add_rewrite_rule('^company/([^/]*)/?', 'index.php?page_id=20&rid=$matches[1]', 'top');
+  // Allow company page to have any ID
+  $company_page = get_page_by_path('companies');
+  add_rewrite_rule('^company/([^/]*)/?', 'index.php?page_id=' . $company_page->ID . '&rid=$matches[1]', 'top');
 }
 add_action('init', 'winmo_rewrite_basic');
 
@@ -39,8 +42,12 @@ function form_styles()
 //add_action('wp_enqueue_scripts', 'form_styles', 100);
 
 // Adjust cURL timeout length
-function winmo_http_request_timeout()
-{
+add_filter('http_request_timeout', function () {
   return 60;
-}
-add_filter('http_request_timeout', 'winmo_http_request_timeout');
+});
+
+// Add custom body classes to each template
+add_filter('body_class', function ($classes) {
+  global $post;
+  return array_merge($classes, array($post->post_name));
+});
