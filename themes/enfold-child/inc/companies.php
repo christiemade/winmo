@@ -41,12 +41,12 @@ function winmo_company_api($id)
       return new WP_Error('broke', 'Page not found.');
     } else {
       $body = json_decode(wp_remote_retrieve_body($request), true);
-      return $body;
+      return $body['result'];
     }
   } else {
     $body = wp_remote_retrieve_body($request);
     if (isset($body['result'])) {
-      return $body;
+      return $body['result'];
     } else {
       return new WP_Error('broke', $request->get_error_message());
     }

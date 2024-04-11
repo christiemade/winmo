@@ -7,10 +7,11 @@ Author URI: http://launchsnap.com/
 Template: enfold
 */
 
+@import 'assets/scss/abstracts/variables.scss';
 @import 'assets/scss/elements/pager.scss';
 
 body {
- .container_wrap_first ul {
+ .container_wrap_first ul:not(.preview) {
   display: grid;
   grid-template-areas: "media detail detail";
   grid-template-columns: 200px 200px 200px 200px;
