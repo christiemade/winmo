@@ -35,17 +35,31 @@ if (is_wp_error($company_data)) {
     </div>
   </header>
 
-  <div class="container">
+  <div class="container row">
     <aside>
       <nav>
-        Sticky Menu
+        <ul>
+          <li><a href="#advertising"><?php print $company_data['name']; ?> Advertising Agencies</a></li>
+        </ul>
       </nav>
       <section id="cta">
         CTA
       </section>
     </aside>
 
-    <main>
+    <main class="col">
+      <section id="advertising">
+        <?php print do_shortcode("[av_icon_box icon='ue808' font='winmo' title='" . $company_data['name'] . " Advertising Agency' position='left' icon_style='' boxed='' font_color='' custom_title='' custom_content='' color='' custom_bg='' custom_font='' custom_border='' custom_title_size='' av-desktop-font-size-title='' av-medium-font-size-title='' av-small-font-size-title='' av-mini-font-size-title='' custom_content_size='' av-desktop-font-size='' av-medium-font-size='' av-small-font-size='' av-mini-font-size='' heading_tag='h2' heading_class='' link='' linktarget='' title_attr='' linkelement='' id='' custom_class='' template_class='' av_uid='av-luvpcjbw' sc_version='1.0' admin_preview_bg=''][/av_icon_box]"); ?>
+        <div class="row">
+          <div class="col">
+            <p>Explore a detailed list of current and past ad agencies that work with <?php print $company_data['name']; ?>. Sort its marketing agencies by the type of services they offer including creative, PR, media planning, media buying and more. With Winmo’s detailed database of <?php print $company_data['name']; ?>'s advertising agencies at your fingertips you will quickly be able to answer questions like these:</p>
+          </div>
+          <div class="col">
+            <p><strong>Does Nike use a marketing agency?</strong><br>
+              Yes, they use [number] unique marketing agencies.</p>
+          </div>
+        </div>
+      </section>
       Here is all we get from the API thats not already listed above:<br>
       <ul class="preview">
         <li>id: <?php print $company_data['id']; ?></li>

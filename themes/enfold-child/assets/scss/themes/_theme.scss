@@ -1,6 +1,27 @@
-header + .container {
-
+.row {
   @include breakpoint(md) {
     display: flex;
-  } 
+    gap: 40px;
+  }
+  .col {
+    flex: 1;
+  }
 }
+
+body {
+  .container_wrap_first ul:not(.preview) {
+   display: grid;
+   grid-template-areas: "media detail detail";
+   grid-template-columns: 200px 200px 200px 200px;
+   grid-auto-columns: 150px;
+   column-gap: 32px;
+  }
+  #error {
+   border: 5px #fcc solid;
+   padding: 50px;
+   font-size: 2em;
+   max-width: 800px;
+   margin: 30px auto;
+  }
+   
+ }

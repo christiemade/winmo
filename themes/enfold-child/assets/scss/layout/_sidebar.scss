@@ -1,0 +1,5 @@
+aside {
+  @include breakpoint(md) {
+    width: 303px;
+  }
+}
