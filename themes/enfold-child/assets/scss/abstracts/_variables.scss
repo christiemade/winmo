@@ -4,3 +4,27 @@ $orange:  #FF601A !default;
 $peach:   #FFEBDB !default;
 $black:   #021C26 !default;
 $teal:    #25C9BA !default;
+
+// Responsive sizes
+$breakpoints: (
+    sm: (
+        min: 576px,
+        max: 575.98px,
+    ),
+    md: (
+        min: 768px,
+        max: 767.98px
+    ),
+    lg: (
+        min: 992px,
+        max: 991.98px
+    ),
+    xl: (
+        min: 1200px,
+        max: 1199.98px
+    ),
+    xxl: (
+      min: 1400px,
+      max: 1399.98px,
+    )
+);

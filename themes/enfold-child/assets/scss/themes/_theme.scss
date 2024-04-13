@@ -1,0 +1,6 @@
+header + .container {
+
+  @include breakpoint(md) {
+    display: flex;
+  } 
+}

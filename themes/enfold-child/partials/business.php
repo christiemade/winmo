@@ -34,8 +34,8 @@ if (is_wp_error($company_data)) {
       <div id="data_boxes"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/companies/data_boxes.png"></div>
     </div>
   </header>
-  <div class="container">
 
+  <div class="container">
     <aside>
       <nav>
         Sticky Menu
