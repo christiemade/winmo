@@ -25,7 +25,7 @@ add_action('after_setup_theme', 'set_company_transient');
 function winmo_company_api($id)
 {
   // Include Request and Response classes
-  $url = 'https://api.winmo.com/web_api/business?id=' . $id . '&entity_type=company';
+  $url = 'https://api.winmo.com/web_api/business_details?id=' . $id . '&entity_type=company';
 
   $args = array(
     'headers' => array(
