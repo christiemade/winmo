@@ -61,3 +61,35 @@ add_filter('avf_main_menu_nav', function ($stuff) {
   }
   return $stuff;
 });
+
+// Grab details on a brand from the API
+function winmo_brand_api($id)
+{
+  // Include Request and Response classes
+  $url = 'https://api.winmo.com/web_api/business_details?id=' . $id . '&entity_type=company';
+
+  $args = array(
+    'headers' => array(
+      'Content-Type' => 'application/json',
+      'Authorization' => 'Bearer ' . WINMO_TOKEN
+    ),
+  );
+
+  $request = wp_remote_get($url, $args);
+
+  if (!is_wp_error($request)) {
+    if ($request['response']['code'] == "404") {
+      return new WP_Error('broke', 'Page not found.');
+    } else {
+      $body = json_decode(wp_remote_retrieve_body($request), true);
+      return $body['result'];
+    }
+  } else {
+    $body = wp_remote_retrieve_body($request);
+    if (isset($body['result'])) {
+      return $body['result'];
+    } else {
+      return new WP_Error('broke', $request->get_error_message());
+    }
+  }
+}

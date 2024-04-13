@@ -64,6 +64,20 @@ h4 {
     width: 303px;
   }
 }
+aside nav li {
+  position: relative;
+  padding-left: 20px;
+  font-weight: 400;
+}
+aside nav li:before {
+  content: "\e87d";
+  font-family: "entypo-fontello";
+  position: absolute;
+  left: 0;
+}
+aside nav li a {
+  color: #021C26;
+}
 
 .iconbox .iconbox_content .iconbox_content_title {
   text-transform: none;
@@ -89,6 +103,40 @@ h4 {
 .row .col {
   flex: 1;
 }
+.row.table {
+  background-color: #074058;
+  border: 8px rgba(255, 235, 219, 0.2) solid;
+  border-radius: 8px;
+  gap: 0px;
+  flex-direction: column;
+  padding-bottom: 10px;
+}
+.row.table .top {
+  margin: 24px 32px 9px 32px;
+  border-bottom: 1px #25C9BA solid;
+  padding-bottom: 5px;
+}
+.row.table .top img {
+  width: 100%;
+  height: auto;
+}
+.row.table .grid {
+  padding: 0px 32px 5px 32px;
+}
+.row.table .grid .row {
+  background-color: #10516C;
+  border-radius: 5px;
+  margin: 3px 0px 2px 0px;
+  color: #ffffff;
+  font-size: 11px;
+  height: 37px;
+}
+.row.table .bottom {
+  padding: 0px 32px 10px 32px;
+}
+.row.table#advertising_table .grid .row > div:first-child {
+  padding-left: 2.5%;
+}
 
 body .container_wrap_first ul:not(.preview) {
   display: grid;
@@ -112,9 +160,22 @@ body.companies #header_main nav {
 body.companies #main header > .container {
   padding-top: 18vh;
 }
+body.companies .table .bottom {
+  text-align: right;
+}
+body.companies section > article.iconbox .iconbox_icon {
+  color: #25C9BA;
+  font-size: 40px;
+  top: 0px;
+  left: 0px;
+  border-radius: 0px;
+  width: 60px;
+  text-align: left;
+}
 
 header#business {
   position: relative;
+  margin-bottom: 3em;
 }
 header#business:after {
   content: "";
@@ -145,6 +206,7 @@ header#business > .container {
   flex-basis: 53.306%;
   line-height: 1.6875em;
   font-weight: 300;
+  box-shadow: 0px 4px 64px 0px rgba(0, 0, 0, 0.07);
 }
 #overview .contact {
   display: flex;

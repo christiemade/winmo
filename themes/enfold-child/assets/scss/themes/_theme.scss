@@ -6,6 +6,48 @@
   .col {
     flex: 1;
   }
+  &.table {
+    background-color: $blue;
+    border: 8px rgba(255,235,219,0.20) solid;
+    border-radius: 8px;
+    gap: 0px;
+    flex-direction: column;
+    padding-bottom: 10px;
+    .top {
+      margin: 24px 32px 9px 32px;
+      border-bottom: 1px $teal solid;
+      padding-bottom: 5px;
+      img {
+        width: 100%;
+        height: auto;
+      }
+    }
+    .grid {
+      padding: 0px 32px 5px 32px;
+      .row {
+        background-color: #10516C;
+        border-radius: 5px;
+        margin: 3px 0px 2px 0px;
+        color:#ffffff;
+        font-size: 11px;
+        height: 37px;
+      }
+    }
+    .bottom {
+      padding: 0px 32px 10px 32px;
+    }
+    &#advertising_table {
+      .grid {
+        .row {
+          & > div  {
+            &:first-child {
+              padding-left: 2.5%; // Brand Name
+            }
+          }
+        }
+      }
+    } 
+  }
 }
 
 body {

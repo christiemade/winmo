@@ -49,7 +49,7 @@ if (is_wp_error($company_data)) {
 
     <main class="col">
       <section id="advertising">
-        <?php print do_shortcode("[av_icon_box icon='ue80a' font='winmo' title='" . $company_data['name'] . " Advertising Agency' position='left' icon_style='' boxed='' font_color='' custom_title='' custom_content='' color='' custom_bg='' custom_font='' custom_border='' custom_title_size='' av-desktop-font-size-title='' av-medium-font-size-title='' av-small-font-size-title='' av-mini-font-size-title='' custom_content_size='' av-desktop-font-size='' av-medium-font-size='' av-small-font-size='' av-mini-font-size='' heading_tag='h2' heading_class='' link='' linktarget='' title_attr='' linkelement='' id='' custom_class='' template_class='' av_uid='av-luvpcjbw' sc_version='1.0' admin_preview_bg=''][/av_icon_box]"); ?>
+        <?php print do_shortcode("[av_icon_box icon='ue8d2' font='entypo-fontello' title='" . $company_data['name'] . " Advertising Agency' position='left' icon_style='' boxed='' font_color='' custom_title='' custom_content='' color='' custom_bg='' custom_font='' custom_border='' custom_title_size='' av-desktop-font-size-title='' av-medium-font-size-title='' av-small-font-size-title='' av-mini-font-size-title='' custom_content_size='' av-desktop-font-size='' av-medium-font-size='' av-small-font-size='' av-mini-font-size='' heading_tag='h2' heading_class='' link='' linktarget='' title_attr='' linkelement='' id='' custom_class='' template_class='' av_uid='av-luvpcjbw' sc_version='1.0' admin_preview_bg=''][/av_icon_box]"); ?>
         <div class="row">
           <div class="col">
             <p>Explore a detailed list of current and past ad agencies that work with <?php print $company_data['name']; ?>. Sort its marketing agencies by the type of services they offer including creative, PR, media planning, media buying and more. With Winmo’s detailed database of <?php print $company_data['name']; ?>'s advertising agencies at your fingertips you will quickly be able to answer questions like these:</p>
@@ -60,6 +60,28 @@ if (is_wp_error($company_data)) {
             <p><strong>Who does marketing for <?php print $company_data['name']; ?>?</strong><br>
               There are several companies that do marketing for [Nike] including [company 1].</p>
           </div>
+        </div>
+
+        <div class="row table" id="advertising_table">
+          <div class="top"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/companies/advertising-table-top.svg"></div>
+          <div class="grid">
+            <?php
+            $total = sizeof($company_data['related_brands']);
+            if ($total > 10) $total = 10;
+            for ($i = 0; $i < 10; $i++) :
+            ?><div class="row">
+                <div><?php print $company_data['related_brands'][$i]['name']; ?></div>
+                <div>Brand ID is <?php print $company_data['related_brands'][$i]['id']; ?>, but this does not exist as a company to pull any more information from.</div>
+                <div></div>
+                <div></div>
+              </div><?php
+                  endfor; ?>
+          </div>
+          <?php if (sizeof($company_data['related_brands']) > 10) : ?>
+            <div class="bottom">
+              <img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/companies/pagination.svg">
+            </div>
+          <?php endif; ?>
         </div>
       </section>
       Here is all we get from the API thats not already listed above:<br>
@@ -79,7 +101,7 @@ if (is_wp_error($company_data)) {
         <li>contacts:
           <ul class="preview">
             <?php foreach ($company_data['contacts'] as $contact) :
-              print '<li>' . $contact['person_id'] . ' : ' . $contact['title'] . '</li>';
+              print '<li>' . $contact['id'] . ' : ' . $contact['fname'] . " " . $contact['lname'] . ', ' . $contact['title'] . ' (... and lots more )</li>';
             endforeach; ?>
           </ul>
         </li>
@@ -92,13 +114,6 @@ if (is_wp_error($company_data)) {
                 print '<li>' . $key . '</li>';
               endforeach;
               print '</ul></li>';
-            endforeach; ?>
-          </ul>
-        </li>
-        <li>brands:
-          <ul class="preview">
-            <?php foreach ($company_data['related_brands'] as $brand) :
-              print '<li>' . $brand['id'] . ' : ' .  $brand['name'] . '</li>';
             endforeach; ?>
           </ul>
         </li>

@@ -2,4 +2,20 @@ aside {
   @include breakpoint(md) {
     width: 303px;
   }
+  nav {
+    li {
+      position: relative;
+      padding-left: 20px;
+      font-weight: 400;
+      &:before {
+        content:"\e87d";
+        font-family: 'entypo-fontello';	
+        position: absolute;
+        left: 0;
+      }
+      a {
+        .main_color & { color: $black; }
+      }
+    }
+  }
 }
