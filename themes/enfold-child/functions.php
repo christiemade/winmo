@@ -3,7 +3,7 @@
 // Stylesheet caching version
 function avia_get_theme_version($which = 'parent')
 {
-  return '1.0.0.0.23';
+  return '1.0.0.0.24';
 }
 
 // Company display related hooks

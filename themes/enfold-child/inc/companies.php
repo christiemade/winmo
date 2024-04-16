@@ -108,6 +108,7 @@ function winmo_brand_api($id)
   }
 }
 
+// Create transients for all images in the provided placeholder folder
 function winmo_image_placeholder_transients($type)
 {
   $images = get_transient('winmo_image_placeholders_' . $type);

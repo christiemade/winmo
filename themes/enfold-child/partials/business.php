@@ -77,14 +77,40 @@ if (is_wp_error($company_data)) {
           <div class="grid">
             <?php
             if ($brands_total > 10) $brands_total = 10;
+
+            // Load up random image arrays
             $agency_images = winmo_image_placeholder_transients('agency-blur-2x');
             $location_images = winmo_image_placeholder_transients('location-blur-2x');
+
+            // Load up random services array
+            $optional = array('Branding & Identity', 'Digital Creative', 'Experiential', 'Multicultural', 'Political', 'Production Services', 'Programmatic', 'Research', 'Shopper', 'Strategy');
+            $required = array('Creative', 'Digital', 'Media Buying', 'Media Planning', 'Public Relations', 'Social');
+
+            // Loop through up to 10 brands
             for ($i = 0; $i < $brands_total; $i++) :
+
+              // Pick some services to show
+              $services = array();
+              $optional_keys = array_rand($optional, rand(1, 2));
+              if (is_array($optional_keys)) $services = array_intersect_key($optional, $optional_keys);
+              shuffle($services); // Randomize the optionals
+              $required_keys = array_rand($required, rand(1, 4));
+              if (!is_array($required_keys)) $required_keys = array($required_keys);
+              $services = array_merge($services, array_intersect_key($required, $required_keys));
+
+              // No more than 5 items
+              if (sizeof($services) > 4) $services = array_slice($services, 1, 4);
+
             ?><div class="row">
                 <div><?php print $company_data['related_brands'][$i]['name']; ?></div>
                 <div class="blur"><img src="<?php print $agency_images[rand(0, sizeof($agency_images) - 1)]; ?>"></div>
                 <div class="blur"><img src="<?php print $location_images[rand(0, sizeof($location_images) - 1)]; ?>"></div>
-                <div class="pills"><span>Pills</span></div>
+                <div class="pills"><?php
+                                    // Show AOR 80% of the time
+                                    if (rand(1, 5) < 4) : ?><span class="aor">AOR</span><?php endif;
+                                                                                      foreach ($services as $service) :
+                                                                                        print '<span>' . $service . '</span>';
+                                                                                      endforeach; ?></div>
               </div><?php
                   endfor; ?>
           </div>

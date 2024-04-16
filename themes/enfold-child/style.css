@@ -136,6 +136,30 @@ aside nav li:before {
   width: auto;
   margin-top: 2px;
 }
+.row.table .grid .row div.pills {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: start;
+  align-items: center;
+  line-height: 18px;
+  gap: 0px;
+  row-gap: 0px;
+  align-content: baseline;
+}
+.row.table .grid .row div.pills span {
+  font-size: 8px;
+  line-height: 10px;
+  margin: 5px 3px 0px;
+  border-radius: 3px;
+  background-color: rgba(27, 103, 201, 0.6);
+  font-weight: 200;
+  letter-spacing: 0.1em;
+  padding: 0px 4px;
+  white-space: nowrap;
+}
+.row.table .grid .row div.pills span.aor {
+  background-color: rgba(37, 201, 186, 0.5);
+}
 .row.table .bottom {
   padding: 0px 32px 10px 32px;
 }
