@@ -160,6 +160,30 @@ aside nav li:before {
 .row.table .grid .row div.pills span.aor {
   background-color: rgba(37, 201, 186, 0.5);
 }
+.row.table .grid .details {
+  border-radius: 3px;
+  background-color: #10516C;
+}
+.row.table .grid .details .row {
+  height: auto;
+  padding: 1.5% 2.5%;
+  gap: 0px;
+}
+.row.table .grid .details .row.buttons {
+  padding-top: 0px;
+}
+.row.table .grid .details .row > div img {
+  margin-left: -5px;
+  height: 26px;
+  margin-bottom: -5px;
+}
+.row.table .grid .details .row > div:first-child {
+  width: 118px;
+}
+.row.table .grid .details .row > div:nth-child(2) {
+  line-height: 22px;
+  flex-basis: calc(41.9% - 118px);
+}
 .row.table .bottom {
   padding: 0px 32px 10px 32px;
 }
@@ -202,18 +226,44 @@ body.companies .table#advertising_table .grid .row > div:nth-child(2) {
 body.companies .table#advertising_table .grid .row > div:nth-child(3) {
   width: 27%;
 }
-body.companies .table#marketing_table .grid .row {
+body.companies .table#marketing_table .grid > .row {
   gap: 0px;
+  align-items: center;
 }
-body.companies .table#marketing_table .grid .row > div {
+body.companies .table#marketing_table .grid > .row > div {
   width: 44%;
 }
-body.companies .table#marketing_table .grid .row > div:first-child {
+body.companies .table#marketing_table .grid > .row > div:first-child {
   padding-left: 2.5%;
   width: 43.5%;
 }
-body.companies .table#marketing_table .grid .row > div:last-child {
+body.companies .table#marketing_table .grid > .row > div:last-child {
   width: 12.5%;
+}
+body.companies .table#marketing_table .grid > .row:first-child {
+  background-color: #25C9BA;
+}
+body.companies .table#marketing_table .grid .details .row > div:nth-child(3) {
+  flex: 1;
+}
+body.companies .table#marketing_table .grid .details .row > div:nth-child(3) img {
+  margin-top: -8px;
+  margin-bottom: 0px;
+}
+body.companies .table#marketing_table .grid .details .row > div:nth-child(4) {
+  flex: 1;
+}
+body.companies .table#marketing_table .grid .details .row > div:nth-child(4) img {
+  height: 15px;
+  margin-bottom: 0;
+  margin-top: -2px;
+  display: block;
+  margin-left: 0px;
+}
+body.companies .table#marketing_table .bottom {
+  display: flex;
+  justify-content: space-between;
+  padding: 2% 32px;
 }
 body.companies .table .bottom {
   text-align: right;

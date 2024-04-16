@@ -161,12 +161,38 @@ if (is_wp_error($company_data)) {
                 <div><?php print $company_data['contacts'][$i]['location']['state']; ?></div>
               </div><?php
                     if ($i === 0) :
-                      print '<div class="details">MORE STUFF HERE.</div>';
+                      print '<div class="details">
+                      <div class="row">
+                        <div>Email:<br>
+                        Main Phone:<br>
+                        Direct Phone:<br>
+                        Assistant Name:<br>
+                        Assistant Phone:
+                        </div>
+                        <div>
+                        <img src="' . get_stylesheet_directory_uri() . '/assets/img/companies/contact-email.svg"><br>
+                        ' . $company_data['contacts'][$i]['phone'] . '<br>
+                        <img src="' . get_stylesheet_directory_uri() . '/assets/img/companies/contact-direct-phone.svg"><br>
+                        <img src="' . get_stylesheet_directory_uri() . '/assets/img/companies/contact-assistant-name.svg"><br>
+                        <img src="' . get_stylesheet_directory_uri() . '/assets/img/companies/contact-assistant-phone.svg"><br>
+                        </div>
+                        <div>
+                        Sample of Related Brands:<br>
+                        <img src="' . get_stylesheet_directory_uri() . '/assets/img/companies/related-brands.svg">
+                        </div>
+                        <div>
+                        Social:<br>
+                        <img src="' . get_stylesheet_directory_uri() . '/assets/img/companies/social.svg">
+                        </div>
+                      </div>
+                      <div class="row buttons"><img src="' . get_stylesheet_directory_uri() . '/assets/img/companies/contact-details-footer.svg"></div>
+                      </div>';
                     endif;
                   endfor; ?>
           </div>
           <?php if (sizeof($company_data['related_brands']) > 10) : ?>
             <div class="bottom">
+              <img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/companies/marketing-table-foot.svg">
               <img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/companies/pagination.svg">
             </div>
           <?php endif; ?>

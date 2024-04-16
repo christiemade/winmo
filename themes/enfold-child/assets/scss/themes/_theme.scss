@@ -63,6 +63,35 @@
           }
         }
       }
+      .details {
+        border-radius: 3px;
+        background-color: #10516C;
+        .row {
+          height: auto;
+          padding: 1.5% 2.5%;
+          gap: 0px;
+          &.buttons {
+            padding-top: 0px;
+          }
+          & > div {
+            img {
+              margin-left: -5px;
+              height: 26px;
+              margin-bottom: -5px;
+            }
+            &:first-child {
+              width: 118px;
+            }
+            &:not(:first-child) {
+              
+            }
+            &:nth-child(2) {  // Actual contact info (phone number and blurs)
+              line-height: 22px;
+              flex-basis: calc(41.9% - 118px);
+            }
+          }
+        }
+      }
     }
     .bottom {
       padding: 0px 32px 10px 32px;
