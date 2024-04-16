@@ -132,8 +132,9 @@ aside nav li:before {
   height: 37px;
 }
 .row.table .grid .row div.blur img {
-  height: 37px;
+  height: 24px;
   width: auto;
+  margin-top: 2px;
 }
 .row.table .bottom {
   padding: 0px 32px 10px 32px;
