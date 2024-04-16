@@ -1,5 +1,19 @@
 <?php
-function set_company_transient()
+function set_company_transient($company_id)
+{
+  $company = get_transient('winmo_company_' . $company_id);
+
+  // check to see if companies was successfully retrieved from the cache
+  if (false === $company) {
+    // do this if no transient set
+    $company = winmo_company_api($company_id);
+
+    // store the company's data and set it to expire in 1 week
+    set_transient('winmo_company_' . $company_id, $company, 604800);
+  }
+  return $company;
+}
+function set_companies_transient()
 {
   $companies = get_transient('winmo_companies');
 
@@ -19,7 +33,7 @@ function set_company_transient()
     fclose($file);
   }
 }
-add_action('after_setup_theme', 'set_company_transient');
+add_action('after_setup_theme', 'set_companies_transient');
 
 
 function winmo_company_api($id)
@@ -92,4 +106,24 @@ function winmo_brand_api($id)
       return new WP_Error('broke', $request->get_error_message());
     }
   }
+}
+
+function winmo_image_placeholder_transients($type)
+{
+  $images = get_transient('winmo_image_placeholders_' . $type);
+
+  // check to see if companies was successfully retrieved from the cache
+  if (false === $images) {
+
+    // do this if no transient set
+    $directory = get_stylesheet_directory() . '/assets/img/companies/' . $type . '/';
+    $images = glob($directory . "*");
+    foreach ($images as $key => $val) :
+      $images[$key] = substr($val, strpos($val, '/wp-content'));
+    endforeach;
+
+    // store the image options and set it to expire in 1 week
+    set_transient('winmo_image_placeholders_' . $type, $images, 604800);
+  }
+  return $images;
 }

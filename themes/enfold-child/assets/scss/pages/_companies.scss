@@ -3,8 +3,50 @@ body.companies {
   #main header > .container { 
     padding-top: 18vh;
   }
-  .table .bottom {
-    text-align: right;
+  .table {
+    &#advertising_table {
+      .grid {
+        .row {
+          gap: 0px;
+          & > div  {
+            width: 24.5%;
+            &:first-child {
+              padding-left: 2.5%; // Brand Name
+              width: 23.5%;
+            }
+            &:nth-child(2) {
+              width: 25%;
+            }
+            &:nth-child(3) {
+              width: 27%;
+            }
+          }
+        }
+      }
+    } 
+    &#marketing_table {
+      .grid {
+        .row {
+          gap: 0px;
+          & > div  {
+            width: 44%;
+            &:first-child {  // Name
+              padding-left: 2.5%;
+              width: 43.5%;
+            }
+            &:last-child {
+              width: 12.5%;
+            }
+          }
+        }
+        .details {
+
+        }
+      }
+    }
+    .bottom {
+      text-align: right;
+    }
   }
   section {
     & > article.iconbox {

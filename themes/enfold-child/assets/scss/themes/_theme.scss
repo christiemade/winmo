@@ -31,22 +31,17 @@
         color:#ffffff;
         font-size: 11px;
         height: 37px;
+        div.blur {
+          img {
+            height: 37px;
+            width: auto;
+          }
+        }
       }
     }
     .bottom {
       padding: 0px 32px 10px 32px;
     }
-    &#advertising_table {
-      .grid {
-        .row {
-          & > div  {
-            &:first-child {
-              padding-left: 2.5%; // Brand Name
-            }
-          }
-        }
-      }
-    } 
   }
 }
 

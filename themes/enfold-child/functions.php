@@ -3,7 +3,7 @@
 // Stylesheet caching version
 function avia_get_theme_version($which = 'parent')
 {
-  return '1.0.0.0.20';
+  return '1.0.0.0.22';
 }
 
 // Company display related hooks
@@ -34,12 +34,16 @@ function winmo_rewrite_basic()
 add_action('init', 'winmo_rewrite_basic');
 
 // Enqueue styles and scripts when ready
-function form_styles()
+function winmo_load_scipts()
 {
+  wp_register_script('gsap', get_stylesheet_directory_uri() . '/assets/js/gsap.min.js');
+  wp_register_script('scrollTrigger', get_stylesheet_directory_uri() . '/assets/js/ScrollTrigger.min.js', array('gsap'));
+  wp_register_script('sticky-nav', get_stylesheet_directory_uri() . '/assets/js/sticky-nav.js', array('jquery', 'gsap', 'scrollTrigger'));
   //wp_enqueue_style( 'cf7_custom', get_stylesheet_directory_uri() . '/forms.css' );
   //wp_enqueue_script('pager', get_stylesheet_directory_uri() . '/assets/js/pager.js', array('jquery'), '1.0.0', true);
+
 }
-//add_action('wp_enqueue_scripts', 'form_styles', 100);
+add_action('wp_enqueue_scripts', 'winmo_load_scipts', 100);
 
 // Adjust cURL timeout length
 add_filter('http_request_timeout', function () {

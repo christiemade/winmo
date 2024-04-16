@@ -75,7 +75,7 @@ aside nav li:before {
   position: absolute;
   left: 0;
 }
-aside nav li a {
+.main_color aside nav li a {
   color: #021C26;
 }
 
@@ -131,11 +131,12 @@ aside nav li a {
   font-size: 11px;
   height: 37px;
 }
+.row.table .grid .row div.blur img {
+  height: 37px;
+  width: auto;
+}
 .row.table .bottom {
   padding: 0px 32px 10px 32px;
-}
-.row.table#advertising_table .grid .row > div:first-child {
-  padding-left: 2.5%;
 }
 
 body .container_wrap_first ul:not(.preview) {
@@ -159,6 +160,35 @@ body.companies #header_main nav {
 }
 body.companies #main header > .container {
   padding-top: 18vh;
+}
+body.companies .table#advertising_table .grid .row {
+  gap: 0px;
+}
+body.companies .table#advertising_table .grid .row > div {
+  width: 24.5%;
+}
+body.companies .table#advertising_table .grid .row > div:first-child {
+  padding-left: 2.5%;
+  width: 23.5%;
+}
+body.companies .table#advertising_table .grid .row > div:nth-child(2) {
+  width: 25%;
+}
+body.companies .table#advertising_table .grid .row > div:nth-child(3) {
+  width: 27%;
+}
+body.companies .table#marketing_table .grid .row {
+  gap: 0px;
+}
+body.companies .table#marketing_table .grid .row > div {
+  width: 44%;
+}
+body.companies .table#marketing_table .grid .row > div:first-child {
+  padding-left: 2.5%;
+  width: 43.5%;
+}
+body.companies .table#marketing_table .grid .row > div:last-child {
+  width: 12.5%;
 }
 body.companies .table .bottom {
   text-align: right;

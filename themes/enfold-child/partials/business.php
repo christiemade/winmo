@@ -1,9 +1,16 @@
 <?php
-$company = get_query_var('rid');
-$company_data = winmo_company_api($company);
 
+// Load JS needed for sticky nav
+wp_enqueue_script('gsap');
+wp_enqueue_script('scrollTrigger');
+wp_enqueue_script('sticky-nav');
+
+// Grab data for page from query vars and the API
+$company = get_query_var('rid');
+$company_data = set_company_transient($company);
+
+// Error check
 if (is_wp_error($company_data)) {
-  // Handle the WP_Error object
   $error_message = $company_data->get_error_message();
   echo "<div id=\"error\"><h2>Error:</h2> <p>" . $error_message . '</p></div>';
 } else {
@@ -46,7 +53,9 @@ if (is_wp_error($company_data)) {
         CTA
       </section>
     </aside>
+    <?php
 
+    $brands_total = sizeof($company_data['related_brands']); ?>
     <main class="col">
       <section id="advertising">
         <?php print do_shortcode("[av_icon_box icon='ue8d2' font='entypo-fontello' title='" . $company_data['name'] . " Advertising Agency' position='left' icon_style='' boxed='' font_color='' custom_title='' custom_content='' color='' custom_bg='' custom_font='' custom_border='' custom_title_size='' av-desktop-font-size-title='' av-medium-font-size-title='' av-small-font-size-title='' av-mini-font-size-title='' custom_content_size='' av-desktop-font-size='' av-medium-font-size='' av-small-font-size='' av-mini-font-size='' heading_tag='h2' heading_class='' link='' linktarget='' title_attr='' linkelement='' id='' custom_class='' template_class='' av_uid='av-luvpcjbw' sc_version='1.0' admin_preview_bg=''][/av_icon_box]"); ?>
@@ -55,10 +64,11 @@ if (is_wp_error($company_data)) {
             <p>Explore a detailed list of current and past ad agencies that work with <?php print $company_data['name']; ?>. Sort its marketing agencies by the type of services they offer including creative, PR, media planning, media buying and more. With Winmo’s detailed database of <?php print $company_data['name']; ?>'s advertising agencies at your fingertips you will quickly be able to answer questions like these:</p>
           </div>
           <div class="col">
-            <p><strong>Does <?php print $company_data['name']; ?> use a marketing agency?</strong><br>
-              Yes, they use [number] unique marketing agencies.</p>
-            <p><strong>Who does marketing for <?php print $company_data['name']; ?>?</strong><br>
-              There are several companies that do marketing for [Nike] including [company 1].</p>
+            <p><strong>How many brands does <?php print $company_data['name']; ?> have?</strong><br>
+              <?php print $company_data['name']; ?> has <?php print $brands_total; ?> unique brands.</p>
+
+            <p><strong>How much does <?php print $company_data['name']; ?> spend on media?</strong><br>
+              <?php print $company_data['name']; ?> spends <?php print $company_data['media_spend']; ?> on media.</p>
           </div>
         </div>
 
@@ -66,15 +76,59 @@ if (is_wp_error($company_data)) {
           <div class="top"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/companies/advertising-table-top.svg"></div>
           <div class="grid">
             <?php
-            $total = sizeof($company_data['related_brands']);
-            if ($total > 10) $total = 10;
-            for ($i = 0; $i < 10; $i++) :
+            if ($brands_total > 10) $brands_total = 10;
+            $agency_images = winmo_image_placeholder_transients('agency-blur-2x');
+            $location_images = winmo_image_placeholder_transients('location-blur-2x');
+            for ($i = 0; $i < $brands_total; $i++) :
             ?><div class="row">
                 <div><?php print $company_data['related_brands'][$i]['name']; ?></div>
-                <div>Brand ID is <?php print $company_data['related_brands'][$i]['id']; ?>, but this does not exist as a company to pull any more information from.</div>
-                <div></div>
-                <div></div>
+                <div class="blur"><img src="<?php print $agency_images[rand(0, sizeof($agency_images) - 1)]; ?>"></div>
+                <div class="blur"><img src="<?php print $location_images[rand(0, sizeof($location_images) - 1)]; ?>"></div>
+                <div class="pills"><span>Pills</span></div>
               </div><?php
+                  endfor; ?>
+          </div>
+          <?php if (sizeof($company_data['related_brands']) > 10) : ?>
+            <div class="bottom">
+              <img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/companies/pagination.svg">
+            </div>
+          <?php endif; ?>
+        </div>
+      </section>
+
+      <section id="marketing">
+        <?php
+        $people_total = sizeof($company_data['contacts']);
+        print do_shortcode("[av_icon_box icon='ue80b' font='entypo-fontello' title='" . $company_data['name'] . " Marketing Team' position='left' icon_style='' boxed='' font_color='' custom_title='' custom_content='' color='' custom_bg='' custom_font='' custom_border='' custom_title_size='' av-desktop-font-size-title='' av-medium-font-size-title='' av-small-font-size-title='' av-mini-font-size-title='' custom_content_size='' av-desktop-font-size='' av-medium-font-size='' av-small-font-size='' av-mini-font-size='' heading_tag='h2' heading_class='' link='' linktarget='' title_attr='' linkelement='' id='' custom_class='' template_class='' av_uid='av-luvpcjbw' sc_version='1.0' admin_preview_bg=''][/av_icon_box]"); ?>
+        <div class="row">
+          <div class="col">
+            <p>Winmo tracks marketing team contacts brand by brand (budget by budget), with an update cycle o s for maximum accuracy. With Winmo, you can get detailed information on the entire <?php print $company_data['name']; ?> marketing team. Find basics on each marketer such as name, job title, brand responsibilities, email, and direct phone number, as well as current marketing strategies, areas of media investment, and do’s and don’ts for engaging. Here’s the kinds of questions you’ll be able to quickly answer with our database:</p>
+          </div>
+          <div class="col">
+            <p><strong>Who is the CMO at <?php print $company_data['name']; ?>?</strong><br>
+              The chief marketing officer at <?php print $company_data['name']; ?> is [First L.].</p>
+
+            <p><strong>How big is the <?php print $company_data['name']; ?> Marketing Team?</strong><br>
+              There are <?php print $people_total; ?> staff members currently involved in marketing for <?php print $company_data['name']; ?>.</p>
+          </div>
+        </div>
+
+        <div class="row table" id="marketing_table">
+          <div class="top"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/companies/marketing-table-top.svg"></div>
+          <div class="grid">
+            <?php
+
+            if ($people_total > 5) $people_total = 5;
+
+            for ($i = 0; $i < $people_total; $i++) :
+            ?><div class="row">
+                <div><?php print $company_data['contacts'][$i]['fname'] ?> <?php print substr($company_data['contacts'][$i]['lname'], 0, 1); ?>.</div>
+                <div><?php print $company_data['contacts'][$i]['title']; ?></div>
+                <div><?php print $company_data['contacts'][$i]['location']['state']; ?></div>
+              </div><?php
+                    if ($i === 0) :
+                      print '<div class="details">MORE STUFF HERE.</div>';
+                    endif;
                   endfor; ?>
           </div>
           <?php if (sizeof($company_data['related_brands']) > 10) : ?>
@@ -95,16 +149,8 @@ if (is_wp_error($company_data)) {
         <li>description: <?php print $company_data['description']; ?></li>
         <li>founded: <?php print $company_data['founded']; ?></li>
         <li>company_nickname: <?php print $company_data['company_nickname']; ?></li>
-        <li>media_spend: <?php print $company_data['media_spend']; ?></li>
         <li>stocksymbol: <?php print $company_data['stocksymbol']; ?></li>
         <li>naics: <?php print $company_data['naics']; ?></li>
-        <li>contacts:
-          <ul class="preview">
-            <?php foreach ($company_data['contacts'] as $contact) :
-              print '<li>' . $contact['id'] . ' : ' . $contact['fname'] . " " . $contact['lname'] . ', ' . $contact['title'] . ' (... and lots more )</li>';
-            endforeach; ?>
-          </ul>
-        </li>
         <li>contact_count: <?php print $company_data['contact_count']; ?></li>
         <li>industries:
           <ul class="preview">
