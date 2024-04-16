@@ -194,6 +194,12 @@ body.companies .table#marketing_table .grid .row > div:last-child {
 body.companies .table .bottom {
   text-align: right;
 }
+body.companies section {
+  padding-bottom: 3em;
+}
+body.companies section > article.iconbox {
+  margin-bottom: 20px;
+}
 body.companies section > article.iconbox .iconbox_icon {
   color: #25C9BA;
   font-size: 40px;

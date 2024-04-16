@@ -99,6 +99,14 @@ if (is_wp_error($company_data)) {
       <section id="marketing">
         <?php
         $people_total = sizeof($company_data['contacts']);
+
+        // Find the CMO
+        $cmo = false;
+        foreach ($company_data['contacts'] as $person) :
+          if (strpos($person['title'], "Chief Marketing Officer") !== false) $cmo = $person['fname'] . " " . $person['lname'];
+        endforeach;
+
+        // Section Title
         print do_shortcode("[av_icon_box icon='ue80b' font='entypo-fontello' title='" . $company_data['name'] . " Marketing Team' position='left' icon_style='' boxed='' font_color='' custom_title='' custom_content='' color='' custom_bg='' custom_font='' custom_border='' custom_title_size='' av-desktop-font-size-title='' av-medium-font-size-title='' av-small-font-size-title='' av-mini-font-size-title='' custom_content_size='' av-desktop-font-size='' av-medium-font-size='' av-small-font-size='' av-mini-font-size='' heading_tag='h2' heading_class='' link='' linktarget='' title_attr='' linkelement='' id='' custom_class='' template_class='' av_uid='av-luvpcjbw' sc_version='1.0' admin_preview_bg=''][/av_icon_box]"); ?>
         <div class="row">
           <div class="col">
@@ -106,7 +114,7 @@ if (is_wp_error($company_data)) {
           </div>
           <div class="col">
             <p><strong>Who is the CMO at <?php print $company_data['name']; ?>?</strong><br>
-              The chief marketing officer at <?php print $company_data['name']; ?> is [First L.].</p>
+              The chief marketing officer at <?php print $company_data['name']; ?> is <?php $cmo ? print $cmo : print "N/A"; ?>.</p>
 
             <p><strong>How big is the <?php print $company_data['name']; ?> Marketing Team?</strong><br>
               There are <?php print $people_total; ?> staff members currently involved in marketing for <?php print $company_data['name']; ?>.</p>

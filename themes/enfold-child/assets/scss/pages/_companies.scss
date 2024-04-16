@@ -50,6 +50,7 @@ body.companies {
   }
   section {
     & > article.iconbox {
+      margin-bottom: 20px;
       .iconbox_icon {
         color: $teal;
         font-size: 40px;
@@ -60,6 +61,7 @@ body.companies {
         text-align: left;
       }
     }
+    padding-bottom: 3em;
   }
 }
 header {
