@@ -64,19 +64,35 @@ h4 {
     width: 303px;
   }
 }
+aside nav {
+  background-color: #fff;
+}
+aside nav ul {
+  display: list-item;
+}
 aside nav li {
   position: relative;
-  padding-left: 20px;
-  font-weight: 400;
+  padding: 13px 0px 12px 20px;
+  font-weight: 600;
+  font-size: 19px;
 }
 aside nav li:before {
   content: "\e87d";
   font-family: "entypo-fontello";
   position: absolute;
   left: 0;
+  font-size: 14px;
+  color: rgba(2, 28, 38, 0.4);
 }
 .main_color aside nav li a {
   color: #021C26;
+}
+.main_color aside nav li.active a {
+  color: #5781F2;
+}
+aside.fixed nav {
+  display: fixed;
+  top: 100px;
 }
 
 .iconbox .iconbox_content .iconbox_content_title {
@@ -102,6 +118,9 @@ aside nav li:before {
 }
 .row .col {
   flex: 1;
+}
+.row .col.col-7 {
+  max-width: 70%;
 }
 .row.table {
   background-color: #074058;
@@ -188,7 +207,7 @@ aside nav li:before {
   padding: 0px 32px 10px 32px;
 }
 
-body .container_wrap_first ul:not(.preview) {
+body .container_wrap_first ul.company_list {
   display: grid;
   grid-template-areas: "media detail detail";
   grid-template-columns: 200px 200px 200px 200px;

@@ -5,7 +5,7 @@
 
 $companies = get_transient('winmo_companies');
 
-print '<ul>';
+print '<ul class="company_list">';
 // Show first 20 companies
 $keys = array_keys($companies);
 for ($i = 0; $i < 20; $i++) :

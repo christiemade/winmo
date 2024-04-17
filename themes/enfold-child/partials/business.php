@@ -47,6 +47,8 @@ if (is_wp_error($company_data)) {
       <nav>
         <ul>
           <li><a href="#advertising"><?php print $company_data['name']; ?> Advertising Agencies</a></li>
+          <li><a href="#marketing"><?php print $company_data['name']; ?> Marketing Team</a></li>
+          <li><a href="#ad_spend"><?php print $company_data['name']; ?> Ad Spend <?php print date('Y'); ?></a></li>
         </ul>
       </nav>
       <section id="cta">
@@ -58,7 +60,7 @@ if (is_wp_error($company_data)) {
     $brands_total = sizeof($company_data['related_brands']); ?>
     <main class="col">
       <section id="advertising">
-        <?php print do_shortcode("[av_icon_box icon='ue8d2' font='entypo-fontello' title='" . $company_data['name'] . " Advertising Agency' position='left' icon_style='' boxed='' font_color='' custom_title='' custom_content='' color='' custom_bg='' custom_font='' custom_border='' custom_title_size='' av-desktop-font-size-title='' av-medium-font-size-title='' av-small-font-size-title='' av-mini-font-size-title='' custom_content_size='' av-desktop-font-size='' av-medium-font-size='' av-small-font-size='' av-mini-font-size='' heading_tag='h2' heading_class='' link='' linktarget='' title_attr='' linkelement='' id='' custom_class='' template_class='' av_uid='av-luvpcjbw' sc_version='1.0' admin_preview_bg=''][/av_icon_box]"); ?>
+        <?php print do_shortcode("[av_icon_box icon='ue8d2' font='entypo-fontello' title='" . $company_data['name'] . " Advertising Agencies' position='left' icon_style='' boxed='' font_color='' custom_title='' custom_content='' color='' custom_bg='' custom_font='' custom_border='' custom_title_size='' av-desktop-font-size-title='' av-medium-font-size-title='' av-small-font-size-title='' av-mini-font-size-title='' custom_content_size='' av-desktop-font-size='' av-medium-font-size='' av-small-font-size='' av-mini-font-size='' heading_tag='h2' heading_class='' link='' linktarget='' title_attr='' linkelement='' id='' custom_class='' template_class='' av_uid='av-luvpcjbw' sc_version='1.0' admin_preview_bg=''][/av_icon_box]"); ?>
         <div class="row">
           <div class="col">
             <p>Explore a detailed list of current and past ad agencies that work with <?php print $company_data['name']; ?>. Sort its marketing agencies by the type of services they offer including creative, PR, media planning, media buying and more. With Winmo’s detailed database of <?php print $company_data['name']; ?>'s advertising agencies at your fingertips you will quickly be able to answer questions like these:</p>
@@ -198,6 +200,20 @@ if (is_wp_error($company_data)) {
           <?php endif; ?>
         </div>
       </section>
+
+      <section id="ad_spend">
+        <?php
+
+
+        // Section Title
+        print do_shortcode("[av_icon_box icon='ue80b' font='entypo-fontello' title='" . $company_data['name'] . " Ad Spend " . date('Y') . "' position='left' icon_style='' boxed='' font_color='' custom_title='' custom_content='' color='' custom_bg='' custom_font='' custom_border='' custom_title_size='' av-desktop-font-size-title='' av-medium-font-size-title='' av-small-font-size-title='' av-mini-font-size-title='' custom_content_size='' av-desktop-font-size='' av-medium-font-size='' av-small-font-size='' av-mini-font-size='' heading_tag='h2' heading_class='' link='' linktarget='' title_attr='' linkelement='' id='' custom_class='' template_class='' av_uid='av-luvpcjbw' sc_version='1.0' admin_preview_bg=''][/av_icon_box]"); ?>
+        <div class="row">
+          <div class="col col-7">
+            <p>This section digs into the specifics of the advertising spend at <?php print $company_data['name']; ?> and activity across channels such as Out of Home, Radio, Broadcast, Print, Digital Display, CTV, Digital Video and Social Media, highlighting their peak buying times, media mix, and a month over month comparison.</p>
+          </div>
+        </div>
+      </section>
+
       Here is all we get from the API thats not already listed above:<br>
       <ul class="preview">
         <li>id: <?php print $company_data['id']; ?></li>

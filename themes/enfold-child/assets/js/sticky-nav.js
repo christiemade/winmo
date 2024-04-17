@@ -1,15 +1,27 @@
 jQuery(function( $ ){		
-
   gsap.registerPlugin(ScrollTrigger);
 
-  gsap.fromTo('aside > nav', { position: 'realtive' }, {
-    position: "sticky",
+  let sections = gsap.utils.toArray("main > section");
+  let listItem = gsap.utils.toArray("aside nav li");
+
+  sections.forEach((section, index) => {
+    ScrollTrigger.create({
+      trigger: section,
+      markers: true,
+      start: 'top bottom',
+      end: 'bottom bottom',
+      toggleClass: { targets: listItem[index], className: "active" }
+    });
+  });
+    
+  gsap.fromTo('aside > nav', { position: 'relative' }, {
+    position: "fixed",
     ease: 'none',
     scrollTrigger: {
       trigger: 'aside',
-      start: 'top top',
+      start: 'top 100px',
       scrub: true,
-      markers: {startColor: "white", endColor: "white", fontSize: "18px", fontWeight: "bold", indent: 20}
+      toggleClass: 'fixed'
     }
   });
 });

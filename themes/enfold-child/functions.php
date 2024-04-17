@@ -3,7 +3,7 @@
 // Stylesheet caching version
 function avia_get_theme_version($which = 'parent')
 {
-  return '1.0.0.0.24';
+  return '1.0.0.0.29';
 }
 
 // Company display related hooks
@@ -38,7 +38,7 @@ function winmo_load_scipts()
 {
   wp_register_script('gsap', get_stylesheet_directory_uri() . '/assets/js/gsap.min.js');
   wp_register_script('scrollTrigger', get_stylesheet_directory_uri() . '/assets/js/ScrollTrigger.min.js', array('gsap'));
-  wp_register_script('sticky-nav', get_stylesheet_directory_uri() . '/assets/js/sticky-nav.js', array('jquery', 'gsap', 'scrollTrigger'));
+  wp_register_script('sticky-nav', get_stylesheet_directory_uri() . '/assets/js/sticky-nav.js', array('jquery', 'gsap', 'scrollTrigger'), '1.0.0.3');
   //wp_enqueue_style( 'cf7_custom', get_stylesheet_directory_uri() . '/forms.css' );
   //wp_enqueue_script('pager', get_stylesheet_directory_uri() . '/assets/js/pager.js', array('jquery'), '1.0.0', true);
 

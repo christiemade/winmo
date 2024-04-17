@@ -3,19 +3,35 @@ aside {
     width: 303px;
   }
   nav {
+    background-color: #fff;
+    ul {
+      display: list-item;
+    }
     li {
       position: relative;
-      padding-left: 20px;
-      font-weight: 400;
+      padding: 13px 0px 12px 20px;
+      font-weight: 600;
+      font-size: 19px;
       &:before {
         content:"\e87d";
         font-family: 'entypo-fontello';	
         position: absolute;
         left: 0;
+        font-size: 14px;
+        color: rgba(2,28,38,0.4);
       }
       a {
         .main_color & { color: $black; }
       }
+      &.active a{
+        .main_color & { color: #5781F2; }
+      }
+    }
+  }
+  &.fixed {
+    nav {
+      display: fixed;
+      top: 100px;
     }
   }
 }
