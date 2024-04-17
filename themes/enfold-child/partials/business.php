@@ -103,10 +103,18 @@ if (is_wp_error($company_data)) {
               // No more than 5 items
               if (sizeof($services) > 4) $services = array_slice($services, 1, 4);
 
+              $brand_id = $company_data['related_brands'][$i]['id'];
+              $brand_details = array();
+
+              $brand_details = winmo_brand_transients($company_data['related_brands'][$i]['id'], function ($data) {
+                error_log("Checking " . $data['id']);
+                return $data;
+              });
+
             ?><div class="row">
                 <div><?php print $company_data['related_brands'][$i]['name']; ?></div>
                 <div class="blur"><img src="<?php print $agency_images[rand(0, sizeof($agency_images) - 1)]; ?>"></div>
-                <div class="blur"><img src="<?php print $location_images[rand(0, sizeof($location_images) - 1)]; ?>"></div>
+                <div><?php print $brand_details['location']['city'] . ", " . $brand_details['location']['state']; ?></div>
                 <div class="pills"><?php
                                     // Show AOR 80% of the time
                                     if (rand(1, 5) < 4) : ?><span class="aor">AOR</span><?php endif;
@@ -263,7 +271,6 @@ if (is_wp_error($company_data)) {
           </ul>
         </li>
         <li>profile_url: <?php print $company_data['profile_url']; ?></li>
-
       </ul>
     </main>
   </div><!--end container-->
@@ -276,17 +283,7 @@ if (is_wp_error($company_data)) {
     </div>
   </div>
 
-  <div id="cta-footer" class="cta row va-center">
-    <div>
-      <a href="#"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/companies/request-trial.png"></a>
-    </div>
-    <div>
-      <h4>Get your unfair advantage with Winmo</h4>
-      <p>Request trial to view full profile and more!</p>
-      <?php print do_shortcode("[av_button label='Request Full Access' icon_select='no' icon='ue800' link='manually,https://www.winmo.com/profile-1/' link_target='' size='medium' position='left' label_display='' title_attr='' size-text='' av-desktop-font-size-text='' margin='10px, 0px, 0px, 0px' margin_sync='true' padding='' padding_sync='true' av-desktop-margin_sync='true' av-desktop-padding='' av-desktop-padding_sync='true' av-medium-margin='' av-medium-margin_sync='true' av-medium-padding='' av-medium-padding_sync='true' av-small-margin='' av-small-margin_sync='true' av-small-padding='' av-small-padding_sync='true' av-mini-margin='' av-mini-margin_sync='true' av-mini-padding='' av-mini-padding_sync='true' color_options='' color='theme-color' custom_bg='#444444' custom_font='#ffffff' btn_color_bg='theme-color' btn_custom_grad_direction='vertical' btn_custom_grad_1='#000000' btn_custom_grad_2='#ffffff' btn_custom_grad_3='' btn_custom_grad_opacity='0.7' btn_custom_bg='#444444' btn_color_bg_hover='theme-color-highlight' btn_custom_bg_hover='#444444' btn_color_font='theme-color' btn_custom_font='#ffffff' btn_color_font_hover='white' btn_custom_font_hover='#ffffff' border='' border_width='' border_width_sync='true' border_color='' border_radius='' border_radius_sync='true' box_shadow='' box_shadow_style='0px,0px,0px,0px' box_shadow_color='' animation='' animation_duration='' animation_custom_bg_color='' animation_z_index_curtain='100' hover_opacity='' sonar_effect_effect='' sonar_effect_color='' sonar_effect_duration='1' sonar_effect_scale='' sonar_effect_opac='0.5' css_position='' css_position_location=',,,' css_position_z_index='' av-desktop-css_position='' av-desktop-css_position_location=',,,' av-desktop-css_position_z_index='' av-medium-css_position='' av-medium-css_position_location=',,,' av-medium-css_position_z_index='' av-small-css_position='' av-small-css_position_location=',,,' av-small-css_position_z_index='' av-mini-css_position='' av-mini-css_position_location=',,,' av-mini-css_position_z_index='' id='' custom_class='' template_class=''61a2d' sc_version='1.0']"); ?>
-    </div>
-  </div>
-<?php
+<?php get_template_part('partials/footer', 'company');
 }
 
 

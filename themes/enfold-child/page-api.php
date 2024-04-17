@@ -24,13 +24,24 @@ do_action('ava_page_template_after_header'); ?>
   <?php
   if (is_page('companies')) :
     $companies = get_transient('winmo_companies');
-    if (is_array($companies)) {
+    if (is_array($companies)) :
       $dataid = get_query_var('rid');
       if ($dataid) {
         get_template_part('partials/business', 'company');
       } else {
         get_template_part('partials/list', 'company');
       }
+    endif;
+  elseif (is_page('contacts')) :
+    $contacts = get_transient('winmo_contacts');
+    $dataid = get_query_var('pid');
+    if ($dataid) {
+      print '<header><div class="container"></div>
+    </header>Next we can load this user: ' . $dataid;
+      //get_template_part('partials/business', 'company');
+    } else {
+      print '<header><div class="container"></div>
+    </header>' . "<p>Need way to pull in decision makers.  <a href=\"/decision_makers/580439\">Here is one example (Mr. Melton Littlepage)</a>.</p>";
     }
   endif;
 

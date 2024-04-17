@@ -27,8 +27,9 @@ function set_companies_transient()
         if ($data[0] <> 'Id') $companies[$data[0]] = $data[1];
       }
 
-      // store the companies array and set it to expire in 1 week
-      set_transient('winmo_companies', $companies, 604800);
+      // store the companies array and set it to never expire
+      // This doesnt need to expire, we can manually refresh the transient when we get a new CSV
+      set_transient('winmo_companies', $companies, 0);
     }
     fclose($file);
   }
@@ -36,10 +37,10 @@ function set_companies_transient()
 add_action('after_setup_theme', 'set_companies_transient');
 
 
-function winmo_company_api($id)
+function winmo_company_api($id, $type = "company")
 {
   // Include Request and Response classes
-  $url = 'https://api.winmo.com/web_api/business_details?id=' . $id . '&entity_type=company';
+  $url = 'https://api.winmo.com/web_api/business_details?id=' . $id . '&entity_type=' . $type;
 
   $args = array(
     'headers' => array(
@@ -127,4 +128,22 @@ function winmo_image_placeholder_transients($type)
     set_transient('winmo_image_placeholders_' . $type, $images, 604800);
   }
   return $images;
+}
+
+function winmo_brand_transients($brand_id, $callback)
+{
+  $brand_details = get_transient('winmo_brand_' . $brand_id);
+  error_log("Callback for Brand #" . $brand_id);
+
+  // check to see if this brand was successfully retrieved from the cache
+  if (false === $brand_details) {
+
+    // Grab brand details from the API
+    $brand_details = winmo_company_api($brand_id, "brand");
+
+    // store the brand as a transient and set it to expire in 1 week
+    set_transient('winmo_brand_' . $brand_id, $brand_details, 604800);
+  }
+
+  return $callback($brand_details);
 }

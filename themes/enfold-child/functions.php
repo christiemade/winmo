@@ -3,11 +3,14 @@
 // Stylesheet caching version
 function avia_get_theme_version($which = 'parent')
 {
-  return '1.0.0.0.37';
+  return '1.0.0.0.38.4';
 }
 
 // Company display related hooks
 include("inc/companies.php");
+
+// Contacts display related hooks
+include("inc/contacts.php");
 
 // Remove portfolio functionality from backend
 function winmo_avia_overrides()
@@ -20,6 +23,7 @@ add_action('after_setup_theme', 'winmo_avia_overrides');
 function winmo_query_var($vars)
 {
   $vars[] = "rid";
+  $vars[] = "pid";
   return $vars;
 }
 add_filter('query_vars', 'winmo_query_var');
@@ -29,7 +33,9 @@ function winmo_rewrite_basic()
 {
   // Allow company page to have any ID
   $company_page = get_page_by_path('companies');
+  $contact_page = get_page_by_path('contacts');
   add_rewrite_rule('^company/([^/]*)/?', 'index.php?page_id=' . $company_page->ID . '&rid=$matches[1]', 'top');
+  add_rewrite_rule('^decision_makers/([^/]*)/?', 'index.php?page_id=' . $contact_page->ID . '&pid=$matches[1]', 'top');
 }
 add_action('init', 'winmo_rewrite_basic');
 

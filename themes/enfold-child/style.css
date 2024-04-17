@@ -71,6 +71,36 @@ h5 {
   max-width: 210px;
 }
 
+#cta-footer {
+  max-width: 1106px;
+  margin: -95px auto 0px auto;
+  padding-left: 74px;
+  padding-right: 30px;
+}
+#cta-footer .image-overlay {
+  display: none !important;
+}
+@media (min-width: 768px) {
+  #cta-footer {
+    flex-direction: row-reverse;
+  }
+}
+#cta-footer > div:first-child {
+  width: 405px;
+  position: relative;
+}
+#cta-footer > div:first-child a {
+  overflow: visible;
+}
+#cta-footer > div:first-child a img {
+  margin-top: -36px;
+}
+#cta-footer > div:last-child {
+  flex: 1;
+  padding: 0px;
+  font-size: 22px;
+}
+
 #footer {
   font-size: 12px;
   border: 0px;
@@ -316,10 +346,10 @@ body.companies .table#advertising_table .grid .row > div:first-child {
   width: 23.5%;
 }
 body.companies .table#advertising_table .grid .row > div:nth-child(2) {
-  width: 25%;
+  width: 26.5%;
 }
 body.companies .table#advertising_table .grid .row > div:nth-child(3) {
-  width: 27%;
+  width: 25.5%;
 }
 body.companies .table#marketing_table .grid > .row {
   gap: 0px;
@@ -489,32 +519,9 @@ header#business > .container {
   display: none !important;
 }
 
-#cta-footer {
-  max-width: 1106px;
-  margin: -95px auto 0px auto;
-  padding-left: 74px;
-  padding-right: 30px;
+body.contacts #header_main nav {
+  display: none;
 }
-#cta-footer .image-overlay {
-  display: none !important;
-}
-@media (min-width: 768px) {
-  #cta-footer {
-    flex-direction: row-reverse;
-  }
-}
-#cta-footer > div:first-child {
-  width: 405px;
-  position: relative;
-}
-#cta-footer > div:first-child a {
-  overflow: visible;
-}
-#cta-footer > div:first-child a img {
-  margin-top: -36px;
-}
-#cta-footer > div:last-child {
-  flex: 1;
-  padding: 0px;
-  font-size: 22px;
+body.contacts #main header > .container {
+  padding-top: 18vh;
 }

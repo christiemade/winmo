@@ -1,3 +1,33 @@
+
+
+#cta-footer {
+  max-width: 1106px;
+  margin: -95px auto 0px auto;
+  padding-left: 74px;
+  padding-right: 30px;
+  .image-overlay {
+    display: none !important;
+  }
+  @include breakpoint(md) { flex-direction: row-reverse; }
+  & > div {
+    &:first-child {
+      width: 405px;
+      position: relative;
+      a {
+        overflow: visible;
+        img {
+          margin-top: -36px;
+        }
+      }
+    }
+    &:last-child {
+      flex: 1;
+      padding: 0px;
+      font-size: 22px;
+    }
+  }
+}
+
 #footer {
   font-size: 12px;
   border: 0px;
