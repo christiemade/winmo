@@ -48,7 +48,9 @@ if (is_wp_error($company_data)) {
         <ul>
           <li><a href="#advertising"><?php print $company_data['name']; ?> Advertising Agencies</a></li>
           <li><a href="#marketing"><?php print $company_data['name']; ?> Marketing Team</a></li>
+          <li><a href="#ad_agency_contacts"><?php print $company_data['name']; ?> Ad Agency Contacts</a></li>
           <li><a href="#ad_spend"><?php print $company_data['name']; ?> Ad Spend <?php print date('Y'); ?></a></li>
+          <li><a href="#social_media_marketing"><?php print $company_data['name']; ?> Social Media Marketing</a></li>
         </ul>
       </nav>
       <section id="cta" class="cta">
@@ -151,7 +153,9 @@ if (is_wp_error($company_data)) {
               There are <?php print $people_total; ?> staff members currently involved in marketing for <?php print $company_data['name']; ?>.</p>
           </div>
         </div>
+      </section>
 
+      <section id="ad_agency_contacts">
         <div class="row table" id="marketing_table">
           <div class="top"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/companies/marketing-table-top.svg"></div>
           <div class="grid">
@@ -229,6 +233,8 @@ if (is_wp_error($company_data)) {
           </div>
           <div class="col col-6"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/companies/media-mix.svg"></div>
         </div>
+      </section>
+      <section id="social_media_marketing">
         <div class="row va-center">
           <div class="col">
             <h3><?php print $company_data['name']; ?> Social Media Marketing Ad Spend</h3>
@@ -270,7 +276,7 @@ if (is_wp_error($company_data)) {
   <div class="row alternate_color ha-center" id="win-more">
     <div class="col container">
       <h2>Win More with Winmo</h2>
-      <p>If you are looking to tap into <?php print $company_data['name']; ?> marketing spend, Winmo paves a clear path to engaging the right contacts at the right time. Winmo connects ad spend, marketing activity and peak buying periods to marketing team and ad agency budget-holders, even providing you with AI-powered email templates based on [Nike] decision-makers’ personality types. Winmo’s award winning platform tracks this intel for those who control $100 billion in marketing spend each year, making it the top choice among sellers of agency services, advertising, marketing technology, or corporate sponsorships.</p>
+      <p>If you are looking to tap into <?php print $company_data['name']; ?> marketing spend, Winmo paves a clear path to engaging the right contacts at the right time. Winmo connects ad spend, marketing activity and peak buying periods to marketing team and ad agency budget-holders, even providing you with AI-powered email templates based on <?php print $company_data['name']; ?> decision-makers' personality types. Winmo's award winning platform tracks this intel for those who control $100 billion in marketing spend each year, making it the top choice among sellers of agency services, advertising, marketing technology, or corporate sponsorships.</p>
       <p><a href="#"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/companies/win-more-video.jpg"></a></p>
     </div>
   </div>

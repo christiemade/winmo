@@ -33,7 +33,7 @@ aside {
   &.fixed {
     padding-top: 300px;
     nav {
-      display: fixed;
+      position: fixed;
       top: 100px;
       z-index: 2;
     }

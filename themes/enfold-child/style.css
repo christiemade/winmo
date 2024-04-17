@@ -71,6 +71,15 @@ h5 {
   max-width: 210px;
 }
 
+#footer {
+  font-size: 12px;
+  border: 0px;
+  padding: 53px 0px;
+}
+#footer .flex_column:last-child .widget_text .textwidget {
+  text-align: right;
+}
+
 @media (min-width: 768px) {
   aside {
     width: 303px;
@@ -108,7 +117,7 @@ aside.fixed {
   padding-top: 300px;
 }
 aside.fixed nav {
-  display: fixed;
+  position: fixed;
   top: 100px;
   z-index: 2;
 }
@@ -369,6 +378,9 @@ body.companies section > article.iconbox .iconbox_icon {
   width: 60px;
   text-align: left;
 }
+body.companies section#marketin, body.companies section#ad_spend {
+  padding-bottom: 0px;
+}
 
 header#business {
   position: relative;
@@ -437,6 +449,7 @@ header#business > .container {
 }
 
 #win-more {
+  background: transparent;
   min-height: 500px;
   padding-top: 6em;
 }

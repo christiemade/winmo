@@ -89,6 +89,9 @@ body.companies {
       }
     }
     padding-bottom: 3em;
+    &#marketin, &#ad_spend {
+      padding-bottom: 0px;
+    }
   }
 }
 header {
@@ -152,6 +155,7 @@ header {
   padding-left: 20px;
 }
 #win-more {
+  background: transparent;
   min-height: 500px;
   padding-top: 6em;
   & > * {

@@ -1,0 +1,10 @@
+#footer {
+  font-size: 12px;
+  border: 0px;
+  padding: 53px 0px;
+  .flex_column:last-child {
+    .widget_text .textwidget {
+      text-align: right;
+    }
+  }
+}
