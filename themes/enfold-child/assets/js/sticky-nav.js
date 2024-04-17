@@ -18,7 +18,7 @@ jQuery(function( $ ){
     scrollTrigger: {
       trigger: 'aside',
       start: 'top 100px',
-      end: 'bottom 30%',
+      end: 'bottom 40%',
       scrub: true,
       toggleClass: 'fixed'
     }
