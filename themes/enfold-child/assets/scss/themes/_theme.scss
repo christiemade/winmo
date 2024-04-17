@@ -33,7 +33,8 @@
         margin: 3px 0px 2px 0px;
         color:#ffffff;
         font-size: 11px;
-        height: 37px;
+        min-height: 37px;
+        padding-bottom: 3px;
         div.blur {
           img {
             height: 24px;
