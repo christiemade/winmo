@@ -26,7 +26,7 @@ if (is_wp_error($company_data)) {
     <div class="container">
       <div id="overview">
         <h1><?php print $company_data['name']; ?> Advertising Profile</h1>
-        <h4><?php print $company_data['name']; ?> Company Overview:</h4>
+        <h5><?php print $company_data['name']; ?> Company Overview:</h5>
         <p><?php print $company_data['notes']; ?></p>
         <div class="contact">
           <div class="phone">
@@ -51,7 +51,7 @@ if (is_wp_error($company_data)) {
           <li><a href="#ad_spend"><?php print $company_data['name']; ?> Ad Spend <?php print date('Y'); ?></a></li>
         </ul>
       </nav>
-      <section id="cta">
+      <section id="cta" class="cta">
         <img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/companies/cta.png">
         <h2>Get full access to this profile & more!</h2>
         <p>Looking for a resource to grow your sales? Winmo helps you source more leads by connecting with the right prospects at the right time.</p>
@@ -129,7 +129,7 @@ if (is_wp_error($company_data)) {
 
       <section id="marketing">
         <?php
-        $people_total = sizeof($company_data['contacts']);
+        $people_total = $company_data['contact_count'];
 
         // Find the CMO
         $cmo = false;
@@ -215,6 +215,27 @@ if (is_wp_error($company_data)) {
             <p>This section digs into the specifics of the advertising spend at <?php print $company_data['name']; ?> and activity across channels such as Out of Home, Radio, Broadcast, Print, Digital Display, CTV, Digital Video and Social Media, highlighting their peak buying times, media mix, and a month over month comparison.</p>
           </div>
         </div>
+        <div class="row va-center">
+          <div class="col">
+            <h3><?php print $company_data['name']; ?> Advertising Spend</h3>
+            <p>Winmo provides comprehensive data detailing annual advertising spend for <?php print $company_data['name']; ?>, showcasing the total spend broken down by month, fiscal quarter and monthly percentage change to illustrate the company's evolving marketing advertising strategies.</p>
+          </div>
+          <div class="col col-6"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/companies/advertising-spend.svg"></div>
+        </div>
+        <div class="row va-center">
+          <div class="col">
+            <h3><?php print $company_data['name']; ?> Media Mix</h3>
+            <p>Explore a detailed breakdown of the last 12 months media spending for <?php print $company_data['name']; ?> across various advertising channels including digital, broadcast, print, radio and more. Those channels can then be broken down further and viewed monthly or quarterly.</p>
+          </div>
+          <div class="col col-6"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/companies/media-mix.svg"></div>
+        </div>
+        <div class="row va-center">
+          <div class="col">
+            <h3><?php print $company_data['name']; ?> Social Media Marketing Ad Spend</h3>
+            <p>See whether <?php print $company_data['name']; ?> is spending on social media platforms like X, TikTok, Facebook, Instagram and Pinterest, as well as how active it is on YouTube desktop, iOS or Android.</p>
+          </div>
+          <div class="col col-6"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/companies/social-media-marketing-ad-spend.svg"></div>
+        </div>
       </section>
 
       Here is all we get from the API thats not already listed above:<br>
@@ -229,8 +250,6 @@ if (is_wp_error($company_data)) {
         <li>founded: <?php print $company_data['founded']; ?></li>
         <li>company_nickname: <?php print $company_data['company_nickname']; ?></li>
         <li>stocksymbol: <?php print $company_data['stocksymbol']; ?></li>
-        <li>naics: <?php print $company_data['naics']; ?></li>
-        <li>contact_count: <?php print $company_data['contact_count']; ?></li>
         <li>industries:
           <ul class="preview">
             <?php foreach ($company_data['industries'] as $industry => $machinekey) :
@@ -247,6 +266,25 @@ if (is_wp_error($company_data)) {
       </ul>
     </main>
   </div><!--end container-->
+
+  <div class="row alternate_color ha-center" id="win-more">
+    <div class="col container">
+      <h2>Win More with Winmo</h2>
+      <p>If you are looking to tap into <?php print $company_data['name']; ?> marketing spend, Winmo paves a clear path to engaging the right contacts at the right time. Winmo connects ad spend, marketing activity and peak buying periods to marketing team and ad agency budget-holders, even providing you with AI-powered email templates based on [Nike] decision-makers’ personality types. Winmo’s award winning platform tracks this intel for those who control $100 billion in marketing spend each year, making it the top choice among sellers of agency services, advertising, marketing technology, or corporate sponsorships.</p>
+      <p><a href="#"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/companies/win-more-video.jpg"></a></p>
+    </div>
+  </div>
+
+  <div id="cta-footer" class="cta row va-center">
+    <div>
+      <a href="#"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/companies/request-trial.png"></a>
+    </div>
+    <div>
+      <h4>Get your unfair advantage with Winmo</h4>
+      <p>Request trial to view full profile and more!</p>
+      <?php print do_shortcode("[av_button label='Request Full Access' icon_select='no' icon='ue800' link='manually,https://www.winmo.com/profile-1/' link_target='' size='medium' position='left' label_display='' title_attr='' size-text='' av-desktop-font-size-text='' margin='10px, 0px, 0px, 0px' margin_sync='true' padding='' padding_sync='true' av-desktop-margin_sync='true' av-desktop-padding='' av-desktop-padding_sync='true' av-medium-margin='' av-medium-margin_sync='true' av-medium-padding='' av-medium-padding_sync='true' av-small-margin='' av-small-margin_sync='true' av-small-padding='' av-small-padding_sync='true' av-mini-margin='' av-mini-margin_sync='true' av-mini-padding='' av-mini-padding_sync='true' color_options='' color='theme-color' custom_bg='#444444' custom_font='#ffffff' btn_color_bg='theme-color' btn_custom_grad_direction='vertical' btn_custom_grad_1='#000000' btn_custom_grad_2='#ffffff' btn_custom_grad_3='' btn_custom_grad_opacity='0.7' btn_custom_bg='#444444' btn_color_bg_hover='theme-color-highlight' btn_custom_bg_hover='#444444' btn_color_font='theme-color' btn_custom_font='#ffffff' btn_color_font_hover='white' btn_custom_font_hover='#ffffff' border='' border_width='' border_width_sync='true' border_color='' border_radius='' border_radius_sync='true' box_shadow='' box_shadow_style='0px,0px,0px,0px' box_shadow_color='' animation='' animation_duration='' animation_custom_bg_color='' animation_z_index_curtain='100' hover_opacity='' sonar_effect_effect='' sonar_effect_color='' sonar_effect_duration='1' sonar_effect_scale='' sonar_effect_opac='0.5' css_position='' css_position_location=',,,' css_position_z_index='' av-desktop-css_position='' av-desktop-css_position_location=',,,' av-desktop-css_position_z_index='' av-medium-css_position='' av-medium-css_position_location=',,,' av-medium-css_position_z_index='' av-small-css_position='' av-small-css_position_location=',,,' av-small-css_position_z_index='' av-mini-css_position='' av-mini-css_position_location=',,,' av-mini-css_position_z_index='' id='' custom_class='' template_class=''61a2d' sc_version='1.0']"); ?>
+    </div>
+  </div>
 <?php
 }
 

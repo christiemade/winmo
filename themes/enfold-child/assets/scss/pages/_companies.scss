@@ -96,18 +96,8 @@ header {
     position: relative;
     margin-bottom: 3em;
     &:after {
-      content: "";
       background-image: url(assets/img/companies/header-business.jpg);
-      background-size: cover;
-      background-repeat: no-repeat;
-      background-position: center bottom;
-      clip-path: ellipse(82% 83% at 51% 16%);
-      position: absolute;
-      left: 0;
-      height: 100%;
-      width: 100%;
-      top: 0;
-      z-index: 0;
+      @include arc;
     }
     & > .container {
       display: flex;
@@ -121,7 +111,7 @@ header {
   background: white;
   border-radius: 20px;
   padding: 40px;
-  flex-basis: 53.306%;
+  flex-basis: 48.1%;
   line-height: 1.6875em;
   font-weight: 300;
   -webkit-box-shadow: 0px 4px 64px 0px rgba(0,0,0,0.07);
@@ -158,6 +148,62 @@ header {
   }
 }
 #data_boxes {
-  max-width: 359px;
+  max-width: 379px;
   padding-left: 20px;
+}
+#win-more {
+  min-height: 500px;
+  padding-top: 6em;
+  & > * {
+    z-index: 1;
+  }
+  &:after {
+    @include arc;
+    background-color: $blue;
+    transform: rotateX(180deg);
+    background-image: url(assets/img/companies/win-more-bg.png);
+  }
+  p {
+    font-weight: 300;
+  }
+  .container {
+    max-width: 852px;
+    padding-bottom: 80px;
+    img {
+      max-width: 724px;
+      margin: 30px auto;
+      display: block;
+    }
+    .image-overlay {
+      display: none !important;
+    }
+  }
+}
+
+#cta-footer {
+  max-width: 1106px;
+  margin: -95px auto 0px auto;
+  padding-left: 74px;
+  padding-right: 30px;
+  .image-overlay {
+    display: none !important;
+  }
+  @include breakpoint(md) { flex-direction: row-reverse; }
+  & > div {
+    &:first-child {
+      width: 405px;
+      position: relative;
+      a {
+        overflow: visible;
+        img {
+          margin-top: -36px;
+        }
+      }
+    }
+    &:last-child {
+      flex: 1;
+      padding: 0px;
+      font-size: 22px;
+    }
+  }
 }

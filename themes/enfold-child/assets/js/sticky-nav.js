@@ -7,19 +7,18 @@ jQuery(function( $ ){
   sections.forEach((section, index) => {
     ScrollTrigger.create({
       trigger: section,
-      markers: true,
-      start: 'top bottom',
-      end: 'bottom bottom',
+      start: 'top center',
+      end: 'center top',
       toggleClass: { targets: listItem[index], className: "active" }
     });
   });
     
-  gsap.fromTo('aside > nav', { position: 'relative' }, {
-    position: "fixed",
+  gsap.fromTo('aside > nav', { }, {
     ease: 'none',
     scrollTrigger: {
       trigger: 'aside',
       start: 'top 100px',
+      end: 'bottom 30%',
       scrub: true,
       toggleClass: 'fixed'
     }

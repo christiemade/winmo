@@ -3,10 +3,26 @@
     display: flex;
     gap: 40px;
   }
+  &.va-center {
+    align-items: center;
+    p:last-child {
+      margin-bottom: 0px;
+    }
+  }
+  &.ha-center {
+    justify-content: center;
+    text-align: center;
+  }
+  &.alternate_color {
+    color:#fff;
+  }
   .col {
     flex: 1;
     &.col-7 {
       max-width: 70%;
+    }
+    &.col-6 {
+      max-width: 60%;
     }
   }
   &.table {

@@ -40,9 +40,7 @@ aside {
   }
 
   #cta {
-    background-color: $teal;
     margin-top: 4em;
-    border-radius: 20px;
     z-index: 1;
     padding: 0px 35px 30px 35px;
     text-align: center;
@@ -54,11 +52,5 @@ aside {
       position: relative;
       top: -40px;
     }
-    h2 {
-      font-size: 25px;
-      font-weight: 900;
-      line-height: 1.48em;
-    }
-
   }
 }

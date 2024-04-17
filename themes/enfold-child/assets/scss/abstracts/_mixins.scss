@@ -35,3 +35,17 @@
       }
   }
 }
+
+@mixin arc {
+    content: "";
+    clip-path: ellipse(82% 83% at 51% 16%);
+    position: absolute;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    z-index: 0;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center bottom;
+}
