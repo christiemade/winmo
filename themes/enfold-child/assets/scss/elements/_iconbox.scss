@@ -1,4 +1,9 @@
 #top .iconbox {
+  svg {
+    path {
+      fill: $blue;
+    }
+  }
   .iconbox_content {
     .iconbox_content_title {
       text-transform: none;
@@ -14,13 +19,14 @@
     margin-bottom: 0px;
     .iconbox_icon  {
       border: 0px;
-      width: 30x;
-      height: 30px;
+      width: 17px;
+      height: 17px;
       font-size: 18px;
       line-height: 24px;
       border-radius: 0px;
       text-align: left;
-      margin-right: 0px;
+      margin-right: 15px;
+      margin-top: 8px;
     }
     .iconbox_content_title  {
       line-height: 1.45em;

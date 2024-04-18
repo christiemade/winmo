@@ -6,6 +6,15 @@ function avia_get_theme_version($which = 'parent')
   return '1.0.0.0.38.26';
 }
 
+// Allow for overriding of Enfold templates
+add_filter('avia_load_shortcodes', 'avia_include_shortcode_template', 15, 1);
+function avia_include_shortcode_template($paths)
+{
+  $template_url = get_stylesheet_directory();
+  array_unshift($paths, $template_url . '/shortcodes/');
+  return $paths;
+}
+
 // Company display related hooks
 include("inc/companies.php");
 
@@ -53,7 +62,7 @@ function winmo_load_scipts()
   wp_register_script('sticky-nav', get_stylesheet_directory_uri() . '/assets/js/sticky-nav.js', array('jquery', 'gsap', 'scrollTrigger'), '1.0.0.8');
   //wp_enqueue_style( 'cf7_custom', get_stylesheet_directory_uri() . '/forms.css' );
   //wp_enqueue_script('pager', get_stylesheet_directory_uri() . '/assets/js/pager.js', array('jquery'), '1.0.0', true);
-
+  wp_enqueue_script('fontawesome', get_stylesheet_directory_uri() . '/assets/fonts/js/all.min.js');
 }
 add_action('wp_enqueue_scripts', 'winmo_load_scipts', 100);
 

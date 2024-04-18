@@ -51,7 +51,7 @@ if (is_wp_error($contact_data)) {
           <div class="col">
             <?php
             $phone = $contact_data[0]['phone'] ? $contact_data[0]['phone'] : 'N/A';
-            print do_shortcode("[av_icon_box icon='ue809' font='winmo' title='" . $contact_data[0]['fname'] . " " . $contact_data[0]['lname'] . " Phone Number' position='left_content' icon_style='' boxed='' font_color='' custom_title='' custom_content='' color='' custom_bg='' custom_font='' custom_border='' custom_title_size='' av-desktop-font-size-title='' av-medium-font-size-title='' av-small-font-size-title='' av-mini-font-size-title='' custom_content_size='' av-desktop-font-size='' av-medium-font-size='' av-small-font-size='' av-mini-font-size='' heading_tag='' heading_class='' link='' linktarget='' title_attr='' linkelement='' id='' custom_class='' template_class='']
+            print do_shortcode("[av_icon_box icon='ue809' font='winmo' title='" . $contact_data[0]['fname'] . " " . $contact_data[0]['lname'] . " Phone Number' position='left_content' icon_style='' boxed='' font_color='' custom_title='' custom_content='' color='' custom_bg='' custom_font='fa fa-phone' custom_border='' custom_title_size='' av-desktop-font-size-title='' av-medium-font-size-title='' av-small-font-size-title='' av-mini-font-size-title='' custom_content_size='' av-desktop-font-size='' av-medium-font-size='' av-small-font-size='' av-mini-font-size='' heading_tag='' heading_class='' link='' linktarget='' title_attr='' linkelement='' id='' custom_class='' template_class='']
 " . $phone . "[/av_icon_box]"); ?>
           </div>
           <div class="col">b</div>

@@ -8,6 +8,14 @@ Template: enfold
 */
 
 @import 'assets/scss/abstracts/variables.scss';
+
+// importing core styling file
+@import './assets/fonts/scss/fontawesome.scss';
+
+// our project needs Solid + Brands
+@import './assets/fonts/scss/solid.scss';
+@import './assets/fonts/scss/brands.scss';
+
 @import 'assets/scss/abstracts/mixins.scss';
 @import 'assets/scss/abstracts/typography.scss';
 @import 'assets/scss/layout/header.scss';
