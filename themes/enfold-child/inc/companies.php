@@ -133,7 +133,6 @@ function winmo_image_placeholder_transients($type)
 function winmo_brand_transients($brand_id, $callback)
 {
   $brand_details = get_transient('winmo_brand_' . $brand_id);
-  error_log("Callback for Brand #" . $brand_id);
 
   // check to see if this brand was successfully retrieved from the cache
   if (false === $brand_details) {

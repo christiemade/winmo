@@ -1,7 +1,7 @@
 body.companies {
   #header_main nav { display: none;}
   #main header > .container { 
-    padding-top: 18vh;
+    @include breakpoint(md) { padding-top: 150px; }
   }
   .table {
     &#advertising_table {
@@ -80,6 +80,8 @@ body.companies {
       margin-bottom: 20px;
       .iconbox_icon {
         color: $teal;
+        height: 40px;
+        line-height: 45px;
         font-size: 40px;
         top: 0px;
         left: 0px;
@@ -88,8 +90,8 @@ body.companies {
         text-align: left;
       }
     }
-    padding-bottom: 3em;
-    &#marketin, &#ad_spend {
+    padding-bottom: 4em;
+    &#marketing, &#ad_spend {
       padding-bottom: 0px;
     }
   }
@@ -108,78 +110,41 @@ header {
       z-index: 1;
     }
   }
-}
-#overview {
-  border: 11px inset rgba(7,64,88,0.2);
-  background: white;
-  border-radius: 20px;
-  padding: 40px;
-  flex-basis: 48.1%;
-  line-height: 1.6875em;
-  font-weight: 300;
-  -webkit-box-shadow: 0px 4px 64px 0px rgba(0,0,0,0.07);
-  -moz-box-shadow: 0px 4px 64px 0px rgba(0,0,0,0.07);
-  box-shadow: 0px 4px 64px 0px rgba(0,0,0,0.07);
-  .contact {
-    display: flex;
-    padding-top: 3em;
-    & > div {
-      flex: 1;
-      .iconbox .iconbox_content {
-        .iconbox_content_title {
-          font-size: 1em;
-          color: $blue;
-          margin: 0px;
+  #overview {
+    flex-basis: 48.1%;
+    .contact {
+      display: flex;
+      padding-top: 3em;
+      & > div {
+        flex: 1;
+        .iconbox .iconbox_content {
+          .iconbox_content_title {
+            font-size: 1em;
+            color: $blue;
+            margin: 0px;
+          }
+          .iconbox_content_container  {
+            clear: left;
+            top: -7px;
+            display: block;
+            position: relative;
+            p {
+              margin-top: 5px;
+              font-weight: 300;
+            }
+          }
         }
-        .iconbox_content_container  {
-          clear: left;
-          top: -7px;
-          display: block;
-          position: relative;
-          p {
-            margin-top: 5px;
-            font-weight: 300;
+        &.phone {
+          .iconbox .iconbox_content .iconbox_content_container {
+            color:$teal;
           }
         }
       }
-      &.phone {
-        .iconbox .iconbox_content .iconbox_content_container {
-          color:$teal;
-        }
-      }
     }
   }
 }
+
 #data_boxes {
   max-width: 379px;
   padding-left: 20px;
-}
-#win-more {
-  background: transparent;
-  min-height: 500px;
-  padding-top: 6em;
-  & > * {
-    z-index: 1;
-  }
-  &:after {
-    @include arc;
-    background-color: $blue;
-    transform: rotateX(180deg);
-    background-image: url(assets/img/companies/win-more-bg.png);
-  }
-  p {
-    font-weight: 300;
-  }
-  .container {
-    max-width: 852px;
-    padding-bottom: 80px;
-    img {
-      max-width: 724px;
-      margin: 30px auto;
-      display: block;
-    }
-    .image-overlay {
-      display: none !important;
-    }
-  }
 }

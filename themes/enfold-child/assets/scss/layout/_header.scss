@@ -20,3 +20,18 @@
     }
   }
 }
+
+#main > .container_wrap_first > header {
+  position: relative;
+  margin-bottom: 3em;
+  &:after {
+    @include arc;
+  }
+  & > .container {
+    display: flex;
+    justify-content: start;
+    z-index: 1;
+  }
+  #overview {
+  }
+}

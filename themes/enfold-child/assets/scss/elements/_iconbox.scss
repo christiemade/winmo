@@ -1,10 +1,34 @@
-.iconbox .iconbox_content {
-  .iconbox_content_title {
-    text-transform: none;
-    color:$blue;
-    letter-spacing: normal;
+#top .iconbox {
+  .iconbox_content {
+    .iconbox_content_title {
+      text-transform: none;
+      color:$blue;
+      letter-spacing: normal;
+    }
+    h2.iconbox_content_title {
+      font-size: 38px;
+    }
+
   }
-  h2.iconbox_content_title {
-    font-size: 38px;
+  &.iconbox_left_content {
+    margin-bottom: 0px;
+    .iconbox_icon  {
+      border: 0px;
+      width: 30x;
+      height: 30px;
+      font-size: 18px;
+      line-height: 24px;
+      border-radius: 0px;
+      text-align: left;
+      margin-right: 0px;
+    }
+    .iconbox_content_title  {
+      line-height: 1.45em;
+    }
+    .iconbox_content_container {
+      p {
+        margin-top: 7px;
+      }
+    }
   }
 }

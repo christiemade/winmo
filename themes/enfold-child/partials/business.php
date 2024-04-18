@@ -24,7 +24,7 @@ if (is_wp_error($company_data)) {
 ?>
   <header id="business">
     <div class="container">
-      <div id="overview">
+      <div id="overview" class="gray_box">
         <h1><?php print $company_data['name']; ?> Advertising Profile</h1>
         <h5><?php print $company_data['name']; ?> Company Overview:</h5>
         <p><?php print $company_data['notes']; ?></p>
@@ -82,7 +82,7 @@ if (is_wp_error($company_data)) {
 
             // Load up random image arrays
             $agency_images = winmo_image_placeholder_transients('agency-blur-2x');
-            $location_images = winmo_image_placeholder_transients('location-blur-2x');
+            //$location_images = winmo_image_placeholder_transients('location-blur-2x');
 
             // Load up random services array
             $optional = array('Branding & Identity', 'Digital Creative', 'Experiential', 'Multicultural', 'Political', 'Production Services', 'Programmatic', 'Research', 'Shopper', 'Strategy');
@@ -107,7 +107,6 @@ if (is_wp_error($company_data)) {
               $brand_details = array();
 
               $brand_details = winmo_brand_transients($company_data['related_brands'][$i]['id'], function ($data) {
-                error_log("Checking " . $data['id']);
                 return $data;
               });
 
@@ -216,7 +215,7 @@ if (is_wp_error($company_data)) {
 
 
         // Section Title
-        print do_shortcode("[av_icon_box icon='ue80b' font='entypo-fontello' title='" . $company_data['name'] . " Ad Spend " . date('Y') . "' position='left' icon_style='' boxed='' font_color='' custom_title='' custom_content='' color='' custom_bg='' custom_font='' custom_border='' custom_title_size='' av-desktop-font-size-title='' av-medium-font-size-title='' av-small-font-size-title='' av-mini-font-size-title='' custom_content_size='' av-desktop-font-size='' av-medium-font-size='' av-small-font-size='' av-mini-font-size='' heading_tag='h2' heading_class='' link='' linktarget='' title_attr='' linkelement='' id='' custom_class='' template_class='' av_uid='av-luvpcjbw' sc_version='1.0' admin_preview_bg=''][/av_icon_box]"); ?>
+        print do_shortcode("[av_icon_box icon='ue800' font='winmo' title='" . $company_data['name'] . " Ad Spend " . date('Y') . "' position='left' icon_style='' boxed='' font_color='' custom_title='' custom_content='' color='' custom_bg='' custom_font='' custom_border='' custom_title_size='' av-desktop-font-size-title='' av-medium-font-size-title='' av-small-font-size-title='' av-mini-font-size-title='' custom_content_size='' av-desktop-font-size='' av-medium-font-size='' av-small-font-size='' av-mini-font-size='' heading_tag='h2' heading_class='' link='' linktarget='' title_attr='' linkelement='' id='' custom_class='' template_class='' av_uid='av-luvpcjbw' sc_version='1.0' admin_preview_bg=''][/av_icon_box]"); ?>
         <div class="row">
           <div class="col col-7">
             <p>This section digs into the specifics of the advertising spend at <?php print $company_data['name']; ?> and activity across channels such as Out of Home, Radio, Broadcast, Print, Digital Display, CTV, Digital Video and Social Media, highlighting their peak buying times, media mix, and a month over month comparison.</p>
@@ -227,14 +226,14 @@ if (is_wp_error($company_data)) {
             <h3><?php print $company_data['name']; ?> Advertising Spend</h3>
             <p>Winmo provides comprehensive data detailing annual advertising spend for <?php print $company_data['name']; ?>, showcasing the total spend broken down by month, fiscal quarter and monthly percentage change to illustrate the company's evolving marketing advertising strategies.</p>
           </div>
-          <div class="col col-6"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/companies/advertising-spend.svg"></div>
+          <div class="col col-5-5"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/companies/advertising-spend.svg"></div>
         </div>
         <div class="row va-center">
           <div class="col">
             <h3><?php print $company_data['name']; ?> Media Mix</h3>
             <p>Explore a detailed breakdown of the last 12 months media spending for <?php print $company_data['name']; ?> across various advertising channels including digital, broadcast, print, radio and more. Those channels can then be broken down further and viewed monthly or quarterly.</p>
           </div>
-          <div class="col col-6"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/companies/media-mix.svg"></div>
+          <div class="col col-5-5"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/companies/media-mix.svg"></div>
         </div>
       </section>
       <section id="social_media_marketing">
@@ -243,11 +242,11 @@ if (is_wp_error($company_data)) {
             <h3><?php print $company_data['name']; ?> Social Media Marketing Ad Spend</h3>
             <p>See whether <?php print $company_data['name']; ?> is spending on social media platforms like X, TikTok, Facebook, Instagram and Pinterest, as well as how active it is on YouTube desktop, iOS or Android.</p>
           </div>
-          <div class="col col-6"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/companies/social-media-marketing-ad-spend.svg"></div>
+          <div class="col col-5-5"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/companies/social-media-marketing-ad-spend.svg"></div>
         </div>
       </section>
 
-      Here is all we get from the API thats not already listed above:<br>
+      <!--Here is all we get from the API thats not already listed above:<br>
       <ul class="preview">
         <li>id: <?php print $company_data['id']; ?></li>
         <li>company_pressroom: <?php print $company_data['company_pressroom']; ?></li>
@@ -271,7 +270,7 @@ if (is_wp_error($company_data)) {
           </ul>
         </li>
         <li>profile_url: <?php print $company_data['profile_url']; ?></li>
-      </ul>
+      </ul>-->
     </main>
   </div><!--end container-->
 

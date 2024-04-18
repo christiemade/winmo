@@ -1,6 +1,32 @@
 body.contacts {
   #header_main nav { display: none;}
-  #main header > .container { 
-    padding-top: 18vh;
+  #main header  { 
+    & > .container { 
+      padding-top: 18vh; }
+    &:after {
+      background-image: url(assets/img/contacts/header.jpg);
+    }
+    #overview { 
+      flex: 1;
+    }
+    & + .container {
+      padding-top: 4em;
+    }
+  }
+  aside {
+    nav {
+      li {
+        a {
+          color: rgba(7,64,88,0.6);
+        }
+        &.active {
+          a {
+            color: $blue;
+            text-decoration: underline !important;
+          }
+        }
+      }
+      padding-bottom: 1em;
+    }
   }
 }

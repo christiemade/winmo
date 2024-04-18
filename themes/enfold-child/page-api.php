@@ -22,6 +22,7 @@ do_action('ava_page_template_after_header'); ?>
 <div class='container_wrap container_wrap_first main_color <?php avia_layout_class('main'); ?>'>
 
   <?php
+
   if (is_page('companies')) :
     $companies = get_transient('winmo_companies');
     if (is_array($companies)) :
@@ -36,12 +37,10 @@ do_action('ava_page_template_after_header'); ?>
     $contacts = get_transient('winmo_contacts');
     $dataid = get_query_var('pid');
     if ($dataid) {
-      print '<header><div class="container"></div>
-    </header>Next we can load this user: ' . $dataid;
-      //get_template_part('partials/business', 'company');
+      get_template_part('partials/contact');
     } else {
       print '<header><div class="container"></div>
-    </header>' . "<p>Need way to pull in decision makers.  <a href=\"/decision_makers/580439\">Here is one example (Mr. Melton Littlepage)</a>.</p>";
+    </header>' . "<p>Need way to pull in decision makers.  <a href=\"/decision_makers/580439\">Here is one example (Mr. Melton Littlepage)</a> or <a href=\"/decision_makers/709842/\">Caitlin Sargent</a></p>";
     }
   endif;
 

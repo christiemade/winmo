@@ -71,9 +71,74 @@ h5 {
   max-width: 210px;
 }
 
+#main > .container_wrap_first > header {
+  position: relative;
+  margin-bottom: 3em;
+}
+#main > .container_wrap_first > header:after {
+  content: "";
+  -webkit-clip-path: ellipse(87% 83% at 51% 16%);
+          clip-path: ellipse(87% 83% at 51% 16%);
+  position: absolute;
+  left: 0;
+  height: 90%;
+  width: 100%;
+  top: 0;
+  z-index: 0;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center bottom;
+}
+#main > .container_wrap_first > header > .container {
+  display: flex;
+  justify-content: start;
+  z-index: 1;
+}
+#win-more {
+  background: transparent;
+  min-height: 500px;
+  padding-top: 6em;
+  padding-bottom: 125px;
+}
+#win-more > * {
+  z-index: 1;
+}
+#win-more:after {
+  content: "";
+  -webkit-clip-path: ellipse(87% 83% at 51% 16%);
+          clip-path: ellipse(87% 83% at 51% 16%);
+  position: absolute;
+  left: 0;
+  height: 90%;
+  width: 100%;
+  top: 0;
+  z-index: 0;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center bottom;
+  background-color: #074058;
+  transform: rotateX(180deg);
+  background-image: url(assets/img/companies/win-more-bg.png);
+}
+#win-more p {
+  font-weight: 300;
+}
+#win-more .container {
+  max-width: 967px;
+  padding-bottom: 80px;
+}
+#win-more .container img {
+  max-width: 724px;
+  margin: 30px auto;
+  display: block;
+}
+#win-more .container .image-overlay {
+  display: none !important;
+}
+
 #cta-footer {
   max-width: 1106px;
-  margin: -95px auto 0px auto;
+  margin: -220px auto 0px auto;
   padding-left: 74px;
   padding-right: 30px;
 }
@@ -90,7 +155,7 @@ h5 {
   position: relative;
 }
 #cta-footer > div:first-child a {
-  overflow: visible;
+  overflow: visible !important;
 }
 #cta-footer > div:first-child a img {
   margin-top: -36px;
@@ -104,7 +169,7 @@ h5 {
 #footer {
   font-size: 12px;
   border: 0px;
-  padding: 53px 0px;
+  padding: 53px 0px 30px 0px;
 }
 #footer .flex_column:last-child .widget_text .textwidget {
   text-align: right;
@@ -184,13 +249,32 @@ aside #cta img {
   line-height: 1.48em;
 }
 
-.iconbox .iconbox_content .iconbox_content_title {
+#top .iconbox .iconbox_content .iconbox_content_title {
   text-transform: none;
   color: #074058;
   letter-spacing: normal;
 }
-.iconbox .iconbox_content h2.iconbox_content_title {
+#top .iconbox .iconbox_content h2.iconbox_content_title {
   font-size: 38px;
+}
+#top .iconbox.iconbox_left_content {
+  margin-bottom: 0px;
+}
+#top .iconbox.iconbox_left_content .iconbox_icon {
+  border: 0px;
+  width: 30x;
+  height: 30px;
+  font-size: 18px;
+  line-height: 24px;
+  border-radius: 0px;
+  text-align: left;
+  margin-right: 0px;
+}
+#top .iconbox.iconbox_left_content .iconbox_content_title {
+  line-height: 1.45em;
+}
+#top .iconbox.iconbox_left_content .iconbox_content_container p {
+  margin-top: 7px;
 }
 
 /* CSS Document */
@@ -202,7 +286,7 @@ aside #cta img {
 @media (min-width: 768px) {
   .row {
     display: flex;
-    gap: 40px;
+    gap: 55px;
   }
 }
 .row.va-center {
@@ -226,6 +310,17 @@ aside #cta img {
 }
 .row .col.col-6 {
   max-width: 60%;
+}
+.row .col.col-5-5 {
+  max-width: 55%;
+  flex: auto;
+}
+.row .col.col-5 {
+  max-width: 50%;
+}
+.row .col.col-4 {
+  flex: unset;
+  flex-basis: 40%;
 }
 .row.table {
   background-color: #074058;
@@ -328,12 +423,23 @@ body #error {
   max-width: 800px;
   margin: 30px auto;
 }
+body .gray_box {
+  border: 11px inset rgba(7, 64, 88, 0.2);
+  background: white;
+  border-radius: 20px;
+  padding: 40px;
+  line-height: 1.6875em;
+  font-weight: 300;
+  box-shadow: 0px 4px 64px 0px rgba(0, 0, 0, 0.07);
+}
 
 body.companies #header_main nav {
   display: none;
 }
-body.companies #main header > .container {
-  padding-top: 18vh;
+@media (min-width: 768px) {
+  body.companies #main header > .container {
+    padding-top: 150px;
+  }
 }
 body.companies .table#advertising_table .grid .row {
   gap: 0px;
@@ -394,13 +500,15 @@ body.companies .table .bottom {
   text-align: right;
 }
 body.companies section {
-  padding-bottom: 3em;
+  padding-bottom: 4em;
 }
 body.companies section > article.iconbox {
   margin-bottom: 20px;
 }
 body.companies section > article.iconbox .iconbox_icon {
   color: #25C9BA;
+  height: 40px;
+  line-height: 45px;
   font-size: 40px;
   top: 0px;
   left: 0px;
@@ -408,7 +516,7 @@ body.companies section > article.iconbox .iconbox_icon {
   width: 60px;
   text-align: left;
 }
-body.companies section#marketin, body.companies section#ad_spend {
+body.companies section#marketing, body.companies section#ad_spend {
   padding-bottom: 0px;
 }
 
@@ -419,11 +527,11 @@ header#business {
 header#business:after {
   background-image: url(assets/img/companies/header-business.jpg);
   content: "";
-  -webkit-clip-path: ellipse(82% 83% at 51% 16%);
-          clip-path: ellipse(82% 83% at 51% 16%);
+  -webkit-clip-path: ellipse(87% 83% at 51% 16%);
+          clip-path: ellipse(87% 83% at 51% 16%);
   position: absolute;
   left: 0;
-  height: 100%;
+  height: 90%;
   width: 100%;
   top: 0;
   z-index: 0;
@@ -436,40 +544,32 @@ header#business > .container {
   justify-content: start;
   z-index: 1;
 }
-
-#overview {
-  border: 11px inset rgba(7, 64, 88, 0.2);
-  background: white;
-  border-radius: 20px;
-  padding: 40px;
+header #overview {
   flex-basis: 48.1%;
-  line-height: 1.6875em;
-  font-weight: 300;
-  box-shadow: 0px 4px 64px 0px rgba(0, 0, 0, 0.07);
 }
-#overview .contact {
+header #overview .contact {
   display: flex;
   padding-top: 3em;
 }
-#overview .contact > div {
+header #overview .contact > div {
   flex: 1;
 }
-#overview .contact > div .iconbox .iconbox_content .iconbox_content_title {
+header #overview .contact > div .iconbox .iconbox_content .iconbox_content_title {
   font-size: 1em;
   color: #074058;
   margin: 0px;
 }
-#overview .contact > div .iconbox .iconbox_content .iconbox_content_container {
+header #overview .contact > div .iconbox .iconbox_content .iconbox_content_container {
   clear: left;
   top: -7px;
   display: block;
   position: relative;
 }
-#overview .contact > div .iconbox .iconbox_content .iconbox_content_container p {
+header #overview .contact > div .iconbox .iconbox_content .iconbox_content_container p {
   margin-top: 5px;
   font-weight: 300;
 }
-#overview .contact > div.phone .iconbox .iconbox_content .iconbox_content_container {
+header #overview .contact > div.phone .iconbox .iconbox_content .iconbox_content_container {
   color: #25C9BA;
 }
 
@@ -478,50 +578,28 @@ header#business > .container {
   padding-left: 20px;
 }
 
-#win-more {
-  background: transparent;
-  min-height: 500px;
-  padding-top: 6em;
-}
-#win-more > * {
-  z-index: 1;
-}
-#win-more:after {
-  content: "";
-  -webkit-clip-path: ellipse(82% 83% at 51% 16%);
-          clip-path: ellipse(82% 83% at 51% 16%);
-  position: absolute;
-  left: 0;
-  height: 100%;
-  width: 100%;
-  top: 0;
-  z-index: 0;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center bottom;
-  background-color: #074058;
-  transform: rotateX(180deg);
-  background-image: url(assets/img/companies/win-more-bg.png);
-}
-#win-more p {
-  font-weight: 300;
-}
-#win-more .container {
-  max-width: 852px;
-  padding-bottom: 80px;
-}
-#win-more .container img {
-  max-width: 724px;
-  margin: 30px auto;
-  display: block;
-}
-#win-more .container .image-overlay {
-  display: none !important;
-}
-
 body.contacts #header_main nav {
   display: none;
 }
 body.contacts #main header > .container {
   padding-top: 18vh;
+}
+body.contacts #main header:after {
+  background-image: url(assets/img/contacts/header.jpg);
+}
+body.contacts #main header #overview {
+  flex: 1;
+}
+body.contacts #main header + .container {
+  padding-top: 4em;
+}
+body.contacts aside nav {
+  padding-bottom: 1em;
+}
+body.contacts aside nav li a {
+  color: rgba(7, 64, 88, 0.6);
+}
+body.contacts aside nav li.active a {
+  color: #074058;
+  text-decoration: underline !important;
 }

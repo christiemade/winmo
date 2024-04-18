@@ -1,8 +1,38 @@
 
+#win-more {
+  background: transparent;
+  min-height: 500px;
+  padding-top: 6em;
+  padding-bottom: 125px;
+  & > * {
+    z-index: 1;
+  }
+  &:after {
+    @include arc;
+    background-color: $blue;
+    transform: rotateX(180deg);
+    background-image: url(assets/img/companies/win-more-bg.png);
+  }
+  p {
+    font-weight: 300;
+  }
+  .container {
+    max-width: 967px;
+    padding-bottom: 80px;
+    img {
+      max-width: 724px;
+      margin: 30px auto;
+      display: block;
+    }
+    .image-overlay {
+      display: none !important;
+    }
+  }
+}
 
 #cta-footer {
   max-width: 1106px;
-  margin: -95px auto 0px auto;
+  margin: -220px auto 0px auto;
   padding-left: 74px;
   padding-right: 30px;
   .image-overlay {
@@ -14,7 +44,7 @@
       width: 405px;
       position: relative;
       a {
-        overflow: visible;
+        overflow: visible !important;
         img {
           margin-top: -36px;
         }
@@ -31,7 +61,7 @@
 #footer {
   font-size: 12px;
   border: 0px;
-  padding: 53px 0px;
+  padding: 53px 0px 30px 0px;
   .flex_column:last-child {
     .widget_text .textwidget {
       text-align: right;
