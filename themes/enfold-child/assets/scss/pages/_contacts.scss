@@ -17,6 +17,9 @@ body.contacts {
         .iconbox_left {
           margin: 30px 0px 40px 0px;
         }
+        .gray_box .col .p {
+          margin-top: 33px;
+        }
         #personality_insights {
           img {
             margin-top: 30px;
@@ -28,6 +31,33 @@ body.contacts {
             &:last-child {
               margin-bottom: 0px;
             }
+          }
+        }
+        #company {
+          font-size: 1em;
+          .row {
+            margin-top: 1em;
+            gap: 44px;
+          }
+          .col.contact {
+            flex: none;
+            flex-basis: fit-content;
+            margin-top: 0.85em;
+            .phone {
+              margin-bottom: 1em;
+            }
+            .iconbox.iconbox_left_content .iconbox_content_title {
+              font-size: 1em;
+            }
+            & + .col {
+              flex: none;
+              width: 99px;
+            }
+          }
+          .col.buttons {
+            margin-top: 0.85em;
+            flex: none;
+            width: 127px;
           }
         }
       }

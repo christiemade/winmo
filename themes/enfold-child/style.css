@@ -11003,6 +11003,9 @@ body.contacts #main header + .container > main {
 body.contacts #main header + .container > main .iconbox_left {
   margin: 30px 0px 40px 0px;
 }
+body.contacts #main header + .container > main .gray_box .col .p {
+  margin-top: 33px;
+}
 body.contacts #main header + .container > main #personality_insights img {
   margin-top: 30px;
 }
@@ -11011,6 +11014,33 @@ body.contacts #main header + .container > main #disc_profile p {
 }
 body.contacts #main header + .container > main #disc_profile p:last-child {
   margin-bottom: 0px;
+}
+body.contacts #main header + .container > main #company {
+  font-size: 1em;
+}
+body.contacts #main header + .container > main #company .row {
+  margin-top: 1em;
+  gap: 44px;
+}
+body.contacts #main header + .container > main #company .col.contact {
+  flex: none;
+  flex-basis: fit-content;
+  margin-top: 0.85em;
+}
+body.contacts #main header + .container > main #company .col.contact .phone {
+  margin-bottom: 1em;
+}
+body.contacts #main header + .container > main #company .col.contact .iconbox.iconbox_left_content .iconbox_content_title {
+  font-size: 1em;
+}
+body.contacts #main header + .container > main #company .col.contact + .col {
+  flex: none;
+  width: 99px;
+}
+body.contacts #main header + .container > main #company .col.buttons {
+  margin-top: 0.85em;
+  flex: none;
+  width: 127px;
 }
 body.contacts aside nav {
   padding-bottom: 1em;
