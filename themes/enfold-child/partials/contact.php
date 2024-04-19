@@ -64,7 +64,19 @@ if (is_wp_error($contact_data)) {
 
             print do_shortcode("[av_icon_box icon='ue809' font='winmo' title='" . $contact_data[0]['fname'] . " " . $contact_data[0]['lname'] . " Email Address' position='left_content' icon_style='' boxed='' font_color='' custom_title='' custom_content='' color='' custom_bg='' custom_font='fa fa-envelope' custom_border='' custom_title_size='' av-desktop-font-size-title='' av-medium-font-size-title='' av-small-font-size-title='' av-mini-font-size-title='' custom_content_size='' av-desktop-font-size='' av-medium-font-size='' av-small-font-size='' av-mini-font-size='' heading_tag='' heading_class='' link='' linktarget='' title_attr='' linkelement='' id='' custom_class='' template_class='']
 " . $email . "[/av_icon_box]"); ?></div>
-          <div class="col">c</div>
+          <div class="col">
+            <?php
+
+            // Create an address string
+            $location = $contact_data[0]['location'];
+            $address = $location['address1'] ? $location['address1'] . '<br>' : "";
+            $address .= $location['address2'] ? $location['address2'] . '<br>' : "";
+            $address .= $location['city'] ? $location['city'] . ', ' : "";
+            $address .= $location['state'] ? $location['state'] . ' ' : '';
+            $address .= $location['zip_code'] ? $location['zip_code'] . '<br>' : '<br>';
+            $address .= $location['country'];
+            print do_shortcode("[av_icon_box icon='ue809' font='winmo' title='" . $contact_data[0]['fname'] . " " . $contact_data[0]['lname'] . " Office Address' position='left_content' icon_style='' boxed='' font_color='' custom_title='' custom_content='' color='' custom_bg='' custom_font='fa fa-building' custom_border='' custom_title_size='' av-desktop-font-size-title='' av-medium-font-size-title='' av-small-font-size-title='' av-mini-font-size-title='' custom_content_size='' av-desktop-font-size='' av-medium-font-size='' av-small-font-size='' av-mini-font-size='' heading_tag='' heading_class='' link='' linktarget='' title_attr='' linkelement='' id='' custom_class='' template_class='']
+" . $address . '<br>' . "[/av_icon_box]"); ?></div>
         </div>
       </section>
       <?php
