@@ -30,6 +30,9 @@ h3 {
 h4 {
   font-size: 25px;
   font-weight: 900;
+  .main_color & {
+    color: $blue;
+  }
 }
 h5 {
   font-size: 20px;

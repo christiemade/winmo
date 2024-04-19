@@ -22,6 +22,14 @@ body.contacts {
             margin-top: 30px;
           }
         }
+        #disc_profile {
+          p {
+            margin: 33px 0px;
+            &:last-child {
+              margin-bottom: 0px;
+            }
+          }
+        }
       }
     }
   }

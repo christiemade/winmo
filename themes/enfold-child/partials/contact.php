@@ -37,7 +37,7 @@ if (is_wp_error($contact_data)) {
         <ul>
           <li><a href="#contact_information">Contact Information</a></li>
           <li><a href="#personality_insights">Personality Insights</a></li>
-          <li><a href="#ad_agency_contacts">Disc Profile</a></li>
+          <li><a href="#disc_profile">Disc Profile</a></li>
           <li><a href="#ad_spend">Ocean Profile</a></li>
           <li><a href="#social_media_marketing">Company Profile</a></li>
         </ul>
@@ -89,6 +89,20 @@ if (is_wp_error($contact_data)) {
           </div>
         </div>
       </section>
+
+      <section id="disc_profile">
+        <div class="gray_box row va-center">
+          <div class="col">
+            <img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/contacts/disc-profile.svg">
+          </div>
+          <div class="col">
+            <h4><?php print $contact_data[0]['fname'] . " " . $contact_data[0]['lname']; ?> DISC Profile</h4>
+            <p>DiSC is an assessment tool used to improve communication, sales outreach and negotiations. Winmo subscribers use this assessment to get specific information about [John Lewnard] to help determine the best way to interact and engage.</p>
+            <p><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/contacts/generate-recommended-email.svg"></p>
+          </div>
+        </div>
+      </section>
+
       <?php
       print_r($contact_data);
       ?>

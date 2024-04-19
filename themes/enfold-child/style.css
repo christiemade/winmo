@@ -10419,6 +10419,9 @@ h4 {
   font-size: 25px;
   font-weight: 900;
 }
+.main_color h4 {
+  color: #074058;
+}
 
 h5 {
   font-size: 20px;
@@ -11002,6 +11005,12 @@ body.contacts #main header + .container > main .iconbox_left {
 }
 body.contacts #main header + .container > main #personality_insights img {
   margin-top: 30px;
+}
+body.contacts #main header + .container > main #disc_profile p {
+  margin: 33px 0px;
+}
+body.contacts #main header + .container > main #disc_profile p:last-child {
+  margin-bottom: 0px;
 }
 body.contacts aside nav {
   padding-bottom: 1em;
