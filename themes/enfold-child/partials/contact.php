@@ -50,7 +50,12 @@ if (is_wp_error($contact_data)) {
         <div class="gray_box row">
           <div class="col">
             <?php
-            $phone = $contact_data[0]['phone'] ? $contact_data[0]['phone'] : 'N/A';
+            if ($phone = $contact_data[0]['phone']) :
+              $dash = strrpos($phone, "-");
+              $phone = substr($phone, 0, 6) . str_repeat("*", ($dash - 6)) . "-" . str_repeat("*", (strlen($phone) - $dash - 1));
+            else :
+              $phone = 'N/A';
+            endif;
             print do_shortcode("[av_icon_box icon='ue809' font='winmo' title='" . $contact_data[0]['fname'] . " " . $contact_data[0]['lname'] . " Phone Number' position='left_content' icon_style='' boxed='' font_color='' custom_title='' custom_content='' color='' custom_bg='' custom_font='fa fa-phone' custom_border='' custom_title_size='' av-desktop-font-size-title='' av-medium-font-size-title='' av-small-font-size-title='' av-mini-font-size-title='' custom_content_size='' av-desktop-font-size='' av-medium-font-size='' av-small-font-size='' av-mini-font-size='' heading_tag='' heading_class='' link='' linktarget='' title_attr='' linkelement='' id='' custom_class='' template_class='']
 " . $phone . "[/av_icon_box]"); ?>
           </div>
@@ -107,5 +112,15 @@ if (is_wp_error($contact_data)) {
       print_r($contact_data);
       ?>
     </main>
-  </div><?php
-      }
+  </div><!--end container-->
+
+  <div class="row alternate_color ha-center" id="win-more">
+    <div class="col container">
+      <h2>Engage <?php print $contact_data[0]['fname'] . " " . $contact_data[0]['lname']; ?> for new business</h2>
+      <p>Winmo can provide direct contact info, as well as current strategies, likely synergies and even do's and don'ts for writing an email that <?php print $contact_data[0]['fname'] . " " . $contact_data[0]['lname']; ?> is likely to respond to. Winmo's award winning platform tracks this intel for those who control $100 billion in marketing spend each year, making it the top choice among sellers of agency services, advertising, marketing technology, or corporate sponsorships.</p>
+      <p><a href="#"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/companies/win-more-video.jpg"></a></p>
+    </div>
+  </div>
+
+<?php get_template_part('partials/footer', 'company');
+}
