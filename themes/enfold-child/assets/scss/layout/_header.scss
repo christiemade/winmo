@@ -1,5 +1,6 @@
 .responsive #top #wrap_all .av-logo-container {
   @include breakpoint(md, 'max') { line-height: 50px; }
+  @include breakpoint(sm, 'max') { width: 95%; max-width: 95%; }
   .inner-container {
     display: flex;
     justify-content: space-between;
@@ -9,9 +10,14 @@
       margin-top: 15px; 
       margin-bottom: 15px; 
     }
+    @include breakpoint(sm, 'max') {
+      gap: 20px;
+      align-items: center;
+    }
     .button {
       background: transparent;
       padding: 0px;
+      @include breakpoint(sm, 'max') {  flex: 1; }
       img {
         height: 60px;
         @include breakpoint(md, 'max') { 
@@ -19,11 +25,16 @@
           width: auto;
           display: block;
         }
+        @include breakpoint(sm, 'max') {
+          width: 100%;
+          height: auto;
+        }
       }
     }
     span.logo {
       float: none;
       position: relative;
+      @include breakpoint(sm, 'max') {  flex: 1; }
       @include breakpoint(md, 'max') { 
         position: relative;
         width: auto;

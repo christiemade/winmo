@@ -23,6 +23,9 @@
       max-width: 724px;
       margin: 30px auto;
       display: block;
+      @include breakpoint(md, "max") {
+        max-width: 100%;
+      }
     }
     .image-overlay {
       display: none !important;
@@ -35,14 +38,32 @@
   margin: -220px auto 0px auto;
   padding-left: 74px;
   padding-right: 30px;
+  @include breakpoint(lg, 'max') {  
+    padding-left: 40px; gap: 20px; 
+  }
+  @include breakpoint(md) { flex-direction: row-reverse; }
+  @include breakpoint(md, "max") {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 30px;
+    margin-left: 20px;
+    margin-right: 20px;
+    div > h4 {
+      margin-top: -40px;
+    }
+  }
+  @include breakpoint(sm, "max") {
+    padding-left: 30px;
+  }
   .image-overlay {
     display: none !important;
   }
-  @include breakpoint(md) { flex-direction: row-reverse; }
+
   & > div {
     &:first-child {
       width: 405px;
       position: relative;
+      @include breakpoint(md, "max") { width: 100%; }
       a {
         overflow: visible !important;
         img {
@@ -64,7 +85,12 @@
   padding: 53px 0px 30px 0px;
   .flex_column:last-child {
     .widget_text .textwidget {
-      text-align: right;
+      @include breakpoint(md) { text-align: right; }
+    }
+  }
+  .widget {
+    @include breakpoint(md, "max") {
+      margin: 0px;
     }
   }
 }

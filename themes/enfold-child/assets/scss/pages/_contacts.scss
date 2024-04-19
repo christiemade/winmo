@@ -6,6 +6,9 @@ body.contacts {
       @include breakpoint(md, 'max') {  
         padding-top: 8vh;
       }
+      @include breakpoint(sm, 'max') {  
+        padding-top: 4vh;
+      }
     }
     &:after {
       background-image: url(assets/img/contacts/header.jpg);
@@ -50,10 +53,11 @@ body.contacts {
       }
     }
     & + .container {
-      padding-top: 4em;
+      @include breakpoint(sm, 'min') {  padding-top: 4em; }
       gap: 0px;
       & > main {
-        margin-left: 55px;
+        @include breakpoint(md, 'min') { margin-left: 55px; }
+        @include breakpoint(md, 'max') { margin-top: 30px; }
         .iconbox_left {
           margin: 30px 0px 40px 0px;
         }

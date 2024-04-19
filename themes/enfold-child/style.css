@@ -10441,6 +10441,12 @@ h5 {
     line-height: 50px;
   }
 }
+@media (max-width: 575.98px) {
+  .responsive #top #wrap_all .av-logo-container {
+    width: 95%;
+    max-width: 95%;
+  }
+}
 .responsive #top #wrap_all .av-logo-container .inner-container {
   display: flex;
   justify-content: space-between;
@@ -10453,9 +10459,20 @@ h5 {
     margin-bottom: 15px;
   }
 }
+@media (max-width: 575.98px) {
+  .responsive #top #wrap_all .av-logo-container .inner-container {
+    gap: 20px;
+    align-items: center;
+  }
+}
 .responsive #top #wrap_all .av-logo-container .inner-container .button {
   background: transparent;
   padding: 0px;
+}
+@media (max-width: 575.98px) {
+  .responsive #top #wrap_all .av-logo-container .inner-container .button {
+    flex: 1;
+  }
 }
 .responsive #top #wrap_all .av-logo-container .inner-container .button img {
   height: 60px;
@@ -10467,9 +10484,20 @@ h5 {
     display: block;
   }
 }
+@media (max-width: 575.98px) {
+  .responsive #top #wrap_all .av-logo-container .inner-container .button img {
+    width: 100%;
+    height: auto;
+  }
+}
 .responsive #top #wrap_all .av-logo-container .inner-container span.logo {
   float: none;
   position: relative;
+}
+@media (max-width: 575.98px) {
+  .responsive #top #wrap_all .av-logo-container .inner-container span.logo {
+    flex: 1;
+  }
 }
 @media (max-width: 767.98px) {
   .responsive #top #wrap_all .av-logo-container .inner-container span.logo {
@@ -10516,6 +10544,12 @@ h5 {
   background-size: cover;
   background-position: center bottom;
 }
+@media (max-width: 991.98px) {
+  #main > .container_wrap_first > header:after {
+    -webkit-clip-path: ellipse(120% 83% at 51% 16%);
+            clip-path: ellipse(120% 83% at 51% 16%);
+  }
+}
 @media (max-width: 767.98px) {
   #main > .container_wrap_first > header:after {
     -webkit-clip-path: ellipse(170% 83% at 51% 16%);
@@ -10553,6 +10587,12 @@ h5 {
   transform: rotateX(180deg);
   background-image: url(assets/img/companies/win-more-bg.png);
 }
+@media (max-width: 991.98px) {
+  #win-more:after {
+    -webkit-clip-path: ellipse(120% 83% at 51% 16%);
+            clip-path: ellipse(120% 83% at 51% 16%);
+  }
+}
 @media (max-width: 767.98px) {
   #win-more:after {
     -webkit-clip-path: ellipse(170% 83% at 51% 16%);
@@ -10571,6 +10611,11 @@ h5 {
   margin: 30px auto;
   display: block;
 }
+@media (max-width: 767.98px) {
+  #win-more .container img {
+    max-width: 100%;
+  }
+}
 #win-more .container .image-overlay {
   display: none !important;
 }
@@ -10581,17 +10626,45 @@ h5 {
   padding-left: 74px;
   padding-right: 30px;
 }
-#cta-footer .image-overlay {
-  display: none !important;
+@media (max-width: 991.98px) {
+  #cta-footer {
+    padding-left: 40px;
+    gap: 20px;
+  }
 }
 @media (min-width: 768px) {
   #cta-footer {
     flex-direction: row-reverse;
   }
 }
+@media (max-width: 767.98px) {
+  #cta-footer {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 30px;
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+  #cta-footer div > h4 {
+    margin-top: -40px;
+  }
+}
+@media (max-width: 575.98px) {
+  #cta-footer {
+    padding-left: 30px;
+  }
+}
+#cta-footer .image-overlay {
+  display: none !important;
+}
 #cta-footer > div:first-child {
   width: 405px;
   position: relative;
+}
+@media (max-width: 767.98px) {
+  #cta-footer > div:first-child {
+    width: 100%;
+  }
 }
 #cta-footer > div:first-child a {
   overflow: visible !important;
@@ -10610,8 +10683,15 @@ h5 {
   border: 0px;
   padding: 53px 0px 30px 0px;
 }
-#footer .flex_column:last-child .widget_text .textwidget {
-  text-align: right;
+@media (min-width: 768px) {
+  #footer .flex_column:last-child .widget_text .textwidget {
+    text-align: right;
+  }
+}
+@media (max-width: 767.98px) {
+  #footer .widget {
+    margin: 0px;
+  }
 }
 
 @media (min-width: 768px) {
@@ -10647,19 +10727,32 @@ aside nav li:before {
 .main_color aside nav li.active a {
   color: #5781F2;
 }
-aside.fixed {
-  padding-top: 300px;
+@media (min-width: 768px) {
+  aside.fixed {
+    padding-top: 300px;
+  }
 }
 aside.fixed nav {
-  position: fixed;
-  top: 100px;
   z-index: 2;
+}
+@media (min-width: 768px) {
+  aside.fixed nav {
+    position: fixed;
+    top: 100px;
+  }
 }
 aside #cta {
   margin-top: 4em;
   z-index: 1;
   padding: 0px 35px 30px 35px;
   text-align: center;
+}
+@media (max-width: 767.98px) {
+  aside #cta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 }
 aside #cta img {
   max-width: calc(100% + 13px);
@@ -10668,6 +10761,11 @@ aside #cta img {
   display: block;
   position: relative;
   top: -40px;
+}
+@media (max-width: 767.98px) {
+  aside #cta img {
+    max-width: 300px;
+  }
 }
 
 .avia-button-wrap .avia-button {
@@ -11001,6 +11099,12 @@ header#business:after {
   background-size: cover;
   background-position: center bottom;
 }
+@media (max-width: 991.98px) {
+  header#business:after {
+    -webkit-clip-path: ellipse(120% 83% at 51% 16%);
+            clip-path: ellipse(120% 83% at 51% 16%);
+  }
+}
 @media (max-width: 767.98px) {
   header#business:after {
     -webkit-clip-path: ellipse(170% 83% at 51% 16%);
@@ -11057,6 +11161,11 @@ body.contacts #main header > .container {
     padding-top: 8vh;
   }
 }
+@media (max-width: 575.98px) {
+  body.contacts #main header > .container {
+    padding-top: 4vh;
+  }
+}
 body.contacts #main header:after {
   background-image: url(assets/img/contacts/header.jpg);
 }
@@ -11102,11 +11211,22 @@ body.contacts #main header #overview {
   }
 }
 body.contacts #main header + .container {
-  padding-top: 4em;
   gap: 0px;
 }
-body.contacts #main header + .container > main {
-  margin-left: 55px;
+@media (min-width: 576px) {
+  body.contacts #main header + .container {
+    padding-top: 4em;
+  }
+}
+@media (min-width: 768px) {
+  body.contacts #main header + .container > main {
+    margin-left: 55px;
+  }
+}
+@media (max-width: 767.98px) {
+  body.contacts #main header + .container > main {
+    margin-top: 30px;
+  }
 }
 body.contacts #main header + .container > main .iconbox_left {
   margin: 30px 0px 40px 0px;
