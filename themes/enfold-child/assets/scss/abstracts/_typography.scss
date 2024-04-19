@@ -13,6 +13,10 @@ h1 {
   .main_color & {
     color: $blue;
   }
+  @include breakpoint(md, 'max') { 
+    font-size: 47px;
+    margin-bottom: 15px;
+  }
 }
 h2 {
   font-size: 38px;

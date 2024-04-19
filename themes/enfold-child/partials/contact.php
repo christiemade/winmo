@@ -128,7 +128,6 @@ if (is_wp_error($contact_data)) {
           <?php $company_data = set_company_transient($contact_data[0]['company']['id']); ?>
           <div class="row">
             <div class="col">
-              <p class="teal">2022 Estimated Media Spend: $*******</p>
               <p><?php print $company_data['notes']; ?></p>
             </div>
             <div class="col contact">
@@ -156,7 +155,7 @@ if (is_wp_error($contact_data)) {
       </section>
 
       <?php
-      print_r($contact_data);
+      //print_r($contact_data);
       ?>
     </main>
   </div><!--end container-->

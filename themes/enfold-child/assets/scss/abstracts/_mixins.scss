@@ -48,4 +48,7 @@
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center bottom;
+    @include breakpoint(md, 'max') {  
+        clip-path: ellipse(170% 83% at 51% 16%);
+    }
 }

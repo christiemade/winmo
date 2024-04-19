@@ -1,22 +1,53 @@
-.av-logo-container .inner-container {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 43px;
-  align-items: start;
-  .button {
-    background: transparent;
-    padding: 0px;
-    img {
-      height: 60px;
+.responsive #top #wrap_all .av-logo-container {
+  @include breakpoint(md, 'max') { line-height: 50px; }
+  .inner-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 43px;
+    align-items: start;
+    @include breakpoint(md, 'max') { 
+      margin-top: 15px; 
+      margin-bottom: 15px; 
     }
-  }
-  span.logo {
-    float: none;
-    position: relative;
-    .subtext {
-      svg {
-        max-width: 210px;
+    .button {
+      background: transparent;
+      padding: 0px;
+      img {
+        height: 60px;
+        @include breakpoint(md, 'max') { 
+          height: 50px;
+          width: auto;
+          display: block;
+        }
       }
+    }
+    span.logo {
+      float: none;
+      position: relative;
+      @include breakpoint(md, 'max') { 
+        position: relative;
+        width: auto;
+        height: 50px !important; 
+        overflow: visible;
+        a { overflow: visible;}
+      }
+      img {
+        @include breakpoint(md, 'max') { 
+          max-height: 50px; 
+          margin-bottom: -10px;
+        }
+      }
+      .subtext {
+        svg {
+          max-width: 210px;
+        }
+      }
+    }
+    .main_menu {
+      display: none;
+      position: relative;
+      order: 3;
+      height: 50px;
     }
   }
 }
