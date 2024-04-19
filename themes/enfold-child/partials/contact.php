@@ -36,7 +36,7 @@ if (is_wp_error($contact_data)) {
       <nav>
         <ul>
           <li><a href="#contact_information">Contact Information</a></li>
-          <li><a href="#marketing">Personality Insights</a></li>
+          <li><a href="#personality_insights">Personality Insights</a></li>
           <li><a href="#ad_agency_contacts">Disc Profile</a></li>
           <li><a href="#ad_spend">Ocean Profile</a></li>
           <li><a href="#social_media_marketing">Company Profile</a></li>
@@ -77,6 +77,16 @@ if (is_wp_error($contact_data)) {
             $address .= $location['country'];
             print do_shortcode("[av_icon_box icon='ue809' font='winmo' title='" . $contact_data[0]['fname'] . " " . $contact_data[0]['lname'] . " Office Address' position='left_content' icon_style='' boxed='' font_color='' custom_title='' custom_content='' color='' custom_bg='' custom_font='fa fa-building' custom_border='' custom_title_size='' av-desktop-font-size-title='' av-medium-font-size-title='' av-small-font-size-title='' av-mini-font-size-title='' custom_content_size='' av-desktop-font-size='' av-medium-font-size='' av-small-font-size='' av-mini-font-size='' heading_tag='' heading_class='' link='' linktarget='' title_attr='' linkelement='' id='' custom_class='' template_class='']
 " . $address . '<br>' . "[/av_icon_box]"); ?></div>
+        </div>
+      </section>
+
+      <section id="personality_insights">
+        <div class="gray_box row">
+          <div class="col">
+            <?php print do_shortcode("[av_icon_box icon='ue800' font='winmo' title='" . $contact_data[0]['fname'] . " " . $contact_data[0]['lname'] . " Personality Insights' position='left' icon_style='' boxed='' font_color='' custom_title='' custom_content='' color='' custom_bg='' custom_font='fa-solid fa-person-burst' custom_border='' custom_title_size='' av-desktop-font-size-title='' av-medium-font-size-title='' av-small-font-size-title='' av-mini-font-size-title='' custom_content_size='' av-desktop-font-size='' av-medium-font-size='' av-small-font-size='' av-mini-font-size='' heading_tag='h2' heading_class='' link='' linktarget='' title_attr='' linkelement='' id='' custom_class='' template_class='' av_uid='av-luvpcjbw' sc_version='1.0' admin_preview_bg=''][/av_icon_box]"); ?>
+            <p>Get personality-driven outreach tips to strike the right chord with <?php print $contact_data[0]['fname'] . " " . $contact_data[0]['lname']; ?>. From suggested email length and tone to AI-generated subject lines, personality-based tips make decision-makers like <?php print $contact_data[0]['fname'] . " " . $contact_data[0]['lname']; ?> 233% more likely to reply to your outreach.</p>
+            <p style="text-align: center;"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/contacts/personality-insights.svg"></p>
+          </div>
         </div>
       </section>
       <?php

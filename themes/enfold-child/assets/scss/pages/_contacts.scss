@@ -11,6 +11,18 @@ body.contacts {
     }
     & + .container {
       padding-top: 4em;
+      gap: 0px;
+      & > main {
+        margin-left: 55px;
+        .iconbox_left {
+          margin: 30px 0px 40px 0px;
+        }
+        #personality_insights {
+          img {
+            margin-top: 30px;
+          }
+        }
+      }
     }
   }
   aside {

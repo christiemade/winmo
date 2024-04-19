@@ -10637,6 +10637,17 @@ aside #cta img {
 #top .iconbox .iconbox_content h2.iconbox_content_title {
   font-size: 38px;
 }
+#top .iconbox.iconbox_left svg {
+  height: 40px;
+  line-height: 45px;
+  font-size: 40px;
+  top: 0px;
+  left: 0px;
+  border-radius: 0px;
+  width: 60px;
+  text-align: left;
+  margin-right: 15px;
+}
 #top .iconbox.iconbox_left svg path {
   fill: #25C9BA;
 }
@@ -10814,7 +10825,11 @@ body .gray_box {
   padding: 40px;
   line-height: 1.6875em;
   font-weight: 300;
+  gap: 30px;
   box-shadow: 0px 4px 64px 0px rgba(0, 0, 0, 0.07);
+}
+body main.col .gray_box {
+  padding: 30px;
 }
 
 body.companies #header_main nav {
@@ -10977,6 +10992,16 @@ body.contacts #main header #overview {
 }
 body.contacts #main header + .container {
   padding-top: 4em;
+  gap: 0px;
+}
+body.contacts #main header + .container > main {
+  margin-left: 55px;
+}
+body.contacts #main header + .container > main .iconbox_left {
+  margin: 30px 0px 40px 0px;
+}
+body.contacts #main header + .container > main #personality_insights img {
+  margin-top: 30px;
 }
 body.contacts aside nav {
   padding-bottom: 1em;
