@@ -88,6 +88,7 @@ body.companies {
         border-radius: 0px;
         width: 60px;
         text-align: left;
+        margin-right: 15px;
       }
     }
     padding-bottom: 4em;
@@ -101,7 +102,7 @@ header {
     position: relative;
     margin-bottom: 3em;
     &:after {
-      background-image: url(assets/img/companies/header-business.jpg);
+      background-image: url(assets/img/companies/header-company.jpg);
       @include arc;
     }
     & > .container {

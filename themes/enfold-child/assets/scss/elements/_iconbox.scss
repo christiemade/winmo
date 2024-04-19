@@ -15,6 +15,14 @@
     }
 
   }
+  &.iconbox_left {
+    svg {
+      
+      path {
+        fill: $teal;
+      }
+    }
+  }
   &.iconbox_left_content {
     margin-bottom: 0px;
     .iconbox_icon  {

@@ -10637,6 +10637,9 @@ aside #cta img {
 #top .iconbox .iconbox_content h2.iconbox_content_title {
   font-size: 38px;
 }
+#top .iconbox.iconbox_left svg path {
+  fill: #25C9BA;
+}
 #top .iconbox.iconbox_left_content {
   margin-bottom: 0px;
 }
@@ -10896,6 +10899,7 @@ body.companies section > article.iconbox .iconbox_icon {
   border-radius: 0px;
   width: 60px;
   text-align: left;
+  margin-right: 15px;
 }
 body.companies section#marketing, body.companies section#ad_spend {
   padding-bottom: 0px;
@@ -10906,7 +10910,7 @@ header#business {
   margin-bottom: 3em;
 }
 header#business:after {
-  background-image: url(assets/img/companies/header-business.jpg);
+  background-image: url(assets/img/companies/header-company.jpg);
   content: "";
   -webkit-clip-path: ellipse(87% 83% at 51% 16%);
           clip-path: ellipse(87% 83% at 51% 16%);

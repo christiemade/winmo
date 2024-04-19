@@ -54,7 +54,16 @@ if (is_wp_error($contact_data)) {
             print do_shortcode("[av_icon_box icon='ue809' font='winmo' title='" . $contact_data[0]['fname'] . " " . $contact_data[0]['lname'] . " Phone Number' position='left_content' icon_style='' boxed='' font_color='' custom_title='' custom_content='' color='' custom_bg='' custom_font='fa fa-phone' custom_border='' custom_title_size='' av-desktop-font-size-title='' av-medium-font-size-title='' av-small-font-size-title='' av-mini-font-size-title='' custom_content_size='' av-desktop-font-size='' av-medium-font-size='' av-small-font-size='' av-mini-font-size='' heading_tag='' heading_class='' link='' linktarget='' title_attr='' linkelement='' id='' custom_class='' template_class='']
 " . $phone . "[/av_icon_box]"); ?>
           </div>
-          <div class="col">b</div>
+          <div class="col">
+            <?php
+            // Generate a version of the email that only shows first letter TLD 
+            $email = $contact_data[0]['email'];  // Grab the email
+            $atpos = strpos($email, '@');  // Locate the @ sign
+            $dotpos = strrpos($email, '.'); // Locate the very last dot
+            $email = substr($email, 0, 1) . str_repeat('*', $atpos - 1) . '@' . str_repeat('*', ($dotpos - $atpos - 1)) . substr($email, $dotpos);
+
+            print do_shortcode("[av_icon_box icon='ue809' font='winmo' title='" . $contact_data[0]['fname'] . " " . $contact_data[0]['lname'] . " Email Address' position='left_content' icon_style='' boxed='' font_color='' custom_title='' custom_content='' color='' custom_bg='' custom_font='fa fa-envelope' custom_border='' custom_title_size='' av-desktop-font-size-title='' av-medium-font-size-title='' av-small-font-size-title='' av-mini-font-size-title='' custom_content_size='' av-desktop-font-size='' av-medium-font-size='' av-small-font-size='' av-mini-font-size='' heading_tag='' heading_class='' link='' linktarget='' title_attr='' linkelement='' id='' custom_class='' template_class='']
+" . $email . "[/av_icon_box]"); ?></div>
           <div class="col">c</div>
         </div>
       </section>
