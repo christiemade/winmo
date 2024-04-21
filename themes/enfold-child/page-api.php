@@ -34,13 +34,11 @@ do_action('ava_page_template_after_header'); ?>
       }
     endif;
   elseif (is_page('contacts')) :
-    $contacts = get_transient('winmo_contacts');
     $dataid = get_query_var('pid');
     if ($dataid) {
       get_template_part('partials/contact');
     } else {
-      print '<header><div class="container"></div>
-    </header>' . "<p>Need way to pull in decision makers.  Examples:</p><ul><li><a href=\"/decision_makers/580439\">Mr. Melton Littlepage</a></li><li><a href=\"/decision_makers/709842/\">Caitlin Sargent</a></li><li><a href=\"/decision_makers/142931/\">Joseph Pititto</li></ul>";
+      get_template_part('partials/list', 'contact');
     }
   endif;
 

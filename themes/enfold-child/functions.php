@@ -3,7 +3,7 @@
 // Stylesheet caching version
 function avia_get_theme_version($which = 'parent')
 {
-  return '1.0.0.0.38.33';
+  return '1.0.0.0.38.34';
 }
 
 // Allow for overriding of Enfold templates
@@ -63,6 +63,11 @@ function winmo_load_scipts()
   //wp_enqueue_style( 'cf7_custom', get_stylesheet_directory_uri() . '/forms.css' );
   //wp_enqueue_script('pager', get_stylesheet_directory_uri() . '/assets/js/pager.js', array('jquery'), '1.0.0', true);
   wp_enqueue_script('fontawesome', get_stylesheet_directory_uri() . '/assets/fonts/js/all.min.js');
+  if (is_page('contacts')) {
+    wp_register_script('contacts', get_stylesheet_directory_uri() . '/assets/js/contacts.js', array('jquery'), '1.0.0.7');
+    wp_localize_script('contacts', 'winmoAjax', array('ajaxurl' => admin_url('admin-ajax.php')));
+    wp_enqueue_script('contacts');
+  }
 }
 add_action('wp_enqueue_scripts', 'winmo_load_scipts', 100);
 

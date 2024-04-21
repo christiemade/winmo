@@ -9,6 +9,15 @@ wp_enqueue_script('sticky-nav');
 $contact = get_query_var('pid');
 $contact_data = set_contact_transient($contact);
 
+// Some contacts are part of an agency and some are part of a company
+if (isset($contact_data[0]['company'])) :
+  $company = $contact_data[0]['company'];
+  $type = "company";
+else :
+  $company = $contact_data[0]['agency'];
+  $type = "agency";
+endif;
+
 // Error check
 if (is_wp_error($contact_data)) {
   $error_message = $contact_data->get_error_message();
@@ -23,8 +32,8 @@ if (is_wp_error($contact_data)) {
         <div class="row">
           <div class="col col-4">
 
-            <h5><?php print $contact_data[0]['title'] . " - " . $contact_data[0]['company']['name']; ?></h5>
-            <p><?php print $full_name; ?> is <?php print $contact_data[0]['title']; ?> for <?php print $contact_data[0]['company']['name']; ?>s. On this page, you’ll find the business email and phone number for <?php print $full_name; ?> as unique insights such as do's and don'ts for engaging, and outreach tips based on both DiSC and Ocean personality profiles.</p>
+            <h5><?php print $contact_data[0]['title'] . " - " . $company['name']; ?></h5>
+            <p><?php print $full_name; ?> is <?php print $contact_data[0]['title']; ?> for <?php print $company['name']; ?>s. On this page, you’ll find the business email and phone number for <?php print $full_name; ?> as unique insights such as do's and don'ts for engaging, and outreach tips based on both DiSC and Ocean personality profiles.</p>
           </div>
           <div class="col"><strong>Social:</strong><br><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/contacts/socials.svg"></div>
           <div class="col"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/contacts/action-buttons.svg"></div>
@@ -124,11 +133,11 @@ if (is_wp_error($contact_data)) {
 
       <section id="company">
         <div class="gray_box">
-          <h4><?php print $contact_data[0]['company']['name']; ?></h4>
-          <?php $company_data = set_company_transient($contact_data[0]['company']['id']); ?>
+          <h4><?php print $company['name']; ?></h4>
+          <?php $company_data = set_company_transient($company['id'], $type); ?>
           <div class="row">
             <div class="col">
-              <p><?php print $company_data['notes']; ?></p>
+              <p><?php $type == 'company' ? print $company_data['notes'] : print $company_data['description']; ?></p>
             </div>
             <div class="col contact">
               <div class="phone">
@@ -140,12 +149,16 @@ if (is_wp_error($contact_data)) {
               </div>
             </div>
             <div class="col">
-              <p><strong>Fiscal Close</strong><br>
-                <?php print $company_data['fiscal_close']; ?></p>
+              <?php if (isset($company_data['fiscal_close'])) : ?>
+                <p><strong>Fiscal Close</strong><br>
+                  <?php print $company_data['fiscal_close']; ?></p>
+              <?php endif; ?>
               <p><strong>#Employees</strong><br>
                 <?php print $company_data['employees']; ?></p>
-              <p><strong>Founded</strong><br>
-                <?php print $company_data['founded']; ?></p>
+              <?php if (isset($company_data['founded'])) : ?>
+                <p><strong>Founded</strong><br>
+                  <?php print $company_data['founded']; ?></p>
+              <?php endif; ?>
             </div>
             <div class="col buttons">
               <img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/contacts/company-info-buttons.png">

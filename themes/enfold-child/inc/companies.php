@@ -1,12 +1,13 @@
 <?php
-function set_company_transient($company_id)
+function set_company_transient($company_id, $type = "company")
 {
   $company = get_transient('winmo_company_' . $company_id);
 
   // check to see if companies was successfully retrieved from the cache
   if (false === $company) {
+
     // do this if no transient set
-    $company = winmo_company_api($company_id);
+    $company = winmo_company_api($company_id, $type);
 
     // store the company's data and set it to expire in 1 week
     set_transient('winmo_company_' . $company_id, $company, 604800);
@@ -37,7 +38,7 @@ function set_companies_transient()
 add_action('after_setup_theme', 'set_companies_transient');
 
 
-function winmo_company_api($id, $type = "company")
+function winmo_company_api($id, $type)
 {
   // Include Request and Response classes
   $url = 'https://api.winmo.com/web_api/business_details?id=' . $id . '&entity_type=' . $type;

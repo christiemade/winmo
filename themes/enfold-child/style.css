@@ -11280,3 +11280,24 @@ body.contacts aside nav li.active a {
   color: #074058;
   text-decoration: underline !important;
 }
+
+#filter-form {
+  display: flex;
+  gap: 20px;
+}
+#filter-form > span {
+  flex-basis: 120px;
+  text-align: right;
+}
+#filter-form > input:not(.btn), #filter-form > select {
+  flex: 1;
+  width: auto;
+}
+#filter-form > .btn {
+  flex-basis: 90px;
+}
+
+#all-contacts > .row:not(.pagination) .col {
+  flex-direction: column;
+  display: flex;
+}
