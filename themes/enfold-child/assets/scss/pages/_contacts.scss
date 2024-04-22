@@ -68,13 +68,20 @@ body.contacts {
       @include breakpoint(sm, 'min') {  padding-top: 4em; }
       gap: 0px;
       & > main {
-        @include breakpoint(md, 'min') { margin-left: 55px; }
-        @include breakpoint(md, 'max') { margin-top: 30px; }
+        @include breakpoint(md, 'min') { margin-left: 55px; padding-bottom:  80px; }
+        @include breakpoint(md, 'max') { margin-top: 30px; padding-bottom: 65px; }
         .iconbox_left {
           margin: 30px 0px 40px 0px;
         }
         .gray_box .col .p {
           margin-top: 33px;
+        }
+        #contact_information {
+          @include breakpoint(lg, 'max') {
+            .row {
+              flex-direction: column;
+            }
+          }
         }
         #personality_insights {
           img {
@@ -86,6 +93,11 @@ body.contacts {
             .col:first-child {
               padding: 10px 25px;
             }
+            @include breakpoint(lg, 'max') {
+              &.row {
+                flex-direction: column;
+              }
+            }
           }
           p {
             margin: 33px 0px;
@@ -94,11 +106,29 @@ body.contacts {
             }
           }
         }
+        #OCEAN_profile {
+          .gray_box {
+            @include breakpoint(lg, 'max') {
+              &.row {
+                flex-direction: column;
+              }
+            }
+          }
+        }
+        .gray_box .col h4 {
+          @include breakpoint(md, 'max') {
+            margin-top: 20px;
+          }
+        }
         #company {
           font-size: 1em;
           .row {
             margin-top: 1em;
             gap: 44px;
+            @include breakpoint(lg, 'max') {
+              flex-direction: column;
+              gap: 20px;
+            }
           }
           .col.contact {
             //flex: none;
@@ -110,15 +140,11 @@ body.contacts {
             .iconbox.iconbox_left_content .iconbox_content_title {
               font-size: 1em;
             }
-            & + .col {
-              //flex: none;
-              //width: 99px;
-            }
           }
           .col.buttons {
             margin-top: 0.85em;
-            //flex: none;
-            //width: 127px;
+            flex: none;
+            width: 127px;
           }
         }
       }

@@ -116,6 +116,7 @@ header {
     }
     #overview {
       flex-basis: 48.1%;
+      border-color:#cfd9dd;
       .contact {
         padding-top: 3em;
       }
@@ -127,15 +128,31 @@ header {
     }
   }
   #overview {
+    border-color:#cfd9dd;
     .contact {
       display: flex;
       & > div {
         flex: 1;
         .iconbox .iconbox_content {
+          svg {
+            border: 0px;
+            width: 17px;
+            height: 17px;
+            font-size: 18px;
+            line-height: 24px;
+            border-radius: 0px;
+            text-align: left;
+            margin-right: 10px;
+            margin-top: 3px;
+            path {
+              fill: $blue;
+            }
+          }
           .iconbox_content_title {
             font-size: 1em;
             color: $blue;
             margin: 0px;
+            margin-bottom: 12px;
           }
           .iconbox_content_container  {
             clear: left;

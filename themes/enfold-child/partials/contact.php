@@ -108,7 +108,7 @@ if (is_wp_error($contact_data)) {
 
       <section id="disc_profile">
         <div class="gray_box row va-center">
-          <div class="col-4">
+          <div class="col col-4">
             <img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/contacts/disc-profile.svg">
           </div>
           <div class="col">
@@ -161,7 +161,7 @@ if (is_wp_error($contact_data)) {
               <?php endif; ?>
             </div>
             <div class="col buttons">
-              <img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/contacts/company-info-buttons.png">
+              <img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/contacts/company-info-buttons.svg">
             </div>
           </div>
         </div>

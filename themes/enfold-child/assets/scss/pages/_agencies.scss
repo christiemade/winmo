@@ -12,7 +12,83 @@ body.agencies {
         .contact {
           flex-direction: column;
         }
+        .social {
+          padding-top: 20px;
+        }
       }
+    }
+  }
+  section {
+    padding-bottom: 4em;
+    &#employees {
+      padding-bottom: 2em;
+    }
+    
+    #marketing_table {
+      .grid {
+        & > .row {
+          gap: 0px;
+          align-items: center;
+          & > div  { // 6 items
+            width: 18%;
+            display: flex;
+            align-items: center;
+            &:first-child {  // Checkbox
+              text-align: center;
+              width: 5%;
+              justify-content: center;
+            }
+            &:nth-child(2) {  // Name
+              width: 19%;
+            }
+            &:nth-child(3) {  // title
+              width: 26%;
+            }
+            &:nth-child(4) {  // email
+              width: 27.5%;
+            }
+            &:nth-child(5) {  // state
+              
+              width: 12%;
+            }
+            &:last-child {
+             width: 10.5%;
+             justify-content: center;
+            }
+          }
+          &:first-child {
+            background-color: $teal;
+          }
+        }
+        .details {
+          & .row > div {
+            .phone {
+              line-height: 30px;
+            }
+            &:not(.social) img {
+              height: auto;
+            }
+            &:nth-child(3) {
+              flex: 1; 
+              img {
+                margin-top: -8px;
+                margin-bottom: 0px;
+                height: 15px;
+                margin-left: 0px;
+              } 
+            }
+            &:nth-child(4) { 
+              flex: 1; 
+           
+            }
+          }
+        }
+      }
+      .bottom {
+        margin-top: 15px;
+        display: flex;
+        justify-content: space-between;
+      } 
     }
   }
 }

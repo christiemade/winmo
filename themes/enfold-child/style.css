@@ -10647,6 +10647,7 @@ h5 {
   }
   #cta-footer div > h4 {
     margin-top: -40px;
+    text-align: center;
   }
 }
 @media (max-width: 575.98px) {
@@ -10676,6 +10677,13 @@ h5 {
   flex: 1;
   padding: 0px;
   font-size: 22px;
+}
+@media (max-width: 767.98px) {
+  #cta-footer > div:last-child {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 }
 
 #footer {
@@ -10979,7 +10987,7 @@ body #error {
   margin: 30px auto;
 }
 body .gray_box {
-  border: 11px inset rgba(7, 64, 88, 0.2);
+  border: 11px solid #426170;
   background: white;
   border-radius: 20px;
   padding: 40px;
@@ -11120,6 +11128,7 @@ header#company:after {
 }
 header#company #overview {
   flex-basis: 48.1%;
+  border-color: #cfd9dd;
 }
 header#company #overview .contact {
   padding-top: 3em;
@@ -11127,16 +11136,34 @@ header#company #overview .contact {
 header#agency:after {
   background-image: url(assets/img/agencies/header-agency.jpg);
 }
+header #overview {
+  border-color: #cfd9dd;
+}
 header #overview .contact {
   display: flex;
 }
 header #overview .contact > div {
   flex: 1;
 }
+header #overview .contact > div .iconbox .iconbox_content svg {
+  border: 0px;
+  width: 17px;
+  height: 17px;
+  font-size: 18px;
+  line-height: 24px;
+  border-radius: 0px;
+  text-align: left;
+  margin-right: 10px;
+  margin-top: 3px;
+}
+header #overview .contact > div .iconbox .iconbox_content svg path {
+  fill: #074058;
+}
 header #overview .contact > div .iconbox .iconbox_content .iconbox_content_title {
   font-size: 1em;
   color: #074058;
   margin: 0px;
+  margin-bottom: 12px;
 }
 header #overview .contact > div .iconbox .iconbox_content .iconbox_content_container {
   clear: left;
@@ -11175,12 +11202,77 @@ body.agencies #main header > .container #overview .row .col:last-child {
 body.agencies #main header > .container #overview .row .contact {
   flex-direction: column;
 }
+body.agencies #main header > .container #overview .row .social {
+  padding-top: 20px;
+}
+body.agencies section {
+  padding-bottom: 4em;
+}
+body.agencies section#employees {
+  padding-bottom: 2em;
+}
+body.agencies section #marketing_table .grid > .row {
+  gap: 0px;
+  align-items: center;
+}
+body.agencies section #marketing_table .grid > .row > div {
+  width: 18%;
+  display: flex;
+  align-items: center;
+}
+body.agencies section #marketing_table .grid > .row > div:first-child {
+  text-align: center;
+  width: 5%;
+  justify-content: center;
+}
+body.agencies section #marketing_table .grid > .row > div:nth-child(2) {
+  width: 19%;
+}
+body.agencies section #marketing_table .grid > .row > div:nth-child(3) {
+  width: 26%;
+}
+body.agencies section #marketing_table .grid > .row > div:nth-child(4) {
+  width: 27.5%;
+}
+body.agencies section #marketing_table .grid > .row > div:nth-child(5) {
+  width: 12%;
+}
+body.agencies section #marketing_table .grid > .row > div:last-child {
+  width: 10.5%;
+  justify-content: center;
+}
+body.agencies section #marketing_table .grid > .row:first-child {
+  background-color: #25C9BA;
+}
+body.agencies section #marketing_table .grid .details .row > div .phone {
+  line-height: 30px;
+}
+body.agencies section #marketing_table .grid .details .row > div:not(.social) img {
+  height: auto;
+}
+body.agencies section #marketing_table .grid .details .row > div:nth-child(3) {
+  flex: 1;
+}
+body.agencies section #marketing_table .grid .details .row > div:nth-child(3) img {
+  margin-top: -8px;
+  margin-bottom: 0px;
+  height: 15px;
+  margin-left: 0px;
+}
+body.agencies section #marketing_table .grid .details .row > div:nth-child(4) {
+  flex: 1;
+}
+body.agencies section #marketing_table .bottom {
+  margin-top: 15px;
+  display: flex;
+  justify-content: space-between;
+}
 
 body.contacts #header_main nav {
   display: none;
 }
 body.contacts #main header > .container {
-  padding-top: 18vh;
+  padding-top: 150px;
 }
 @media (max-width: 767.98px) {
   body.contacts #main header > .container {
@@ -11257,11 +11349,13 @@ body.contacts #main header + .container {
 @media (min-width: 768px) {
   body.contacts #main header + .container > main {
     margin-left: 55px;
+    padding-bottom: 80px;
   }
 }
 @media (max-width: 767.98px) {
   body.contacts #main header + .container > main {
     margin-top: 30px;
+    padding-bottom: 65px;
   }
 }
 body.contacts #main header + .container > main .iconbox_left {
@@ -11270,11 +11364,21 @@ body.contacts #main header + .container > main .iconbox_left {
 body.contacts #main header + .container > main .gray_box .col .p {
   margin-top: 33px;
 }
+@media (max-width: 991.98px) {
+  body.contacts #main header + .container > main #contact_information .row {
+    flex-direction: column;
+  }
+}
 body.contacts #main header + .container > main #personality_insights img {
   margin-top: 30px;
 }
 body.contacts #main header + .container > main #disc_profile .gray_box .col:first-child {
   padding: 10px 25px;
+}
+@media (max-width: 991.98px) {
+  body.contacts #main header + .container > main #disc_profile .gray_box.row {
+    flex-direction: column;
+  }
 }
 body.contacts #main header + .container > main #disc_profile p {
   margin: 33px 0px;
@@ -11282,12 +11386,28 @@ body.contacts #main header + .container > main #disc_profile p {
 body.contacts #main header + .container > main #disc_profile p:last-child {
   margin-bottom: 0px;
 }
+@media (max-width: 991.98px) {
+  body.contacts #main header + .container > main #OCEAN_profile .gray_box.row {
+    flex-direction: column;
+  }
+}
+@media (max-width: 767.98px) {
+  body.contacts #main header + .container > main .gray_box .col h4 {
+    margin-top: 20px;
+  }
+}
 body.contacts #main header + .container > main #company {
   font-size: 1em;
 }
 body.contacts #main header + .container > main #company .row {
   margin-top: 1em;
   gap: 44px;
+}
+@media (max-width: 991.98px) {
+  body.contacts #main header + .container > main #company .row {
+    flex-direction: column;
+    gap: 20px;
+  }
 }
 body.contacts #main header + .container > main #company .col.contact {
   margin-top: 0.85em;
@@ -11300,6 +11420,8 @@ body.contacts #main header + .container > main #company .col.contact .iconbox.ic
 }
 body.contacts #main header + .container > main #company .col.buttons {
   margin-top: 0.85em;
+  flex: none;
+  width: 127px;
 }
 body.contacts aside nav {
   padding-bottom: 1em;
