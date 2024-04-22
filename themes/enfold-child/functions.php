@@ -3,7 +3,7 @@
 // Stylesheet caching version
 function avia_get_theme_version($which = 'parent')
 {
-  return '1.0.0.0.38.34';
+  return '1.0.0.0.38.39';
 }
 
 // Allow for overriding of Enfold templates
@@ -17,6 +17,9 @@ function avia_include_shortcode_template($paths)
 
 // Company display related hooks
 include("inc/companies.php");
+
+// Agency display related hooks
+include("inc/agencies.php");
 
 // Contacts display related hooks
 include("inc/contacts.php");
@@ -42,15 +45,12 @@ function winmo_rewrite_basic()
 {
   // Allow company page to have any ID
   $company_page = get_page_by_path('companies');
+  $agency_page = get_page_by_path('agencies');
   $contact_page = get_page_by_path('contacts');
-  if (empty($contact_page)) {
-    $contact_page = 31;
-  } else {
-    $contact_page = $contact_page->ID;
-  }
 
   add_rewrite_rule('^company/([^/]*)/?', 'index.php?page_id=' . $company_page->ID . '&rid=$matches[1]', 'top');
-  add_rewrite_rule('^decision_makers/([^/]*)/?', 'index.php?page_id=' . $contact_page . '&pid=$matches[1]', 'top');
+  add_rewrite_rule('^agency/([^/]*)/?', 'index.php?page_id=' . $agency_page->ID . '&rid=$matches[1]', 'top');
+  add_rewrite_rule('^decision_makers/([^/]*)/?', 'index.php?page_id=' . $contact_page->ID . '&pid=$matches[1]', 'top');
 }
 add_action('init', 'winmo_rewrite_basic');
 

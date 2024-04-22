@@ -30,7 +30,7 @@ if (is_wp_error($contact_data)) {
       <div id="overview" class="gray_box">
         <h1><?php print $full_name; ?></h1>
         <div class="row">
-          <div class="col col-4">
+          <div class="col">
 
             <h5><?php print $contact_data[0]['title'] . " - " . $company['name']; ?></h5>
             <p><?php print $full_name; ?> is <?php print $contact_data[0]['title']; ?> for <?php print $company['name']; ?>s. On this page, you’ll find the business email and phone number for <?php print $full_name; ?> as unique insights such as do's and don'ts for engaging, and outreach tips based on both DiSC and Ocean personality profiles.</p>
@@ -108,7 +108,7 @@ if (is_wp_error($contact_data)) {
 
       <section id="disc_profile">
         <div class="gray_box row va-center">
-          <div class="col">
+          <div class="col-4">
             <img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/contacts/disc-profile.svg">
           </div>
           <div class="col">
@@ -137,7 +137,7 @@ if (is_wp_error($contact_data)) {
           <?php $company_data = set_company_transient($company['id'], $type); ?>
           <div class="row">
             <div class="col">
-              <p><?php $type == 'company' ? print $company_data['notes'] : print $company_data['description']; ?></p>
+              <p><?php isset($company_data['notes']) ? print $company_data['notes'] : print $company_data['description']; ?></p>
             </div>
             <div class="col contact">
               <div class="phone">

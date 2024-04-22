@@ -26,5 +26,8 @@ Template: enfold
 @import 'assets/scss/elements/iconbox.scss';
 @import 'assets/scss/elements/pager.scss';
 @import 'assets/scss/themes/theme.scss';
+
+// individual page styles
 @import 'assets/scss/pages/companies.scss';
+@import 'assets/scss/pages/agencies.scss';
 @import 'assets/scss/pages/contacts.scss';

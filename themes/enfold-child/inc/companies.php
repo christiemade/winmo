@@ -1,7 +1,8 @@
 <?php
 function set_company_transient($company_id, $type = "company")
 {
-  $company = get_transient('winmo_company_' . $company_id);
+
+  $company = get_transient('winmo_' . $type . '_' . $company_id);
 
   // check to see if companies was successfully retrieved from the cache
   if (false === $company) {
@@ -10,7 +11,7 @@ function set_company_transient($company_id, $type = "company")
     $company = winmo_company_api($company_id, $type);
 
     // store the company's data and set it to expire in 1 week
-    set_transient('winmo_company_' . $company_id, $company, 604800);
+    set_transient('winmo_' . $type . '_' . $company_id, $company, 604800);
   }
   return $company;
 }

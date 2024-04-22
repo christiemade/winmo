@@ -11080,12 +11080,11 @@ body.companies section#marketing, body.companies section#ad_spend {
   padding-bottom: 0px;
 }
 
-header#business {
+header.business {
   position: relative;
   margin-bottom: 3em;
 }
-header#business:after {
-  background-image: url(assets/img/companies/header-company.jpg);
+header.business:after {
   content: "";
   -webkit-clip-path: ellipse(87% 83% at 51% 16%);
           clip-path: ellipse(87% 83% at 51% 16%);
@@ -11100,28 +11099,36 @@ header#business:after {
   background-position: center bottom;
 }
 @media (max-width: 991.98px) {
-  header#business:after {
+  header.business:after {
     -webkit-clip-path: ellipse(120% 83% at 51% 16%);
             clip-path: ellipse(120% 83% at 51% 16%);
   }
 }
 @media (max-width: 767.98px) {
-  header#business:after {
+  header.business:after {
     -webkit-clip-path: ellipse(170% 83% at 51% 16%);
             clip-path: ellipse(170% 83% at 51% 16%);
   }
 }
-header#business > .container {
+header.business > .container {
   display: flex;
   justify-content: start;
   z-index: 1;
 }
-header #overview {
+header#company:after {
+  background-image: url(assets/img/companies/header-company.jpg);
+}
+header#company #overview {
   flex-basis: 48.1%;
+}
+header#company #overview .contact {
+  padding-top: 3em;
+}
+header#agency:after {
+  background-image: url(assets/img/agencies/header-agency.jpg);
 }
 header #overview .contact {
   display: flex;
-  padding-top: 3em;
 }
 header #overview .contact > div {
   flex: 1;
@@ -11150,6 +11157,25 @@ header #overview .contact > div.phone .iconbox .iconbox_content .iconbox_content
   padding-left: 20px;
 }
 
+body.agencies #header_main nav {
+  display: none;
+}
+@media (min-width: 768px) {
+  body.agencies #main header > .container {
+    padding-top: 150px;
+  }
+}
+body.agencies #main header > .container #overview {
+  flex: 1;
+}
+body.agencies #main header > .container #overview .row .col:last-child {
+  flex: none;
+  width: 250px;
+}
+body.agencies #main header > .container #overview .row .contact {
+  flex-direction: column;
+}
+
 body.contacts #header_main nav {
   display: none;
 }
@@ -11167,7 +11193,7 @@ body.contacts #main header > .container {
   }
 }
 body.contacts #main header:after {
-  background-image: url(assets/img/contacts/header.jpg);
+  background-image: url(assets/img/contacts/header-stakeholder.jpg);
 }
 body.contacts #main header #overview {
   flex: 1;
@@ -11175,6 +11201,16 @@ body.contacts #main header #overview {
 @media (max-width: 767.98px) {
   body.contacts #main header #overview {
     padding: 20px 30px;
+  }
+}
+@media (min-width: 992px) {
+  body.contacts #main header #overview .row .col:first-child + .col {
+    width: 200px;
+    flex: none;
+  }
+  body.contacts #main header #overview .row .col:first-child + .col + .col {
+    width: 250px;
+    flex: none;
   }
 }
 @media (max-width: 991.98px) {
@@ -11237,6 +11273,9 @@ body.contacts #main header + .container > main .gray_box .col .p {
 body.contacts #main header + .container > main #personality_insights img {
   margin-top: 30px;
 }
+body.contacts #main header + .container > main #disc_profile .gray_box .col:first-child {
+  padding: 10px 25px;
+}
 body.contacts #main header + .container > main #disc_profile p {
   margin: 33px 0px;
 }
@@ -11251,8 +11290,6 @@ body.contacts #main header + .container > main #company .row {
   gap: 44px;
 }
 body.contacts #main header + .container > main #company .col.contact {
-  flex: none;
-  flex-basis: fit-content;
   margin-top: 0.85em;
 }
 body.contacts #main header + .container > main #company .col.contact .phone {
@@ -11261,14 +11298,8 @@ body.contacts #main header + .container > main #company .col.contact .phone {
 body.contacts #main header + .container > main #company .col.contact .iconbox.iconbox_left_content .iconbox_content_title {
   font-size: 1em;
 }
-body.contacts #main header + .container > main #company .col.contact + .col {
-  flex: none;
-  width: 99px;
-}
 body.contacts #main header + .container > main #company .col.buttons {
   margin-top: 0.85em;
-  flex: none;
-  width: 127px;
 }
 body.contacts aside nav {
   padding-bottom: 1em;
@@ -11284,6 +11315,7 @@ body.contacts aside nav li.active a {
 #filter-form {
   display: flex;
   gap: 20px;
+  align-items: center;
 }
 #filter-form > span {
   flex-basis: 120px;
@@ -11292,6 +11324,7 @@ body.contacts aside nav li.active a {
 #filter-form > input:not(.btn), #filter-form > select {
   flex: 1;
   width: auto;
+  margin: 0px;
 }
 #filter-form > .btn {
   flex-basis: 90px;

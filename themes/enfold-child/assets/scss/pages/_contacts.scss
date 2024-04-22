@@ -2,7 +2,7 @@ body.contacts {
   #header_main nav { display: none;}
   #main header  { 
     & > .container { 
-      padding-top: 18vh; 
+      padding-top: 150px; 
       @include breakpoint(md, 'max') {  
         padding-top: 8vh;
       }
@@ -11,7 +11,7 @@ body.contacts {
       }
     }
     &:after {
-      background-image: url(assets/img/contacts/header.jpg);
+      background-image: url(assets/img/contacts/header-stakeholder.jpg);
     }
     #overview { 
       flex: 1;
@@ -19,6 +19,18 @@ body.contacts {
         padding: 20px 30px;
       }
       .row {
+        @include breakpoint(lg, 'min') {
+          .col:first-child {
+            & + .col {
+              width: 200px;
+              flex: none;
+              & + .col {
+                width: 250px;
+                flex: none;
+              }
+            }
+          }
+        }
         @include breakpoint(lg, 'max') {
           display: grid;
           grid-template-columns: auto 250px;
@@ -70,6 +82,11 @@ body.contacts {
           }
         }
         #disc_profile {
+          .gray_box {
+            .col:first-child {
+              padding: 10px 25px;
+            }
+          }
           p {
             margin: 33px 0px;
             &:last-child {
@@ -84,8 +101,8 @@ body.contacts {
             gap: 44px;
           }
           .col.contact {
-            flex: none;
-            flex-basis: fit-content;
+            //flex: none;
+            //flex-basis: fit-content;
             margin-top: 0.85em;
             .phone {
               margin-bottom: 1em;
@@ -94,14 +111,14 @@ body.contacts {
               font-size: 1em;
             }
             & + .col {
-              flex: none;
-              width: 99px;
+              //flex: none;
+              //width: 99px;
             }
           }
           .col.buttons {
             margin-top: 0.85em;
-            flex: none;
-            width: 127px;
+            //flex: none;
+            //width: 127px;
           }
         }
       }

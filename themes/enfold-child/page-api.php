@@ -40,6 +40,16 @@ do_action('ava_page_template_after_header'); ?>
     } else {
       get_template_part('partials/list', 'contact');
     }
+  elseif (is_page('agencies')) :
+    $agencies = get_transient('winmo_agencies');
+    if (is_array($agencies)) :
+      $dataid = get_query_var('rid');
+      if ($dataid) {
+        get_template_part('partials/business', 'agency');
+      } else {
+        get_template_part('partials/list', 'agency');
+      }
+    endif;
   endif;
 
   ?>

@@ -98,11 +98,10 @@ body.companies {
   }
 }
 header {
-  &#business {
+  &.business {
     position: relative;
     margin-bottom: 3em;
     &:after {
-      background-image: url(assets/img/companies/header-company.jpg);
       @include arc;
     }
     & > .container {
@@ -111,11 +110,25 @@ header {
       z-index: 1;
     }
   }
+  &#company {
+    &:after {
+      background-image: url(assets/img/companies/header-company.jpg);
+    }
+    #overview {
+      flex-basis: 48.1%;
+      .contact {
+        padding-top: 3em;
+      }
+    }
+  }
+  &#agency {
+    &:after {
+      background-image: url(assets/img/agencies/header-agency.jpg);
+    }
+  }
   #overview {
-    flex-basis: 48.1%;
     .contact {
       display: flex;
-      padding-top: 3em;
       & > div {
         flex: 1;
         .iconbox .iconbox_content {

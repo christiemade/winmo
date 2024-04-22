@@ -7,7 +7,7 @@ wp_enqueue_script('sticky-nav');
 
 // Grab data for page from query vars and the API
 $company = get_query_var('rid');
-$company_data = set_company_transient($company);
+$company_data = set_company_transient($company, "company");
 
 // Error check
 if (is_wp_error($company_data)) {
@@ -22,7 +22,7 @@ if (is_wp_error($company_data)) {
     $company_data['location']['city'] . ", " . $company_data['location']['state'] . " " . $company_data['location']['zip_code'] . "<br>" .
     $company_data['location']['country'];
 ?>
-  <header id="business">
+  <header id="company" class="business">
     <div class="container">
       <div id="overview" class="gray_box">
         <h1><?php print $company_data['name']; ?> Advertising Profile</h1>
