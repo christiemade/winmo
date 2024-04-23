@@ -226,14 +226,14 @@ if (is_wp_error($company_data)) {
             <h3><?php print $company_data['name']; ?> Advertising Spend</h3>
             <p>Winmo provides comprehensive data detailing annual advertising spend for <?php print $company_data['name']; ?>, showcasing the total spend broken down by month, fiscal quarter and monthly percentage change to illustrate the company's evolving marketing advertising strategies.</p>
           </div>
-          <div class="col col-5-5"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/companies/advertising-spend.svg"></div>
+          <div class="col col-5-5"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/companies/advertising-spend.png"></div>
         </div>
         <div class="row va-center">
           <div class="col">
             <h3><?php print $company_data['name']; ?> Media Mix</h3>
             <p>Explore a detailed breakdown of the last 12 months media spending for <?php print $company_data['name']; ?> across various advertising channels including digital, broadcast, print, radio and more. Those channels can then be broken down further and viewed monthly or quarterly.</p>
           </div>
-          <div class="col col-5-5"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/companies/media-mix.svg"></div>
+          <div class="col col-5-5"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/companies/media-mix.png"></div>
         </div>
       </section>
       <section id="social_media_marketing">
@@ -242,7 +242,7 @@ if (is_wp_error($company_data)) {
             <h3><?php print $company_data['name']; ?> Social Media Marketing Ad Spend</h3>
             <p>See whether <?php print $company_data['name']; ?> is spending on social media platforms like X, TikTok, Facebook, Instagram and Pinterest, as well as how active it is on YouTube desktop, iOS or Android.</p>
           </div>
-          <div class="col col-5-5"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/companies/social-media-marketing-ad-spend.svg"></div>
+          <div class="col col-5-5"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/companies/social-media-marketing-ad-spend.png"></div>
         </div>
       </section>
 
@@ -278,7 +278,7 @@ if (is_wp_error($company_data)) {
     <div class="col container">
       <h2>Win More with Winmo</h2>
       <p>If you are looking to tap into <?php print $company_data['name']; ?> marketing spend, Winmo paves a clear path to engaging the right contacts at the right time. Winmo connects ad spend, marketing activity and peak buying periods to marketing team and ad agency budget-holders, even providing you with AI-powered email templates based on <?php print $company_data['name']; ?> decision-makers' personality types. Winmo's award winning platform tracks this intel for those who control $100 billion in marketing spend each year, making it the top choice among sellers of agency services, advertising, marketing technology, or corporate sponsorships.</p>
-      <p><a href="#"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/companies/win-more-video.jpg"></a></p>
+      <p><a href="#"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/companies/win-more-video.png"></a></p>
     </div>
   </div>
 
