@@ -77,34 +77,34 @@ if (is_wp_error($agency_data)) {
           <div class="top"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/clients-table-header.svg"></div>
           <div class="grid">
             <div class="row">
-              <div><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/name-1.svg"></div>
+              <div><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/companies/agency-blur-2x/agency-4.png"></div>
               <div>NJ</div>
               <div><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/service-1.svg"></div>
-              <div><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/export.svg"></div>
+              <div><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/spend-blur-2x/spend-5.png"></div>
             </div>
             <div class="row">
-              <div><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/name-1.svg"></div>
+              <div><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/companies/agency-blur-2x/agency-3.png"></div>
               <div>MA</div>
               <div><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/service-2.svg"></div>
-              <div><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/export.svg"></div>
+              <div><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/spend-blur-2x/spend-4.png"></div>
             </div>
             <div class="row">
-              <div><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/name-1.svg"></div>
+              <div><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/companies/agency-blur-2x/agency-6.png"></div>
               <div>PA</div>
               <div><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/service-1.svg"></div>
-              <div><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/export.svg"></div>
+              <div><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/spend-blur-2x/spend-3.png"></div>
             </div>
             <div class="row">
-              <div><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/companies/agency-blur-2x/agency-1.png"></div>
-              <div>NJ</div>
+              <div><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/companies/agency-blur-2x/agency-8.png"></div>
+              <div>TX</div>
               <div><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/service-1.svg"></div>
-              <div><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/export.svg"></div>
+              <div><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/spend-blur-2x/spend-2.png"></div>
             </div>
             <div class="row">
-              <div><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/name-1.svg"></div>
+              <div><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/companies/agency-blur-2x/agency-9.png"></div>
               <div>NJ</div>
               <div><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/service-1.svg"></div>
-              <div><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/export.svg"></div>
+              <div><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/spend-blur-2x/spend-1.png"></div>
             </div>
           </div>
 

@@ -11328,7 +11328,8 @@ body.agencies section #clients_table .grid .row > div:nth-child(3) {
   width: 30%;
 }
 body.agencies section #clients_table .grid .row > div:nth-child(4) {
-  width: 23%;
+  width: 27.5%;
+  padding-left: 0px;
 }
 body.agencies section #clients_table .bottom {
   display: flex;
