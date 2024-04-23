@@ -137,7 +137,19 @@ if (is_wp_error($contact_data)) {
           <?php $company_data = set_company_transient($company['id'], $type); ?>
           <div class="row">
             <div class="col">
-              <p><?php isset($company_data['notes']) ? print $company_data['notes'] : print $company_data['description']; ?></p>
+              <p>
+                <?php if ($type == "agency") :
+                  if (isset($company_data['notes'])) :
+                    print $company['name']; ?> is an agency with a focus on <?php print $company_data['notes']; ?>. They are
+                  <?php else :
+                    print $company['name'] . " is ";
+                  endif; ?>
+                  a <?php print strtolower($company_data['type']); ?> company with <?php print $company_data['employees']; ?> employees located in <?php print $company_data['location']['city']; ?>, <?php print $company_data['location']['state']; ?>.
+                  <?php if (!empty($company_data['holding_company'])) : ?> They are part of the holding company <?php print $company_data['holding_company']; ?>.<?php endif;
+                                                                                                                                                              else :
+                                                                                                                                                                print $company_data['description'];
+                                                                                                                                                              endif; ?>
+              </p>
             </div>
             <div class="col contact">
               <div class="phone">

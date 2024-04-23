@@ -12,8 +12,9 @@ body.agencies {
           display: flex;
         }
         .col:first-child {
+          flex: auto;
+          flex-basis: 15%;
           @include breakpoint(lg, 'max') {
-            flex: auto;
             flex-basis: 100%;
           }
         }
@@ -26,7 +27,7 @@ body.agencies {
           @include breakpoint(lg, 'max') { min-width: 200px; }
         }
         .social {
-          padding-top: 20px;
+         
         }
       }
     }
@@ -43,8 +44,11 @@ body.agencies {
         gap: 20px;
       }
     }
+    & > article.iconbox {
+      margin-bottom: 0px;
+    }
     &#employees {
-      padding-bottom: 2em;
+      padding-bottom: 0em;
     }
     
     #marketing_table {
@@ -117,6 +121,37 @@ body.agencies {
         display: flex;
         justify-content: space-between;
       } 
+    }
+    #clients_table {
+      .grid {
+        .row {
+          gap: 0px;
+          align-items: center;
+          & > div {
+            width: 22.5%;
+            padding-left: 2.5%;
+            box-sizing: content-box;
+            display: flex;
+            align-items: center;
+            &:first-child {
+             width: 23%;
+            }
+            &:nth-child(2) { // State
+              width: 14%;
+            }
+            &:nth-child(3) {  // Service
+              width: 30%;
+            }
+            &:nth-child(4) {  // Est. Media Spend
+              width: 23%;
+            }
+          }
+        }
+      }
+      .bottom {
+        display: flex;
+        justify-content: end;
+      }
     }
   }
 }

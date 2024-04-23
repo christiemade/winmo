@@ -39,8 +39,8 @@ if (is_wp_error($agency_data)) {
             <div class="address">
               <?php print do_shortcode("[av_icon_box icon='ue808' font='winmo' title='Primary Address' position='left_content' icon_style='' boxed='' font_color='' custom_title='' custom_content='' color='' custom_bg='' custom_font='fa-solid fa-building' custom_border='' custom_title_size='' av-desktop-font-size-title='' av-medium-font-size-title='' av-small-font-size-title='' av-mini-font-size-title='' custom_content_size='' av-desktop-font-size='' av-medium-font-size='' av-small-font-size='' av-mini-font-size='' heading_tag='' heading_class='' link='' linktarget='' title_attr='' linkelement='' id='' custom_class='' template_class='' av_uid='av-luvpcjbw' sc_version='1.0' admin_preview_bg='']" . $address . "[/av_icon_box]"); ?>
             </div>
-            <div class="social"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/social.svg"></div>
           </div>
+          <div class="col social"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/social.svg"></div>
           <div class="col">
             <img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/buttons.svg">
           </div>
@@ -65,7 +65,7 @@ if (is_wp_error($agency_data)) {
       <section id="current_clients">
         <?php print do_shortcode("[av_icon_box icon='ue8d2' font='entypo-fontello' title='" . $agency_data['name'] . " Clients' position='left' icon_style='' boxed='' font_color='' custom_title='' custom_content='' color='' custom_bg='' custom_font='fa-solid fa-user-tie' custom_border='' custom_title_size='' av-desktop-font-size-title='' av-medium-font-size-title='' av-small-font-size-title='' av-mini-font-size-title='' custom_content_size='' av-desktop-font-size='' av-medium-font-size='' av-small-font-size='' av-mini-font-size='' heading_tag='h2' heading_class='' link='' linktarget='' title_attr='' linkelement='' id='' custom_class='' template_class='' av_uid='av-luvpcjbw' sc_version='1.0' admin_preview_bg=''][/av_icon_box]"); ?>
         <div class="row">
-          <div class="col">
+          <div class="col col-6">
             <p>Explore a detailed list of current and past client that work with <?php print $agency_data['name']; ?>. Sort clients by location, industry, and agency assignment including creative, PR, media planning, media buying and more. With Winmo’s detailed database, you can quickly see which clients list <?php print $agency_data['name']; ?> as the Agency of Record as well as the annual media spend.</p>
           </div>
           <div class="col">
@@ -73,16 +73,52 @@ if (is_wp_error($agency_data)) {
               <?php (!empty($agency_data['holding_company'])) ? print $agency_data['holding_company'] . " is the holding company for " . $agency_data['name'] : print "No, " . $agency_data['name'] . " does not have a holding company"; ?>.</p>
           </div>
         </div>
-        <div class="row">
+        <div class="row table" id="clients_table">
+          <div class="top"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/clients-table-header.svg"></div>
+          <div class="grid">
+            <div class="row">
+              <div><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/name-1.svg"></div>
+              <div>NJ</div>
+              <div><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/service-1.svg"></div>
+              <div><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/export.svg"></div>
+            </div>
+            <div class="row">
+              <div><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/name-1.svg"></div>
+              <div>MA</div>
+              <div><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/service-2.svg"></div>
+              <div><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/export.svg"></div>
+            </div>
+            <div class="row">
+              <div><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/name-1.svg"></div>
+              <div>PA</div>
+              <div><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/service-1.svg"></div>
+              <div><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/export.svg"></div>
+            </div>
+            <div class="row">
+              <div><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/companies/agency-blur-2x/agency-1.png"></div>
+              <div>NJ</div>
+              <div><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/service-1.svg"></div>
+              <div><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/export.svg"></div>
+            </div>
+            <div class="row">
+              <div><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/name-1.svg"></div>
+              <div>NJ</div>
+              <div><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/service-1.svg"></div>
+              <div><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/export.svg"></div>
+            </div>
+          </div>
 
-          Image with everything grayed out - or no image?
+          <div class="bottom">
+            <img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/companies/pagination.svg">
+          </div>
+
         </div>
       </section>
 
       <section id="employees">
         <?php print do_shortcode("[av_icon_box icon='ue8d2' font='entypo-fontello' title='" . $agency_data['name'] . " Employees' position='left' icon_style='' boxed='' font_color='' custom_title='' custom_content='' color='' custom_bg='' custom_font='fa-solid fa-people-group' custom_border='' custom_title_size='' av-desktop-font-size-title='' av-medium-font-size-title='' av-small-font-size-title='' av-mini-font-size-title='' custom_content_size='' av-desktop-font-size='' av-medium-font-size='' av-small-font-size='' av-mini-font-size='' heading_tag='h2' heading_class='' link='' linktarget='' title_attr='' linkelement='' id='' custom_class='' template_class='' av_uid='av-luvpcjbw' sc_version='1.0' admin_preview_bg=''][/av_icon_box]"); ?>
         <div class="row">
-          <div class="col">
+          <div class="col col-6">
             <p>Explore a complete list of <?php print $agency_data['name']; ?> Employees. We not only have the basics on each team member such as name, job title, brand responsibilities, email, and direct phone number, we also have detailed profiles that include unique insights, do’s and don’ts for engaging, plus both DiSC and Ocean personality profiles. </p>
           </div>
           <div class="col">
@@ -92,7 +128,7 @@ if (is_wp_error($agency_data)) {
         </div>
       </section>
 
-      <section id="mpre">
+      <section id="more">
         <div class="row table" id="marketing_table">
           <div class="top"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/employees-header.svg"></div>
           <div class="grid">
