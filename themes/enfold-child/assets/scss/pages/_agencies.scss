@@ -1,16 +1,29 @@
 body.agencies {
   #header_main nav { display: none;}
   #main header > .container { 
+    padding-top: 50px;
     @include breakpoint(md) { padding-top: 150px; }
     #overview {
       flex: 1;
       .row {
+        @include breakpoint(lg, 'max') { 
+          flex-wrap: wrap; 
+          gap: 20px;
+          display: flex;
+        }
+        .col:first-child {
+          @include breakpoint(lg, 'max') {
+            flex: auto;
+            flex-basis: 100%;
+          }
+        }
         .col:last-child {
           flex: none;
           width: 250px;
         }
         .contact {
           flex-direction: column;
+          @include breakpoint(lg, 'max') { min-width: 200px; }
         }
         .social {
           padding-top: 20px;
@@ -20,6 +33,16 @@ body.agencies {
   }
   section {
     padding-bottom: 4em;
+    @include breakpoint(md, 'max') { 
+      padding-top: 3em;
+      padding-bottom: 1em;
+    }
+    & > .row {
+      @include breakpoint(lg, 'max') { 
+        flex-direction: column;
+        gap: 20px;
+      }
+    }
     &#employees {
       padding-bottom: 2em;
     }

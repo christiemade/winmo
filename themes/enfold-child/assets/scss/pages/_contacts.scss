@@ -125,9 +125,18 @@ body.contacts {
           .row {
             margin-top: 1em;
             gap: 44px;
+            @include breakpoint(xl, 'max') {
+              flex-wrap: wrap;
+            }
             @include breakpoint(lg, 'max') {
               flex-direction: column;
               gap: 20px;
+            }
+          }
+          .col:first-child {
+            @include breakpoint(xl, 'max') {
+              flex: auto;
+              flex-basis: 100%;
             }
           }
           .col.contact {
