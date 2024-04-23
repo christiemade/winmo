@@ -11262,6 +11262,9 @@ body.agencies section #marketing_table .grid .details .row > div:nth-child(3) im
 body.agencies section #marketing_table .grid .details .row > div:nth-child(4) {
   flex: 1;
 }
+body.agencies section #marketing_table .grid > .row:not(:first-of-type) div:nth-child(2) {
+  filter: blur(4px);
+}
 body.agencies section #marketing_table .bottom {
   margin-top: 15px;
   display: flex;

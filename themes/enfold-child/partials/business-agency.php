@@ -29,7 +29,7 @@ if (is_wp_error($agency_data)) {
         <div class="row">
           <div class="col">
             <h5>Company Overview:</h5>
-            <p><?php print $agency_data['description']; ?></p>
+            <p><?php print $agency_data['name']; ?> is an agency with a focus on <?php print $agency_data['description']; ?>. They are a <?php print strtolower($agency_data['type']); ?> company with <?php print $agency_data['employees']; ?> employees located in <?php print $agency_data['location']['city']; ?>, <?php print $agency_data['location']['state']; ?>.<?php if (!empty($agency_data['holding_company'])) : ?> They are part of the holding company <?php print $agency_data['holding_company']; ?>.<?php endif; ?></p>
           </div>
           <div class="col contact">
             <div class="phone">
@@ -149,7 +149,7 @@ if (is_wp_error($agency_data)) {
   <div class="row alternate_color ha-center" id="win-more">
     <div class="col container">
       <h2>Win More with Winmo</h2>
-      <p>If you are looking to tap into <?php print $agency_data['name']; ?> marketing spend, Winmo paves a clear path to engaging the right contacts at the right time. Winmo connects ad spend, marketing activity and peak buying periods to marketing team and ad agency budget-holders, even providing you with AI-powered email templates based on <?php print $agency_data['name']; ?> decision-makers' personality types. Winmo's award winning platform tracks this intel for those who control $100 billion in marketing spend each year, making it the top choice among sellers of agency services, advertising, marketing technology, or corporate sponsorships.</p>
+      <p>If you are looking to tap into marketing spend managed by <?php print $agency_data['name']; ?>, Winmo paves a clear path to engaging the right contacts at the right time. Whether you are navigating large holding company agencies, or need to know account responsibilities of boutique shops, Winmo connects agencies, clients, and ad spend in an intuitive platform built for new business - even providing you with AI-powered email templates based on <?php print $agency_data['name']; ?> decision-makers’ personality types. Winmo’s award winning platform tracks this intel for those who control $100 billion in marketing spend each year, making it the top choice among sellers of agency services, advertising, marketing technology, or corporate sponsorships.</p>
       <p><a href="#"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/companies/win-more-video.png"></a></p>
     </div>
   </div>

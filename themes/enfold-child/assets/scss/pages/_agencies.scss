@@ -83,6 +83,11 @@ body.agencies {
             }
           }
         }
+        & > .row:not(:first-of-type) {
+          div:nth-child(2) {  // Additional Names Blur
+            filter: blur(4px);
+          }
+        }
       }
       .bottom {
         margin-top: 15px;
