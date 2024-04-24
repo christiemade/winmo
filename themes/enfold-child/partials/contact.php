@@ -36,7 +36,7 @@ if (is_wp_error($contact_data)) {
             <p><?php print $full_name; ?> is <?php print $contact_data[0]['title']; ?> for <?php print $company['name']; ?>s. On this page, you’ll find the business email and phone number for <?php print $full_name; ?> as unique insights such as do's and don'ts for engaging, and outreach tips based on both DiSC and Ocean personality profiles.</p>
           </div>
           <div class="col"><strong>Social:</strong><br><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/contacts/socials.svg"></div>
-          <div class="col"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/contacts/action-buttons.svg"></div>
+          <div class="col"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/contacts/action-buttons.svg?id=2"></div>
         </div>
       </div>
     </div>

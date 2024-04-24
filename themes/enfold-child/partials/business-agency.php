@@ -85,31 +85,31 @@ if (is_wp_error($agency_data)) {
             <div class="row">
               <div><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/companies/agency-blur-2x/agency-4.png"></div>
               <div>NJ</div>
-              <div><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/service-1.svg"></div>
+              <div class="pills"><span class="aor">AOR</span><span>Media Planning</span><span>Media Buying</span></div>
               <div><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/spend-blur-2x/spend-5.png"></div>
             </div>
             <div class="row">
               <div><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/companies/agency-blur-2x/agency-3.png"></div>
               <div>MA</div>
-              <div><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/service-2.svg"></div>
+              <div class="pills"><span>Media Planning</span><span>Media Buying</span></div>
               <div><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/spend-blur-2x/spend-4.png"></div>
             </div>
             <div class="row">
               <div><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/companies/agency-blur-2x/agency-6.png"></div>
               <div>PA</div>
-              <div><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/service-1.svg"></div>
+              <div class="pills"><span class="aor">AOR</span><span>Media Planning</span><span>Media Buying</span></div>
               <div><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/spend-blur-2x/spend-3.png"></div>
             </div>
             <div class="row">
               <div><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/companies/agency-blur-2x/agency-8.png"></div>
               <div>TX</div>
-              <div><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/service-1.svg"></div>
+              <div class="pills"><span class="aor">AOR</span><span>Media Planning</span><span>Media Buying</span></div>
               <div><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/spend-blur-2x/spend-2.png"></div>
             </div>
             <div class="row">
               <div><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/companies/agency-blur-2x/agency-9.png"></div>
               <div>NJ</div>
-              <div><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/service-1.svg"></div>
+              <div class="pills"><span class="aor">AOR</span><span>Media Planning</span><span>Media Buying</span></div>
               <div><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/spend-blur-2x/spend-1.png"></div>
             </div>
           </div>
@@ -136,7 +136,15 @@ if (is_wp_error($agency_data)) {
 
       <section id="more">
         <div class="row table" id="marketing_table">
-          <div class="top"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/employees-header.svg"></div>
+          <div class="top desktop"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/employee-table-top.svg"></div>
+          <div class="top">
+            <div class="nosort">&nbsp;</div>
+            <div><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/table-label-name.png"><span>Name</span></div>
+            <div><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/table-label-title.png"><span>Title</span></div>
+            <div><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/table-label-email.png"><span>Email</span></div>
+            <div><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/clients-top-state.png"><span>State</span></div>
+            <div class="nosort"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/table-label-action.png"><span>Action</span></div>
+          </div>
           <div class="grid">
             <?php
             $people_total = sizeof($agency_data['contacts']);

@@ -78,7 +78,4 @@
   & + .container.row {
     @include breakpoint(lg, 'max') {  gap: 0px; }
   }
-
-  #overview {
-  }
 }

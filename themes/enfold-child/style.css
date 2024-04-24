@@ -10882,8 +10882,12 @@ aside #cta img {
   max-width: 70%;
 }
 .row .col.col-6 {
-  max-width: 60%;
   flex: none;
+}
+@media (min-width: 992px) {
+  .row .col.col-6 {
+    max-width: 60%;
+  }
 }
 .row .col.col-5-5 {
   max-width: 55%;
@@ -10916,11 +10920,16 @@ body .gray_box {
   border: 11px solid #426170;
   background: white;
   border-radius: 20px;
-  padding: 40px;
+  padding: 23px;
   line-height: 1.6875em;
   font-weight: 300;
   gap: 30px;
   box-shadow: 0px 4px 64px 0px rgba(0, 0, 0, 0.07);
+}
+@media (min-width: 768px) {
+  body .gray_box {
+    padding: 40px;
+  }
 }
 body main.col .gray_box {
   padding: 30px;
@@ -10985,7 +10994,7 @@ body main.col .gray_box {
 .row.table .top > div {
   position: relative;
 }
-.row.table .top > div::after {
+.row.table .top > div:not(.nosort)::after {
   content: "";
   background: url(assets/img/agencies/arrows.svg);
   width: 6px;
@@ -10994,7 +11003,12 @@ body main.col .gray_box {
   right: 0;
 }
 @media (max-width: 767.98px) {
-  .row.table .top > div::after {
+  .row.table .top > div:not(.nosort)::after {
+    display: none;
+  }
+}
+@media (max-width: 767.98px) {
+  .row.table .top > div.nosort {
     display: none;
   }
 }
@@ -11034,7 +11048,7 @@ body main.col .gray_box {
   line-height: 18px;
   gap: 0px;
   row-gap: 0px;
-  align-content: baseline;
+  align-content: center;
 }
 .row.table .grid .row div.pills span {
   font-size: 8px;
@@ -11322,6 +11336,7 @@ body.agencies section {
 @media (max-width: 991.98px) {
   body.agencies section > .row {
     flex-direction: column;
+    gap: 0px;
   }
 }
 body.agencies section > article.iconbox {
@@ -11330,47 +11345,150 @@ body.agencies section > article.iconbox {
 body.agencies section#employees {
   padding-bottom: 0em;
 }
-body.agencies section #marketing_table .grid > .row {
-  gap: 0px;
-  align-items: center;
+body.agencies section #marketing_table > .top:first-child {
+  border-bottom: 0px;
 }
-body.agencies section #marketing_table .grid > .row > div, body.agencies section #marketing_table .grid > .row > .top > div {
+body.agencies section #marketing_table > .top:first-child + .top img {
+  max-height: 19.5px;
+  width: auto;
+  margin-left: -4px;
+}
+body.agencies section #marketing_table > .top:first-child + .top > div:not(.blank)::after {
+  right: 10px;
+}
+body.agencies section #marketing_table .grid > .row > div, body.agencies section #marketing_table .top > div {
   width: 18%;
   display: flex;
   align-items: center;
 }
-body.agencies section #marketing_table .grid > .row > div:first-child, body.agencies section #marketing_table .grid > .row > .top > div:first-child {
+body.agencies section #marketing_table .grid > .row > div:first-child, body.agencies section #marketing_table .top > div:first-child {
   text-align: center;
   width: 5%;
   justify-content: center;
 }
-body.agencies section #marketing_table .grid > .row > div:nth-child(2), body.agencies section #marketing_table .grid > .row > .top > div:nth-child(2) {
+@media (max-width: 767.98px) {
+  body.agencies section #marketing_table .grid > .row > div:first-child, body.agencies section #marketing_table .top > div:first-child {
+    display: none;
+  }
+}
+body.agencies section #marketing_table .grid > .row > div:nth-child(2), body.agencies section #marketing_table .top > div:nth-child(2) {
   width: 19%;
 }
-body.agencies section #marketing_table .grid > .row > div:nth-child(3), body.agencies section #marketing_table .grid > .row > .top > div:nth-child(3) {
-  width: 26%;
+@media (max-width: 767.98px) {
+  body.agencies section #marketing_table .grid > .row > div:nth-child(2), body.agencies section #marketing_table .top > div:nth-child(2) {
+    padding-left: 2.5%;
+  }
 }
-body.agencies section #marketing_table .grid > .row > div:nth-child(4), body.agencies section #marketing_table .grid > .row > .top > div:nth-child(4) {
-  width: 27.5%;
+@media (max-width: 575.98px) {
+  body.agencies section #marketing_table .grid > .row > div:nth-child(2), body.agencies section #marketing_table .top > div:nth-child(2) {
+    font-size: 9px;
+    width: 23%;
+  }
 }
-body.agencies section #marketing_table .grid > .row > div:nth-child(5), body.agencies section #marketing_table .grid > .row > .top > div:nth-child(5) {
+body.agencies section #marketing_table .grid > .row > div:nth-child(3), body.agencies section #marketing_table .top > div:nth-child(3) {
+  width: 27%;
+  line-height: 12px;
+}
+@media (max-width: 767.98px) {
+  body.agencies section #marketing_table .grid > .row > div:nth-child(3), body.agencies section #marketing_table .top > div:nth-child(3) {
+    width: 36%;
+  }
+}
+@media (max-width: 575.98px) {
+  body.agencies section #marketing_table .grid > .row > div:nth-child(3), body.agencies section #marketing_table .top > div:nth-child(3) {
+    width: 39%;
+    font-size: 9px;
+  }
+}
+body.agencies section #marketing_table .grid > .row > div:nth-child(4), body.agencies section #marketing_table .top > div:nth-child(4) {
+  width: 26.5%;
+}
+@media (max-width: 767.98px) {
+  body.agencies section #marketing_table .grid > .row > div:nth-child(4), body.agencies section #marketing_table .top > div:nth-child(4) {
+    width: 33.5%;
+  }
+}
+@media (max-width: 575.98px) {
+  body.agencies section #marketing_table .grid > .row > div:nth-child(4), body.agencies section #marketing_table .top > div:nth-child(4) {
+    width: 38%;
+  }
+}
+body.agencies section #marketing_table .grid > .row > div:nth-child(5), body.agencies section #marketing_table .top > div:nth-child(5) {
   width: 12%;
 }
-body.agencies section #marketing_table .grid > .row > div:last-child, body.agencies section #marketing_table .grid > .row > .top > div:last-child {
+@media (max-width: 575.98px) {
+  body.agencies section #marketing_table .grid > .row > div:nth-child(5), body.agencies section #marketing_table .top > div:nth-child(5) {
+    display: none;
+  }
+}
+body.agencies section #marketing_table .grid > .row > div:last-child, body.agencies section #marketing_table .top > div:last-child {
   width: 10.5%;
   justify-content: center;
+}
+@media (max-width: 767.98px) {
+  body.agencies section #marketing_table .grid > .row > div:last-child, body.agencies section #marketing_table .top > div:last-child {
+    display: none;
+  }
+}
+body.agencies section #marketing_table .grid > .row {
+  gap: 0px;
+  align-items: center;
 }
 body.agencies section #marketing_table .grid > .row:first-child {
   background-color: #25C9BA;
 }
+body.agencies section #marketing_table .grid > .row > div:nth-child(3) {
+  line-height: 12px;
+  padding-right: 10px;
+}
+body.agencies section #marketing_table .grid > .row > div:nth-child(4) img {
+  margin-left: -13px;
+}
+@media (max-width: 575.98px) {
+  body.agencies section #marketing_table .grid .details .row {
+    flex-wrap: wrap;
+    gap: 30px;
+  }
+}
 body.agencies section #marketing_table .grid .details .row > div .phone {
   line-height: 30px;
+}
+@media (max-width: 767.98px) {
+  body.agencies section #marketing_table .grid .details .row > div:first-child {
+    width: 77px;
+  }
+}
+@media (max-width: 575.98px) {
+  body.agencies section #marketing_table .grid .details .row > div:first-child {
+    width: calc(50% - 30px);
+  }
 }
 body.agencies section #marketing_table .grid .details .row > div:not(.social) img {
   height: auto;
 }
+@media (max-width: 767.98px) {
+  body.agencies section #marketing_table .grid .details .row > div:nth-child(2) {
+    flex-basis: calc(41.9% - 77px);
+  }
+}
+@media (max-width: 575.98px) {
+  body.agencies section #marketing_table .grid .details .row > div:nth-child(2) {
+    flex-basis: 50%;
+  }
+}
 body.agencies section #marketing_table .grid .details .row > div:nth-child(3) {
   flex: 1;
+}
+@media (max-width: 767.98px) {
+  body.agencies section #marketing_table .grid .details .row > div:nth-child(3) {
+    padding-left: 5%;
+  }
+}
+@media (max-width: 575.98px) {
+  body.agencies section #marketing_table .grid .details .row > div:nth-child(3) {
+    padding-left: 0px;
+    width: calc(50% - 30px);
+  }
 }
 body.agencies section #marketing_table .grid .details .row > div:nth-child(3) img {
   margin-top: -8px;
@@ -11388,6 +11506,11 @@ body.agencies section #marketing_table .bottom {
   margin-top: 15px;
   display: flex;
   justify-content: space-between;
+}
+@media (max-width: 575.98px) {
+  body.agencies section #marketing_table .bottom img:first-child {
+    display: none;
+  }
 }
 body.agencies section #clients_table .grid > .row > div, body.agencies section #clients_table .top > div {
   width: 22.5%;
@@ -11428,6 +11551,9 @@ body.agencies section #clients_table .grid .row > div {
 body.agencies section #clients_table .bottom {
   display: flex;
   justify-content: end;
+}
+body.agencies section#more {
+  padding-top: 0px;
 }
 
 body.contacts #header_main nav {
@@ -11503,13 +11629,13 @@ body.contacts #main header #overview {
 body.contacts #main header + .container {
   gap: 0px;
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
   body.contacts #main header + .container > main {
     margin-left: 55px;
     padding-bottom: 80px;
   }
 }
-@media (max-width: 767.98px) {
+@media (max-width: 991.98px) {
   body.contacts #main header + .container > main {
     margin-top: 30px;
     padding-bottom: 65px;

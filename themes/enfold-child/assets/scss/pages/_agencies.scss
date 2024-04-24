@@ -26,9 +26,6 @@ body.agencies {
           flex-direction: column;
           @include breakpoint(lg, 'max') { min-width: 200px; }
         }
-        .social {
-         
-        }
       }
     }
   }
@@ -41,6 +38,7 @@ body.agencies {
     & > .row {
       @include breakpoint(lg, 'max') { 
         flex-direction: column;
+        gap: 0px;
       }
     }
     & > article.iconbox {
@@ -51,61 +49,116 @@ body.agencies {
     }
     
     #marketing_table {
+      & > .top:first-child {
+        border-bottom: 0px;
+        & + .top {
+          img {
+            max-height: 19.5px;
+            width: auto;
+            margin-left: -4px;
+          }
+          & > div:not(.blank)::after {
+            right: 10px;
+          }
+        }
+      }
+
+      .grid > .row, .top {
+        & > div {
+          width: 18%;
+          display: flex;
+          align-items: center;
+          &:first-child {  // Checkbox
+            text-align: center;
+            width: 5%;
+            justify-content: center;
+            @include breakpoint(md, 'max') {
+              display: none;
+            }
+          }
+          &:nth-child(2) {  // Name
+            width: 19%;
+            @include breakpoint(md, 'max') { padding-left: 2.5%; }
+            @include breakpoint(sm, 'max') { font-size: 9px; width:23%; }
+          }
+          &:nth-child(3) {  // title
+            width: 27%;
+            line-height: 12px;
+            @include breakpoint(md, 'max') { width: 36%; }
+            @include breakpoint(sm, 'max') { width: 39%; font-size: 9px; }
+          }
+          &:nth-child(4) {  // email
+            width: 26.5%;
+            @include breakpoint(md, 'max') { width: 33.5%; }
+            @include breakpoint(sm, 'max') { width: 38%; }
+          }
+          &:nth-child(5) {  // state
+            width: 12%;
+            @include breakpoint(sm, 'max') { display: none; }
+          }
+          &:last-child {
+           width: 10.5%;
+           justify-content: center;
+           @include breakpoint(md, 'max') {
+             display: none;
+           }
+          }
+        }
+      }
       .grid {
         & > .row {
           gap: 0px;
           align-items: center;
-          & > div, & > .top > div  { // 6 items
-            width: 18%;
-            display: flex;
-            align-items: center;
-            &:first-child {  // Checkbox
-              text-align: center;
-              width: 5%;
-              justify-content: center;
-            }
-            &:nth-child(2) {  // Name
-              width: 19%;
-            }
-            &:nth-child(3) {  // title
-              width: 26%;
-            }
-            &:nth-child(4) {  // email
-              width: 27.5%;
-            }
-            &:nth-child(5) {  // state
-              
-              width: 12%;
-            }
-            &:last-child {
-             width: 10.5%;
-             justify-content: center;
-            }
-          }
           &:first-child {
             background-color: $teal;
           }
+          & > div {
+            &:nth-child(3) { 
+              line-height: 12px;
+              padding-right: 10px;
+            }
+            &:nth-child(4) {  // email
+              img {
+                margin-left: -13px;
+              }
+            }
+          }
         }
         .details {
-          & .row > div {
-            .phone {
-              line-height: 30px;
-            }
-            &:not(.social) img {
-              height: auto;
-            }
-            &:nth-child(3) {
-              flex: 1; 
-              img {
-                margin-top: -8px;
-                margin-bottom: 0px;
-                height: 15px;
-                margin-left: 0px;
-              } 
-            }
-            &:nth-child(4) { 
-              flex: 1; 
-           
+          & .row {
+            @include breakpoint(sm, 'max') { flex-wrap: wrap; gap: 30px; }
+            & > div {
+              .phone {
+                line-height: 30px;
+              }
+              &:first-child {
+                @include breakpoint(md, 'max') { width: 77px; }
+                @include breakpoint(sm, 'max') { width: calc(50% - 30px); }
+              }
+              &:not(.social) img {
+                height: auto;
+              }
+              &:nth-child(2) {
+                @include breakpoint(md, 'max') {
+                  flex-basis: calc(41.9% - 77px);
+                }
+                @include breakpoint(sm, 'max') { flex-basis: 50%; }
+              }
+              &:nth-child(3) {
+                flex: 1; 
+                @include breakpoint(md, 'max') { padding-left: 5%; }
+                @include breakpoint(sm, 'max') { padding-left: 0px; width: calc(50% - 30px); }
+                img {
+                  margin-top: -8px;
+                  margin-bottom: 0px;
+                  height: 15px;
+                  margin-left: 0px;
+                } 
+              }
+              &:nth-child(4) { 
+                flex: 1; 
+            
+              }
             }
           }
         }
@@ -119,6 +172,7 @@ body.agencies {
         margin-top: 15px;
         display: flex;
         justify-content: space-between;
+        @include breakpoint(sm, 'max') { img:first-child { display: none;}}
       } 
     }
     #clients_table {
@@ -167,6 +221,9 @@ body.agencies {
         display: flex;
         justify-content: end;
       }
+    }
+    &#more {
+      padding-top: 0px;
     }
   }
 }

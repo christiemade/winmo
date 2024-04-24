@@ -22,7 +22,7 @@
       max-width: 70%;
     }
     &.col-6 {
-      max-width: 60%;
+      @include breakpoint(lg) { max-width: 60%; }  // lg on agency - may be md elsewhere?
       flex: none;
     }
     &.col-5-5 {
@@ -59,13 +59,14 @@ body {
     border: 11px solid #426170;
     background: white;
     border-radius: 20px;
-    padding: 40px;
+    padding: 23px;
     line-height: 1.6875em;
     font-weight: 300;
     gap: 30px;
     -webkit-box-shadow: 0px 4px 64px 0px rgba(0,0,0,0.07);
     -moz-box-shadow: 0px 4px 64px 0px rgba(0,0,0,0.07);
     box-shadow: 0px 4px 64px 0px rgba(0,0,0,0.07);
+    @include breakpoint(md, 'min') { padding: 40px; }
   }
   
   main.col .gray_box {

@@ -42,7 +42,7 @@
     }
     & > div {
       position: relative;
-      &::after {
+      &:not(.nosort)::after {
         content: "";
         background: url(assets/img/agencies/arrows.svg);
         width: 6px;
@@ -52,6 +52,9 @@
         @include breakpoint(md, 'max') {
           display: none;
         }
+      }
+      &.nosort {
+        @include breakpoint(md, 'max') { display: none; }
       }
     }
     img {
@@ -89,7 +92,7 @@
         line-height: 18px;
         gap: 0px;
         row-gap: 0px;
-        align-content: baseline;
+        align-content: center;
         span {
           font-size: 8px;
           line-height: 10px;
