@@ -1,0 +1,34 @@
+body#top.industries {
+  #header_main nav { display: none;}
+  #main header  { 
+    & > .container { 
+      padding-top: 150px; 
+      @include breakpoint(md, 'max') {  
+        padding-top: 8vh;
+      }
+      @include breakpoint(sm, 'max') {  
+        padding-top: 4vh;
+      }
+    }
+    &:after {
+      background-image: url(assets/img/categories/header-category.jpg);
+    }
+    & + .container {
+      gap: 0px;
+      main {
+        margin-left: 55px;
+      }
+    }
+  }
+  section {
+    .iconbox_content header {
+      display: flex;
+      align-items: center;
+      max-width: 575px;
+      margin-bottom: 16px;
+      h2 {
+        margin-bottom: 0px;;
+      }
+    }
+  }
+}

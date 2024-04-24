@@ -7,3 +7,26 @@
     line-height: 1.48em;
   }
 }
+#cta2 {
+  margin-top: 3em;
+  padding: 0px 20px 30px 20px;
+  text-align: center;
+
+  @include breakpoint(md, 'max') { 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  img {
+    max-width: calc(100% + 13px);
+    margin: 0px -13px -50px 0px;
+    float: right;
+    display: block;
+    position: relative;
+    top: -40px;
+    @include breakpoint(md, 'max') { 
+      max-width: 300px;
+    }
+  }
+}

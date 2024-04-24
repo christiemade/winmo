@@ -3,7 +3,7 @@
 // Stylesheet caching version
 function avia_get_theme_version($which = 'parent')
 {
-  return '1.0.0.0.38.54';
+  return '1.0.0.0.38.58';
 }
 
 // Allow for overriding of Enfold templates
@@ -23,6 +23,9 @@ include("inc/agencies.php");
 
 // Contacts display related hooks
 include("inc/contacts.php");
+
+// Industry/Category display related hooks
+include("inc/categories.php");
 
 // Remove portfolio functionality from backend
 function winmo_avia_overrides()

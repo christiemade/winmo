@@ -50,6 +50,8 @@ do_action('ava_page_template_after_header'); ?>
         get_template_part('partials/list', 'agency');
       }
     endif;
+  elseif (is_page('industries')) :
+    get_template_part('partials/industries', '');
   endif;
 
   ?>

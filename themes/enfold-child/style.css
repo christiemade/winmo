@@ -10566,6 +10566,7 @@ h5 {
     gap: 0px;
   }
 }
+
 #win-more {
   background: transparent;
   min-height: 500px;
@@ -10802,6 +10803,32 @@ aside #cta img {
   font-size: 25px;
   font-weight: 900;
   line-height: 1.48em;
+}
+
+#cta2 {
+  margin-top: 3em;
+  padding: 0px 20px 30px 20px;
+  text-align: center;
+}
+@media (max-width: 767.98px) {
+  #cta2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+#cta2 img {
+  max-width: calc(100% + 13px);
+  margin: 0px -13px -50px 0px;
+  float: right;
+  display: block;
+  position: relative;
+  top: -40px;
+}
+@media (max-width: 767.98px) {
+  #cta2 img {
+    max-width: 300px;
+  }
 }
 
 #top .iconbox svg path {
@@ -11324,6 +11351,11 @@ body.agencies #main header > .container #overview .row .contact {
     min-width: 200px;
   }
 }
+@media (max-width: 575.98px) {
+  body.agencies #main header > .container #overview .row .social {
+    flex-basis: 100%;
+  }
+}
 body.agencies section {
   padding-bottom: 4em;
 }
@@ -11445,6 +11477,11 @@ body.agencies section #marketing_table .grid > .row > div:nth-child(4) img {
   margin-left: -13px;
 }
 @media (max-width: 575.98px) {
+  body.agencies section #marketing_table .grid > .row > div:nth-child(4) img {
+    margin-left: 0px;
+  }
+}
+@media (max-width: 575.98px) {
   body.agencies section #marketing_table .grid .details .row {
     flex-wrap: wrap;
     gap: 30px;
@@ -11498,6 +11535,11 @@ body.agencies section #marketing_table .grid .details .row > div:nth-child(3) im
 }
 body.agencies section #marketing_table .grid .details .row > div:nth-child(4) {
   flex: 1;
+}
+@media (max-width: 767.98px) {
+  body.agencies section #marketing_table .grid .details .buttons {
+    display: none;
+  }
 }
 body.agencies section #marketing_table .grid > .row:not(:first-of-type) div:nth-child(2) {
   filter: blur(4px);
@@ -11750,4 +11792,42 @@ body.contacts aside nav li.active a {
 #all-contacts > .row:not(.pagination) .col {
   flex-direction: column;
   display: flex;
+}
+
+body#top.industries #header_main nav {
+  display: none;
+}
+body#top.industries #main header > .container {
+  padding-top: 150px;
+}
+@media (max-width: 767.98px) {
+  body#top.industries #main header > .container {
+    padding-top: 8vh;
+  }
+}
+@media (max-width: 575.98px) {
+  body#top.industries #main header > .container {
+    padding-top: 4vh;
+  }
+}
+body#top.industries #main header:after {
+  background-image: url(assets/img/categories/header-category.jpg);
+}
+body#top.industries #main header + .container {
+  gap: 0px;
+}
+body#top.industries #main header + .container aside #cta {
+  margin-top: 3em;
+}
+body#top.industries #main header + .container main {
+  margin-left: 55px;
+}
+body#top.industries section .iconbox_content header {
+  display: flex;
+  align-items: center;
+  max-width: 575px;
+  margin-bottom: 16px;
+}
+body#top.industries section .iconbox_content header h2 {
+  margin-bottom: 0px;
 }
