@@ -79,6 +79,7 @@ body.contacts {
           @include breakpoint(lg, 'max') {
             .row {
               flex-direction: column;
+              min-width: 200px;
             }
           }
         }

@@ -74,7 +74,13 @@ if (is_wp_error($agency_data)) {
           </div>
         </div>
         <div class="row table" id="clients_table">
-          <div class="top"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/clients-table-header.svg"></div>
+          <div class="top desktop"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/desktop-client-header-1.svg"></div>
+          <div class="top">
+            <div><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/clients-top-brand.png"><span>Brand</span></div>
+            <div><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/clients-top-state.png"><span>State</span></div>
+            <div><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/clients-top-services.png"><span>Service</span></div>
+            <div><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/clients-top-media-spend.png"><span>Est. Spend</span></div>
+          </div>
           <div class="grid">
             <div class="row">
               <div><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/companies/agency-blur-2x/agency-4.png"></div>

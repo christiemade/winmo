@@ -74,6 +74,11 @@
     justify-content: start;
     z-index: 1;
   }
+
+  & + .container.row {
+    @include breakpoint(lg, 'max') {  gap: 0px; }
+  }
+
   #overview {
   }
 }

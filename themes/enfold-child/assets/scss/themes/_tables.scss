@@ -1,0 +1,143 @@
+.row.table {
+  background-color: $blue;
+  border: 8px rgba(255,235,219,0.20) solid;
+  border-radius: 8px;
+  gap: 0px;
+  flex-direction: column;
+  padding-bottom: 10px;
+  .top {
+    margin: 24px 32px 9px 32px;
+    border-bottom: 1px $teal solid;
+    padding-bottom: 5px;
+    display: flex;
+    flex-direction: row;
+    gap: 0px;
+    @include breakpoint(md, 'max') {
+      margin-left: 10px;
+      margin-right: 10px;
+    }
+    @include breakpoint(sm, 'max') {
+      margin-top: 10px;
+    }
+    & > div {
+      display: flex;
+      align-items: center;
+      span {
+        @include breakpoint(sm, 'min') { display: none;}
+        color: #fff;
+        font-size: 10px;
+        line-height: 12px;
+      }
+      img {
+        @include breakpoint(sm, 'max') { display: none;}
+      }
+    }
+    & + .top {
+      @include breakpoint(md, 'min') { margin-top: 0px; }
+    }
+    &.desktop {
+      @include breakpoint(md, 'max') {
+        display: none;
+      }
+    }
+    & > div {
+      position: relative;
+      &::after {
+        content: "";
+        background: url(assets/img/agencies/arrows.svg);
+        width: 6px;
+        height: 12px;
+        position: absolute;
+        right: 0;
+        @include breakpoint(md, 'max') {
+          display: none;
+        }
+      }
+    }
+    img {
+      width: 100%;
+      height: auto;
+    }
+  }
+  .grid {
+    padding: 0px 32px 5px 32px;
+    @include breakpoint(md, 'max') {
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+    .row {
+      background-color: #10516C;
+      border-radius: 5px;
+      margin: 3px 0px 2px 0px;
+      color:#ffffff;
+      font-size: 11px;
+      min-height: 37px;
+      padding-bottom: 3px;
+      display: flex;
+      div.blur {
+        img {
+          height: 24px;
+          width: auto;
+          margin-top: 2px;
+        }
+      }
+      div.pills {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: start;
+        align-items: center;
+        line-height: 18px;
+        gap: 0px;
+        row-gap: 0px;
+        align-content: baseline;
+        span {
+          font-size: 8px;
+          line-height: 10px;
+          margin: 5px 3px 0px;
+          border-radius: 3px;
+          background-color: rgba(27,103,201,0.6);
+          font-weight: 200;
+          letter-spacing: 0.1em;
+          padding: 0px 4px;
+          white-space: nowrap;
+          &.aor {
+            background-color: rgba(37,201,186,0.5);
+          }
+        }
+      }
+    }
+    .details {
+      border-radius: 3px;
+      background-color: #10516C;
+      .row {
+        height: auto;
+        padding: 1.5% 2.5%;
+        gap: 0px;
+        &.buttons {
+          padding-top: 0px;
+        }
+        & > div {
+          img {
+            margin-left: -5px;
+            height: 26px;
+            margin-bottom: -5px;
+          }
+          &:first-child {
+            width: 118px;
+          }
+          &:nth-child(2) {  // Actual contact info (phone number and blurs)
+            line-height: 22px;
+            flex-basis: calc(41.9% - 118px);
+          }
+        }
+      }
+    }
+  }
+  .bottom {
+    padding: 0px 32px 10px 32px;
+    @include breakpoint(md, 'max') {
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+  }
+}

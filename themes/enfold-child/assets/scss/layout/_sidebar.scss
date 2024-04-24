@@ -1,4 +1,7 @@
 aside {
+  @include breakpoint(xl, 'max') { 
+    display: none;
+  }
   @include breakpoint(md) {
     width: 303px;
   }

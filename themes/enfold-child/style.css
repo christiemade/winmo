@@ -10561,6 +10561,11 @@ h5 {
   justify-content: start;
   z-index: 1;
 }
+@media (max-width: 991.98px) {
+  #main > .container_wrap_first > header + .container.row {
+    gap: 0px;
+  }
+}
 #win-more {
   background: transparent;
   min-height: 500px;
@@ -10702,6 +10707,11 @@ h5 {
   }
 }
 
+@media (max-width: 1199.98px) {
+  aside {
+    display: none;
+  }
+}
 @media (min-width: 768px) {
   aside {
     width: 303px;
@@ -10886,6 +10896,36 @@ aside #cta img {
   flex: unset;
   flex-basis: 40%;
 }
+
+body .container_wrap_first ul.company_list {
+  display: grid;
+  grid-template-areas: "media detail detail";
+  grid-template-columns: 200px 200px 200px 200px;
+  grid-auto-columns: 150px;
+  -moz-column-gap: 32px;
+       column-gap: 32px;
+}
+body #error {
+  border: 5px #fcc solid;
+  padding: 50px;
+  font-size: 2em;
+  max-width: 800px;
+  margin: 30px auto;
+}
+body .gray_box {
+  border: 11px solid #426170;
+  background: white;
+  border-radius: 20px;
+  padding: 40px;
+  line-height: 1.6875em;
+  font-weight: 300;
+  gap: 30px;
+  box-shadow: 0px 4px 64px 0px rgba(0, 0, 0, 0.07);
+}
+body main.col .gray_box {
+  padding: 30px;
+}
+
 .row.table {
   background-color: #074058;
   border: 8px rgba(255, 235, 219, 0.2) solid;
@@ -10898,6 +10938,65 @@ aside #cta img {
   margin: 24px 32px 9px 32px;
   border-bottom: 1px #25C9BA solid;
   padding-bottom: 5px;
+  display: flex;
+  flex-direction: row;
+  gap: 0px;
+}
+@media (max-width: 767.98px) {
+  .row.table .top {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+}
+@media (max-width: 575.98px) {
+  .row.table .top {
+    margin-top: 10px;
+  }
+}
+.row.table .top > div {
+  display: flex;
+  align-items: center;
+}
+.row.table .top > div span {
+  color: #fff;
+  font-size: 10px;
+  line-height: 12px;
+}
+@media (min-width: 576px) {
+  .row.table .top > div span {
+    display: none;
+  }
+}
+@media (max-width: 575.98px) {
+  .row.table .top > div img {
+    display: none;
+  }
+}
+@media (min-width: 768px) {
+  .row.table .top + .top {
+    margin-top: 0px;
+  }
+}
+@media (max-width: 767.98px) {
+  .row.table .top.desktop {
+    display: none;
+  }
+}
+.row.table .top > div {
+  position: relative;
+}
+.row.table .top > div::after {
+  content: "";
+  background: url(assets/img/agencies/arrows.svg);
+  width: 6px;
+  height: 12px;
+  position: absolute;
+  right: 0;
+}
+@media (max-width: 767.98px) {
+  .row.table .top > div::after {
+    display: none;
+  }
 }
 .row.table .top img {
   width: 100%;
@@ -10905,6 +11004,12 @@ aside #cta img {
 }
 .row.table .grid {
   padding: 0px 32px 5px 32px;
+}
+@media (max-width: 767.98px) {
+  .row.table .grid {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
 }
 .row.table .grid .row {
   background-color: #10516C;
@@ -10914,6 +11019,7 @@ aside #cta img {
   font-size: 11px;
   min-height: 37px;
   padding-bottom: 3px;
+  display: flex;
 }
 .row.table .grid .row div.blur img {
   height: 24px;
@@ -10971,34 +11077,11 @@ aside #cta img {
 .row.table .bottom {
   padding: 0px 32px 10px 32px;
 }
-
-body .container_wrap_first ul.company_list {
-  display: grid;
-  grid-template-areas: "media detail detail";
-  grid-template-columns: 200px 200px 200px 200px;
-  grid-auto-columns: 150px;
-  -moz-column-gap: 32px;
-       column-gap: 32px;
-}
-body #error {
-  border: 5px #fcc solid;
-  padding: 50px;
-  font-size: 2em;
-  max-width: 800px;
-  margin: 30px auto;
-}
-body .gray_box {
-  border: 11px solid #426170;
-  background: white;
-  border-radius: 20px;
-  padding: 40px;
-  line-height: 1.6875em;
-  font-weight: 300;
-  gap: 30px;
-  box-shadow: 0px 4px 64px 0px rgba(0, 0, 0, 0.07);
-}
-body main.col .gray_box {
-  padding: 30px;
+@media (max-width: 767.98px) {
+  .row.table .bottom {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
 }
 
 body.companies #header_main nav {
@@ -11239,7 +11322,6 @@ body.agencies section {
 @media (max-width: 991.98px) {
   body.agencies section > .row {
     flex-direction: column;
-    gap: 20px;
   }
 }
 body.agencies section > article.iconbox {
@@ -11252,29 +11334,29 @@ body.agencies section #marketing_table .grid > .row {
   gap: 0px;
   align-items: center;
 }
-body.agencies section #marketing_table .grid > .row > div {
+body.agencies section #marketing_table .grid > .row > div, body.agencies section #marketing_table .grid > .row > .top > div {
   width: 18%;
   display: flex;
   align-items: center;
 }
-body.agencies section #marketing_table .grid > .row > div:first-child {
+body.agencies section #marketing_table .grid > .row > div:first-child, body.agencies section #marketing_table .grid > .row > .top > div:first-child {
   text-align: center;
   width: 5%;
   justify-content: center;
 }
-body.agencies section #marketing_table .grid > .row > div:nth-child(2) {
+body.agencies section #marketing_table .grid > .row > div:nth-child(2), body.agencies section #marketing_table .grid > .row > .top > div:nth-child(2) {
   width: 19%;
 }
-body.agencies section #marketing_table .grid > .row > div:nth-child(3) {
+body.agencies section #marketing_table .grid > .row > div:nth-child(3), body.agencies section #marketing_table .grid > .row > .top > div:nth-child(3) {
   width: 26%;
 }
-body.agencies section #marketing_table .grid > .row > div:nth-child(4) {
+body.agencies section #marketing_table .grid > .row > div:nth-child(4), body.agencies section #marketing_table .grid > .row > .top > div:nth-child(4) {
   width: 27.5%;
 }
-body.agencies section #marketing_table .grid > .row > div:nth-child(5) {
+body.agencies section #marketing_table .grid > .row > div:nth-child(5), body.agencies section #marketing_table .grid > .row > .top > div:nth-child(5) {
   width: 12%;
 }
-body.agencies section #marketing_table .grid > .row > div:last-child {
+body.agencies section #marketing_table .grid > .row > div:last-child, body.agencies section #marketing_table .grid > .row > .top > div:last-child {
   width: 10.5%;
   justify-content: center;
 }
@@ -11307,29 +11389,41 @@ body.agencies section #marketing_table .bottom {
   display: flex;
   justify-content: space-between;
 }
-body.agencies section #clients_table .grid .row {
-  gap: 0px;
-  align-items: center;
-}
-body.agencies section #clients_table .grid .row > div {
+body.agencies section #clients_table .grid > .row > div, body.agencies section #clients_table .top > div {
   width: 22.5%;
   padding-left: 2.5%;
   box-sizing: content-box;
+}
+body.agencies section #clients_table .grid > .row > div:first-child, body.agencies section #clients_table .top > div:first-child {
+  width: 23%;
+}
+body.agencies section #clients_table .grid > .row > div:nth-child(2), body.agencies section #clients_table .top > div:nth-child(2) {
+  width: 14%;
+}
+body.agencies section #clients_table .grid > .row > div:nth-child(3), body.agencies section #clients_table .top > div:nth-child(3) {
+  width: 30%;
+}
+body.agencies section #clients_table .grid > .row > div:nth-child(4), body.agencies section #clients_table .top > div:nth-child(4) {
+  width: 25%;
+}
+body.agencies section #clients_table > .top:first-child {
+  border-bottom: 0px;
+}
+body.agencies section #clients_table > .top:first-child + .top img {
+  max-height: 19.5px;
+  width: auto;
+}
+body.agencies section #clients_table .grid .row {
+  gap: 0px;
+}
+body.agencies section #clients_table .grid .row > div {
   display: flex;
   align-items: center;
 }
-body.agencies section #clients_table .grid .row > div:first-child {
-  width: 23%;
-}
-body.agencies section #clients_table .grid .row > div:nth-child(2) {
-  width: 14%;
-}
-body.agencies section #clients_table .grid .row > div:nth-child(3) {
-  width: 30%;
-}
-body.agencies section #clients_table .grid .row > div:nth-child(4) {
-  width: 27.5%;
-  padding-left: 0px;
+@media (max-width: 575.98px) {
+  body.agencies section #clients_table .grid .row > div img {
+    max-height: 20px;
+  }
 }
 body.agencies section #clients_table .bottom {
   display: flex;
@@ -11430,6 +11524,7 @@ body.contacts #main header + .container > main .gray_box .col .p {
 @media (max-width: 991.98px) {
   body.contacts #main header + .container > main #contact_information .row {
     flex-direction: column;
+    min-width: 200px;
   }
 }
 body.contacts #main header + .container > main #personality_insights img {
