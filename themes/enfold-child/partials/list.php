@@ -9,7 +9,7 @@ print '<ul class="company_list">';
 // Show first 20 companies
 $keys = array_keys($companies);
 for ($i = 0; $i < 20; $i++) :
-  print '<li><a href="/company/' . $keys[$i] . '">' . $companies[$keys[$i]] . '</a></li>';
+  print '<li><a href="/company/' . $keys[$i] . '">' . $companies[$keys[$i]]['name'] . '</a></li>';
 endfor;
 print '</ul>';
 

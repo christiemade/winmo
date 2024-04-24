@@ -11375,6 +11375,9 @@ body.agencies #main header > .container #overview .row .contact {
     min-width: 200px;
   }
 }
+body.agencies #main header > .container #overview .row .social {
+  min-width: 90px;
+}
 @media (max-width: 575.98px) {
   body.agencies #main header > .container #overview .row .social {
     flex-basis: 100%;
@@ -11866,5 +11869,20 @@ body#top.industries section#top .row ol li {
   margin-bottom: 20px;
 }
 body#top.industries section#top .row ol li a {
+  text-decoration: underline;
+}
+body#top.industries .container:last-child {
+  padding-top: 3em;
+}
+body#top.industries .container:last-child .row {
+  padding-top: 2em;
+}
+body#top.industries .container:last-child .col {
+  -moz-columns: 3;
+       columns: 3;
+}
+body#top.industries .container:last-child .col a {
+  display: block;
+  margin-bottom: 5px;
   text-decoration: underline;
 }

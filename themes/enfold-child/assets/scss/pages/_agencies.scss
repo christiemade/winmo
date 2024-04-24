@@ -27,6 +27,7 @@ body.agencies {
           @include breakpoint(lg, 'max') { min-width: 200px; }
         }
         .social {
+          min-width: 90px;
           @include breakpoint(sm, 'max') { flex-basis: 100%; }
         }
       }

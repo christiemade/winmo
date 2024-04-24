@@ -46,4 +46,18 @@ body#top.industries {
       }
     }
   }
+  .container:last-child {
+    padding-top: 3em;
+    .row {
+      padding-top: 2em;
+    }
+    .col {
+      columns: 3;
+      a {
+        display: block;
+        margin-bottom: 5px;
+        text-decoration: underline;
+      }
+    }
+  }
 }

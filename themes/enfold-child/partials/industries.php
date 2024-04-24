@@ -44,3 +44,16 @@
     </section>
   </main>
 </div>
+
+<div class="container">
+  <h4>More Industries that are big ad spenders</h4>
+  <div class="row">
+    <div class="col">
+      <?php $industries = get_industry_transient();
+      foreach ($industries as $link => $industry) :
+        print '<a href="/industries/' . $link . '">' . $industry['name'] . '</a>';
+      endforeach;
+      ?>
+    </div>
+  </div>
+</div>
