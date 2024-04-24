@@ -11347,7 +11347,7 @@ body.agencies #main header > .container {
 body.agencies #main header > .container #overview {
   flex: 1;
 }
-@media (max-width: 991.98px) {
+@media (max-width: 1199.98px) {
   body.agencies #main header > .container #overview .row {
     flex-wrap: wrap;
     gap: 20px;
@@ -11358,7 +11358,7 @@ body.agencies #main header > .container #overview .row .col:first-child {
   flex: auto;
   flex-basis: 15%;
 }
-@media (max-width: 991.98px) {
+@media (max-width: 1199.98px) {
   body.agencies #main header > .container #overview .row .col:first-child {
     flex-basis: 100%;
   }

@@ -6,7 +6,7 @@ body.agencies {
     #overview {
       flex: 1;
       .row {
-        @include breakpoint(lg, 'max') { 
+        @include breakpoint(xl, 'max') { 
           flex-wrap: wrap; 
           gap: 20px;
           display: flex;
@@ -14,7 +14,7 @@ body.agencies {
         .col:first-child {
           flex: auto;
           flex-basis: 15%;
-          @include breakpoint(lg, 'max') {
+          @include breakpoint(xl, 'max') {
             flex-basis: 100%;
           }
         }
