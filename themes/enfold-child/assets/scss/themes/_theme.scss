@@ -74,3 +74,26 @@ body {
   }
    
  }
+ ol {
+  list-style: none;
+  counter-reset: my-awesome-counter;
+  li {
+    counter-increment: my-awesome-counter;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 10px;
+    &::before {
+      content: counter(my-awesome-counter);
+      text-align: center;
+      border-radius: 66px;
+      width: 33px;
+      height: 33px;
+      color: #ffffff;
+      background-color: $blue;
+      font-weight: bold;
+      display: block;
+      line-height: 33px;
+    }
+  }
+}

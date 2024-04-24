@@ -23,20 +23,16 @@
   </aside>
 
   <main class="col">
-    <section id="current_clients" class="gray_box">
-      <?php print do_shortcode("[av_icon_box icon='ue8d2' font='entypo-fontello' title='Top 10 Industries that Spend the Most on Advertising' position='left' icon_style='' boxed='' font_color='' custom_title='' custom_content='' color='' custom_bg='' custom_font='fa-solid fa-money-bill-trend-up' custom_border='' custom_title_size='' av-desktop-font-size-title='' av-medium-font-size-title='' av-small-font-size-title='' av-mini-font-size-title='' custom_content_size='' av-desktop-font-size='' av-medium-font-size='' av-small-font-size='' av-mini-font-size='' heading_tag='h2' heading_class='' link='' linktarget='' title_attr='' linkelement='' id='' custom_class='' template_class='' av_uid='av-luvpcjbw' sc_version='1.0' admin_preview_bg=''][/av_icon_box]"); ?>
+    <section id="top" class="gray_box">
+      <?php print do_shortcode("[av_icon_box icon='ue813' font='winmo' title='Top 10 Industries that Spend the Most on Advertising' position='left' icon_style='' boxed='' font_color='' custom_title='' custom_content='' color='' custom_bg='' custom_font='' custom_border='' custom_title_size='' av-desktop-font-size-title='' av-medium-font-size-title='' av-small-font-size-title='' av-mini-font-size-title='' custom_content_size='' av-desktop-font-size='' av-medium-font-size='' av-small-font-size='' av-mini-font-size='' heading_tag='h2' heading_class='' link='' linktarget='' title_attr='' linkelement='' id='' custom_class='' template_class='' av_uid='av-luvpcjbw' sc_version='1.0' admin_preview_bg=''][/av_icon_box]"); ?>
       <div class="row">
-        <div class="col col-6">
+        <div class="col">
           <ol>
-            <li>Aftermarket, Tires, Parts</li>
+            <li><a href="/industries/aftermarket-tires-parts">Aftermarket, Tires, Parts</a></li>
             <li>Agricultural Business</li>
             <li>Apparel & Accessories</li>
             <li>Associations & Organizations</li>
             <li>Auto Care</li>
-          </ol>
-        </div>
-        <div class="col">
-          <ol>
             <li>Auto Manufacturers</li>
             <li>Automotive</li>
             <li>Beer, Wine, Liquor, Spirits</li>

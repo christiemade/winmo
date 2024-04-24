@@ -10962,6 +10962,30 @@ body main.col .gray_box {
   padding: 30px;
 }
 
+ol {
+  list-style: none;
+  counter-reset: my-awesome-counter;
+}
+ol li {
+  counter-increment: my-awesome-counter;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 10px;
+}
+ol li::before {
+  content: counter(my-awesome-counter);
+  text-align: center;
+  border-radius: 66px;
+  width: 33px;
+  height: 33px;
+  color: #ffffff;
+  background-color: #074058;
+  font-weight: bold;
+  display: block;
+  line-height: 33px;
+}
+
 .row.table {
   background-color: #074058;
   border: 8px rgba(255, 235, 219, 0.2) solid;
@@ -11816,9 +11840,6 @@ body#top.industries #main header:after {
 body#top.industries #main header + .container {
   gap: 0px;
 }
-body#top.industries #main header + .container aside #cta {
-  margin-top: 3em;
-}
 body#top.industries #main header + .container main {
   margin-left: 55px;
 }
@@ -11830,4 +11851,20 @@ body#top.industries section .iconbox_content header {
 }
 body#top.industries section .iconbox_content header h2 {
   margin-bottom: 0px;
+}
+body#top.industries section#top .row {
+  margin-bottom: 0px;
+}
+body#top.industries section#top .row ol {
+  -moz-columns: 2;
+       columns: 2;
+  margin-bottom: 0px;
+}
+body#top.industries section#top .row ol li {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+body#top.industries section#top .row ol li a {
+  text-decoration: underline;
 }

@@ -30,5 +30,20 @@ body#top.industries {
         margin-bottom: 0px;;
       }
     }
+    &#top .row {
+      margin-bottom: 0px;
+      ol {
+        columns: 2;
+        margin-bottom: 0px;
+        li {
+          font-size: 20px;
+          font-weight: 600;
+          margin-bottom: 20px;
+          a {
+            text-decoration: underline;
+          }
+        }
+      }
+    }
   }
 }
