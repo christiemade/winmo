@@ -3,7 +3,7 @@
 // Stylesheet caching version
 function avia_get_theme_version($which = 'parent')
 {
-  return '1.0.0.0.38.65';
+  return '1.0.0.0.38.66';
 }
 
 // Allow for overriding of Enfold templates

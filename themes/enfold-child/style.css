@@ -10977,13 +10977,23 @@ ol li::before {
   content: counter(my-awesome-counter);
   text-align: center;
   border-radius: 66px;
-  width: 33px;
-  height: 33px;
   color: #ffffff;
   background-color: #074058;
   font-weight: bold;
   display: block;
-  line-height: 33px;
+  width: 26px;
+  height: 26px;
+  line-height: 26px;
+  min-width: 26px;
+  font-size: 15px;
+}
+@media (min-width: 768px) {
+  ol li::before {
+    line-height: 33px;
+    width: 33px;
+    height: 33px;
+    font-size: 20px;
+  }
 }
 
 .row.table {
@@ -11844,8 +11854,10 @@ body#top.industries #main header:after {
 body#top.industries #main header + .container {
   gap: 0px;
 }
-body#top.industries #main header + .container main {
-  margin-left: 55px;
+@media (min-width: 1200px) {
+  body#top.industries #main header + .container main {
+    margin-left: 55px;
+  }
 }
 body#top.industries section .iconbox_content header {
   display: flex;
@@ -11853,16 +11865,31 @@ body#top.industries section .iconbox_content header {
   max-width: 575px;
   margin-bottom: 16px;
 }
+@media (max-width: 575.98px) {
+  body#top.industries section .iconbox_content header {
+    flex-direction: column;
+  }
+}
 body#top.industries section .iconbox_content header h2 {
   margin-bottom: 0px;
+}
+@media (max-width: 575.98px) {
+  body#top.industries section#top {
+    padding: 17px;
+  }
 }
 body#top.industries section#top .row {
   margin-bottom: 0px;
 }
 body#top.industries section#top .row ol {
-  -moz-columns: 2;
-       columns: 2;
   margin-bottom: 0px;
+  margin-left: 0px;
+}
+@media (min-width: 768px) {
+  body#top.industries section#top .row ol {
+    -moz-columns: 2;
+         columns: 2;
+  }
 }
 body#top.industries section#top .row ol li {
   font-size: 20px;
@@ -11872,17 +11899,25 @@ body#top.industries section#top .row ol li {
 body#top.industries section#top .row ol li a {
   text-decoration: underline;
 }
-body#top.industries .container:last-child {
+body#top.industries #more {
   padding-top: 3em;
 }
-body#top.industries .container:last-child .row {
+body#top.industries #more .row {
   padding-top: 2em;
 }
-body#top.industries .container:last-child .col {
-  -moz-columns: 3;
-       columns: 3;
+@media (min-width: 576px) {
+  body#top.industries #more .col {
+    -moz-columns: 2;
+         columns: 2;
+  }
 }
-body#top.industries .container:last-child .col a {
+@media (min-width: 768px) {
+  body#top.industries #more .col {
+    -moz-columns: 3;
+         columns: 3;
+  }
+}
+body#top.industries #more .col a {
   display: block;
   margin-bottom: 5px;
   text-decoration: underline;

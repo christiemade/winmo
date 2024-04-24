@@ -45,7 +45,7 @@
   </main>
 </div>
 
-<div class="container">
+<div class="container" id="more">
   <h4>More Industries that are big ad spenders</h4>
   <div class="row">
     <div class="col">
@@ -57,3 +57,11 @@
     </div>
   </div>
 </div>
+<div class="row alternate_color ha-center" id="win-more">
+  <div class="col container">
+    <h2>Win More with Winmo</h2>
+    <p><a href="#"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/companies/win-more-video.png"></a></p>
+  </div>
+</div>
+
+<?php get_template_part('partials/footer', 'company');

@@ -16,7 +16,7 @@ body#top.industries {
     & + .container {
       gap: 0px;
       main {
-        margin-left: 55px;
+        @include breakpoint(xl, 'min') {  margin-left: 55px; }
       }
     }
   }
@@ -26,33 +26,39 @@ body#top.industries {
       align-items: center;
       max-width: 575px;
       margin-bottom: 16px;
+      @include breakpoint(sm, 'max') { flex-direction: column; }
       h2 {
-        margin-bottom: 0px;;
+        margin-bottom: 0px;
       }
     }
-    &#top .row {
-      margin-bottom: 0px;
-      ol {
-        columns: 2;
+    &#top {
+      @include breakpoint(sm, 'max') { padding: 17px; }
+     .row {
         margin-bottom: 0px;
-        li {
-          font-size: 20px;
-          font-weight: 600;
-          margin-bottom: 20px;
-          a {
-            text-decoration: underline;
+        ol {
+          margin-bottom: 0px;
+          margin-left: 0px;
+          @include breakpoint(md, 'min') { columns: 2; }
+          li {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            a {
+              text-decoration: underline;
+            }
           }
         }
       }
     }
   }
-  .container:last-child {
+  #more {
     padding-top: 3em;
     .row {
       padding-top: 2em;
     }
     .col {
-      columns: 3;
+      @include breakpoint(sm, "min") { columns: 2; }
+      @include breakpoint(md, "min") { columns: 3 }
       a {
         display: block;
         margin-bottom: 5px;

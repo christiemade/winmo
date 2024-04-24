@@ -87,13 +87,23 @@ body {
       content: counter(my-awesome-counter);
       text-align: center;
       border-radius: 66px;
-      width: 33px;
-      height: 33px;
       color: #ffffff;
       background-color: $blue;
       font-weight: bold;
       display: block;
-      line-height: 33px;
+      width: 26px;
+      height: 26px;
+      line-height: 26px;
+      min-width: 26px;
+      font-size: 15px;
+      @include breakpoint(md) {
+        line-height: 33px;
+        width: 33px;
+        height: 33px;
+        font-size: 20px;
+
+      }
+
     }
   }
 }
