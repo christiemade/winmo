@@ -124,6 +124,7 @@ body.agencies {
             &:nth-child(4) {  // email
               img {
                 margin-left: -13px;
+                max-height: 20.5px;
                 @include breakpoint(sm, 'max') { margin-left: 0px; }
               }
             }

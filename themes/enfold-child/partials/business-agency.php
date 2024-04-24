@@ -155,7 +155,7 @@ if (is_wp_error($agency_data)) {
                 <div><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/checkbox.svg"></div>
                 <div><?php print $agency_data['contacts'][$i]['fname'] ?> <?php print substr($agency_data['contacts'][$i]['lname'], 0, 1); ?>.</div>
                 <div><?php print $agency_data['contacts'][$i]['title']; ?></div>
-                <div><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/companies/contact-email.svg"></div>
+                <div><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/contact-email.png"></div>
                 <div><?php print $agency_data['contacts'][$i]['location']['state']; ?></div>
                 <div><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/export.svg"></div>
               </div><?php

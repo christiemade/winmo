@@ -11502,6 +11502,7 @@ body.agencies section #marketing_table .grid > .row > div:nth-child(3) {
 }
 body.agencies section #marketing_table .grid > .row > div:nth-child(4) img {
   margin-left: -13px;
+  max-height: 20.5px;
 }
 @media (max-width: 575.98px) {
   body.agencies section #marketing_table .grid > .row > div:nth-child(4) img {
