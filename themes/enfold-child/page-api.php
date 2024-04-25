@@ -22,7 +22,6 @@ do_action('ava_page_template_after_header'); ?>
 <div class='container_wrap container_wrap_first main_color <?php avia_layout_class('main'); ?>'>
 
   <?php
-
   if (is_page('companies')) :
     $companies = get_transient('winmo_companies');
     if (is_array($companies)) :

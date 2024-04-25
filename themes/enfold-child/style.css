@@ -11023,6 +11023,13 @@ ol li::before {
     margin-top: 10px;
   }
 }
+.row.table .top:first-child {
+  border-bottom: 0px;
+}
+.row.table .top:first-child + .top img {
+  max-height: 19.5px;
+  width: auto;
+}
 .row.table .top > div {
   display: flex;
   align-items: center;
@@ -11167,35 +11174,43 @@ body.companies #header_main nav {
     padding-top: 150px;
   }
 }
-body.companies .table#advertising_table .grid .row {
-  gap: 0px;
-}
-body.companies .table#advertising_table .grid .row > div {
+body.companies .table#advertising_table .grid > .row > div, body.companies .table#advertising_table .top > div {
   width: 24.5%;
 }
-body.companies .table#advertising_table .grid .row > div:first-child {
+body.companies .table#advertising_table .grid > .row > div:first-child, body.companies .table#advertising_table .top > div:first-child {
   padding-left: 2.5%;
   width: 23.5%;
 }
-body.companies .table#advertising_table .grid .row > div:nth-child(2) {
+body.companies .table#advertising_table .grid > .row > div:nth-child(2), body.companies .table#advertising_table .top > div:nth-child(2) {
   width: 26.5%;
 }
-body.companies .table#advertising_table .grid .row > div:nth-child(3) {
+body.companies .table#advertising_table .grid > .row > div:nth-child(3), body.companies .table#advertising_table .top > div:nth-child(3) {
   width: 25.5%;
+}
+body.companies .table#advertising_table .top > div:not(.nosort)::after {
+  right: 9px;
+}
+body.companies .table#advertising_table .grid .row {
+  gap: 0px;
+  align-items: center;
+}
+body.companies .table#advertising_table .grid .row > div:nth-child(2) {
+  display: flex;
+  align-items: center;
+}
+body.companies .table#marketing_table .grid > .row > div, body.companies .table#marketing_table .top > div {
+  width: 44%;
+}
+body.companies .table#marketing_table .grid > .row > div:first-child, body.companies .table#marketing_table .top > div:first-child {
+  padding-left: 2.5%;
+  width: 43.5%;
+}
+body.companies .table#marketing_table .grid > .row > div:last-child, body.companies .table#marketing_table .top > div:last-child {
+  width: 12.5%;
 }
 body.companies .table#marketing_table .grid > .row {
   gap: 0px;
   align-items: center;
-}
-body.companies .table#marketing_table .grid > .row > div {
-  width: 44%;
-}
-body.companies .table#marketing_table .grid > .row > div:first-child {
-  padding-left: 2.5%;
-  width: 43.5%;
-}
-body.companies .table#marketing_table .grid > .row > div:last-child {
-  width: 12.5%;
 }
 body.companies .table#marketing_table .grid > .row:first-child {
   background-color: #25C9BA;
@@ -11609,13 +11624,6 @@ body.agencies section #clients_table .grid > .row > div:nth-child(3), body.agenc
 body.agencies section #clients_table .grid > .row > div:nth-child(4), body.agencies section #clients_table .top > div:nth-child(4) {
   width: 25%;
 }
-body.agencies section #clients_table > .top:first-child {
-  border-bottom: 0px;
-}
-body.agencies section #clients_table > .top:first-child + .top img {
-  max-height: 19.5px;
-  width: auto;
-}
 body.agencies section #clients_table .grid .row {
   gap: 0px;
 }
@@ -11901,6 +11909,7 @@ body#top.industries section#top .row ol li a {
 }
 body#top.industries #more {
   padding-top: 3em;
+  padding-bottom: 4em;
 }
 body#top.industries #more .row {
   padding-top: 2em;

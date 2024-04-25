@@ -75,7 +75,13 @@ if (is_wp_error($company_data)) {
         </div>
 
         <div class="row table" id="advertising_table">
-          <div class="top"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/companies/advertising-table-top.svg"></div>
+          <div class="top desktop"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/companies/marketing-table-top-1.svg"></div>
+          <div class="top">
+            <div><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/clients-top-brand.png"><span>Brand</span></div>
+            <div><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/companies/table-label-agency.png"><span>Agency</span></div>
+            <div><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/companies/table-label-location.png"><span>Location</span></div>
+            <div><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/clients-top-services.png"><span>Service</span></div>
+          </div>
           <div class="grid">
             <?php
             if ($brands_total > 10) $brands_total = 10;

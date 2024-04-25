@@ -206,15 +206,6 @@ body.agencies {
           }
         }
       }
-      & > .top:first-child {
-        border-bottom: 0px;
-        & + .top {
-          img {
-            max-height: 19.5px;
-            width: auto;
-          }
-        }
-      }
       .grid {
         .row {
           gap: 0px;

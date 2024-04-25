@@ -5,40 +5,53 @@ body.companies {
   }
   .table {
     &#advertising_table {
+      .grid > .row, .top {
+        & > div {
+          width: 24.5%;
+          &:first-child {
+            padding-left: 2.5%; // Brand Name
+            width: 23.5%;
+          }
+          &:nth-child(2) {
+            width: 26.5%;
+          }
+          &:nth-child(3) {
+            width: 25.5%;
+          }
+        }
+      }
+      .top > div:not(.nosort)::after {
+        right: 9px;
+      }
       .grid {
         .row {
           gap: 0px;
-          & > div  {
-            width: 24.5%;
-            &:first-child {
-              padding-left: 2.5%; // Brand Name
-              width: 23.5%;
-            }
-            &:nth-child(2) {
-              width: 26.5%;
-            }
-            &:nth-child(3) {
-              width: 25.5%;
-            }
+          align-items: center;
+          & > div:nth-child(2) {
+            display: flex;
+            align-items: center;
           }
         }
       }
     } 
     &#marketing_table {
+      .grid > .row, .top {
+        & > div {
+          width: 44%;
+          &:first-child {  // Name
+            padding-left: 2.5%;
+            width: 43.5%;
+          }
+          &:last-child {
+            width: 12.5%;
+          }
+        }
+      }
       .grid {
+
         & > .row {
           gap: 0px;
           align-items: center;
-          & > div  {
-            width: 44%;
-            &:first-child {  // Name
-              padding-left: 2.5%;
-              width: 43.5%;
-            }
-            &:last-child {
-              width: 12.5%;
-            }
-          }
           &:first-child {
             background-color: $teal;
           }

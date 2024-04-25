@@ -19,6 +19,17 @@
     @include breakpoint(sm, 'max') {
       margin-top: 10px;
     }
+    
+    &:first-child {
+      border-bottom: 0px;
+      & + .top {
+        img {
+          max-height: 19.5px;
+          width: auto;
+        }
+      }
+    }
+    
     & > div {
       display: flex;
       align-items: center;
