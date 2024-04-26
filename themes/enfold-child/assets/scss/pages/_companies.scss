@@ -1,8 +1,12 @@
-body.companies {
+.responsive body#top.companies #wrap_all {
   #header_main nav { display: none;}
   #main header > .container { 
     padding-top: 50px;
     @include breakpoint(md) { padding-top: 150px; }
+    @include breakpoint(sm, "max") { 
+      width: auto;
+      max-width: 95%;
+    }
   }
   .table {
     &#advertising_table {
@@ -50,6 +54,7 @@ body.companies {
           &:first-child {  // Name
             padding-left: 2.5%;
             width: 43.5%;
+            @include breakpoint(sm, 'max') { width: 30%; }
           }
           &:last-child {
             width: 12.5%;
@@ -68,6 +73,7 @@ body.companies {
           & > div {
             &:nth-child(2) {
               line-height: 12px;
+              @include breakpoint(sm, 'max') { width: 70%; }
             }
           }
         }

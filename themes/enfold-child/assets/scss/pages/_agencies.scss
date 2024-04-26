@@ -182,7 +182,7 @@ body.agencies {
         margin-top: 15px;
         display: flex;
         justify-content: space-between;
-        @include breakpoint(sm, 'max') { img:first-child { display: none;}}
+        @include breakpoint(sm, 'max') { img:first-child { display: none; } }
       } 
     }
     #clients_table {

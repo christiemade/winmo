@@ -23,7 +23,7 @@
       max-width: 724px;
       margin: 30px auto;
       display: block;
-      @include breakpoint(md, "max") {
+      @include breakpoint(lg, "max") {
         max-width: 100%;
       }
     }
