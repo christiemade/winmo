@@ -4,8 +4,8 @@
 
 <div class="filters row">
   <div class="col container">
-    <?php $nonce = wp_create_nonce("winmo_contact_filter_nonce"); ?>
-    <form id="filter-form" data-nonce="<?php print $nonce; ?>" class="form" action='' method="POST">
+    <?php $nonce = wp_create_nonce("winmo_filter_nonce"); ?>
+    <form id="filter-form" data-action="winmo_contact_list" data-nonce="<?php print $nonce; ?>" class="form" action='' method="POST">
       <span>Filter People</span>
 
       <!-- No filter for now <select name="cats" class="form-control form-control-sm">
@@ -29,6 +29,6 @@
 </div>
 
 <!-- The filtered and paginated content will be dynamically loaded into the #all-products div -->
-<div id="all-contacts" class="all-contacts">
+<div id="all-contacts" class="all-content">
 
 </div>

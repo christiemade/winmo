@@ -1,25 +1,32 @@
-<header style="min-height: 250px;">
-  <!-- TEMPORARY - Waiting for design -->
+<header>
+  <div class="container" style="min-height: 300px;"></div>
 </header>
-<?php
 
-$companies = get_transient('winmo_companies');
+<div class="filters row">
+  <div class="col container">
+    <?php $nonce = wp_create_nonce("winmo_filter_nonce"); ?>
+    <form id="filter-form" data-action="winmo_company_list" data-nonce="<?php print $nonce; ?>" class="form" action='' method="POST">
+      <span>Filter Companies</span>
 
-print '<ul class="company_list">';
-// Show first 20 companies
-$keys = array_keys($companies);
-for ($i = 0; $i < 20; $i++) :
-  print '<li><a href="/company/' . $keys[$i] . '">' . $companies[$keys[$i]]['name'] . '</a></li>';
-endfor;
-print '</ul>';
+      <input type="text" name="search" placeholder="Search" class="form-control form-control-sm" title="Search by product name or SKU" />
 
-print '<div id="pager">';
-$total = sizeof($companies);
-$items_per_page = 20;
-$page_count = round($total / $items_per_page);
-print "<h2>Pager?</h2>";
-print "<p>20 per page would give us " . $page_count . " pages!!</p>";
-//for ($i = 1; $i < $page_count; $i++):
-//print $i;
-//endfor;
-print '</div>';
+      <span> Alphasort </span>
+      <select name="alpha" class="form-control form-control-sm">
+        <option value="#">#</option>
+        <?php foreach (range('a', 'z') as $v) : ?>
+          <option value="<?php print $v; ?>" <?php if ($v == "a") {
+                                                print " selected=\"selected\"";
+                                              } ?>><?php print strtoupper($v); ?></option>
+        <?php endforeach; ?>
+      </select>
+
+      <input type="submit" value="Filter" class="btn btn-sm btn-secondary" />
+    </form>
+  </div>
+</div>
+
+
+<!-- The filtered and paginated content will be dynamically loaded into the #all-products div -->
+<div id="all-companies" class="all-content">
+
+</div>

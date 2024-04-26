@@ -174,10 +174,10 @@ header {
       z-index: 1;
     }
   }
+  &:after {
+    background-image: url(assets/img/companies/header-company.jpg);
+  }
   &#company {
-    &:after {
-      background-image: url(assets/img/companies/header-company.jpg);
-    }
     #overview {
       @include breakpoint(md) { flex-basis: 48.1%; }
       .contact {

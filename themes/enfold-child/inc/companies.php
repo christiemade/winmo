@@ -152,3 +152,100 @@ function winmo_brand_transients($brand_id, $callback)
 
   return $callback($brand_details);
 }
+
+
+
+// Create AJAX Call for Company Pager
+add_action("wp_ajax_winmo_company_list", "winmo_company_list");
+add_action("wp_ajax_nopriv_winmo_company_list", "winmo_company_list");
+
+function winmo_company_list()
+{
+  $data = $_POST["data"];
+  if (!wp_verify_nonce($_POST['nonce'], "winmo_filter_nonce")) {
+    exit("There has been an error.");
+  }
+
+  $companies = get_transient('winmo_companies');
+
+  // Turn filter values into an array
+  $data = explode('&', $data);
+  $filter = array();
+  error_log(json_encode($data));
+  foreach ($data as $string) :
+    $keyval = explode('=', $string);
+    $filter[$keyval[0]] = $keyval[1];
+  endforeach;
+
+  // Filter query
+  $search_filter = isset($filter['search']) ? $filter['search'] : '';
+
+  // Pull out all entries by alpha
+  $html = json_encode($companies);
+  $alpha = $filter['alpha'];
+
+  $filtered = array_filter($companies, function ($company) use ($alpha) {
+    $letter = substr($company['name'], 0, 1);
+
+    if (strtolower($letter) == strtolower($alpha)) {
+      return true;
+    }
+    // In non-alpha sort
+    elseif ($alpha == "#") {
+      if (!ctype_alpha($letter)) {  // If this letter is NOT alpha then keep it
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
+  });
+
+  // filter companies array based on query
+  if (!empty($search_filter)) {
+    foreach ($filtered as $key => $company) {
+      if (!empty($search_filter)) {
+
+        if ((strpos($company['name'], $search_filter) !== false)) {
+        } else {
+          unset($filtered[$key]);
+        }
+      }
+    }
+  }
+
+  // Define total products
+  $total_items = sizeof($filtered);
+
+
+  /*********************
+    The Template
+   ********************/
+  $html = "<div class=\"row container\"></div><div class=\"row container\">";
+  $mod = round($total_items / 3) + 1; // 3 columns
+  $counter = 0;
+  if ($total_items) {
+    foreach ($filtered as $key => $company) {
+      // Column shift
+      if ($counter % $mod == 0) {
+        if ($counter > 1) $html .= '</div><!-- /col -->';
+        $html .= '<div class="col">';
+      }
+      $html .= '<a href="/company/' . $key . '/">' . $company['name'] . '</a>';
+      $counter++;
+    }
+    $html .= '</div><!-- /col --></div><!-- /row -->';
+  } else {
+    $html .= '<p class="alert alert-warning" >No results found.</p>';
+  }
+
+  if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
+    $html = json_encode($html);
+    echo $html;
+  } else {
+    header("Location: " . $_SERVER["HTTP_REFERER"]);
+  }
+
+  die();
+}

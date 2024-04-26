@@ -113,3 +113,40 @@ body {
     }
   }
 }
+  #filter-form {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    max-width: 654px;
+    margin: 0px auto;
+    justify-content: center;
+  }
+
+#filter-form {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  & > span { 
+    flex-basis: 120px;
+    text-align: right;
+    &:last-of-type {
+      flex-basis: 88px;
+    }
+  }
+  & > input:not(.btn), & > select {
+    flex: 1;
+    width: auto;
+    margin: 0px;
+  }
+  & > .btn {
+    flex-basis: 90px;
+  }
+}
+.all-content {
+  & > .row:not(.pagination) {
+    .col {
+      flex-direction: column;
+      display: flex;
+    }
+  }
+}
