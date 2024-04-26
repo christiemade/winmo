@@ -165,7 +165,12 @@ if (is_wp_error($company_data)) {
 
       <section id="ad_agency_contacts">
         <div class="row table" id="marketing_table">
-          <div class="top"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/companies/marketing-table-top.svg"></div>
+          <div class="top desktop"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/companies/marketing-table-top-1.svg"></div>
+          <div class="top">
+            <div><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/table-label-name.png"><span>Name</span></div>
+            <div><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/table-label-title.png"><span>Title</span></div>
+            <div><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/clients-top-state.png"><span>State</span></div>
+          </div>
           <div class="grid">
             <?php
 

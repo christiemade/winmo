@@ -1,6 +1,7 @@
 body.companies {
   #header_main nav { display: none;}
   #main header > .container { 
+    padding-top: 50px;
     @include breakpoint(md) { padding-top: 150px; }
   }
   .table {
@@ -8,15 +9,18 @@ body.companies {
       .grid > .row, .top {
         & > div {
           width: 24.5%;
+          @include breakpoint(sm, 'max') { width: auto; flex:1; }
           &:first-child {
             padding-left: 2.5%; // Brand Name
             width: 23.5%;
           }
           &:nth-child(2) {
             width: 26.5%;
+            @include breakpoint(sm, 'max') { width: auto; flex:1; }
           }
           &:nth-child(3) {
             width: 25.5%;
+            @include breakpoint(sm, 'max') { display: none; }
           }
         }
       }
@@ -27,9 +31,14 @@ body.companies {
         .row {
           gap: 0px;
           align-items: center;
-          & > div:nth-child(2) {
-            display: flex;
-            align-items: center;
+          & > div {
+            &:first-child {
+              line-height: 12px;
+            }
+            &:nth-child(2) {
+              display: flex;
+              align-items: center;
+            }
           }
         }
       }
@@ -44,6 +53,7 @@ body.companies {
           }
           &:last-child {
             width: 12.5%;
+            @include breakpoint(sm, 'max') { display: none; }
           }
         }
       }
@@ -55,24 +65,55 @@ body.companies {
           &:first-child {
             background-color: $teal;
           }
+          & > div {
+            &:nth-child(2) {
+              line-height: 12px;
+            }
+          }
         }
         .details {
-          & .row > div {
-            &:nth-child(3) {
-              flex: 1; 
-              img {
-                margin-top: -8px;
-                margin-bottom: 0px;
-              } 
+          .row {
+            & > div {
+              &:first-child {
+                @include breakpoint(sm, 'max') {
+                  width: 95px;
+                }
+              }
+              &:nth-child(3) {
+                flex: 1; 
+                img {
+                  margin-top: -8px;
+                  margin-bottom: 0px;
+                } 
+              }
+              &:nth-child(2) { 
+                @include breakpoint(lg, 'max') {
+                  flex-basis: unset;
+                  flex: 1;
+                }
+              }
+              &:nth-child(4) { 
+                flex: 1; 
+                @include breakpoint(lg, 'max') { flex: none; width: 90px; }
+                img { 
+                  height: 15px;
+                  margin-bottom: 0;
+                  margin-top: -2px;
+                  display: block;
+                  margin-left: 0px;
+                }
+              }
             }
-            &:nth-child(4) { 
-              flex: 1; 
-              img { 
-                height: 15px;
-                margin-bottom: 0;
-                margin-top: -2px;
-                display: block;
-                margin-left: 0px;
+            &.buttons {
+              @include breakpoint(md, 'max') { display: none; }
+            }
+            &:not(.buttons) {
+              @include breakpoint(md, 'max') {
+                flex-wrap: wrap;
+                & > div:nth-child(3) {
+                  flex-basis: 100%;
+                  padding-top: 20px;
+                }
               }
             }
           }
@@ -82,6 +123,10 @@ body.companies {
         display: flex;
         justify-content: space-between;
         padding: 2% 32px;
+        @include breakpoint(md, 'max') { padding: 2% 10px; }
+        img:first-child {
+          @include breakpoint(sm, 'max') { display: none; }
+        }
       }
     }
     .bottom {
@@ -128,10 +173,16 @@ header {
       background-image: url(assets/img/companies/header-company.jpg);
     }
     #overview {
-      flex-basis: 48.1%;
-      border-color:#cfd9dd;
+      @include breakpoint(md) { flex-basis: 48.1%; }
       .contact {
         padding-top: 3em;
+        @include breakpoint(lg, 'max') { 
+          flex-direction: column; 
+          padding-top: 1em;
+          .iconbox {
+            margin-bottom: 1em;
+          }
+        }
       }
     }
   }
@@ -191,4 +242,5 @@ header {
 #data_boxes {
   max-width: 379px;
   padding-left: 20px;
+  @include breakpoint(md, 'max') { display: none; }
 }
