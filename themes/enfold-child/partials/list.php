@@ -12,6 +12,7 @@
 
       <span> Alphasort </span>
       <select name="alpha" class="form-control form-control-sm">
+        <option value="">- ANY -</option>
         <option value="#">#</option>
         <?php foreach (range('a', 'z') as $v) : ?>
           <option value="<?php print $v; ?>" <?php if ($v == "a") {

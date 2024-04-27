@@ -11008,17 +11008,11 @@ ol li::before {
 
 #filter-form {
   display: flex;
-  gap: 10px;
   align-items: center;
-  max-width: 654px;
+  gap: 10px;
+  max-width: 685px;
   margin: 0px auto;
   justify-content: center;
-}
-
-#filter-form {
-  display: flex;
-  gap: 20px;
-  align-items: center;
 }
 #filter-form > span {
   flex-basis: 120px;
@@ -11965,93 +11959,93 @@ body.contacts aside nav li.active a {
   text-decoration: underline !important;
 }
 
-body#top.industries #header_main nav {
+body#top.industries #header_main nav, body#top.top-agencies #header_main nav {
   display: none;
 }
-body#top.industries #main header > .container {
+body#top.industries #main header > .container, body#top.top-agencies #main header > .container {
   padding-top: 150px;
 }
 @media (max-width: 767.98px) {
-  body#top.industries #main header > .container {
+  body#top.industries #main header > .container, body#top.top-agencies #main header > .container {
     padding-top: 8vh;
   }
 }
 @media (max-width: 575.98px) {
-  body#top.industries #main header > .container {
+  body#top.industries #main header > .container, body#top.top-agencies #main header > .container {
     padding-top: 4vh;
   }
 }
-body#top.industries #main header:after {
+body#top.industries #main header:after, body#top.top-agencies #main header:after {
   background-image: url(assets/img/categories/header-category.jpg);
 }
-body#top.industries #main header + .container {
+body#top.industries #main header + .container, body#top.top-agencies #main header + .container {
   gap: 0px;
 }
 @media (min-width: 1200px) {
-  body#top.industries #main header + .container main {
+  body#top.industries #main header + .container main, body#top.top-agencies #main header + .container main {
     margin-left: 55px;
   }
 }
-body#top.industries section .iconbox_content header {
+body#top.industries section .iconbox_content header, body#top.top-agencies section .iconbox_content header {
   display: flex;
   align-items: center;
   max-width: 575px;
   margin-bottom: 16px;
 }
 @media (max-width: 575.98px) {
-  body#top.industries section .iconbox_content header {
+  body#top.industries section .iconbox_content header, body#top.top-agencies section .iconbox_content header {
     flex-direction: column;
   }
 }
-body#top.industries section .iconbox_content header h2 {
+body#top.industries section .iconbox_content header h2, body#top.top-agencies section .iconbox_content header h2 {
   margin-bottom: 0px;
 }
 @media (max-width: 575.98px) {
-  body#top.industries section#top {
+  body#top.industries section#top, body#top.top-agencies section#top {
     padding: 17px;
   }
 }
-body#top.industries section#top .row {
+body#top.industries section#top .row, body#top.top-agencies section#top .row {
   margin-bottom: 0px;
 }
-body#top.industries section#top .row ol {
+body#top.industries section#top .row ol, body#top.top-agencies section#top .row ol {
   margin-bottom: 0px;
   margin-left: 0px;
 }
 @media (min-width: 768px) {
-  body#top.industries section#top .row ol {
+  body#top.industries section#top .row ol, body#top.top-agencies section#top .row ol {
     -moz-columns: 2;
          columns: 2;
   }
 }
-body#top.industries section#top .row ol li {
+body#top.industries section#top .row ol li, body#top.top-agencies section#top .row ol li {
   font-size: 20px;
   font-weight: 600;
   margin-bottom: 20px;
 }
-body#top.industries section#top .row ol li a {
+body#top.industries section#top .row ol li a, body#top.top-agencies section#top .row ol li a {
   text-decoration: underline;
 }
-body#top.industries #more {
+body#top.industries #more, body#top.top-agencies #more {
   padding-top: 3em;
   padding-bottom: 4em;
 }
-body#top.industries #more .row {
+body#top.industries #more .row, body#top.top-agencies #more .row {
   padding-top: 2em;
 }
 @media (min-width: 576px) {
-  body#top.industries #more .col {
+  body#top.industries #more .col, body#top.top-agencies #more .col {
     -moz-columns: 2;
          columns: 2;
   }
 }
 @media (min-width: 768px) {
-  body#top.industries #more .col {
+  body#top.industries #more .col, body#top.top-agencies #more .col {
     -moz-columns: 3;
          columns: 3;
   }
 }
-body#top.industries #more .col a {
+body#top.industries #more .col a, body#top.top-agencies #more .col a {
   display: block;
   margin-bottom: 5px;
   text-decoration: underline;

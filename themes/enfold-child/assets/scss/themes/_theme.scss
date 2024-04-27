@@ -113,19 +113,13 @@ body {
     }
   }
 }
-  #filter-form {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-    max-width: 654px;
-    margin: 0px auto;
-    justify-content: center;
-  }
-
 #filter-form {
   display: flex;
-  gap: 20px;
   align-items: center;
+  gap: 10px;
+  max-width: 685px;
+  margin: 0px auto;
+  justify-content: center;
   & > span { 
     flex-basis: 120px;
     text-align: right;

@@ -51,6 +51,8 @@ do_action('ava_page_template_after_header'); ?>
     endif;
   elseif (is_page('industries')) :
     get_template_part('partials/industries', '');
+  elseif (is_page('top-agencies')) :
+    get_template_part('partials/top-agencies', '');
   endif;
 
   ?>

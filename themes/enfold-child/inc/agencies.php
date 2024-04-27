@@ -10,7 +10,11 @@ function set_agencies_transient()
 
     if ($file = fopen(get_stylesheet_directory() . "/inc/agencies.csv", "r")) {
       while (($data = fgetcsv($file)) !== FALSE) {
-        if ($data[0] <> 'Id') $agencies[$data[0]] = array('name' => $data[2]);
+        if (!strpos($data[0], 'Id')) $agencies[$data[0]] = array(
+          'name' => $data[2],
+          'location' => $data[6],
+          'state' => $data[10],
+        );
       }
 
       // store the agencies array and set it to never expire

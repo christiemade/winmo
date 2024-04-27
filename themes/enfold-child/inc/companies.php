@@ -184,23 +184,28 @@ function winmo_company_list()
   $html = json_encode($companies);
   $alpha = $filter['alpha'];
 
-  $filtered = array_filter($companies, function ($company) use ($alpha) {
-    $letter = substr($company['name'], 0, 1);
+  // If an alpha sort is provided, do that first
+  if ($alpha) {
+    $filtered = array_filter($companies, function ($company) use ($alpha) {
+      $letter = substr($company['name'], 0, 1);
 
-    if (strtolower($letter) == strtolower($alpha)) {
-      return true;
-    }
-    // In non-alpha sort
-    elseif ($alpha == "#") {
-      if (!ctype_alpha($letter)) {  // If this letter is NOT alpha then keep it
+      if (strtolower($letter) == strtolower($alpha)) {
         return true;
+      }
+      // In non-alpha sort
+      elseif ($alpha == "#") {
+        if (!ctype_alpha($letter)) {  // If this letter is NOT alpha then keep it
+          return true;
+        } else {
+          return false;
+        }
       } else {
         return false;
       }
-    } else {
-      return false;
-    }
-  });
+    });
+  } else {
+    $filtered = $companies;
+  }
 
   // filter companies array based on query
   if (!empty($search_filter)) {
