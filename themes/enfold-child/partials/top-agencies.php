@@ -1,7 +1,9 @@
 <header id="agency" class="business">
   <div class="container">
     <div id="overview" class="gray_box">
-      <h1><?php the_title(); ?></h1>
+      <h1><?php if ($args) : print "Top Agencies In " . convertState($args);
+          else :  the_title();
+          endif; ?></h1>
       <div class="row">
         <div class="col">
           <?php the_content(); ?>
@@ -46,12 +48,19 @@
 </div>
 
 <div class="container" id="more">
-  <h4>See top Advertisers for each State</h4>
+  <h4><?php if ($args) : print 'All Agencies in ' . convertState($args);
+      else : print 'See top Advertisers for each State';
+      endif; ?></h4>
   <div class="row">
     <div class="col">
       <?php $agencies = get_agencies_by_state_transient();
+      if ($args) $agencies = $agencies[strtoupper($args)];  // Pull specific state if provideds
       foreach ($agencies as $state => $agencylist) :
-        print '<a href="/agencies/' . $state . '">' . convertState($state) . '</a>';
+        if ($args) :
+          print '<a href="/agency/' . $state . '">' . $agencylist['name'] . '</a>';
+        else :
+          print '<a href="/agencies/' . strtolower($state) . '">' . convertState($state) . '</a>';
+        endif;
       endforeach;
       ?>
     </div>

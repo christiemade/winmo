@@ -54,7 +54,7 @@ function get_agencies_by_state_transient()
       if (!isset($agencies_by_state[$agency['state']])) {
         $agencies_by_state[$agency['state']] = array();
       }
-      $agencies_by_state[$agency['state']][] = $agency;
+      $agencies_by_state[$agency['state']][$aid] = $agency;
     endforeach;
 
     ksort($agencies_by_state);

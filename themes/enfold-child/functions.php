@@ -39,6 +39,7 @@ function winmo_query_var($vars)
 {
   $vars[] = "rid";
   $vars[] = "pid";
+  $vars[] = "state";
   return $vars;
 }
 add_filter('query_vars', 'winmo_query_var');
@@ -49,10 +50,12 @@ function winmo_rewrite_basic()
   // Allow company page to have any ID
   $company_page = get_page_by_path('companies');
   $agency_page = get_page_by_path('agencies');
+  $agencies_page = get_page_by_path('top-agencies');
   $contact_page = get_page_by_path('contacts');
 
   add_rewrite_rule('^company/([^/]*)/?', 'index.php?page_id=' . $company_page->ID . '&rid=$matches[1]', 'top');
   add_rewrite_rule('^agency/([^/]*)/?', 'index.php?page_id=' . $agency_page->ID . '&rid=$matches[1]', 'top');
+  add_rewrite_rule('^agencies/([^[a-z]{2}/]*)/?', 'index.php?page_id=' . $agencies_page->ID . '&state=$matches[1]', 'top');
   add_rewrite_rule('^decision_makers/([^/]*)/?', 'index.php?page_id=' . $contact_page->ID . '&pid=$matches[1]', 'top');
 }
 add_action('init', 'winmo_rewrite_basic');
