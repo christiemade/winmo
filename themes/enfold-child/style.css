@@ -12000,6 +12000,16 @@ body#top.industries section .iconbox_content header, body#top.top-agencies secti
 body#top.industries section .iconbox_content header h2, body#top.top-agencies section .iconbox_content header h2 {
   margin-bottom: 0px;
 }
+body#top.industries section#columned, body#top.top-agencies section#columned {
+  margin-bottom: 3em;
+}
+body#top.industries section#columned .row > .col:only-child, body#top.top-agencies section#columned .row > .col:only-child {
+  -moz-columns: 3;
+       columns: 3;
+}
+body#top.industries section#columned .row > .col:only-child a, body#top.top-agencies section#columned .row > .col:only-child a {
+  display: block;
+}
 @media (max-width: 575.98px) {
   body#top.industries section#top, body#top.top-agencies section#top {
     padding: 17px;

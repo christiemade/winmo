@@ -31,6 +31,15 @@ body#top.industries, body#top.top-agencies {
         margin-bottom: 0px;
       }
     }
+    &#columned {
+      margin-bottom: 3em;
+      .row > .col:only-child {
+        columns: 3;
+        a {
+          display: block;
+        }
+      }
+    }
     &#top {
       @include breakpoint(sm, 'max') { padding: 17px; }
      .row {

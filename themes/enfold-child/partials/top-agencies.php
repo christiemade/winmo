@@ -25,47 +25,57 @@
   </aside>
 
   <main class="col">
-    <section id="top" class="gray_box">
-      <?php print do_shortcode("[av_icon_box icon='ue813' font='winmo' title='Top 10 Industries that Spend the Most on Advertising' position='left' icon_style='' boxed='' font_color='' custom_title='' custom_content='' color='' custom_bg='' custom_font='fa-solid fa-money-bill-trend-up' custom_border='' custom_title_size='' av-desktop-font-size-title='' av-medium-font-size-title='' av-small-font-size-title='' av-mini-font-size-title='' custom_content_size='' av-desktop-font-size='' av-medium-font-size='' av-small-font-size='' av-mini-font-size='' heading_tag='h2' heading_class='' link='' linktarget='' title_attr='' linkelement='' id='' custom_class='' template_class='' av_uid='av-luvpcjbw' sc_version='1.0' admin_preview_bg=''][/av_icon_box]"); ?>
-      <div class="row">
-        <div class="col">
-          <ol>
-            <li><a href="/industries/aftermarket-tires-parts">Aftermarket, Tires, Parts</a></li>
-            <li>Agricultural Business</li>
-            <li>Apparel & Accessories</li>
-            <li>Associations & Organizations</li>
-            <li>Auto Care</li>
-            <li>Auto Manufacturers</li>
-            <li>Automotive</li>
-            <li>Beer, Wine, Liquor, Spirits</li>
-            <li>Beverages</li>
-            <li>Broadcasting</li>
-          </ol>
+    <section id="columned" class="gray_box">
+      <?php if ($args) : ?>
+        <?php print do_shortcode("[av_icon_box icon='ue8b1' font='entypo-fontello' title='All Agencies in " . convertState($args) . "' position='left' icon_style='' boxed='' font_color='' custom_title='' custom_content='' color='' custom_bg='' custom_font='fa-solid fa-location-arrow' custom_border='' custom_title_size='' av-desktop-font-size-title='' av-medium-font-size-title='' av-small-font-size-title='' av-mini-font-size-title='' custom_content_size='' av-desktop-font-size='' av-medium-font-size='' av-small-font-size='' av-mini-font-size='' heading_tag='h2' heading_class='' link='' linktarget='' title_attr='' linkelement='' id='' custom_class='' template_class='' av_uid='av-luvpcjbw' sc_version='1.0' admin_preview_bg=''][/av_icon_box]"); ?>
+        <div class="row">
+          <div class="col">
+            <?php $agencies = get_agencies_by_state_transient();
+            $agencies = $agencies[strtoupper($args)];  // Pull specific state if provideds
+            foreach ($agencies as $state => $agencylist) :
+              print '<a href="/agency/' . $state . '">' . $agencylist['name'] . '</a>';
+            endforeach;
+            ?>
+          </div>
         </div>
-      </div>
+      <?php else : ?>
+        <?php print do_shortcode("[av_icon_box icon='ue813' font='winmo' title='Top 10 Industries that Spend the Most on Advertising' position='left' icon_style='' boxed='' font_color='' custom_title='' custom_content='' color='' custom_bg='' custom_font='fa-solid fa-money-bill-trend-up' custom_border='' custom_title_size='' av-desktop-font-size-title='' av-medium-font-size-title='' av-small-font-size-title='' av-mini-font-size-title='' custom_content_size='' av-desktop-font-size='' av-medium-font-size='' av-small-font-size='' av-mini-font-size='' heading_tag='h2' heading_class='' link='' linktarget='' title_attr='' linkelement='' id='' custom_class='' template_class='' av_uid='av-luvpcjbw' sc_version='1.0' admin_preview_bg=''][/av_icon_box]"); ?>
+        <div class="row">
+          <div class="col">
+            <ol>
+              <li><a href="/industries/aftermarket-tires-parts">Aftermarket, Tires, Parts</a></li>
+              <li>Agricultural Business</li>
+              <li>Apparel & Accessories</li>
+              <li>Associations & Organizations</li>
+              <li>Auto Care</li>
+              <li>Auto Manufacturers</li>
+              <li>Automotive</li>
+              <li>Beer, Wine, Liquor, Spirits</li>
+              <li>Beverages</li>
+              <li>Broadcasting</li>
+            </ol>
+          </div>
+        </div>
+      <?php endif; ?>
     </section>
   </main>
 </div>
 
-<div class="container" id="more">
-  <h4><?php if ($args) : print 'All Agencies in ' . convertState($args);
-      else : print 'See top Advertisers for each State';
-      endif; ?></h4>
-  <div class="row">
-    <div class="col">
-      <?php $agencies = get_agencies_by_state_transient();
-      if ($args) $agencies = $agencies[strtoupper($args)];  // Pull specific state if provideds
-      foreach ($agencies as $state => $agencylist) :
-        if ($args) :
-          print '<a href="/agency/' . $state . '">' . $agencylist['name'] . '</a>';
-        else :
+<?php if (!$args) : ?>
+  <div class="container" id="more">
+    <h4>See top Advertisers for each State</h4>
+    <div class="row">
+      <div class="col">
+        <?php
+        foreach ($agencies as $state => $agencylist) :
           print '<a href="/agencies/' . strtolower($state) . '">' . convertState($state) . '</a>';
-        endif;
-      endforeach;
-      ?>
+        endforeach;
+        ?>
+      </div>
     </div>
   </div>
-</div>
+<?php endif; ?>
+
 <div class="row alternate_color ha-center" id="win-more">
   <div class="col container">
     <h2>Win More with Winmo</h2>
