@@ -11766,6 +11766,18 @@ body.agencies section #clients_table .grid > .row > div:nth-child(3), body.agenc
 body.agencies section #clients_table .grid > .row > div:nth-child(4), body.agencies section #clients_table .top > div:nth-child(4) {
   width: 25%;
 }
+body.agencies section #clients_table .top:first-child {
+  display: flex;
+  justify-content: space-between;
+}
+body.agencies section #clients_table .top:first-child img {
+  width: auto;
+}
+@media (max-width: 479.98px) {
+  body.agencies section #clients_table .top:first-child img:first-child {
+    display: none;
+  }
+}
 body.agencies section #clients_table .grid .row {
   gap: 0px;
 }

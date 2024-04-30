@@ -74,7 +74,7 @@ if (is_wp_error($agency_data)) {
           </div>
         </div>
         <div class="row table" id="clients_table">
-          <div class="top desktop"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/desktop-client-header-1.svg"></div>
+          <div class="top"><img width="105" src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/media-cients-current-past-tabs.svg"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/media-cients-state-industry-filters.svg"></div>
           <div class="top">
             <div><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/clients-top-brand.png"><span>Brand</span></div>
             <div><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/clients-top-state.png"><span>State</span></div>

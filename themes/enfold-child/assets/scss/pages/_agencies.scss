@@ -206,6 +206,17 @@ body.agencies {
           }
         }
       }
+      .top:first-child {
+        display: flex;
+        justify-content: space-between;
+        img {
+          width: auto;
+          &:first-child {
+            @include breakpoint(xs, 'max') { display: none; }
+          }
+        }
+        
+      }
       .grid {
         .row {
           gap: 0px;
