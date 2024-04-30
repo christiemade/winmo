@@ -34,9 +34,25 @@ body#top.industries, body#top.top-agencies {
     &#columned {
       margin-bottom: 3em;
       .row > .col:only-child {
-        columns: 3;
         a {
           display: block;
+        }
+        &.columned {
+          columns: 2;
+          @include breakpoint(md, 'min') { columns: 3; }
+        }
+        ol {
+          margin-bottom: 0px;
+          margin-left: 0px;
+          @include breakpoint(md, 'min') { columns: 2; }
+          li {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            a {
+              text-decoration: underline;
+            }
+          }
         }
       }
     }

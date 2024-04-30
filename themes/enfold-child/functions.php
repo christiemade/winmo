@@ -3,7 +3,7 @@
 // Stylesheet caching version
 function avia_get_theme_version($which = 'parent')
 {
-  return '1.0.0.0.38.74';
+  return '1.0.0.0.38.78';
 }
 
 // Allow for overriding of Enfold templates
@@ -52,10 +52,12 @@ function winmo_rewrite_basic()
   $agency_page = get_page_by_path('agencies');
   $agencies_page = get_page_by_path('top-agencies');
   $contact_page = get_page_by_path('contacts');
+  $industries_page = get_page_by_path('industries');
 
   add_rewrite_rule('^company/([^/]*)/?', 'index.php?page_id=' . $company_page->ID . '&rid=$matches[1]', 'top');
   add_rewrite_rule('^agency/([^/]*)/?', 'index.php?page_id=' . $agency_page->ID . '&rid=$matches[1]', 'top');
-  add_rewrite_rule('^agencies/([^[a-z]{2}/]*)/?', 'index.php?page_id=' . $agencies_page->ID . '&state=$matches[1]', 'top');
+  add_rewrite_rule('^agencies/([a-z]{2})/?', 'index.php?page_id=' . $agencies_page->ID . '&state=$matches[1]', 'top');
+  add_rewrite_rule('^industries/([^/]*)/?', 'index.php?page_id=' . $industries_page->ID . '&rid=$matches[1]', 'top');
   add_rewrite_rule('^decision_makers/([^/]*)/?', 'index.php?page_id=' . $contact_page->ID . '&pid=$matches[1]', 'top');
 }
 add_action('init', 'winmo_rewrite_basic');
@@ -84,5 +86,6 @@ add_filter('http_request_timeout', function () {
 // Add custom body classes to each template
 add_filter('body_class', function ($classes) {
   global $post;
-  return array_merge($classes, array($post->post_name));
+  if (isset($post)) $classes = array_merge($classes, array($post->post_name));
+  return $classes;
 });

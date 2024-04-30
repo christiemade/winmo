@@ -41,9 +41,8 @@ function get_industry_transient()
 
 function get_agencies_by_state_transient()
 {
-  error_log("HELLO?");
   $agencies_by_state = get_transient('winmo_agencies_by_state');
-  error_log(gettype($agencies_by_state));
+
   // check to see if industries is already saved
   if (false === $agencies_by_state) {
 
