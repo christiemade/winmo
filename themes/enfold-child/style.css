@@ -12007,8 +12007,20 @@ body#top.industries section#columned .row > .col:only-child a, body#top.top-agen
   display: block;
 }
 body#top.industries section#columned .row > .col:only-child.columned, body#top.top-agencies section#columned .row > .col:only-child.columned {
-  -moz-columns: 3;
-       columns: 3;
+  -moz-columns: 2;
+       columns: 2;
+}
+@media (min-width: 768px) {
+  body#top.industries section#columned .row > .col:only-child.columned, body#top.top-agencies section#columned .row > .col:only-child.columned {
+    -moz-columns: 3;
+         columns: 3;
+  }
+}
+@media (max-width: 479.98px) {
+  body#top.industries section#columned .row > .col:only-child.columned, body#top.top-agencies section#columned .row > .col:only-child.columned {
+    -moz-columns: 1;
+         columns: 1;
+  }
 }
 body#top.industries section#columned .row > .col:only-child ol, body#top.top-agencies section#columned .row > .col:only-child ol {
   margin-bottom: 0px;
