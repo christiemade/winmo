@@ -13,12 +13,6 @@ body#top.industries, body#top.top-agencies {
     &:after {
       background-image: url(assets/img/categories/header-category.jpg);
     }
-    & + .container {
-      gap: 0px;
-      main {
-        @include breakpoint(xl, 'min') {  margin-left: 55px; }
-      }
-    }
   }
   section {
     .iconbox_content header {
@@ -57,40 +51,40 @@ body#top.industries, body#top.top-agencies {
         }
       }
     }
-    &#top {
-      @include breakpoint(sm, 'max') { padding: 17px; }
-     .row {
-        margin-bottom: 0px;
-        ol {
-          margin-bottom: 0px;
-          margin-left: 0px;
-          @include breakpoint(md, 'min') { columns: 2; }
-          li {
-            font-size: 20px;
-            font-weight: 600;
-            margin-bottom: 20px;
-            a {
-              text-decoration: underline;
-            }
-          }
+  }
+}
+#top {
+  @include breakpoint(sm, 'max') { padding: 17px; }
+ .row {
+    margin-bottom: 0px;
+    ol {
+      margin-bottom: 0px;
+      margin-left: 0px;
+      @include breakpoint(md, 'min') { columns: 2; }
+      li {
+        font-size: 20px;
+        font-weight: 600;
+        margin-bottom: 20px;
+        a {
+          text-decoration: underline;
         }
       }
     }
   }
-  #more {
-    padding-top: 3em;
-    padding-bottom: 4em;
-    .row {
-      padding-top: 2em;
-    }
-    .col {
-      @include breakpoint(sm, "min") { columns: 2; }
-      @include breakpoint(md, "min") { columns: 3 }
-      a {
-        display: block;
-        margin-bottom: 5px;
-        text-decoration: underline;
-      }
+}
+#more {
+  padding-top: 3em;
+  padding-bottom: 4em;
+  .row {
+    padding-top: 2em;
+  }
+  .col {
+    @include breakpoint(sm, "min") { columns: 2; }
+    @include breakpoint(md, "min") { columns: 3 }
+    a {
+      display: block;
+      margin-bottom: 5px;
+      text-decoration: underline;
     }
   }
 }

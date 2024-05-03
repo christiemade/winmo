@@ -76,6 +76,11 @@
   }
 
   & + .container.row {
-    @include breakpoint(lg, 'max') {  gap: 0px; }
+    gap: 0px;
+    @include breakpoint(lg, 'min') {
+      main.col {
+        margin-left: 55px;
+      }
+    }
   }
 }

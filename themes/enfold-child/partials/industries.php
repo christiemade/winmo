@@ -8,9 +8,9 @@
         </div>
         <div class="col">
           <p><strong>Which industry spends the most on advertising?</strong><Br>
-            The retail industry by far spends the most on advertising. In fact, in 2023, retailers spent over twice as much as any other industry. Retail will spend $73.55 billion on digital advertising in 2023. That’s over $34 billion more than the second-place spender, consumer packaged goods (CPG).</p>
+            The retail industry by far spends the most on advertising. In fact, in the trailing 12 months, retailers spent over twice as much as any other industry with $73.55 billion on digital advertising. That's over $34 billion more than the second-place spender, consumer packaged goods (CPG).</p>
           <p><strong>Which company spends the most on advertising?</strong><br>
-            Comcast spent the most on advertising in 2023. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            Comcast spent the most on advertising in the trailing 12 months. </p>
         </div>
       </div>
     </div>
@@ -28,8 +28,8 @@
       <div class="row">
         <div class="col">
           <ol>
-            <li><a href="/industries/aftermarket-tires-parts">Aftermarket, Tires, Parts</a></li>
-            <li>Agricultural Business</li>
+            <li>Aftermarket, Tires, Parts</li>
+            <li><a href="/industries/agricultural-business">Agricultural Business</a></li>
             <li>Apparel & Accessories</li>
             <li>Associations & Organizations</li>
             <li>Auto Care</li>

@@ -159,6 +159,11 @@
     &#marketing, &#ad_spend {
       padding-bottom: 0px;
     }
+    &#top {
+      & > article.iconbox {
+        margin-bottom: 40px;
+      }
+    }
   }
 }
 header {

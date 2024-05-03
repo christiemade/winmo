@@ -113,12 +113,16 @@ body {
     }
   }
 }
+.filters {
+  padding-top: 3em;
+  padding-bottom: 4em;
+}
 #filter-form {
   display: flex;
   align-items: center;
   gap: 10px;
   max-width: 685px;
-  margin: 0px auto;
+  margin: 20px 0px 0px;
   justify-content: center;
   & > span { 
     flex-basis: 120px;
@@ -137,6 +141,7 @@ body {
   }
 }
 .all-content {
+  padding-bottom: 3em;
   & > .row:not(.pagination) {
     .col {
       flex-direction: column;

@@ -10561,9 +10561,12 @@ h5 {
   justify-content: start;
   z-index: 1;
 }
-@media (max-width: 991.98px) {
-  #main > .container_wrap_first > header + .container.row {
-    gap: 0px;
+#main > .container_wrap_first > header + .container.row {
+  gap: 0px;
+}
+@media (min-width: 992px) {
+  #main > .container_wrap_first > header + .container.row main.col {
+    margin-left: 55px;
   }
 }
 
@@ -11006,12 +11009,17 @@ ol li::before {
   }
 }
 
+.filters {
+  padding-top: 3em;
+  padding-bottom: 4em;
+}
+
 #filter-form {
   display: flex;
   align-items: center;
   gap: 10px;
   max-width: 685px;
-  margin: 0px auto;
+  margin: 20px 0px 0px;
   justify-content: center;
 }
 #filter-form > span {
@@ -11030,6 +11038,9 @@ ol li::before {
   flex-basis: 90px;
 }
 
+.all-content {
+  padding-bottom: 3em;
+}
 .all-content > .row:not(.pagination) .col {
   flex-direction: column;
   display: flex;
@@ -11387,6 +11398,9 @@ ol li::before {
 }
 .responsive body#top.companies #wrap_all section#marketing, .responsive body#top.companies #wrap_all section#ad_spend {
   padding-bottom: 0px;
+}
+.responsive body#top.companies #wrap_all section#top > article.iconbox {
+  margin-bottom: 40px;
 }
 
 header.business {
@@ -11769,6 +11783,7 @@ body.agencies section #clients_table .grid > .row > div:nth-child(4), body.agenc
 body.agencies section #clients_table .top:first-child {
   display: flex;
   justify-content: space-between;
+  align-items: flex-start;
 }
 body.agencies section #clients_table .top:first-child img {
   width: auto;
@@ -11868,12 +11883,8 @@ body.contacts #main header #overview {
     grid-area: 3/1/4/2;
   }
 }
-body.contacts #main header + .container {
-  gap: 0px;
-}
 @media (min-width: 992px) {
   body.contacts #main header + .container > main {
-    margin-left: 55px;
     padding-bottom: 80px;
   }
 }
@@ -11990,14 +12001,6 @@ body#top.industries #main header > .container, body#top.top-agencies #main heade
 body#top.industries #main header:after, body#top.top-agencies #main header:after {
   background-image: url(assets/img/categories/header-category.jpg);
 }
-body#top.industries #main header + .container, body#top.top-agencies #main header + .container {
-  gap: 0px;
-}
-@media (min-width: 1200px) {
-  body#top.industries #main header + .container main, body#top.top-agencies #main header + .container main {
-    margin-left: 55px;
-  }
-}
 body#top.industries section .iconbox_content header, body#top.top-agencies section .iconbox_content header {
   display: flex;
   align-items: center;
@@ -12052,52 +12055,54 @@ body#top.industries section#columned .row > .col:only-child ol li, body#top.top-
 body#top.industries section#columned .row > .col:only-child ol li a, body#top.top-agencies section#columned .row > .col:only-child ol li a {
   text-decoration: underline;
 }
+
 @media (max-width: 575.98px) {
-  body#top.industries section#top, body#top.top-agencies section#top {
+  #top {
     padding: 17px;
   }
 }
-body#top.industries section#top .row, body#top.top-agencies section#top .row {
+#top .row {
   margin-bottom: 0px;
 }
-body#top.industries section#top .row ol, body#top.top-agencies section#top .row ol {
+#top .row ol {
   margin-bottom: 0px;
   margin-left: 0px;
 }
 @media (min-width: 768px) {
-  body#top.industries section#top .row ol, body#top.top-agencies section#top .row ol {
+  #top .row ol {
     -moz-columns: 2;
          columns: 2;
   }
 }
-body#top.industries section#top .row ol li, body#top.top-agencies section#top .row ol li {
+#top .row ol li {
   font-size: 20px;
   font-weight: 600;
   margin-bottom: 20px;
 }
-body#top.industries section#top .row ol li a, body#top.top-agencies section#top .row ol li a {
+#top .row ol li a {
   text-decoration: underline;
 }
-body#top.industries #more, body#top.top-agencies #more {
+
+#more {
   padding-top: 3em;
   padding-bottom: 4em;
 }
-body#top.industries #more .row, body#top.top-agencies #more .row {
+#more .row {
   padding-top: 2em;
 }
 @media (min-width: 576px) {
-  body#top.industries #more .col, body#top.top-agencies #more .col {
+  #more .col {
     -moz-columns: 2;
          columns: 2;
   }
 }
 @media (min-width: 768px) {
-  body#top.industries #more .col, body#top.top-agencies #more .col {
+  #more .col {
     -moz-columns: 3;
          columns: 3;
   }
 }
-body#top.industries #more .col a, body#top.top-agencies #more .col a {
+#more .col a {
   display: block;
   margin-bottom: 5px;
   text-decoration: underline;
