@@ -10,9 +10,10 @@ $company = get_query_var('rid');
 $company_data = set_company_transient($company, "company");
 
 // Error check
-if (is_wp_error($company_data)) {
+if (is_wp_error($company_data) || (!is_array($company_data))) {
   $error_message = $company_data->get_error_message();
   echo "<div id=\"error\"><h2>Error:</h2> <p>" . $error_message . '</p></div>';
+  delete_transient('winmo_company_' . $company);
 } else {
 
   // Create single variable for company address display
