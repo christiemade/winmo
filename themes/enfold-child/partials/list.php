@@ -37,7 +37,6 @@
             <li><a href="/company/6891">Toyota Motor Sales, U.S.A., Inc.</a></li>
             <li><a href="/company/9649">Verizon Communications, Inc.</a></li>
             <li><a href="/company/363">American Honda Motor Co., Inc.</a></li>
-            <li><a href="/company/14511">Progressive Casualty Insurance Company</a></li>
           </ol>
         </div>
       </div>
@@ -53,7 +52,7 @@
     <form id="filter-form" data-action="winmo_company_list" data-nonce="<?php print $nonce; ?>" class="form" action='' method="POST">
       <span>Filter Companies</span>
 
-      <input type="text" name="search" placeholder="Search" class="form-control form-control-sm" title="Search by product name or SKU" />
+      <input type="text" name="search" placeholder="Search" class="form-control form-control-sm" title="Search by company name" />
 
       <span> Alphasort </span>
       <select name="alpha" class="form-control form-control-sm">

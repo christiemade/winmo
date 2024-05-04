@@ -34,3 +34,100 @@ add_filter('avf_main_menu_nav', function ($stuff) {
   }
   return $stuff;
 });
+
+// Create AJAX Call for Agency Pager
+add_action("wp_ajax_winmo_agency_list", "winmo_agency_list");
+add_action("wp_ajax_nopriv_winmo_agency_list", "winmo_agency_list");
+
+function winmo_agency_list()
+{
+  $data = $_POST["data"];
+  if (!wp_verify_nonce($_POST['nonce'], "winmo_filter_nonce")) {
+    exit("There has been an error.");
+  }
+
+  $agencies = get_transient('winmo_agencies');
+
+  // Turn filter values into an array
+  $data = explode('&', $data);
+  $filter = array();
+  foreach ($data as $string) :
+    $keyval = explode('=', $string);
+    $filter[$keyval[0]] = $keyval[1];
+  endforeach;
+
+
+  // Filter query
+  $search_filter = isset($filter['search']) ? $filter['search'] : '';
+
+  // Pull out all entries by alpha
+  $html = json_encode($agencies);
+  $alpha = $filter['alpha'];
+
+  // If an alpha sort is provided, do that first
+  if ($alpha) {
+    $filtered = array_filter($agencies, function ($agency) use ($alpha) {
+      $letter = substr($agency['name'], 0, 1);
+
+      if (strtolower($letter) == strtolower($alpha)) {
+        return true;
+      }
+      // In non-alpha sort
+      elseif ($alpha == "#") {
+        if (!ctype_alpha($letter)) {  // If this letter is NOT alpha then keep it
+          return true;
+        } else {
+          return false;
+        }
+      } else {
+        return false;
+      }
+    });
+  } else {
+    $filtered = $agencies;
+  }
+
+  // filter companies array based on query
+  if (!empty($search_filter)) {
+    foreach ($filtered as $key => $agency) {
+      if ((strpos($agency['name'], $search_filter) !== false)) {
+      } else {
+        unset($filtered[$key]);
+      }
+    }
+  }
+
+  // Define total products
+  $total_items = sizeof($filtered);
+
+
+  /*********************
+    The Template
+   ********************/
+  $html = "<div class=\"row container\"></div><div class=\"row container\">";
+  $mod = round($total_items / 3) + 1; // 3 columns
+  $counter = 0;
+  if ($total_items) {
+    foreach ($filtered as $key => $agency) {
+      // Column shift
+      if ($counter % $mod == 0) {
+        if ($counter > 1) $html .= '</div><!-- /col -->';
+        $html .= '<div class="col">';
+      }
+      $html .= '<a href="/agency/' . $key . '/">' . $agency['name'] . '</a>';
+      $counter++;
+    }
+    $html .= '</div><!-- /col --></div><!-- /row -->';
+  } else {
+    $html .= '<p class="alert alert-warning" >No results found.</p>';
+  }
+
+  if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
+    $html = json_encode($html);
+    echo $html;
+  } else {
+    header("Location: " . $_SERVER["HTTP_REFERER"]);
+  }
+
+  die();
+}

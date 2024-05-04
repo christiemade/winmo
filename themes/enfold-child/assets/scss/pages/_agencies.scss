@@ -31,6 +31,18 @@ body.agencies {
           @include breakpoint(sm, 'max') { flex-basis: 100%; }
         }
       }
+      &.agency-list {
+        .row {
+          .col {
+            &:first-child {
+              flex: 1;
+            }
+            &:last-child {
+              flex:1;
+            }
+          }
+        }
+      }
     }
   }
   section {

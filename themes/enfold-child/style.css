@@ -11564,6 +11564,12 @@ body.agencies #main header > .container #overview .row .social {
     flex-basis: 100%;
   }
 }
+body.agencies #main header > .container #overview.agency-list .row .col:first-child {
+  flex: 1;
+}
+body.agencies #main header > .container #overview.agency-list .row .col:last-child {
+  flex: 1;
+}
 body.agencies section {
   padding-bottom: 4em;
 }
