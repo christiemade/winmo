@@ -37,7 +37,8 @@
 <div class="row alternate_color ha-center" id="win-more">
   <div class="col container">
     <h2>Win More with Winmo</h2>
-    <p><a href="#"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/companies/win-more-video.png"></a></p>
+    <div style="padding:56.25% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/864820000?h=7bed84b047&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="Win More with Winmo"></iframe></div>
+    <script src="https://player.vimeo.com/api/player.js"></script>
   </div>
 </div>
 

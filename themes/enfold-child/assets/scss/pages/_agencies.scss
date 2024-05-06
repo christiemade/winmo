@@ -35,10 +35,10 @@ body.agencies {
         .row {
           .col {
             &:first-child {
-              flex: 1;
+              @include breakpoint(sm) { flex: 1; }
             }
             &:last-child {
-              flex:1;
+              @include breakpoint(sm) { flex: 1; }
             }
           }
         }

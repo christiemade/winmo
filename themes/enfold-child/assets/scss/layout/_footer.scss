@@ -13,12 +13,15 @@
     transform: rotateX(180deg);
     background-image: url(assets/img/companies/win-more-bg.png);
   }
+  h2 {
+    margin-bottom: 45px;
+  }
   p {
     font-weight: 300;
   }
   .container {
     max-width: 967px;
-    padding-bottom: 80px;
+    padding-bottom: 175px;
     img {
       max-width: 724px;
       margin: 30px auto;

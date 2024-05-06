@@ -45,6 +45,7 @@ body#top.industries, body#top.top-agencies {
             font-size: 20px;
             font-weight: 600;
             margin-bottom: 20px;
+            @include breakpoint(sm, 'max') { font-size: 16px; }
             a {
               text-decoration: underline;
             }
@@ -55,7 +56,7 @@ body#top.industries, body#top.top-agencies {
   }
 }
 #top {
-  @include breakpoint(sm, 'max') { padding: 17px; }
+  //@include breakpoint(sm, 'max') { padding: 17px; }
  .row {
     margin-bottom: 0px;
     ol {
@@ -66,6 +67,7 @@ body#top.industries, body#top.top-agencies {
         font-size: 20px;
         font-weight: 600;
         margin-bottom: 20px;
+        @include breakpoint(sm, 'max') { font-size: 16px; }
         a {
           text-decoration: underline;
         }

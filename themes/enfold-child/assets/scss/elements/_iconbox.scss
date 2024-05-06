@@ -12,22 +12,28 @@
     }
     h2.iconbox_content_title {
       font-size: 38px;
+      @include breakpoint(sm, 'max') { 
+        font-size: 22px;
+      }
     }
 
   }
   &.iconbox_left {
     svg {
   
-        height: 40px;
-        line-height: 45px;
-        font-size: 40px;
-        top: 0px;
-        left: 0px;
-        border-radius: 0px;
-        width: 60px;
-        text-align: left;
-        margin-right: 15px;
-      
+      height: 40px;
+      line-height: 45px;
+      font-size: 40px;
+      top: 0px;
+      left: 0px;
+      border-radius: 0px;
+      width: 60px;
+      text-align: left;
+      margin-right: 15px;
+      @include breakpoint(sm, 'max') { 
+        margin-right: 0px;
+        margin-bottom: 15px;
+      }
       path {
         fill: $teal;
       }

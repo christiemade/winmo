@@ -17,6 +17,9 @@ h1 {
     font-size: 47px;
     margin-bottom: 15px;
   }
+  @include breakpoint(sm, 'max') { 
+    font-size: 34px;
+  }
 }
 h2 {
   font-size: 38px;
