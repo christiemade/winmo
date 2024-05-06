@@ -20,13 +20,9 @@
 </header>
 
 <div class="container row">
-  <aside>
-    <?php get_template_part('partials/sidebar_cta', 'categories'); ?>
-  </aside>
-
   <main class="col">
-    <section id="columned" class="gray_box">
-      <?php print do_shortcode("[av_icon_box icon='ue813' font='winmo' title='More " . $industry['name'] . " Industry Companies' position='left' icon_style='' boxed='' font_color='' custom_title='' custom_content='' color='' custom_bg='' custom_font='fa-solid fa-gear' custom_border='' custom_title_size='' av-desktop-font-size-title='' av-medium-font-size-title='' av-small-font-size-title='' av-mini-font-size-title='' custom_content_size='' av-desktop-font-size='' av-medium-font-size='' av-small-font-size='' av-mini-font-size='' heading_tag='h2' heading_class='' link='' linktarget='' title_attr='' linkelement='' id='' custom_class='' template_class='' av_uid='av-luvpcjbw' sc_version='1.0' admin_preview_bg=''][/av_icon_box]"); ?>
+    <section id="columned">
+      <?php print do_shortcode("[av_icon_box icon='ue813' font='winmo' title='" . $industry['name'] . " Industry Companies' position='left' icon_style='' boxed='' font_color='' custom_title='' custom_content='' color='' custom_bg='' custom_font='fa-solid fa-gear' custom_border='' custom_title_size='' av-desktop-font-size-title='' av-medium-font-size-title='' av-small-font-size-title='' av-mini-font-size-title='' custom_content_size='' av-desktop-font-size='' av-medium-font-size='' av-small-font-size='' av-mini-font-size='' heading_tag='h2' heading_class='' link='' linktarget='' title_attr='' linkelement='' id='' custom_class='' template_class='' av_uid='av-luvpcjbw' sc_version='1.0' admin_preview_bg=''][/av_icon_box]"); ?>
       <div class="row">
         <div class="col columned">
           <?php foreach ($industry['companies'] as $pid => $name) : ?>

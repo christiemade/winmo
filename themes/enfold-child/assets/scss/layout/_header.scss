@@ -80,6 +80,9 @@
     @include breakpoint(lg, 'min') {
       main.col {
         margin-left: 55px;
+        &:only-child {
+          margin-left: 0px;
+        }
       }
     }
   }

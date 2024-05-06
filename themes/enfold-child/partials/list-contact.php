@@ -1,26 +1,58 @@
 <header>
-  <div class="container"></div>
+  <div class="container">
+    <div id="overview" class="gray_box">
+      <h1>Title</h1>
+      <div class="row">
+        <div class="col">
+          <p>Text.</p>
+        </div>
+        <div class="col">
+          <p><strong>Question.</strong><Br>
+            Answer.</p>
+          <p><strong>Question</strong><br>
+            Answer. </p>
+        </div>
+      </div>
+    </div>
+  </div>
 </header>
+
+<div class="container row">
+  <aside>
+    <?php get_template_part('partials/sidebar_cta', 'categories'); ?>
+  </aside>
+
+  <main class="col">
+    <section id="top" class="gray_box">
+      <?php print do_shortcode("[av_icon_box icon='ue813' font='winmo' title='Top Decision Makers' position='left' icon_style='' boxed='' font_color='' custom_title='' custom_content='' color='' custom_bg='' custom_font='fa-solid fa-arrows-down-to-people' custom_border='' custom_title_size='' av-desktop-font-size-title='' av-medium-font-size-title='' av-small-font-size-title='' av-mini-font-size-title='' custom_content_size='' av-desktop-font-size='' av-medium-font-size='' av-small-font-size='' av-mini-font-size='' heading_tag='h2' heading_class='' link='' linktarget='' title_attr='' linkelement='' id='' custom_class='' template_class='' av_uid='av-luvpcjbw' sc_version='1.0' admin_preview_bg=''][/av_icon_box]"); ?>
+      <div class="row">
+        <div class="col">
+          <ol>
+            <li>??</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
 
 <div class="filters row">
   <div class="col container">
+    <h4>Decision Makers</h4>
     <?php $nonce = wp_create_nonce("winmo_filter_nonce"); ?>
-    <form id="filter-form" data-action="winmo_contact_list" data-nonce="<?php print $nonce; ?>" class="form" action='' method="POST">
-      <span>Filter People</span>
+    <form id="filter-form" data-action="winmo_contacts_list" data-nonce="<?php print $nonce; ?>" class="form" action='' method="POST">
+      <span>Filter Decision Makers</span>
 
-      <!-- No filter for now <select name="cats" class="form-control form-control-sm">
-        <option value="">Filter by Category</option>
-        <option value=""></options>
-        <option value=""></options>
-      </select>-->
-      <input type="text" name="search" placeholder="Search" class="form-control form-control-sm" title="Search by product name or SKU" />
+      <input type="text" name="search" placeholder="Search" class="form-control form-control-sm" title="Search by Agency Name" />
 
-      <span> Show </span>
-      <select name="per-page" class="form-control form-control-sm">
-        <option value="50">50</options>
-        <option value="100">100</options>
-        <option value="250">250</options>
-        <option value="500">500</options>
+      <span> Alphasort </span>
+      <select name="alpha" class="form-control form-control-sm">
+        <option value="">- ANY -</option>
+        <?php foreach (range('a', 'z') as $v) : ?>
+          <option value="<?php print $v; ?>" <?php if ($v == "a") {
+                                                print " selected=\"selected\"";
+                                              } ?>><?php print strtoupper($v); ?></option>
+        <?php endforeach; ?>
       </select>
 
       <input type="submit" value="Filter" class="btn btn-sm btn-secondary" />
@@ -28,7 +60,17 @@
   </div>
 </div>
 
+
 <!-- The filtered and paginated content will be dynamically loaded into the #all-products div -->
 <div id="all-contacts" class="all-content">
 
 </div>
+
+<div class="row alternate_color ha-center" id="win-more">
+  <div class="col container">
+    <h2>Win More with Winmo</h2>
+    <p><a href="#"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/companies/win-more-video.png"></a></p>
+  </div>
+</div>
+
+<?php get_template_part('partials/footer', 'company');

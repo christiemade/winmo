@@ -28,16 +28,16 @@
       <div class="row">
         <div class="col">
           <ol>
-            <li>Aftermarket, Tires, Parts</li>
-            <li><a href="/industries/agricultural-business">Agricultural Business</a></li>
-            <li>Apparel & Accessories</li>
-            <li>Associations & Organizations</li>
-            <li>Auto Care</li>
-            <li>Auto Manufacturers</li>
-            <li>Automotive</li>
-            <li>Beer, Wine, Liquor, Spirits</li>
-            <li>Beverages</li>
-            <li>Broadcasting</li>
+            <li><a href="/industries/financial-services">Financial Services & Government</a></li>
+            <li><a href="/industries/retail-stores-chains">Retail Stores & Chains</a></li>
+            <li><a href="/industries/health-care">Health Care</a></li>
+            <li><a href="/industries/entertainment">Entertainment</a></li>
+            <li><a href="/industries/automotive">Automotive</li>
+            <li>Insurance</li>
+            <li><a href="/industries/publishing-printed-media">Publishing & Printed Media</li>
+            <li><a href="/industries/travel-hospitality">Travel & Hospitality</li>
+            <li><a href="/industries/packaged-goods">Packaged Goods</li>
+            <li><a href="/industries/food">Food</li>
           </ol>
         </div>
       </div>

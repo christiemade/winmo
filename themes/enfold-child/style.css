@@ -10568,6 +10568,9 @@ h5 {
   #main > .container_wrap_first > header + .container.row main.col {
     margin-left: 55px;
   }
+  #main > .container_wrap_first > header + .container.row main.col:only-child {
+    margin-left: 0px;
+  }
 }
 
 #win-more {
@@ -12010,7 +12013,6 @@ body#top.industries #main header:after, body#top.top-agencies #main header:after
 body#top.industries section .iconbox_content header, body#top.top-agencies section .iconbox_content header {
   display: flex;
   align-items: center;
-  max-width: 575px;
   margin-bottom: 16px;
 }
 @media (max-width: 575.98px) {
@@ -12031,10 +12033,22 @@ body#top.industries section#columned .row > .col:only-child.columned, body#top.t
   -moz-columns: 2;
        columns: 2;
 }
-@media (min-width: 768px) {
+@media (min-width: 992px) {
+  body#top.industries section#columned .row > .col:only-child.columned, body#top.top-agencies section#columned .row > .col:only-child.columned {
+    -moz-columns: 4;
+         columns: 4;
+  }
+}
+@media (max-width: 991.98px) {
   body#top.industries section#columned .row > .col:only-child.columned, body#top.top-agencies section#columned .row > .col:only-child.columned {
     -moz-columns: 3;
          columns: 3;
+  }
+}
+@media (max-width: 767.98px) {
+  body#top.industries section#columned .row > .col:only-child.columned, body#top.top-agencies section#columned .row > .col:only-child.columned {
+    -moz-columns: 2;
+         columns: 2;
   }
 }
 @media (max-width: 479.98px) {

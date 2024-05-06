@@ -28,6 +28,7 @@ jQuery(function ($) {
             dataType: "json",
             url: winmoAjax.ajaxurl,
             data: { action: form.attr("data-action"), data: form.serialize(), nonce: nonce },
+            async: false,
             success: function (data, response) {
                if (response == "success") {
                   $('.all-content').html(data);

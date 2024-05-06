@@ -1,113 +1,5 @@
 <?php
 
-// Create AJAX Call for Contact Pager
-add_action("wp_ajax_winmo_contact_list", "winmo_contact_list");
-add_action("wp_ajax_nopriv_winmo_contact_list", "winmo_contact_list");
-
-function winmo_contact_list()
-{
-  $data = $_POST["data"];
-  if (!wp_verify_nonce($_POST['nonce'], "winmo_contact_filter_nonce")) {
-    exit("There has been an error.");
-  }
-
-  $contacts = get_transient('winmo_contacts');
-  $page_number = $_POST["pageNumber"] ? $_POST["pageNumber"] : 1;
-
-  // Turn filter values into an array
-  $data = explode('&', $data);
-  $filter = array();
-  foreach ($data as $string) :
-    $keyval = explode('=', $string);
-    $filter[$keyval[0]] = $keyval[1];
-  endforeach;
-
-  // Filter query
-  $cat_filter = isset($filter['cats']) ? $filter['cats'] : '';
-  $search_filter = isset($filter['search']) ? $filter['search'] : '';
-
-  // Default limit
-  $limit = isset($filter['per-page']) ? $filter['per-page'] : 100;
-
-  // Default offset
-  $offset = 0;
-  $current_page = 1;
-  if (isset($page_number)) {
-    $current_page = (int)$page_number;
-    $offset = ($current_page * $limit) - $limit;
-  }
-
-  // filter contacts array based on query
-  if (!empty($cat_filter) || !empty($search_filter)) {
-    $filtered_contacts = array();
-    foreach ($contacts as $person) {
-      if (!empty($cat_filter) && !empty($search_filter)) {
-
-        if ((strpos($person[0], $search_filter) !== false || $person[1] == $search_filter) && $person[2] == $cat_filter) {
-          $filtered_contacts[] = $person;
-        }
-      } else if (!empty($cat_filter) && $person['category'] == $cat_filter) {
-
-        $filtered_contacts[] = $person;
-      } else if (!empty($search_filter) && (strpos($person[0], $search_filter) !== false || $person[1] == $search_filter)) {
-
-        $filtered_contacts[] = $person;
-      }
-    }
-
-    $contacts = $filtered_contacts;
-  }
-
-  // Alter the array
-  $paged_contacts = array_slice($contacts, $offset, $limit, true);
-
-  // Define total products
-  $total_contacts = count($contacts);
-
-  // Get the total pages rounded up the nearest whole number
-  $total_pages = ceil($total_contacts / $limit);
-
-  // Determine whether or not pagination should be made available.
-  $paged = $total_contacts > count($paged_contacts) ? true : false;
-
-  /*********************
-    The Template
-   ********************/
-  $html = "<div class=\"row container\"><h2>Here is our epic pager:</h2></div><div class=\"row container\">";
-  $mod = round(count($paged_contacts) / 3) + 1; // 3 columns
-  $counter = 0;
-  if (count($paged_contacts)) {
-    foreach ($paged_contacts as $key => $person) {
-      // Column shift
-      if ($counter % $mod == 0) {
-        if ($counter > 1) $html .= '</div><!-- /col -->';
-        $html .= '<div class="col">';
-      }
-      $html .= '<a href="/decision_makers/' . $key . '/">' . $person[0] . ' ' . $person[1] . '</a>';
-      $counter++;
-    }
-    $html .= '</div><!-- /col --></div><!-- /row -->';
-  } else {
-    $html .= '<p class="alert alert-warning" >No results found.</p>';
-  }
-
-  if ($paged) {
-    ob_start();
-    include "pagination.php";
-    $html .= ob_get_contents();
-    ob_end_clean();
-  }
-
-  if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
-    $html = json_encode($html);
-    echo $html;
-  } else {
-    header("Location: " . $_SERVER["HTTP_REFERER"]);
-  }
-
-  die();
-}
-
 // Save the individual contact as a transient, if it doesn't exist yet
 function set_contact_transient($contact_id)
 {
@@ -194,3 +86,95 @@ add_filter('avf_main_menu_nav', function ($stuff) {
   }
   return $stuff;
 });
+
+// Create AJAX Call for Contacts Pager
+add_action("wp_ajax_winmo_contacts_list", "winmo_contacts_list");
+add_action("wp_ajax_nopriv_winmo_contacts_list", "winmo_contacts_list");
+
+function winmo_contacts_list()
+{
+  $data = $_POST["data"];
+  if (!wp_verify_nonce($_POST['nonce'], "winmo_filter_nonce")) {
+    exit("There has been an error.");
+  }
+
+  $contacts = get_transient('winmo_contacts');
+
+  // Turn filter values into an array
+  $data = explode('&', $data);
+  $filter = array();
+  foreach ($data as $string) :
+    $keyval = explode('=', $string);
+    $filter[$keyval[0]] = $keyval[1];
+  endforeach;
+
+
+  // Filter query
+  $search_filter = isset($filter['search']) ? $filter['search'] : '';
+
+  // Pull out all entries by alpha
+  $alpha = $filter['alpha'];
+
+  // If an alpha sort is provided, do that first
+  if ($alpha) {
+    $filtered = array_filter($contacts, function ($contact) use ($alpha) {
+
+      $letter = substr($contact[1], 0, 1);
+      error_log($alpha . "  " . $letter);
+
+      if (strtolower($letter) == strtolower($alpha)) {
+        return true;
+      }
+      // In non-alpha sort
+      else {
+        return false;
+      }
+    });
+  } else {
+    $filtered = $contacts;
+  }
+
+  // filter companies array based on query
+  if (!empty($search_filter)) {
+    foreach ($filtered as $key => $contact) {
+      if ((strpos($contact[0], $search_filter) !== false) || (strpos(strtolower($contact[1]), strtolower($search_filter)) !== false)) {
+      } else {
+        unset($filtered[$key]);
+      }
+    }
+  }
+
+  // Define total products
+  $total_items = sizeof($filtered);
+
+
+  /*********************
+    The Template
+   ********************/
+  $html = "<div class=\"row container\"></div><div class=\"row container\">";
+  $mod = round($total_items / 3) + 1; // 3 columns
+  $counter = 0;
+  if ($total_items) {
+    foreach ($filtered as $key => $contact) {
+      // Column shift
+      if ($counter % $mod == 0) {
+        if ($counter > 1) $html .= '</div><!-- /col -->';
+        $html .= '<div class="col">';
+      }
+      $html .= '<a href="/agency/' . $key . '/">' . $contact[0] . ' ' . $contact[1] . '</a>';
+      $counter++;
+    }
+    $html .= '</div><!-- /col --></div><!-- /row -->';
+  } else {
+    $html .= '<p class="alert alert-warning" >No results found.</p>';
+  }
+
+  if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
+    $html = json_encode($html);
+    echo $html;
+  } else {
+    header("Location: " . $_SERVER["HTTP_REFERER"]);
+  }
+
+  die();
+}
