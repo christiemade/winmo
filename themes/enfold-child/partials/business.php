@@ -259,32 +259,6 @@ if (is_wp_error($company_data)) {
           <div class="col col-5-5"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/companies/social-media-marketing-ad-spend.png"></div>
         </div>
       </section>
-
-      <!--Here is all we get from the API thats not already listed above:<br>
-      <ul class="preview">
-        <li>id: <?php print $company_data['id']; ?></li>
-        <li>company_pressroom: <?php print $company_data['company_pressroom']; ?></li>
-        <li>website: <?php print $company_data['website']; ?></li>
-        <li>type: <?php print $company_data['type']; ?></li>
-        <li>employees: <?php print $company_data['employees']; ?></li>
-        <li>fiscal_close: <?php print $company_data['fiscal_close']; ?></li>
-        <li>description: <?php print $company_data['description']; ?></li>
-        <li>founded: <?php print $company_data['founded']; ?></li>
-        <li>company_nickname: <?php print $company_data['company_nickname']; ?></li>
-        <li>stocksymbol: <?php print $company_data['stocksymbol']; ?></li>
-        <li>industries:
-          <ul class="preview">
-            <?php foreach ($company_data['industries'] as $industry => $machinekey) :
-              print '<li>' . $industry . ' : <ul>';
-              foreach ($machinekey as $key) :
-                print '<li>' . $key . '</li>';
-              endforeach;
-              print '</ul></li>';
-            endforeach; ?>
-          </ul>
-        </li>
-        <li>profile_url: <?php print $company_data['profile_url']; ?></li>
-      </ul>-->
     </main>
   </div><!--end container-->
 

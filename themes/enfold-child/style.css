@@ -12104,6 +12104,27 @@ body.contacts aside + main > section {
   margin-bottom: 30px;
 }
 
+#top #sections .entry-content-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 40px;
+}
+#top #sections .entry-content-wrapper article.iconbox {
+  flex-basis: 33%;
+  border-radius: 20px;
+  border: 11px rgba(7, 64, 88, 0.2) solid;
+  margin: 0px;
+}
+#top #sections .entry-content-wrapper article.iconbox .iconbox_icon {
+  background: rgba(7, 64, 88, 0.1);
+  border: 0px;
+  color: #25C9BA;
+}
+#top #sections .entry-content-wrapper article.iconbox.av-no-box .iconbox_content {
+  padding: 50px 0px;
+}
+
 body#top.industries #header_main nav, body#top.top-agencies #header_main nav {
   display: none;
 }

@@ -3,7 +3,7 @@
 // Stylesheet caching version
 function avia_get_theme_version($which = 'parent')
 {
-  return '1.0.0.0.39.02';
+  return '1.0.0.0.39.06';
 }
 
 // Allow for overriding of Enfold templates
@@ -88,4 +88,16 @@ add_filter('body_class', function ($classes) {
   global $post;
   if (isset($post)) $classes = array_merge($classes, array($post->post_name));
   return $classes;
+});
+
+add_action('ava_after_content_templatebuilder_page', function () { ?>
+  <div class="row alternate_color ha-center" id="win-more">
+    <div class="col container">
+      <h2>Win More with Winmo</h2>
+      <div style="padding:56.25% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/864820000?h=7bed84b047&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="Win More with Winmo"></iframe></div>
+      <script src="https://player.vimeo.com/api/player.js"></script>
+    </div>
+  </div>
+
+<?php get_template_part('partials/footer', 'company');
 });

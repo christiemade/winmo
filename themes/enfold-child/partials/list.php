@@ -1,16 +1,17 @@
 <header>
   <div class="container">
     <div id="overview" class="gray_box">
-      <h1>Advertising Spend by Company <?php print date('Y'); ?></h1>
+      <h1>Top Companies by Advertising Spend <?php print date('Y'); ?></h1>
       <div class="row">
         <div class="col">
-          <p>Explore each industry to discover which companies are spending the most in advertising in <?php print date('Y'); ?>. For each company, we provide a detailed analysis including which advertising agencies they use, who their ad agency contacts are, who is on their internal marketing team, what their ad spend is and more. Quickly assess who the key decision makers are on ad spend and which agencies to contact. With Winmo, you can quickly get answers to questions like these:</p>
+          <p>Winmo tracks in-house and agency decision-makers who control over $100 billion in ad spend, rolling them up brand by brand as well as under parent companies so that you can see the entire group of buyers responsible for advertising budgets across TV, print, OOH, radio, cinema, digital, podcast, social advertising and both direct and programmatic ad buys.</p>
         </div>
         <div class="col">
-          <p><strong>Which industry spends the most on advertising?</strong><Br>
-            The retail industry by far spends the most on advertising. In fact, in the trailing 12 months, retailers spent over twice as much as any other industry with $73.55 billion on digital advertising. That's over $34 billion more than the second-place spender, consumer packaged goods (CPG).</p>
-          <p><strong>Which company spends the most on advertising?</strong><br>
-            Comcast spent the most on advertising in the trailing 12 months. </p>
+          <p><strong>Which companies spend the most money on advertising?</strong><Br>
+            Topping the list of ad spenders Winmo tracks is consumer packaged goods (CPG) advertiser Proctor & Gamble, which spent over $3 billion on media in the past twelve months, ranging from print and broadcast to OOH and digital video. This includes advertising spend across its entire portfolio of brands. Other top advertising spenders include ecommerce retailer Amazon, Inc., ExxonMobile, General Motors, and Abbvie. To see which industries topped the list <a href="https://winmo.com" class="modal">click here</a>.
+          </p>
+          <p><strong>Who is the largest advertiser?</strong><br>
+            It makes sense that the largest advertiser Winmo tracks is a consumer packaged goods company with multiple brands. In addition to the corporate advertising done by Procter & Gamble itself, P&G’s ad spend encompasses media budgets for over 90 brands tracked by Winmo including Vicks, Downy, Secret, Bounty, Dawn, Swiffer, Fabrese, Cascade, Charmin and Gillette. These advertisers have different marketing decision-makers and even different ad agencies, which is why Winmo segments them on the brand level in addition to presenting company information as a whole.</p>
         </div>
       </div>
     </div>
@@ -76,12 +77,4 @@
 
 </div>
 
-<div class="row alternate_color ha-center" id="win-more">
-  <div class="col container">
-    <h2>Win More with Winmo</h2>
-    <div style="padding:56.25% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/864820000?h=7bed84b047&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="Win More with Winmo"></iframe></div>
-    <script src="https://player.vimeo.com/api/player.js"></script>
-  </div>
-</div>
-
-<?php get_template_part('partials/footer', 'company');
+<?php do_action('ava_after_content_templatebuilder_page'); ?>

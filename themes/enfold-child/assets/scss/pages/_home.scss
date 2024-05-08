@@ -1,0 +1,22 @@
+#top #sections {
+  .entry-content-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 40px;
+    article.iconbox {
+      flex-basis: 33%;
+      border-radius: 20px;
+      border: 11px rgba(7,64,88,0.2) solid;
+      margin: 0px;
+      .iconbox_icon {
+        background: rgba(7,64,88,0.1);
+        border: 0px;
+        color:$teal;
+      }
+      &.av-no-box .iconbox_content {
+        padding: 50px 0px;
+      }
+    }
+  }
+}
