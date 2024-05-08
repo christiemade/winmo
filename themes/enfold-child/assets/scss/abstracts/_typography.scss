@@ -5,6 +5,15 @@ body {
   font-family:"proxima-nova";
   color: $black;
 }
+.template-page .entry-content-wrapper {
+  h1, h2 {
+    text-transform: none;
+    letter-spacing: normal;
+    strong {
+      font-weight: 600;
+    }
+  }
+}
 h1 {
   font-size: 58px;
   font-weight: 500;
@@ -23,6 +32,7 @@ h1 {
 }
 h2 {
   font-size: 38px;
+  font-weight: 600;
   .alternate_color & {
     color: #fff;
   }

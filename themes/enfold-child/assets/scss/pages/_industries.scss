@@ -80,6 +80,7 @@ body#top.industries, body#top.top-agencies {
   padding-bottom: 4em;
   .row {
     padding-top: 2em;
+    gap: 0px;
   }
   .col {
     @include breakpoint(sm, "min") { columns: 2; }

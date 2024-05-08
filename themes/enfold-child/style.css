@@ -10390,6 +10390,14 @@ body {
   color: #021C26;
 }
 
+.template-page .entry-content-wrapper h1, .template-page .entry-content-wrapper h2 {
+  text-transform: none;
+  letter-spacing: normal;
+}
+.template-page .entry-content-wrapper h1 strong, .template-page .entry-content-wrapper h2 strong {
+  font-weight: 600;
+}
+
 h1 {
   font-size: 58px;
   font-weight: 500;
@@ -10413,6 +10421,7 @@ h1 {
 
 h2 {
   font-size: 38px;
+  font-weight: 600;
 }
 .alternate_color h2 {
   color: #fff;
@@ -10902,10 +10911,48 @@ aside #cta img {
   margin-top: 7px;
 }
 
-/* CSS Document */
-#pager a {
-  display: block;
-  padding: 0px 5px;
+#hero {
+  position: relative;
+  margin-bottom: 1em;
+}
+#hero:after {
+  content: "";
+  -webkit-clip-path: ellipse(87% 83% at 51% 16%);
+          clip-path: ellipse(87% 83% at 51% 16%);
+  position: absolute;
+  left: 0;
+  height: 90%;
+  width: 100%;
+  top: 0;
+  z-index: 0;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center bottom;
+  background-image: url(assets/img/agencies/header-agency.jpg);
+}
+@media (max-width: 991.98px) {
+  #hero:after {
+    -webkit-clip-path: ellipse(120% 83% at 51% 16%);
+            clip-path: ellipse(120% 83% at 51% 16%);
+  }
+}
+@media (max-width: 767.98px) {
+  #hero:after {
+    -webkit-clip-path: ellipse(170% 83% at 51% 16%);
+            clip-path: ellipse(170% 83% at 51% 16%);
+  }
+}
+#hero .container > .content {
+  padding-bottom: 70px;
+}
+#hero .container > .content img {
+  max-width: 630px;
+}
+#hero h1 {
+  color: #ffffff;
+  margin-bottom: 90px;
+  line-height: 1.12em;
+  font-weight: 400;
 }
 
 @media (min-width: 768px) {
@@ -11092,6 +11139,17 @@ ol li::before {
 .all-content > .row:not(.pagination) .col {
   flex-direction: column;
   display: flex;
+}
+
+#top .avia_textblock {
+  line-height: 1.6em;
+  font-weight: 300;
+}
+#top .avia_textblock strong, #top .avia_textblock b {
+  color: #FF601A;
+}
+#top .avia_textblock p:first-child {
+  margin-top: 0px;
 }
 
 .row.table {
@@ -12169,6 +12227,7 @@ body#top.industries section#columned .row > .col:only-child ol li a, body#top.to
 }
 #more .row {
   padding-top: 2em;
+  gap: 0px;
 }
 @media (min-width: 576px) {
   #more .col {

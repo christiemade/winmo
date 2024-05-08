@@ -27,7 +27,6 @@ function set_companies_transient()
 
     if ($file = fopen(get_stylesheet_directory() . "/inc/companies.csv", "r")) {
       while (($data = fgetcsv($file)) !== FALSE) {
-        error_log($data[0]);
         if (!strpos($data[0], 'Id')) $companies[$data[0]] = array(
           'name' => $data[1],
           'industry' => $data[8]
@@ -173,7 +172,6 @@ function winmo_company_list()
   // Turn filter values into an array
   $data = explode('&', $data);
   $filter = array();
-  error_log(json_encode($data));
   foreach ($data as $string) :
     $keyval = explode('=', $string);
     $filter[$keyval[0]] = $keyval[1];

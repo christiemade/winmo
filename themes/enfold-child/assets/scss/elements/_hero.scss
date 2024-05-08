@@ -1,0 +1,20 @@
+#hero {
+  position: relative;
+  margin-bottom: 1em;
+  &:after {
+    @include arc;
+    background-image: url(assets/img/agencies/header-agency.jpg);
+  }
+  .container > .content {
+    padding-bottom: 70px;
+    img {
+      max-width: 630px;
+    }
+  }
+  h1 {
+    color: #ffffff;
+    margin-bottom: 90px;
+    line-height: 1.12em;
+    font-weight: 400;
+  }
+}
