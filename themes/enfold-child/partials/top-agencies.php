@@ -43,20 +43,20 @@
           </div>
         </div>
       <?php else : ?>
-        <?php print do_shortcode("[av_icon_box icon='ue813' font='winmo' title='Top 10 States by Ad Spend' position='left' icon_style='' boxed='' font_color='' custom_title='' custom_content='' color='' custom_bg='' custom_font='fa-solid fa-money-bill-trend-up' custom_border='' custom_title_size='' av-desktop-font-size-title='' av-medium-font-size-title='' av-small-font-size-title='' av-mini-font-size-title='' custom_content_size='' av-desktop-font-size='' av-medium-font-size='' av-small-font-size='' av-mini-font-size='' heading_tag='h2' heading_class='' link='' linktarget='' title_attr='' linkelement='' id='' custom_class='' template_class='' av_uid='av-luvpcjbw' sc_version='1.0' admin_preview_bg=''][/av_icon_box]"); ?>
+        <?php print do_shortcode("[av_icon_box icon='ue813' font='winmo' title='Top 10 Holding Companies by Client Spend' position='left' icon_style='' boxed='' font_color='' custom_title='' custom_content='' color='' custom_bg='' custom_font='fa-solid fa-money-bill-trend-up' custom_border='' custom_title_size='' av-desktop-font-size-title='' av-medium-font-size-title='' av-small-font-size-title='' av-mini-font-size-title='' custom_content_size='' av-desktop-font-size='' av-medium-font-size='' av-small-font-size='' av-mini-font-size='' heading_tag='h2' heading_class='' link='' linktarget='' title_attr='' linkelement='' id='' custom_class='' template_class='' av_uid='av-luvpcjbw' sc_version='1.0' admin_preview_bg=''][/av_icon_box]"); ?>
         <div class="row">
           <div class="col">
             <ol>
-              <li><a href="/industries/aftermarket-tires-parts">Aftermarket, Tires, Parts</a></li>
-              <li>Agricultural Business</li>
-              <li>Apparel & Accessories</li>
-              <li>Associations & Organizations</li>
-              <li>Auto Care</li>
-              <li>Auto Manufacturers</li>
-              <li>Automotive</li>
-              <li>Beer, Wine, Liquor, Spirits</li>
-              <li>Beverages</li>
-              <li>Broadcasting</li>
+              <li>Independent/Other</li>
+              <li>Omnicom</li>
+              <li>Publicis</li>
+              <li>Interpublic Group</li>
+              <li>WPP</li>
+              <li>Dentsu</li>
+              <li>Stagwell</li>
+              <li>Havas</li>
+              <li>Accenture Interactive</li>
+              <li>Chiel Worldwide</li>
             </ol>
           </div>
         </div>

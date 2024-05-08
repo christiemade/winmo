@@ -15,6 +15,7 @@ function set_company_transient($company_id, $type = "company")
   }
   return $company;
 }
+
 function set_companies_transient()
 {
   $companies = get_transient('winmo_companies');

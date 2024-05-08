@@ -11899,45 +11899,45 @@ body.contacts #main header #overview {
   }
 }
 @media (min-width: 992px) {
-  body.contacts #main header #overview .row .col:first-child + .col {
+  body.contacts #main header #overview:not(.list_view) .row .col:first-child + .col {
     width: 200px;
     flex: none;
   }
-  body.contacts #main header #overview .row .col:first-child + .col + .col {
+  body.contacts #main header #overview:not(.list_view) .row .col:first-child + .col + .col {
     width: 250px;
     flex: none;
   }
 }
 @media (max-width: 991.98px) {
-  body.contacts #main header #overview .row {
+  body.contacts #main header #overview:not(.list_view) .row {
     display: grid;
     grid-template-columns: auto 250px;
     grid-template-rows: repeat(2, auto);
     grid-column-gap: 40px;
     grid-row-gap: 10px;
   }
-  body.contacts #main header #overview .row .col.col-4 {
+  body.contacts #main header #overview:not(.list_view) .row .col.col-4 {
     grid-area: 1/1/3/2;
   }
-  body.contacts #main header #overview .row .col.col-4 + .col {
+  body.contacts #main header #overview:not(.list_view) .row .col.col-4 + .col {
     grid-area: 1/2/2/3;
   }
-  body.contacts #main header #overview .row .col.col-4 + .col + .col {
+  body.contacts #main header #overview:not(.list_view) .row .col.col-4 + .col + .col {
     grid-area: 2/2/3/3;
   }
 }
 @media (max-width: 767.98px) {
-  body.contacts #main header #overview .row {
+  body.contacts #main header #overview:not(.list_view) .row {
     grid-template-columns: 1fr;
     grid-template-rows: repeat(3, auto);
   }
-  body.contacts #main header #overview .row .col.col-4 {
+  body.contacts #main header #overview:not(.list_view) .row .col.col-4 {
     grid-area: 1/1/2/2;
   }
-  body.contacts #main header #overview .row .col.col-4 + .col {
+  body.contacts #main header #overview:not(.list_view) .row .col.col-4 + .col {
     grid-area: 2/1/3/2;
   }
-  body.contacts #main header #overview .row .col.col-4 + .col + .col {
+  body.contacts #main header #overview:not(.list_view) .row .col.col-4 + .col + .col {
     grid-area: 3/1/4/2;
   }
 }
@@ -12029,6 +12029,9 @@ body.contacts #main header + .container > main #company .col.buttons {
   flex: none;
   width: 127px;
 }
+body.contacts #main header + .filters {
+  padding-top: 0px;
+}
 body.contacts aside nav {
   padding-bottom: 1em;
 }
@@ -12038,6 +12041,9 @@ body.contacts aside nav li a {
 body.contacts aside nav li.active a {
   color: #074058;
   text-decoration: underline !important;
+}
+body.contacts aside + main > section {
+  margin-bottom: 30px;
 }
 
 body#top.industries #header_main nav, body#top.top-agencies #header_main nav {

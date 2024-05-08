@@ -1,44 +1,23 @@
 <header>
   <div class="container">
-    <div id="overview" class="gray_box">
-      <h1>Title</h1>
+    <div id="overview" class="list_view gray_box">
+      <h1>Top Advertising Contacts <?php print date('Y'); ?></h1>
       <div class="row">
         <div class="col">
-          <p>Text.</p>
+          <p>Winmo tracks over 200,000 decision-makers who collectively control over $100 billion in advertising spend. This includes 170,000 in-house brand marketing contacts as well as 50,000 related agency contacts who develop marketing strategies for media, creative, promotions and events. </p>
         </div>
         <div class="col">
-          <p><strong>Question.</strong><Br>
-            Answer.</p>
-          <p><strong>Question</strong><br>
-            Answer. </p>
+          <p><strong>Who are the top Chief Marketing Officers?</strong><Br>
+            Winmo tracks Chief Marketing Officers for 3,400 brands as well as 8,300 VPs of Marketing. The Chief Marketing Officer and VP Marketing titles searched most by Winmo users are at Procter & Gamble, Netflix, Amazon, The Coca-Cola Company, Este Lauder, Geico and Peloton.</p>
         </div>
       </div>
     </div>
   </div>
 </header>
 
-<div class="container row">
-  <aside>
-    <?php get_template_part('partials/sidebar_cta', 'categories'); ?>
-  </aside>
-
-  <main class="col">
-    <section id="top" class="gray_box">
-      <?php print do_shortcode("[av_icon_box icon='ue813' font='winmo' title='Top Decision Makers' position='left' icon_style='' boxed='' font_color='' custom_title='' custom_content='' color='' custom_bg='' custom_font='fa-solid fa-arrows-down-to-people' custom_border='' custom_title_size='' av-desktop-font-size-title='' av-medium-font-size-title='' av-small-font-size-title='' av-mini-font-size-title='' custom_content_size='' av-desktop-font-size='' av-medium-font-size='' av-small-font-size='' av-mini-font-size='' heading_tag='h2' heading_class='' link='' linktarget='' title_attr='' linkelement='' id='' custom_class='' template_class='' av_uid='av-luvpcjbw' sc_version='1.0' admin_preview_bg=''][/av_icon_box]"); ?>
-      <div class="row">
-        <div class="col">
-          <ol>
-            <li>??</li>
-          </ol>
-        </div>
-      </div>
-    </section>
-  </main>
-</div>
-
 <div class="filters row">
   <div class="col container">
-    <h4>Decision Makers</h4>
+    <?php print do_shortcode("[av_icon_box icon='ue813' font='winmo' title='Decision Makers' position='left' icon_style='' boxed='' font_color='' custom_title='' custom_content='' color='' custom_bg='' custom_font='fa-solid fa-user-tie' custom_border='' custom_title_size='' av-desktop-font-size-title='' av-medium-font-size-title='' av-small-font-size-title='' av-mini-font-size-title='' custom_content_size='' av-desktop-font-size='' av-medium-font-size='' av-small-font-size='' av-mini-font-size='' heading_tag='h2' heading_class='' link='' linktarget='' title_attr='' linkelement='' id='' custom_class='' template_class='' av_uid='av-luvpcjbw' sc_version='1.0' admin_preview_bg=''][/av_icon_box]"); ?>
     <?php $nonce = wp_create_nonce("winmo_filter_nonce"); ?>
     <form id="filter-form" data-action="winmo_contacts_list" data-nonce="<?php print $nonce; ?>" class="form" action='' method="POST">
       <span>Filter Decision Makers</span>

@@ -4,6 +4,7 @@
 function set_contact_transient($contact_id)
 {
   $contact = get_transient('winmo_contact_' . $contact_id);
+  error_log('winmo_contact_' . $contact_id);
 
   // check to see if companies was successfully retrieved from the cache
   if (false === $contact) {
@@ -51,7 +52,7 @@ function winmo_contact_api($id)
 {
   // Include Request and Response classes
   $url = 'https://api.winmo.com/web_api/contacts?ids[]=' . $id;
-
+  error_log($url);
   $args = array(
     'headers' => array(
       'Content-Type' => 'application/json',
@@ -62,18 +63,20 @@ function winmo_contact_api($id)
   $request = wp_remote_get($url, $args);
 
   if (!is_wp_error($request)) {
+    error_log("A");
     if ($request['response']['code'] == "404") {
-      return new WP_Error('broke', 'Page not found.');
+      return new WP_Error('broke', 'Page not found 2.');
     } else {
       $body = json_decode(wp_remote_retrieve_body($request), true);
       return $body['result'];
     }
   } else {
+    error_log("B");
     $body = wp_remote_retrieve_body($request);
     if (isset($body['result'])) {
       return $body['result'];
     } else {
-      return new WP_Error('broke', $request->get_error_message());
+      return new WP_Error('broke', "XXX" . $request->get_error_message());
     }
   }
 }
@@ -161,7 +164,7 @@ function winmo_contacts_list()
         if ($counter > 1) $html .= '</div><!-- /col -->';
         $html .= '<div class="col">';
       }
-      $html .= '<a href="/agency/' . $key . '/">' . $contact[0] . ' ' . $contact[1] . '</a>';
+      $html .= '<a href="/decision_makers/' . $key . '/">' . $contact[0] . ' ' . $contact[1] . '</a>';
       $counter++;
     }
     $html .= '</div><!-- /col --></div><!-- /row -->';
