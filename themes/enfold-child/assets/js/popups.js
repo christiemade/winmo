@@ -1,11 +1,11 @@
 jQuery(function ($) {
 
   $(window).on('load', function () {
-    $('a.modal').each(function () { 
-      $(this).attr('data-mfp-src', $(this).attr('href')).addClass('no-scroll');
+    $('.modal').each(function () { 
+      $(this).attr('data-mfp-src', '#request_demo').addClass('no-scroll');
     });
     
-    $('a.modal').magnificPopup({
+    $('.modal').magnificPopup({
       items: {
           src: '#request_demo',
           type: 'inline'

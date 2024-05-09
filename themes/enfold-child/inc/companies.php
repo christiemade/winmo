@@ -78,7 +78,7 @@ function winmo_company_api($id, $type)
 add_filter('avf_main_menu_nav', function ($stuff) {
   $company = get_query_var('rid');
   if ($company && is_page('companies')) {
-    $stuff .= '<div class="button"><a href="https://www.winmo.com/profile-1/"><img src="' . get_stylesheet_directory_uri() . '/assets/img/companies/unlock.png"></a></div>';
+    $stuff .= '<div class="button"><a href="https://www.winmo.com/profile-1/" class="modal"><img src="' . get_stylesheet_directory_uri() . '/assets/img/companies/unlock.png"></a></div>';
   }
   return $stuff;
 });

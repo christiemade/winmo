@@ -70,7 +70,7 @@
 }
 
 #top .contact .iconbox {
-  &.iconbox_left .iconbox_icon {
+  .iconbox_icon {
     border: 0px;
     width: 17px;
     height: 17px;
@@ -85,4 +85,7 @@
       color: $blue;
     }
   }
+}
+
+#top .iconbox.iconbox_left_content .iconbox_icon {
 }

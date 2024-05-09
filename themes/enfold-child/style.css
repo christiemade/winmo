@@ -10919,7 +10919,7 @@ aside #cta img {
   margin-top: 7px;
 }
 
-#top .contact .iconbox.iconbox_left .iconbox_icon {
+#top .contact .iconbox .iconbox_icon {
   border: 0px;
   width: 17px;
   height: 17px;
@@ -10930,7 +10930,7 @@ aside #cta img {
   margin-right: 10px;
   margin-top: -2px;
 }
-#top .contact .iconbox.iconbox_left .iconbox_icon path, #top .contact .iconbox.iconbox_left .iconbox_icon:before {
+#top .contact .iconbox .iconbox_icon path, #top .contact .iconbox .iconbox_icon:before {
   fill: #074058;
   color: #074058;
 }
@@ -10991,6 +10991,10 @@ aside #cta img {
 
 .popup-wrapper {
   display: none;
+}
+
+.modal {
+  cursor: pointer;
 }
 
 .mfp-bg {
@@ -11291,10 +11295,6 @@ ol li::before {
 }
 #top .avia_textblock p:first-child {
   margin-top: 0px;
-}
-
-.popup-wrapper {
-  display: none;
 }
 
 .row.table {
@@ -11725,7 +11725,7 @@ header #overview .contact > div .iconbox .iconbox_content .iconbox_content_conta
   margin-top: 5px;
   font-weight: 300;
 }
-header #overview .contact > div.phone .iconbox .iconbox_content .iconbox_content_container {
+header #overview .contact > div.phone .iconbox .iconbox_content .iconbox_content_container a {
   color: #25C9BA;
 }
 
@@ -11908,6 +11908,7 @@ body.agencies section #marketing_table .grid > .row > div:last-child, body.agenc
 body.agencies section #marketing_table .grid > .row {
   gap: 0px;
   align-items: center;
+  padding-top: 0px;
 }
 body.agencies section #marketing_table .grid > .row:first-child {
   background-color: #25C9BA;

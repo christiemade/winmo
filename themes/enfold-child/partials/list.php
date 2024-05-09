@@ -6,7 +6,7 @@
         <div class="col">
           <p>Winmo tracks in-house and agency decision-makers who control over $100 billion in ad spend, rolling them up brand by brand as well as under parent companies so that you can see the entire group of buyers responsible for advertising budgets across TV, print, OOH, radio, cinema, digital, podcast, social advertising and both direct and programmatic ad buys.</p>
         </div>
-        <div class="col">
+        <div class="col col-6">
           <p><strong>Which companies spend the most money on advertising?</strong><Br>
             Topping the list of ad spenders Winmo tracks is consumer packaged goods (CPG) advertiser Proctor & Gamble, which spent over $3 billion on media in the past twelve months, ranging from print and broadcast to OOH and digital video. This includes advertising spend across its entire portfolio of brands. Other top advertising spenders include ecommerce retailer Amazon, Inc., ExxonMobile, General Motors, and Abbvie. To see which industries topped the list <a href="https://winmo.com" class="modal">click here</a>.
           </p>

@@ -125,6 +125,7 @@ body.agencies {
         & > .row {
           gap: 0px;
           align-items: center;
+          padding-top: 0px;
           &:first-child {
             background-color: $teal;
           }

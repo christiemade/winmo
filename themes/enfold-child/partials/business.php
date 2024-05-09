@@ -33,8 +33,8 @@ if (is_wp_error($company_data)) {
         <p><?php print $company_data['notes']; ?></p>
         <div class="contact">
           <div class="phone">
-            <?php print do_shortcode("[av_icon_box icon='ue809' font='winmo' title='Main Telephone' position='left' icon_style='' boxed='' font_color='' custom_title='' custom_content='' color='' custom_bg='' custom_font='' custom_border='' custom_title_size='' av-desktop-font-size-title='' av-medium-font-size-title='' av-small-font-size-title='' av-mini-font-size-title='' custom_content_size='' av-desktop-font-size='' av-medium-font-size='' av-small-font-size='' av-mini-font-size='' heading_tag='' heading_class='' link='' linktarget='' title_attr='' linkelement='' id='' custom_class='' template_class='' av_uid='av-luvpcjbw' sc_version='1.0' admin_preview_bg='']" .
-              $company_data['phone'] . "[/av_icon_box]"); ?>
+            <?php print do_shortcode("[av_icon_box icon='ue809' font='winmo' title='Main Telephone' position='left' icon_style='' boxed='' font_color='' custom_title='' custom_content='' color='' custom_bg='' custom_font='' custom_border='' custom_title_size='' av-desktop-font-size-title='' av-medium-font-size-title='' av-small-font-size-title='' av-mini-font-size-title='' custom_content_size='' av-desktop-font-size='' av-medium-font-size='' av-small-font-size='' av-mini-font-size='' heading_tag='' heading_class='' link='' linktarget='' title_attr='' linkelement='' id='' custom_class='' template_class='' av_uid='av-luvpcjbw' sc_version='1.0' admin_preview_bg='']<a href='https://winmo.com' class=\"modal\">" .
+              $company_data['phone'] . "</a>[/av_icon_box]"); ?>
           </div>
           <div class="address">
             <?php print do_shortcode("[av_icon_box icon='ue808' font='winmo' title='Primary Address' position='left' icon_style='' boxed='' font_color='' custom_title='' custom_content='' color='' custom_bg='' custom_font='' custom_border='' custom_title_size='' av-desktop-font-size-title='' av-medium-font-size-title='' av-small-font-size-title='' av-mini-font-size-title='' custom_content_size='' av-desktop-font-size='' av-medium-font-size='' av-small-font-size='' av-mini-font-size='' heading_tag='' heading_class='' link='' linktarget='' title_attr='' linkelement='' id='' custom_class='' template_class='' av_uid='av-luvpcjbw' sc_version='1.0' admin_preview_bg='']" . $address . "[/av_icon_box]"); ?>
@@ -168,11 +168,11 @@ if (is_wp_error($company_data)) {
 
       <section id="ad_agency_contacts">
         <div class="row table" id="marketing_table">
-          <div class="top desktop"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/companies/marketing-table-top-1.svg"></div>
+          <div class="top desktop"><a href="https://www.winmo.com/profile-1/" class="modal"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/companies/marketing-table-top-1.svg"></a></div>
           <div class="top">
-            <div><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/table-label-name.png"><span>Name</span></div>
-            <div><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/table-label-title.png"><span>Title</span></div>
-            <div><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/clients-top-state.png"><span>State</span></div>
+            <div><a href="https://www.winmo.com/profile-1/" class="modal"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/table-label-name.png"><span>Name</span></a></div>
+            <div><a href="https://www.winmo.com/profile-1/" class="modal"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/table-label-title.png"><span>Title</span></a></div>
+            <div><a href="https://www.winmo.com/profile-1/" class="modal"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/clients-top-state.png"><span>State</span></a></div>
           </div>
           <div class="grid">
             <?php
@@ -180,7 +180,7 @@ if (is_wp_error($company_data)) {
             if ($people_total > 5) $people_total = 5;
 
             for ($i = 0; $i < $people_total; $i++) :
-            ?><div class="row">
+            ?><div class="row modal">
                 <div><?php print $company_data['contacts'][$i]['fname'] ?> <?php print substr($company_data['contacts'][$i]['lname'], 0, 1); ?>.</div>
                 <div><?php print $company_data['contacts'][$i]['title']; ?></div>
                 <div><?php print $company_data['contacts'][$i]['location']['state']; ?></div>
@@ -208,18 +208,18 @@ if (is_wp_error($company_data)) {
                         </div>
                         <div>
                         Social:<br>
-                        <img src="' . get_stylesheet_directory_uri() . '/assets/img/companies/social.svg">
+                        <a href="https://www.winmo.com/profile-1/" class="modal"><img src="' . get_stylesheet_directory_uri() . '/assets/img/companies/social.svg"></a>
                         </div>
                       </div>
-                      <div class="row buttons"><img src="' . get_stylesheet_directory_uri() . '/assets/img/companies/contact-details-footer.svg"></div>
+                      <div class="row buttons"><a href="https://www.winmo.com/profile-1/" class="modal"><img src="' . get_stylesheet_directory_uri() . '/assets/img/companies/contact-details-footer.svg"></a></div>
                       </div>';
                     endif;
                   endfor; ?>
           </div>
           <?php if (sizeof($company_data['related_brands']) > 10) : ?>
             <div class="bottom">
-              <img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/companies/marketing-table-foot.svg">
-              <img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/companies/pagination.svg">
+              <a href="https://www.winmo.com/profile-1/" class="modal"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/companies/marketing-table-foot.svg"></a>
+              <a href="https://www.winmo.com/profile-1/" class="modal"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/companies/pagination.svg"></a>
             </div>
           <?php endif; ?>
         </div>
@@ -257,7 +257,7 @@ if (is_wp_error($company_data)) {
             <h3><?php print $company_data['name']; ?> Social Media Marketing Ad Spend</h3>
             <p>See whether <?php print $company_data['name']; ?> is spending on social media platforms like X, TikTok, Facebook, Instagram and Pinterest, as well as how active it is on YouTube desktop, iOS or Android.</p>
           </div>
-          <div class="col col-5-5"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/companies/social-media-marketing-ad-spend.png"></div>
+          <div class="col col-5-5"><a href="https://www.winmo.com/profile-1/" class="modal"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/companies/social-media-marketing-ad-spend.png"></a></div>
         </div>
       </section>
     </main>
@@ -273,9 +273,15 @@ if (is_wp_error($company_data)) {
     </div>
   </div>
 
-<?php get_template_part('partials/footer', 'company');
-}
+  <?php get_template_part('partials/footer', 'company'); ?>
+
+  <div class="popup-wrapper">
+    <div id="request_demo">
+      <?php get_template_part('partials/sidebar_cta'); ?>
+    </div>
+  </div><?php
+      }
 
 
 
-?>
+        ?>

@@ -1,16 +1,16 @@
 <header>
   <div class="container">
     <div id="overview" class="gray_box agency-list">
-      <h1>Advertising Spend by Agency <?php print date('Y'); ?></h1>
+      <h1>Top Advertising Agencies <?php print date('Y'); ?></h1>
       <div class="row">
         <div class="col">
-          <p>Explore each industry to discover which companies are spending the most in advertising in <?php print date('Y'); ?>. For each company, we provide a detailed analysis including which advertising agencies they use, who their ad agency contacts are, who is on their internal marketing team, what their ad spend is and more. Quickly assess who the key decision makers are on ad spend and which agencies to contact. With Winmo, you can quickly get answers to questions like these:</p>
+          <p>Winmo tracks roughly 7,000 ad agencies in the US and Canada. These include top agencies in Branding, Creative, Design, Digital, Event and Sponsorship, Full Service, Media Planning and Media Buying, Production, Shopper Marketing and Public Relations, among other disciplines. These agencies include subsidiaries of Holding Companies such as Dentsu, Omnicom Group, Havas, Interpublic Group (IPG), Stagwell, Publicis and WPP, as well as independent agencies and shops belonging to independent agency networks such as AMIN.</p>
         </div>
         <div class="col">
-          <p><strong>Which industry spends the most on advertising?</strong><Br>
-            The retail industry by far spends the most on advertising. In fact, in the trailing 12 months, retailers spent over twice as much as any other industry with $73.55 billion on digital advertising. That's over $34 billion more than the second-place spender, consumer packaged goods (CPG).</p>
-          <p><strong>Which company spends the most on advertising?</strong><br>
-            Comcast spent the most on advertising in the trailing 12 months. </p>
+          <p><strong>Which agencies’ accounts are worth the most marketing dollars?</strong><Br>
+            According to Winmo, ad agencies with advertising accounts worth the most are independent media agency Horizon Media (client accounts worth $4.83 billion in estimated ad spend); Omnicom Group-owned full service shop BBDO Worldwide (client accounts worth $4.82 billion estimated ad spend), and media planning and Interpublic Group-owned media planning and buying agency Initiative (client accounts worth $4.27 in estimated ad spend).</p>
+          <p><strong>Which media agencies have the most ad spend?</strong><br>
+            As of <?php print date('Y'); ?>, the media agency with top client media spend is Horizon Media. Horizon Media is one of the nation's largest independent media-buying firms. Founded in 1988 by current President and CEO, Bill Koenigsberg, the New York City-based firm coordinates and negotiates deals across the media spectrum, with television accounting for about half of its billings. According to Winmo, Horizon Media is the media agency of record for financial institutions, retail stores, eCommerce brands, media corporations and social media apps, among others.</p>
         </div>
       </div>
     </div>
@@ -28,16 +28,16 @@
       <div class="row">
         <div class="col">
           <ol>
-            <li><a href="/company/8319">Horizon Media Inc.</a></li>
-            <li><a href="/company/37589">BBDO Worldwide</a></li>
-            <li><a href="/company/7598">Initiative</a></li>
-            <li><a href="/company/62826">EssenceMediaCom</a></li>
-            <li><a href="/company/3848">Publicis North America</a></li>
-            <li><a href="/company/37662">VML</a></li>
-            <li><a href="/company/1325">Carat</a></li>
-            <li><a href="/company/37782">Initiative</a></li>
-            <li><a href="/company/15221">OMD</a></li>
-            <li><a href="/company/60979">MediaMonks</a></li>
+            <li><a href="/agency/8319">Horizon Media Inc.</a></li>
+            <li><a href="/agency/37589">BBDO Worldwide</a></li>
+            <li><a href="/agency/7598">Initiative</a></li>
+            <li><a href="/agency/62826">EssenceMediaCom</a></li>
+            <li><a href="/agency/3848">Publicis North America</a></li>
+            <li><a href="/agency/37662">VML</a></li>
+            <li><a href="/agency/1325">Carat</a></li>
+            <li><a href="/agency/37782">Initiative</a></li>
+            <li><a href="/agency/15221">OMD</a></li>
+            <li><a href="/agency/60979">MediaMonks</a></li>
           </ol>
         </div>
       </div>
