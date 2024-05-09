@@ -4,11 +4,13 @@
       <h1>Top Advertising Contacts <?php print date('Y'); ?></h1>
       <div class="row">
         <div class="col">
-          <p>Winmo tracks over 200,000 decision-makers who collectively control over $100 billion in advertising spend. This includes 170,000 in-house brand marketing contacts as well as 50,000 related agency contacts who develop marketing strategies for media, creative, promotions and events. </p>
+          <p>Winmo tracks over 200,000 decision-makers who collectively control over $100 billion in advertising spend. This includes 170,000 in-house brand marketing contacts as well as 50,000 related agency contacts who develop marketing strategies for media, creative, promotions and events.
+          </p>
         </div>
         <div class="col">
           <p><strong>Who are the top Chief Marketing Officers?</strong><Br>
-            Winmo tracks Chief Marketing Officers for 3,400 brands as well as 8,300 VPs of Marketing. The Chief Marketing Officer and VP Marketing titles searched most by Winmo users are at Procter & Gamble, Netflix, Amazon, The Coca-Cola Company, Este Lauder, Geico and Peloton.</p>
+            Winmo tracks Chief Marketing Officers for 3,400 brands as well as 8,300 VPs of Marketing. The Chief Marketing Officer and VP Marketing titles searched most by Winmo users are at Procter & Gamble, Netflix, Amazon, The Coca-Cola Company, Este Lauder, Geico and Peloton.
+          </p>
         </div>
       </div>
     </div>

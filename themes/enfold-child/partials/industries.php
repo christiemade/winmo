@@ -1,16 +1,19 @@
 <header id="agency" class="business">
   <div class="container">
     <div id="overview" class="gray_box">
-      <h1>Advertising Spend by Industry <?php print date('Y'); ?></h1>
+      <h1>Top Advertising Industries <?php print date('Y'); ?></h1>
       <div class="row">
         <div class="col">
-          <p>Explore each industry to discover which companies are spending the most in advertising in <?php print date('Y'); ?>. For each company, we provide a detailed analysis including which advertising agencies they use, who their ad agency contacts are, who is on their internal marketing team, what their ad spend is and more. Quickly assess who the key decision makers are on ad spend and which agencies to contact. With Winmo, you can quickly get answers to questions like these:</p>
+          <p>Winmo tracks companies that fall within 36 different industries, ranging from Apparel and Accessories to Health Care. The majority of these industries are business-to-consumer, but a large number of business-to-business organizations are also tracked.
+          </p>
         </div>
         <div class="col">
           <p><strong>Which industry spends the most on advertising?</strong><Br>
-            The retail industry by far spends the most on advertising. In fact, in the trailing 12 months, retailers spent over twice as much as any other industry with $73.55 billion on digital advertising. That's over $34 billion more than the second-place spender, consumer packaged goods (CPG).</p>
-          <p><strong>Which company spends the most on advertising?</strong><br>
-            Comcast spent the most on advertising in the trailing 12 months. </p>
+            The industry that spends the most on advertising in the U.S. is Financial Services and Government, with over $42 billion in media spend over the past twelve months. Top advertisers in Financial Services and Government include H.I.G. Capital Management, Capital One Financial, DC Lottery, Centers for Disease Control & Prevention, and Wells Fargo.
+          </p>
+          <p><strong>What industry has the most advertising?</strong><br>
+            In addition to Financial Services and Government, Retail Stores and Chains spend billions on advertising each year. Advertising from retail stores and chains in Winmo surpassed $18 billion last year, with the largest outlays from Amazon.com, Apple, Walmart Stores, The TJX Companies, and Macy’s.
+          </p>
         </div>
       </div>
     </div>

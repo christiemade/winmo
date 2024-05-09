@@ -10883,6 +10883,7 @@ aside #cta img {
   margin-right: 15px;
   color: #25C9BA;
   margin-top: 2px;
+  text-align: center;
 }
 @media (max-width: 575.98px) {
   #top .iconbox.iconbox_left .iconbox_icon,
@@ -10971,11 +10972,21 @@ aside #cta img {
 #hero .container > .content img {
   max-width: 630px;
 }
+@media (max-width: 767.98px) {
+  #hero .container > .content img {
+    max-width: 100%;
+  }
+}
 #hero h1 {
   color: #ffffff;
-  margin-bottom: 90px;
   line-height: 1.12em;
   font-weight: 400;
+  margin-bottom: 20px;
+}
+@media (min-width: 768px) {
+  #hero h1 {
+    margin-bottom: 90px;
+  }
 }
 
 @media (min-width: 768px) {
@@ -12107,12 +12118,30 @@ body.contacts aside + main > section {
   justify-content: center;
   gap: 40px;
 }
+@media (max-width: 991.98px) {
+  #top #sections .entry-content-wrapper {
+    gap: 0px;
+  }
+}
 #top #sections .entry-content-wrapper article.iconbox {
   box-shadow: 0px 4px 64px 0px rgba(0, 0, 0, 0.07);
   flex-basis: calc(33.3333% - 40px);
   border-radius: 20px;
   border: 11px rgba(7, 64, 88, 0.2) solid;
   margin: 0px;
+}
+@media (max-width: 991.98px) {
+  #top #sections .entry-content-wrapper article.iconbox {
+    flex-basis: calc(50% - 40px);
+    margin: 20px;
+  }
+}
+@media (max-width: 767.98px) {
+  #top #sections .entry-content-wrapper article.iconbox {
+    flex-basis: 100%;
+    margin: 10px 0px;
+    max-width: 350px;
+  }
 }
 #top #sections .entry-content-wrapper article.iconbox .iconbox_icon {
   background: rgba(7, 64, 88, 0.1);

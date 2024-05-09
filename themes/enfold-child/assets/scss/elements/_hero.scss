@@ -9,12 +9,14 @@
     padding-bottom: 70px;
     img {
       max-width: 630px;
+      @include breakpoint(md, 'max') {  max-width: 100%; }
     }
   }
   h1 {
     color: #ffffff;
-    margin-bottom: 90px;
     line-height: 1.12em;
     font-weight: 400;
+    margin-bottom: 20px;
+    @include breakpoint(md) { margin-bottom: 90px; }
   }
 }
