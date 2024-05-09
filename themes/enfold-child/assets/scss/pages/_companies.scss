@@ -143,16 +143,7 @@
     & > article.iconbox {
       margin-bottom: 20px;
       .iconbox_icon {
-        color: $teal;
-        height: 40px;
-        line-height: 45px;
-        font-size: 40px;
-        top: 0px;
-        left: 0px;
-        border-radius: 0px;
-        width: 60px;
-        text-align: left;
-        margin-right: 15px;
+
       }
     }
     padding-bottom: 4em;
@@ -209,20 +200,7 @@ header {
       & > div {
         flex: 1;
         .iconbox .iconbox_content {
-          svg {
-            border: 0px;
-            width: 17px;
-            height: 17px;
-            font-size: 18px;
-            line-height: 24px;
-            border-radius: 0px;
-            text-align: left;
-            margin-right: 10px;
-            margin-top: 3px;
-            path {
-              fill: $blue;
-            }
-          }
+
           .iconbox_content_title {
             font-size: 1em;
             color: $blue;

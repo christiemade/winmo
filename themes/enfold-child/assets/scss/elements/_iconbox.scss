@@ -19,10 +19,12 @@
 
   }
   &.iconbox_left {
+    .iconbox_icon,   //:not(.fa)
+      
+    
     svg {
-  
-      height: 40px;
-      line-height: 45px;
+      height: 55px;
+      line-height: 55px;
       font-size: 40px;
       top: 0px;
       left: 0px;
@@ -30,12 +32,16 @@
       width: 60px;
       text-align: left;
       margin-right: 15px;
+      color:$teal;
+      margin-top: 2px;
+      text-align: center;
       @include breakpoint(sm, 'max') { 
         margin-right: 0px;
         margin-bottom: 15px;
       }
-      path {
+      path, &:before {
         fill: $teal;
+        color: $teal;
       }
     }
   }
@@ -59,6 +65,24 @@
       p {
         margin-top: 7px;
       }
+    }
+  }
+}
+
+#top .contact .iconbox {
+  &.iconbox_left .iconbox_icon {
+    border: 0px;
+    width: 17px;
+    height: 17px;
+    font-size: 18px;
+    line-height: 24px;
+    border-radius: 0px;
+    text-align: left;
+    margin-right: 10px;
+    margin-top: -2px;
+    path, &:before {
+      fill: $blue;
+      color: $blue;
     }
   }
 }

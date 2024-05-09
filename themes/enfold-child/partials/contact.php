@@ -67,7 +67,7 @@ if (is_wp_error($contact_data)) {
             else :
               $phone = 'N/A';
             endif;
-            print do_shortcode("[av_icon_box icon='ue809' font='winmo' title='" . $full_name . " Phone Number' position='left_content' icon_style='' boxed='' font_color='' custom_title='' custom_content='' color='' custom_bg='' custom_font='fa fa-phone' custom_border='' custom_title_size='' av-desktop-font-size-title='' av-medium-font-size-title='' av-small-font-size-title='' av-mini-font-size-title='' custom_content_size='' av-desktop-font-size='' av-medium-font-size='' av-small-font-size='' av-mini-font-size='' heading_tag='' heading_class='' link='' linktarget='' title_attr='' linkelement='' id='' custom_class='' template_class='']
+            print do_shortcode("[av_icon_box icon='ue809' font='winmo2' title='" . $full_name . " Phone Number' position='left_content' icon_style='' boxed='' font_color='' custom_title='' custom_content='' color='' custom_bg='' custom_font='' custom_border='' custom_title_size='' av-desktop-font-size-title='' av-medium-font-size-title='' av-small-font-size-title='' av-mini-font-size-title='' custom_content_size='' av-desktop-font-size='' av-medium-font-size='' av-small-font-size='' av-mini-font-size='' heading_tag='' heading_class='' link='' linktarget='' title_attr='' linkelement='' id='' custom_class='' template_class='']
 " . $phone . "[/av_icon_box]"); ?>
           </div>
           <div class="col">
@@ -76,9 +76,13 @@ if (is_wp_error($contact_data)) {
             $email = $contact_data[0]['email'];  // Grab the email
             $atpos = strpos($email, '@');  // Locate the @ sign
             $dotpos = strrpos($email, '.'); // Locate the very last dot
-            $email = substr($email, 0, 1) . str_repeat('*', $atpos - 1) . '@' . str_repeat('*', ($dotpos - $atpos - 1)) . substr($email, $dotpos);
+            if ($atpos) {
+              $email = substr($email, 0, 1) . str_repeat('*', $atpos - 1) . '@' . str_repeat('*', ($dotpos - $atpos - 1)) . substr($email, $dotpos);
+            } else {
+              $email = "N/A";
+            }
 
-            print do_shortcode("[av_icon_box icon='ue809' font='winmo' title='" . $full_name . " Email Address' position='left_content' icon_style='' boxed='' font_color='' custom_title='' custom_content='' color='' custom_bg='' custom_font='fa fa-envelope' custom_border='' custom_title_size='' av-desktop-font-size-title='' av-medium-font-size-title='' av-small-font-size-title='' av-mini-font-size-title='' custom_content_size='' av-desktop-font-size='' av-medium-font-size='' av-small-font-size='' av-mini-font-size='' heading_tag='' heading_class='' link='' linktarget='' title_attr='' linkelement='' id='' custom_class='' template_class='']
+            print do_shortcode("[av_icon_box icon='ue805' font='entypo-fontello' title='" . $full_name . " Email Address' position='left_content' icon_style='' boxed='' font_color='' custom_title='' custom_content='' color='' custom_bg='' custom_font='' custom_border='' custom_title_size='' av-desktop-font-size-title='' av-medium-font-size-title='' av-small-font-size-title='' av-mini-font-size-title='' custom_content_size='' av-desktop-font-size='' av-medium-font-size='' av-small-font-size='' av-mini-font-size='' heading_tag='' heading_class='' link='' linktarget='' title_attr='' linkelement='' id='' custom_class='' template_class='']
 " . $email . "[/av_icon_box]"); ?></div>
           <div class="col">
             <?php
@@ -91,7 +95,7 @@ if (is_wp_error($contact_data)) {
             $address .= $location['state'] ? $location['state'] . ' ' : '';
             $address .= $location['zip_code'] ? $location['zip_code'] . '<br>' : '<br>';
             $address .= $location['country'];
-            print do_shortcode("[av_icon_box icon='ue809' font='winmo' title='" . $full_name . " Office Address' position='left_content' icon_style='' boxed='' font_color='' custom_title='' custom_content='' color='' custom_bg='' custom_font='fa fa-building' custom_border='' custom_title_size='' av-desktop-font-size-title='' av-medium-font-size-title='' av-small-font-size-title='' av-mini-font-size-title='' custom_content_size='' av-desktop-font-size='' av-medium-font-size='' av-small-font-size='' av-mini-font-size='' heading_tag='' heading_class='' link='' linktarget='' title_attr='' linkelement='' id='' custom_class='' template_class='']
+            print do_shortcode("[av_icon_box icon='ue808' font='winmo' title='" . $full_name . " Office Address' position='left_content' icon_style='' boxed='' font_color='' custom_title='' custom_content='' color='' custom_bg='' custom_font='' custom_border='' custom_title_size='' av-desktop-font-size-title='' av-medium-font-size-title='' av-small-font-size-title='' av-mini-font-size-title='' custom_content_size='' av-desktop-font-size='' av-medium-font-size='' av-small-font-size='' av-mini-font-size='' heading_tag='' heading_class='' link='' linktarget='' title_attr='' linkelement='' id='' custom_class='' template_class='']
 " . $address . '<br>' . "[/av_icon_box]"); ?></div>
         </div>
       </section>
@@ -99,7 +103,7 @@ if (is_wp_error($contact_data)) {
       <section id="personality_insights">
         <div class="gray_box row">
           <div class="col">
-            <?php print do_shortcode("[av_icon_box icon='ue800' font='winmo' title='" . $full_name . " Personality Insights' position='left' icon_style='' boxed='' font_color='' custom_title='' custom_content='' color='' custom_bg='' custom_font='fa-solid fa-person-burst' custom_border='' custom_title_size='' av-desktop-font-size-title='' av-medium-font-size-title='' av-small-font-size-title='' av-mini-font-size-title='' custom_content_size='' av-desktop-font-size='' av-medium-font-size='' av-small-font-size='' av-mini-font-size='' heading_tag='h2' heading_class='' link='' linktarget='' title_attr='' linkelement='' id='' custom_class='' template_class='' av_uid='av-luvpcjbw' sc_version='1.0' admin_preview_bg=''][/av_icon_box]"); ?>
+            <?php print do_shortcode("[av_icon_box icon='ue800' font='winmo2' title='" . $full_name . " Personality Insights' position='left' icon_style='' boxed='' font_color='' custom_title='' custom_content='' color='' custom_bg='' custom_font='' custom_border='' custom_title_size='' av-desktop-font-size-title='' av-medium-font-size-title='' av-small-font-size-title='' av-mini-font-size-title='' custom_content_size='' av-desktop-font-size='' av-medium-font-size='' av-small-font-size='' av-mini-font-size='' heading_tag='h2' heading_class='' link='' linktarget='' title_attr='' linkelement='' id='' custom_class='' template_class='' av_uid='av-luvpcjbw' sc_version='1.0' admin_preview_bg=''][/av_icon_box]"); ?>
             <p>Get personality-driven outreach tips to strike the right chord with <?php print $full_name; ?>. From suggested email length and tone to AI-generated subject lines, personality-based tips make decision-makers like <?php print $full_name; ?> 233% more likely to reply to your outreach.</p>
             <p style="text-align: center;"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/contacts/personality-insights.svg"></p>
           </div>
