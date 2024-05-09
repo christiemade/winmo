@@ -3,7 +3,7 @@
 // Stylesheet caching version
 function avia_get_theme_version($which = 'parent')
 {
-  return '1.0.0.0.39.18';
+  return '1.0.0.0.39.25';
 }
 
 // Allow for overriding of Enfold templates
@@ -70,6 +70,7 @@ function winmo_load_scipts()
   wp_register_script('sticky-nav', get_stylesheet_directory_uri() . '/assets/js/sticky-nav.js', array('jquery', 'gsap', 'scrollTrigger'), '1.0.0.8');
   //wp_enqueue_script('fontawesome', get_stylesheet_directory_uri() . '/assets/fonts/js/all.min.js');
 
+  wp_enqueue_script('popups', get_stylesheet_directory_uri() . '/assets/js/popups.js', array('jquery'), '1.0.0.2');
   wp_register_script('filters', get_stylesheet_directory_uri() . '/assets/js/filters.js', array('jquery'), '1.0.0.4');
   wp_localize_script('filters', 'winmoAjax', array('ajaxurl' => admin_url('admin-ajax.php')));
   wp_enqueue_script('filters');
@@ -97,5 +98,12 @@ add_action('ava_after_content_templatebuilder_page', function () { ?>
     </div>
   </div>
 
-<?php get_template_part('partials/footer', 'company');
+  <?php get_template_part('partials/footer', 'company'); ?>
+
+  <div class="popup-wrapper">
+    <div id="request_demo">
+      <?php get_template_part('partials/sidebar_cta'); ?>
+    </div>
+  </div>
+<?php
 });

@@ -33,6 +33,13 @@ aside {
       }
     }
   }
+  .cta {
+    h2 {
+      font-size: 25px;
+      font-weight: 900;
+      line-height: 1.48em;
+    }
+  }
   &.fixed {
     @include breakpoint(md, "min") { padding-top: 300px; }
     nav {
