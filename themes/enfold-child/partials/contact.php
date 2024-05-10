@@ -113,12 +113,12 @@ if (is_wp_error($contact_data)) {
       <section id="disc_profile">
         <div class="gray_box row va-center">
           <div class="col col-4">
-            <a href="https://www.winmo.com/profile-1/" class="modal"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/contacts/disc-profile.svg"></a>
+            <img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/contacts/disc-profile.svg">
           </div>
           <div class="col">
             <h4><?php print $full_name; ?> DISC Profile</h4>
             <p>DiSC is an assessment tool used to improve communication, sales outreach and negotiations. Winmo subscribers use this assessment to get specific information about [John Lewnard] to help determine the best way to interact and engage.</p>
-            <p><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/contacts/generate-recommended-email.svg"></p>
+            <p><a href="https://www.winmo.com/profile-1/" class="modal"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/contacts/generate-recommended-email.svg"></a></p>
           </div>
         </div>
       </section>
@@ -193,9 +193,16 @@ if (is_wp_error($contact_data)) {
     <div class="col container">
       <h2>Engage <?php print $full_name; ?> for new business</h2>
       <p>Winmo can provide direct contact info, as well as current strategies, likely synergies and even do's and don'ts for writing an email that <?php print $full_name; ?> is likely to respond to. Winmo's award winning platform tracks this intel for those who control $100 billion in marketing spend each year, making it the top choice among sellers of agency services, advertising, marketing technology, or corporate sponsorships.</p>
-      <p><a href="#"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/companies/win-more-video.jpg"></a></p>
+      <div style="padding:56.25% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/864820000?h=7bed84b047&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="Win More with Winmo"></iframe></div>
+      <script src="https://player.vimeo.com/api/player.js"></script>
     </div>
   </div>
 
-<?php get_template_part('partials/footer', 'company');
-}
+  <?php get_template_part('partials/footer', 'company'); ?>
+
+  <div class="popup-wrapper">
+    <div id="request_demo">
+      <?php get_template_part('partials/sidebar_cta'); ?>
+    </div>
+  </div><?php
+      }

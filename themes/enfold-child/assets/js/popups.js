@@ -1,6 +1,5 @@
 jQuery(function ($) {
-
-  $(window).on('load', function () {
+  jQuery(document).ready(function () {
     $('.modal').each(function () { 
       $(this).attr('data-mfp-src', '#request_demo').addClass('no-scroll');
     });
