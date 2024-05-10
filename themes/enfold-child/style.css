@@ -10996,6 +10996,9 @@ aside #cta img {
 .modal {
   cursor: pointer;
 }
+.modal .image-overlay {
+  display: none !important;
+}
 
 .mfp-bg {
   background-color: #074058;

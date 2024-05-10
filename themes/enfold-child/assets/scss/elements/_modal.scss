@@ -4,6 +4,9 @@
 }
 .modal {
   cursor: pointer;
+  .image-overlay {
+    display: none !important;
+  }
 }
 .mfp-bg {
   background-color: #074058;
