@@ -10714,6 +10714,11 @@ h5 {
     align-items: center;
   }
 }
+#cta-footer .avia-button-wrap .avia-button.avia-size-medium {
+  background-color: #074058;
+  border-color: #074058;
+  color: #fff;
+}
 
 #footer {
   font-size: 12px;
