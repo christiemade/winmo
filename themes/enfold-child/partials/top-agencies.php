@@ -1,11 +1,11 @@
 <header id="agency" class="business">
   <div class="container">
     <div id="overview" class="gray_box">
-      <h1><?php if ($args) : print "Top Ad Agencies in " . convertState($args) . " " . date('Y');
-          else :  the_title();
-          endif; ?></h1>
       <div class="row">
         <div class="col">
+          <h1><?php if ($args) : print "Top Ad Agencies in " . convertState($args) . " " . date('Y');
+              else :  the_title();
+              endif; ?></h1>
           <?php if ($args) :  ?>
             <p> Explore the advertising agencies in <?php print convertState($args); ?> to discover which agencies are responsible for major advertising budgets in <?php print date('Y'); ?>. For each agency, we provide a detailed analysis including which companies they have as clients, the type of services they offer including creative, PR, media planning, media buying and more. Quickly assess who the key decision makers are and how to contact them. With Winmo, you can quickly get answers to questions like these:</p>
           <?php else : the_content();
@@ -13,7 +13,7 @@
           ?>
 
         </div>
-        <div class="col col-6">
+        <div class="col">
           <p><strong>Which state is home to the most advertising agencies?</strong><br>
             New York and California have the highest concentration of advertising agencies tracked by Winmo. Not surprisingly, New York has the most advertising agencies, with over 1,100 agencies. Top New York ad agencies include Horizon Media, PHD and BBDO Worldwide. A very close second is in California, home to over 1,000 ad agencies. Top California ad agencies include Omnicom subsidiary RAPP Worldwide, Publicis-owned Publicis.Sapient and Interpublic Group-owned digital agency R/GA. The third-highest concentration of ad agencies is in Illinois, with over 380 ad agencies. Top Illinois ad agencies include independent creative shop Cramer-Krasselt, Interpublic Group-owned media agency Initiative, Omnicom-owned creative shop DDB Chicago, and Stagwell-owned PR agency Allison+Partners.</p>
         </div>

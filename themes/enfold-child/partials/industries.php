@@ -1,13 +1,13 @@
 <header id="agency" class="business">
   <div class="container">
     <div id="overview" class="gray_box">
-      <h1>Top Advertising Industries <?php print date('Y'); ?></h1>
       <div class="row">
         <div class="col">
+          <h1>Top Advertising Industries <?php print date('Y'); ?></h1>
           <p>Winmo tracks companies that fall within 36 different industries, ranging from Apparel and Accessories to Health Care. The majority of these industries are business-to-consumer, but a large number of business-to-business organizations are also tracked.
           </p>
         </div>
-        <div class="col col-6">
+        <div class="col col-5-5">
           <p><strong>Which industry spends the most on advertising?</strong><Br>
             The industry that spends the most on advertising in the U.S. is Financial Services and Government, with over $42 billion in media spend over the past twelve months. Top advertisers in Financial Services and Government include H.I.G. Capital Management, Capital One Financial, DC Lottery, Centers for Disease Control & Prevention, and Wells Fargo.
           </p>
