@@ -50,7 +50,7 @@
 
 <div class="filters row">
   <div class="col container">
-    <h4>All Agencies</h4>
+    <h3>All Agencies</h3>
     <?php $nonce = wp_create_nonce("winmo_filter_nonce"); ?>
     <form id="filter-form" data-action="winmo_agency_list" data-nonce="<?php print $nonce; ?>" class="form" action='' method="POST">
       <span>Filter Agencies</span>

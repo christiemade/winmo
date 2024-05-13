@@ -11255,8 +11255,11 @@ ol li::before {
   }
 }
 #filter-form > span {
-  flex-basis: 120px;
+  flex-basis: fit-content;
   text-align: right;
+}
+#filter-form > span:first-child {
+  text-align: left;
 }
 @media (max-width: 479.98px) {
   #filter-form > span {

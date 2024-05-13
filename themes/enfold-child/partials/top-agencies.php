@@ -70,7 +70,7 @@
 
 <?php if (!$args) : ?>
   <div class="container" id="more">
-    <h4>See top Advertisers for each State</h4>
+    <h3>See top Advertisers for each State</h3>
     <div class="row">
       <div class="col">
         <?php

@@ -127,8 +127,11 @@ body {
   justify-content: center;
   @include breakpoint(sm, 'max') { flex-wrap: wrap;}
   & > span { 
-    flex-basis: 120px;
+    flex-basis: fit-content;
     text-align: right;
+    &:first-child {
+      text-align: left;
+    }
     @include breakpoint(xs, 'max') { flex-basis: 100%; text-align: left; }
     &:last-of-type {
       flex-basis: 88px;

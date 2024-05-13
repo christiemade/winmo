@@ -49,7 +49,7 @@
 </div>
 
 <div class="container" id="more">
-  <h4>More Industries that are big ad spenders</h4>
+  <h3>More Industries that are big ad spenders</h3>
   <div class="row">
     <div class="col">
       <?php $industries = get_industry_transient();
