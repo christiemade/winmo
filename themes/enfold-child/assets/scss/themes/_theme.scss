@@ -22,8 +22,11 @@
       @include breakpoint(md) {  max-width: 70%; }
     }
     &.col-6 {
-      @include breakpoint(lg) { max-width: 60%; }  // lg on agency - may be md elsewhere?
-      flex: none;
+      @include breakpoint(lg) { 
+        max-width: 60%; 
+        flex: none;
+      }  // lg on agency - may be md elsewhere?
+      
     }
     &.col-5-5 {
       padding-top: 16px;

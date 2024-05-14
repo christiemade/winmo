@@ -1,9 +1,9 @@
 <header>
   <div class="container">
     <div id="overview" class="gray_box agency-list">
-      <h1>Top Advertising Agencies <?php print date('Y'); ?></h1>
       <div class="row">
         <div class="col">
+          <h1>Top Advertising Agencies <?php print date('Y'); ?></h1>
           <p>Winmo tracks roughly 7,000 ad agencies in the US and Canada. These include top agencies in Branding, Creative, Design, Digital, Event and Sponsorship, Full Service, Media Planning and Media Buying, Production, Shopper Marketing and Public Relations, among other disciplines. These agencies include subsidiaries of Holding Companies such as Dentsu, Omnicom Group, Havas, Interpublic Group (IPG), Stagwell, Publicis and WPP, as well as independent agencies and shops belonging to independent agency networks such as AMIN.</p>
         </div>
         <div class="col">

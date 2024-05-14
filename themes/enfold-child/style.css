@@ -10876,6 +10876,7 @@ aside #cta img {
 @media (max-width: 575.98px) {
   #top .iconbox .iconbox_content h2.iconbox_content_title {
     font-size: 22px;
+    list-height: 42px;
   }
 }
 #top .iconbox.iconbox_left .iconbox_icon,
@@ -10898,6 +10899,10 @@ aside #cta img {
 #top .iconbox.iconbox_left svg {
     margin-right: 0px;
     margin-bottom: 15px;
+    height: 47px;
+    line-height: 47px;
+    font-size: 33px;
+    text-align: left;
   }
 }
 #top .iconbox.iconbox_left .iconbox_icon path, #top .iconbox.iconbox_left .iconbox_icon:before,
@@ -11138,12 +11143,10 @@ aside #cta img {
     max-width: 70%;
   }
 }
-.row .col.col-6 {
-  flex: none;
-}
 @media (min-width: 992px) {
   .row .col.col-6 {
     max-width: 60%;
+    flex: none;
   }
 }
 .row .col.col-5-5 {
@@ -11786,9 +11789,11 @@ body.agencies #main header > .container #overview .row .col:first-child {
     flex-basis: 100%;
   }
 }
-body.agencies #main header > .container #overview .row .col:last-child {
-  flex: none;
-  width: 250px;
+@media (min-width: 992px) {
+  body.agencies #main header > .container #overview .row .col:last-child {
+    flex: none;
+    width: 250px;
+  }
 }
 body.agencies #main header > .container #overview .row .contact {
   flex-direction: column;

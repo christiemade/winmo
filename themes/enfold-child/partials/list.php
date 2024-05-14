@@ -1,9 +1,9 @@
 <header>
   <div class="container">
     <div id="overview" class="gray_box">
-      <h1>Top Companies by Advertising Spend <?php print date('Y'); ?></h1>
       <div class="row">
         <div class="col">
+          <h1>Top Companies by Advertising Spend <?php print date('Y'); ?></h1>
           <p>Winmo tracks in-house and agency decision-makers who control over $100 billion in ad spend, rolling them up brand by brand as well as under parent companies so that you can see the entire group of buyers responsible for advertising budgets across TV, print, OOH, radio, cinema, digital, podcast, social advertising and both direct and programmatic ad buys.</p>
         </div>
         <div class="col col-6">

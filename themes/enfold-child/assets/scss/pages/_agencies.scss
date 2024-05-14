@@ -19,8 +19,10 @@ body.agencies {
           }
         }
         .col:last-child {
-          flex: none;
-          width: 250px;
+          @include breakpoint(lg) { 
+            flex: none;
+            width: 250px; 
+          }
         }
         .contact {
           flex-direction: column;

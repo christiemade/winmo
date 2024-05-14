@@ -14,6 +14,7 @@
       font-size: 38px;
       @include breakpoint(sm, 'max') { 
         font-size: 22px;
+        line-height: 42px;
       }
     }
 
@@ -38,6 +39,11 @@
       @include breakpoint(sm, 'max') { 
         margin-right: 0px;
         margin-bottom: 15px;
+        height: 47px;
+        line-height: 47px;
+        font-size: 33px;
+        text-align: left;
+        margin-top: 0px;
       }
       path, &:before {
         fill: $teal;
