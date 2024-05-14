@@ -1,4 +1,5 @@
 aside {
+  margin-bottom: 3em;
   @include breakpoint(xl, 'max') { 
     display: none;
   }

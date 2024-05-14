@@ -10736,6 +10736,9 @@ h5 {
   }
 }
 
+aside {
+  margin-bottom: 3em;
+}
 @media (max-width: 1199.98px) {
   aside {
     display: none;
@@ -11239,6 +11242,9 @@ ol li::before {
 .filters {
   padding-top: 3em;
   padding-bottom: 4em;
+}
+#top .filters.row {
+  padding-bottom: 1em;
 }
 
 #filter-form {
@@ -12394,7 +12400,7 @@ body#top.industries section#columned .row > .col:only-child ol li a, body#top.to
 }
 
 #more {
-  padding-top: 3em;
+  padding-top: 0px;
   padding-bottom: 4em;
 }
 #more .row {

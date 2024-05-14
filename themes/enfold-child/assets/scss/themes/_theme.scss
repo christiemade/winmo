@@ -117,6 +117,9 @@ body {
 .filters {
   padding-top: 3em;
   padding-bottom: 4em;
+  #top &.row {
+    padding-bottom: 1em;
+  }
 }
 #filter-form {
   display: flex;

@@ -22,30 +22,17 @@
   </div>
 </header>
 
-<div class="container row">
-  <?php if (!$args) : ?>
+<?php $agencies = get_agencies_by_state_transient();
+
+if (!$args) : ?>
+  <div class="container row">
     <aside>
       <?php get_template_part('partials/sidebar_cta', 'categories'); ?>
     </aside>
-  <?php endif; ?>
 
-  <main class="col">
-    <section id="columned" class="gray_box">
-      <?php
-      $agencies = get_agencies_by_state_transient();
-      if ($args) : ?>
-        <?php print do_shortcode("[av_icon_box icon='ue8b1' font='entypo-fontello' title='Agencies in " . convertState($args) . "' position='left' icon_style='' boxed='' font_color='' custom_title='' custom_content='' color='' custom_bg='' custom_font='' custom_border='' custom_title_size='' av-desktop-font-size-title='' av-medium-font-size-title='' av-small-font-size-title='' av-mini-font-size-title='' custom_content_size='' av-desktop-font-size='' av-medium-font-size='' av-small-font-size='' av-mini-font-size='' heading_tag='h2' heading_class='' link='' linktarget='' title_attr='' linkelement='' id='' custom_class='' template_class='' av_uid='av-luvpcjbw' sc_version='1.0' admin_preview_bg=''][/av_icon_box]"); ?>
-        <div class="row">
-          <div class="col columned">
-            <?php
-            $agencies = $agencies[strtoupper($args)];  // Pull specific state if provideds
-            foreach ($agencies as $state => $agencylist) :
-              print '<a href="/agency/' . $state . '">' . $agencylist['name'] . '</a>';
-            endforeach;
-            ?>
-          </div>
-        </div>
-      <?php else : ?>
+    <main class="col">
+      <section id="columned" class="gray_box">
+
         <?php print do_shortcode("[av_icon_box icon='ue813' font='winmo' title='Top 10 Holding Companies by Client Spend' position='left' icon_style='' boxed='' font_color='' custom_title='' custom_content='' color='' custom_bg='' custom_font='' custom_border='' custom_title_size='' av-desktop-font-size-title='' av-medium-font-size-title='' av-small-font-size-title='' av-mini-font-size-title='' custom_content_size='' av-desktop-font-size='' av-medium-font-size='' av-small-font-size='' av-mini-font-size='' heading_tag='h2' heading_class='' link='' linktarget='' title_attr='' linkelement='' id='' custom_class='' template_class='' av_uid='av-luvpcjbw' sc_version='1.0' admin_preview_bg=''][/av_icon_box]"); ?>
         <div class="row">
           <div class="col">
@@ -63,13 +50,13 @@
             </ol>
           </div>
         </div>
-      <?php endif; ?>
-    </section>
-  </main>
-</div>
+      </section>
+    </main>
+  </div>
+<?php endif; ?>
 
-<?php if (!$args) : ?>
-  <div class="container" id="more">
+<div class="container" id="more">
+  <?php if (!$args) : ?>
     <h3>See top Advertisers for each State</h3>
     <div class="row">
       <div class="col">
@@ -80,8 +67,20 @@
         ?>
       </div>
     </div>
-  </div>
-<?php endif; ?>
+  <?php else : ?>
+    <h3>Agencies in <?php print convertState($args); ?></h3>
+    <div class="row">
+      <div class="col columned">
+        <?php
+        $agencies = $agencies[strtoupper($args)];  // Pull specific state if provideds
+        foreach ($agencies as $state => $agencylist) :
+          print '<a href="/agency/' . $state . '">' . $agencylist['name'] . '</a>';
+        endforeach;
+        ?>
+      </div>
+    </div>
+  <?php endif; ?>
+</div>
 
 <div class="row alternate_color ha-center" id="win-more">
   <div class="col container">
