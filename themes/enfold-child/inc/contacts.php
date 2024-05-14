@@ -37,8 +37,8 @@ function set_contacts_transient()
         }
       }
 
-      // store the companies array and set it to never expire
-      // This doesnt need to expire, we can manually refresh the transient when we get a new CSV
+      // store the contacts array and set it to never expire
+      // we can manually refresh the transient when we get a new CSV
       set_transient('winmo_contacts',  $contacts, 0);
     }
     fclose($file);

@@ -10,8 +10,8 @@ function set_company_transient($company_id, $type = "company")
     // do this if no transient set
     $company = winmo_company_api($company_id, $type);
 
-    // store the company's data and set it to expire in 1 week
-    set_transient('winmo_' . $type . '_' . $company_id, $company, 604800);
+    // store the company's data and set it to expire in 1 year
+    set_transient('winmo_' . $type . '_' . $company_id, $company, 31536000);
   }
   return $company;
 }
