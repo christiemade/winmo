@@ -11,7 +11,10 @@
           <div class="col col-6">
             <p> Explore the advertising agencies in <?php print convertState($args); ?> to discover which agencies are responsible for major advertising budgets in <?php print date('Y'); ?>. For each agency, we provide a detailed analysis including which companies they have as clients, the type of services they offer including creative, PR, media planning, media buying and more. Quickly assess who the key decision makers are and how to contact them. With Winmo, you can quickly get answers to questions like these:</p>
           </div>
-        <?php else : print '<div class="col">' . the_content() . '</div>';
+        <?php else :
+          print '<div class="col">';
+          the_content();
+          print '</div>';
         endif;
         ?>
 
@@ -62,7 +65,7 @@ if (!$args) : ?>
 
 <div class="container" id="more">
   <?php if (!$args) : ?>
-    <h3>See top Advertisers for each State</h3>
+    <h3>See Top Advertisers for Each State</h3>
     <div class="row">
       <div class="col">
         <?php
