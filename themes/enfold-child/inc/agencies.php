@@ -14,6 +14,7 @@ function set_agencies_transient()
           'name' => $data[2],
           'location' => $data[6],
           'state' => $data[10],
+          'industry' => $data[14],
         );
       }
 

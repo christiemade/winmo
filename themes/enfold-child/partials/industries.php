@@ -54,7 +54,7 @@
     <div class="col">
       <?php $industries = get_industry_transient();
       foreach ($industries as $link => $industry) :
-        print '<a href="/industries/' . $link . '">' . $industry['name'] . '</a>';
+        print '<a href="/industries/' . $link . '">' . ucfirst($industry['name']) . '</a>';
       endforeach;
       ?>
     </div>
