@@ -8,12 +8,12 @@
       <h1>Top Companies in the <?php print $industry['name']; ?> Industry in <?php print date("Y"); ?></h1>
       <div class="row">
         <div class="col">
-          <p>Explore the advertising agencies in <?php print strtolower($industry['name']); ?> to discover which agencies are responsible for major advertising budgets in <?php print date("Y"); ?>. For each agency, we provide a detailed analysis including which companies they have as clients, the type of services they offer including creative, PR, media planning, media buying and more. Quickly assess who the key decision makers are and how to contact them. With Winmo, you can quickly get answers to questions like these:
+          <p>Explore the companies in the <?php print strtolower($industry['name']); ?> industry to discover which ones are responsible for major advertising budgets in <?php print date("Y"); ?>. For each company, we provide a detailed analysis including which advertising agencies they work with and how they spend their advertising budgets. Quickly assess who the key decision makers are and how to contact them.
           </p>
         </div>
         <div class="col">
-          <p><strong>Who is the top advertising agency in the <?php print strtolower($industry['name']); ?> industry?</strong><Br>
-            In <?php print date("Y", strtotime("-1 year")); ?>, [company] spent more on advertising than any other company in the <?php print strtolower($industry['name']); ?> industry.</p>
+          <p><strong>How many companies advertise in the <?php print strtolower($industry['name']); ?> Industry?</strong><Br>
+            There are <?php print sizeof($industry['agencies']); ?> companies that advertise in the <?php print strtolower($industry['name']); ?> Industry.</p>
         </div>
       </div>
     </div>
