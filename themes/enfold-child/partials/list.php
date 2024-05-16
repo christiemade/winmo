@@ -28,16 +28,16 @@
       <div class="row">
         <div class="col">
           <ol>
-            <li><a href="/company/5626">The Procter & Gamble Company</a></li>
-            <li><a href="/company/326">Amazon.com, Inc.</a></li>
-            <li><a href="/company/4820">ExxonMobil Corporation</a></li>
-            <li><a href="/company/2888">General Motors Corporation</a></li>
-            <li><a href="/company/50129">AbbVie, Inc.</a></li>
-            <li><a href="/company/52879">Paramount</a></li>
-            <li><a href="/company/10453">T-Mobile USA</a></li>
-            <li><a href="/company/6891">Toyota Motor Sales, U.S.A., Inc.</a></li>
-            <li><a href="/company/9649">Verizon Communications, Inc.</a></li>
-            <li><a href="/company/363">American Honda Motor Co., Inc.</a></li>
+            <li><a href="/company/the-procter-&-gamble-company">The Procter & Gamble Company</a></li>
+            <li><a href="/company/amazoncom/">Amazon.com, Inc.</a></li>
+            <li><a href="/company/exxonmobil-corporation">ExxonMobil Corporation</a></li>
+            <li><a href="/company/general-motors-corporation">General Motors Corporation</a></li>
+            <li><a href="/company/abbvie">AbbVie, Inc.</a></li>
+            <li><a href="/company/paramount">Paramount</a></li>
+            <li><a href="/company/t-mobile-usa/">T-Mobile USA</a></li>
+            <li><a href="/company/toyota-motor-sales-usa/">Toyota Motor Sales, U.S.A., Inc.</a></li>
+            <li><a href="/company/verizon-communications/">Verizon Communications, Inc.</a></li>
+            <li><a href="/company/american-honda-motor-co/">American Honda Motor Co., Inc.</a></li>
           </ol>
         </div>
       </div>

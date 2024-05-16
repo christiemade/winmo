@@ -7,6 +7,14 @@ wp_enqueue_script('sticky-nav');
 
 // Grab data for page from query vars and the API
 $company = get_query_var('rid');
+
+// Reverse look up company id
+$companies = get_transient('winmo_companies');
+$company = array_filter($companies, function ($v) use ($company) {
+  return $v['permalink'] == $company;
+}, ARRAY_FILTER_USE_BOTH);
+$keys =  array_keys($company);
+$company = $keys[0];
 $company_data = set_company_transient($company, "company");
 
 // Error check

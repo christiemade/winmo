@@ -27,10 +27,15 @@ function set_companies_transient()
 
     if ($file = fopen(get_stylesheet_directory() . "/inc/companies.csv", "r")) {
       while (($data = fgetcsv($file)) !== FALSE) {
-        if (!strpos($data[0], 'Id')) $companies[$data[0]] = array(
-          'name' => $data[1],
-          'industry' => $data[8]
-        );
+        if (!strpos($data[0], 'Id')) {
+          $permalink = strtolower(str_replace(" ", '-', $data[1]));
+          $permalink = str_replace(array(',-inc', ',-llc', "?", ".", ","), "", $permalink);
+          $companies[$data[0]] = array(
+            'name' => $data[1],
+            'industry' => $data[8],
+            'permalink' => $permalink
+          );
+        }
       }
 
       // store the companies array and set it to never expire
@@ -236,7 +241,7 @@ function winmo_company_list()
         if ($counter > 1) $html .= '</div><!-- /col -->';
         $html .= '<div class="col">';
       }
-      $html .= '<a href="/company/' . $key . '/">' . $company['name'] . '</a>';
+      $html .= '<a href="/company/' . $company['permalink'] . '/">' . $company['name'] . '</a>';
       $counter++;
     }
     $html .= '</div><!-- /col --></div><!-- /row -->';
