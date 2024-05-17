@@ -86,12 +86,12 @@ if (is_wp_error($company_data)) {
         </div>
 
         <div class="row table" id="advertising_table">
-          <div class="top desktop"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/companies/marketing-table-top-1.svg"></div>
+          <div class="top desktop"><a href="https://winmo.com" class="modal"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/companies/marketing-table-top-1.svg"></a></div>
           <div class="top">
-            <div><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/clients-top-brand.png"><span>Brand</span></div>
-            <div><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/companies/table-label-agency.png"><span>Agency</span></div>
-            <div><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/companies/table-label-location.png"><span>Location</span></div>
-            <div><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/clients-top-services.png"><span>Service</span></div>
+            <div><a href="https://winmo.com" class="modal"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/clients-top-brand.png"><span>Brand</span></a></div>
+            <div><a href="https://winmo.com" class="modal"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/companies/table-label-agency.png"><span>Agency</span></a></div>
+            <div><a href="https://winmo.com" class="modal"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/companies/table-label-location.png"><span>Location</span></a></div>
+            <div><a href="https://winmo.com" class="modal"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/clients-top-services.png"><span>Service</span></a></div>
           </div>
           <div class="grid">
             <?php
@@ -142,7 +142,7 @@ if (is_wp_error($company_data)) {
           </div>
           <?php if (sizeof($company_data['related_brands']) > 10) : ?>
             <div class="bottom">
-              <img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/companies/pagination.svg">
+              <a href="https://winmo.com" class="modal"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/companies/pagination.svg"></a>
             </div>
           <?php endif; ?>
         </div>

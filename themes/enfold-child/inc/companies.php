@@ -213,10 +213,10 @@ function winmo_company_list()
 
   // filter companies array based on query
   if (!empty($search_filter)) {
+
     foreach ($filtered as $key => $company) {
       if (!empty($search_filter)) {
-
-        if ((strpos($company['name'], $search_filter) !== false)) {
+        if ((stripos($company['name'], urldecode($search_filter)) !== false)) {
         } else {
           unset($filtered[$key]);
         }
