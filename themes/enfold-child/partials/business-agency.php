@@ -7,6 +7,14 @@ wp_enqueue_script('sticky-nav');
 
 // Grab data for page from query vars and the API
 $agency = get_query_var('rid');
+
+// Reverse look up agency id
+$agencies = get_transient('winmo_agencies');
+$agency = array_filter($agencies, function ($v) use ($agency) {
+  return $v['permalink'] == $agency;
+}, ARRAY_FILTER_USE_BOTH);
+$keys =  array_keys($agency);
+$agency = $keys[0];
 $agency_data = set_company_transient($agency, 'agency');
 
 // Error check

@@ -120,7 +120,7 @@ function winmo_agency_list()
         if ($counter > 1) $html .= '</div><!-- /col -->';
         $html .= '<div class="col">';
       }
-      $html .= '<a href="/agency/' . $key . '/">' . $agency['name'] . '</a>';
+      $html .= '<a href="/agency/' . $agency['permalink'] . '/">' . $agency['name'] . '</a>';
       $counter++;
     }
     $html .= '</div><!-- /col --></div><!-- /row -->';

@@ -82,7 +82,7 @@ if (!$args) : ?>
         <?php
         $agencies = $agencies[strtoupper($args)];  // Pull specific state if provideds
         foreach ($agencies as $state => $agencylist) :
-          print '<a href="/agency/' . $state . '">' . $agencylist['name'] . '</a>';
+          print '<a href="/agency/' . $agencylist['permalink'] . '">' . $agencylist['name'] . '</a>';
         endforeach;
         ?>
       </div>
