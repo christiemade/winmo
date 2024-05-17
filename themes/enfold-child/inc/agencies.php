@@ -10,12 +10,17 @@ function set_agencies_transient()
 
     if ($file = fopen(get_stylesheet_directory() . "/inc/agencies.csv", "r")) {
       while (($data = fgetcsv($file)) !== FALSE) {
-        if (!strpos($data[0], 'Id')) $agencies[$data[0]] = array(
-          'name' => $data[2],
-          'location' => $data[6],
-          'state' => $data[10],
-          'industry' => $data[14],
-        );
+        if (!strpos($data[0], 'Id')) {
+          $permalink = strtolower(str_replace(" ", '-', $data[2]));
+          $permalink = str_replace(array(',-inc', ',-llc', "?", ".", ","), "", $permalink);
+          $agencies[$data[0]] = array(
+            'name' => $data[2],
+            'location' => $data[6],
+            'state' => $data[10],
+            'industry' => $data[14],
+            'permalink' => $permalink
+          );
+        }
       }
 
       // store the agencies array and set it to never expire
@@ -91,7 +96,7 @@ function winmo_agency_list()
   // filter companies array based on query
   if (!empty($search_filter)) {
     foreach ($filtered as $key => $agency) {
-      if ((strpos($agency['name'], $search_filter) !== false)) {
+      if ((stripos($agency['name'], urldecode($search_filter)) !== false)) {
       } else {
         unset($filtered[$key]);
       }

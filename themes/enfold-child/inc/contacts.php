@@ -135,7 +135,7 @@ function winmo_contacts_list()
   // filter companies array based on query
   if (!empty($search_filter)) {
     foreach ($filtered as $key => $contact) {
-      if ((strpos($contact[0], $search_filter) !== false) || (strpos(strtolower($contact[1]), strtolower($search_filter)) !== false)) {
+      if ((stripos($contact[0], urldecode($search_filter)) !== false) || (stripos($contact[1], urldecode($search_filter)) !== false)) {
       } else {
         unset($filtered[$key]);
       }
