@@ -15,22 +15,22 @@ function get_industry_transient()
   if (false === $industries) {
 
     // do this if no transient set
-    $agencies = get_transient('winmo_agencies');
+    $companies = get_transient('winmo_companies');
     $industries = array();
-    foreach ($agencies as $cid => $agency) :
-      $list = explode(",", $agency['industry']);
+    foreach ($companies as $cid => $company) :
+      $list = explode(",", $company['industry']);
       foreach ($list as $industry) :
         // Turn industry into a machine name
         $industry_mx = strtolower(str_replace(array(' ', '&'), '-', trim($industry)));
-        $industry_mx = trim(str_replace("---", "-", $industry_mx));
+        $industry_mx = str_replace("---", "-", $industry_mx);
         if (!isset($industries[$industry_mx])) {
           $industries[$industry_mx] = array(
             'name' => ucwords($industry),
-            'agencies' => array()
+            'companies' => array()
           );
         }
       endforeach;
-      $industries[$industry_mx]['agencies'][$cid] = $agency['name'];
+      $industries[$industry_mx]['companies'][$cid] = $company['name'];
     endforeach;
 
     // store the industry list as a transient

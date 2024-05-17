@@ -13,7 +13,7 @@
         </div>
         <div class="col">
           <p><strong>How many companies advertise in the <?php print strtolower($industry['name']); ?> Industry?</strong><Br>
-            There are <?php print sizeof($industry['agencies']); ?> companies that advertise in the <?php print strtolower($industry['name']); ?> Industry.</p>
+            There are <?php print sizeof($industry['companies']); ?> companies that advertise in the <?php print strtolower($industry['name']); ?> Industry.</p>
         </div>
       </div>
     </div>
@@ -25,8 +25,8 @@
 
   <div class="row">
     <div class="col columned">
-      <?php foreach ($industry['agencies'] as $pid => $name) : ?>
-        <a href="/agency/<?php print $pid; ?>"><?php print $name; ?></a>
+      <?php foreach ($industry['companies'] as $pid => $name) : ?>
+        <a href="/company/<?php print $pid; ?>"><?php print $name; ?></a>
       <?php endforeach; ?>
     </div>
 
