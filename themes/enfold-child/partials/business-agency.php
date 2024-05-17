@@ -14,13 +14,19 @@ $agency = array_filter($agencies, function ($v) use ($agency) {
   return $v['permalink'] == $agency;
 }, ARRAY_FILTER_USE_BOTH);
 $keys =  array_keys($agency);
+
+// Error check
+if (!sizeof($keys)) {
+  echo "<header id=\"page404\" class=\"\"><div class=\"container\"></div></header><div id=\"error\"><h2>Error:</h2> <p>This agency does not exist.</p></div>";
+  exit;
+}
+
 $agency = $keys[0];
 $agency_data = set_company_transient($agency, 'agency');
 
-// Error check
 if (is_wp_error($agency_data)) {
   $error_message = $agency_data->get_error_message();
-  echo "<div id=\"error\"><h2>Error:</h2> <p>" . $error_message . '</p></div>';
+  echo "<header id=\"page404\" class=\"\"><div class=\"container\"></div></header><div id=\"error\"><h2>Error:</h2> <p>" . $error_message . '</p></div>';
 } else {
 
   // Create single variable for agency address display

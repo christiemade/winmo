@@ -28,10 +28,10 @@
       <div class="row">
         <div class="col">
           <ol>
-            <li><a href="/agency/8319">Horizon Media Inc.</a></li>
-            <li><a href="/agency/37589">BBDO Worldwide</a></li>
-            <li><a href="/agency/7598">Initiative</a></li>
-            <li><a href="/agency/62826">EssenceMediaCom</a></li>
+            <li><a href="/agency/horizon-media/">Horizon Media Inc.</a></li>
+            <li><a href="/agency/bbdo-worldwide/">BBDO Worldwide</a></li>
+            <li><a href="/agency/initiative/">Initiative</a></li>
+            <li><a href="/agency/essencemediacom">EssenceMediaCom</a></li>
             <li><a href="/agency/3848">Publicis North America</a></li>
             <li><a href="/agency/37662">VML</a></li>
             <li><a href="/agency/1325">Carat</a></li>
