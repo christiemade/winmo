@@ -20,7 +20,6 @@ function set_agencies_transient()
             $answer = ($v['permalink'] == $permalink) || (preg_match('#(' . str_replace("+", "\+", $permalink) . ')-\d#', $v['permalink']));
             return $answer;
           }, ARRAY_FILTER_USE_BOTH);
-          error_log(json_encode($duplicates));
           if (sizeof($duplicates)) $permalink .= "-" . ceil(sizeof($duplicates) + 1);
 
           $agencies[$data[0]] = array(

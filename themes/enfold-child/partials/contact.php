@@ -7,6 +7,21 @@ wp_enqueue_script('sticky-nav');
 
 // Grab data for page from query vars and the API
 $contact = get_query_var('pid');
+
+// Reverse look up contact id
+$contacts = get_transient('winmo_contacts');
+$contact = array_filter($contacts, function ($v) use ($contact) {
+  return $v[4] == $contact;
+}, ARRAY_FILTER_USE_BOTH);
+$keys =  array_keys($contact);
+
+// Error check
+if (!sizeof($keys)) {
+  echo "<header id=\"page404\" class=\"\"><div class=\"container\"></div></header><div id=\"error\"><h2>Error:</h2> <p>This decision maker does not exist.</p></div>";
+  exit;
+}
+
+$contact = $keys[0];
 $contact_data = set_contact_transient($contact);
 
 // Some contacts are part of an agency and some are part of a company

@@ -25,12 +25,22 @@ function set_contacts_transient()
   if (false === $contacts) {
     // do this if no transient set
     $contacts = array();
+    $contact_links = array();
 
     if ($file = fopen(get_stylesheet_directory() . "/inc/contacts.csv", "r")) {
       $keys = array();
       while (($data = fgetcsv($file)) !== FALSE) {
         if ($data[0] <> 'Contact Type') {
+
           $permalink = strtolower(str_replace(" ", '-', $data[3]));
+
+          if (isset($contact_links[$permalink])) {
+            $contact_links[$permalink][] = $permalink;
+            $permalink .= "-" . ceil(sizeof($contact_links[$permalink]) + 1);
+          } else {
+            $contact_links[$permalink] = array();
+          }
+
           $contacts[$data[$keys[0]]] = array($data[1], $data[2], $data[4], $data[5], $permalink);
         } else {
           // Find key for person ID
@@ -160,7 +170,7 @@ function winmo_contacts_list()
         if ($counter > 1) $html .= '</div><!-- /col -->';
         $html .= '<div class="col">';
       }
-      $html .= '<a href="/decision_makers/' . $key . '/">' . $contact[0] . ' ' . $contact[1] . '</a>';
+      $html .= '<a href="/decision_makers/' . $contact[4] . '/">' . $contact[0] . ' ' . $contact[1] . '</a>';
       $counter++;
     }
     $html .= '</div><!-- /col --></div><!-- /row -->';
