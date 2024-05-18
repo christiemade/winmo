@@ -14,6 +14,13 @@ $company = array_filter($companies, function ($v) use ($company) {
   return $v['permalink'] == $company;
 }, ARRAY_FILTER_USE_BOTH);
 $keys =  array_keys($company);
+
+// Error check
+if (!sizeof($keys)) {
+  echo "<header id=\"page404\" class=\"\"><div class=\"container\"></div></header><div id=\"error\"><h2>Error:</h2> <p>This company does not exist.</p></div>";
+  exit;
+}
+
 $company = $keys[0];
 $company_data = set_company_transient($company, "company");
 

@@ -7,6 +7,10 @@ wp_enqueue_script('sticky-nav');
 
 // Grab data for page from query vars and the API
 $agency = get_query_var('rid');
+$second = false;
+if (preg_match('#(' . substr($agency, 0, -2) . ')-\d#', $agency)) {
+  $second = true;
+}
 
 // Reverse look up agency id
 $agencies = get_transient('winmo_agencies');

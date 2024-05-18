@@ -30,7 +30,8 @@ function set_contacts_transient()
       $keys = array();
       while (($data = fgetcsv($file)) !== FALSE) {
         if ($data[0] <> 'Contact Type') {
-          $contacts[$data[$keys[0]]] = array($data[1], $data[2], $data[4], $data[5]);
+          $permalink = strtolower(str_replace(" ", '-', $data[3]));
+          $contacts[$data[$keys[0]]] = array($data[1], $data[2], $data[4], $data[5], $permalink);
         } else {
           // Find key for person ID
           $keys = array_keys($data, 'Person ID');

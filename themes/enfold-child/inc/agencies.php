@@ -13,6 +13,16 @@ function set_agencies_transient()
         if (!strpos($data[0], 'Id')) {
           $permalink = strtolower(str_replace(" ", '-', $data[2]));
           $permalink = str_replace(array(',-inc', ',-llc', "?", ".", ","), "", $permalink);
+
+          // Check if permalink already exists (agencies with identical names)
+          $duplicates = array_filter($agencies, function ($v) use ($permalink) {
+            // Do the permalinks match exactly or close but with a -digit at the end?
+            $answer = ($v['permalink'] == $permalink) || (preg_match('#(' . str_replace("+", "\+", $permalink) . ')-\d#', $v['permalink']));
+            return $answer;
+          }, ARRAY_FILTER_USE_BOTH);
+          error_log(json_encode($duplicates));
+          if (sizeof($duplicates)) $permalink .= "-" . ceil(sizeof($duplicates) + 1);
+
           $agencies[$data[0]] = array(
             'name' => $data[2],
             'location' => $data[6],

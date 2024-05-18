@@ -32,12 +32,12 @@
             <li><a href="/agency/bbdo-worldwide/">BBDO Worldwide</a></li>
             <li><a href="/agency/initiative/">Initiative</a></li>
             <li><a href="/agency/essencemediacom">EssenceMediaCom</a></li>
-            <li><a href="/agency/3848">Publicis North America</a></li>
-            <li><a href="/agency/37662">VML</a></li>
-            <li><a href="/agency/1325">Carat</a></li>
-            <li><a href="/agency/37782">Initiative</a></li>
-            <li><a href="/agency/15221">OMD</a></li>
-            <li><a href="/agency/60979">MediaMonks</a></li>
+            <li><a href="/agency/publicis-north-america/">Publicis North America</a></li>
+            <li><a href="/agency/vml">VML</a></li>
+            <li><a href="/agency/carat">Carat</a></li>
+            <li><a href="/agency/initiative-2">Initiative</a></li>
+            <li><a href="/agency/omd">OMD</a></li>
+            <li><a href="/agency/mediamonks">MediaMonks</a></li>
           </ol>
         </div>
       </div>
