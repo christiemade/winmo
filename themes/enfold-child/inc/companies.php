@@ -1,83 +1,66 @@
 <?php
-function set_company_transient($company_id, $type = "company")
+function set_company_transient($company_id, $data = "", $type = "company")
 {
 
-  $company = get_transient('winmo_' . $type . '_' . $company_id);
+  global $wpdb;
 
-  // check to see if companies was successfully retrieved from the cache
-  if (false === $company) {
+  // Pull company info from database
+  $sql = "SELECT * FROM `winmo` WHERE `type` = '" . $type . "' AND `api_id` = '" . $company_id . "' LIMIT 1";
+  $result = $wpdb->get_results($sql);
+  if ($result) $result = json_decode($result[0]->data);
 
-    // do this if no transient set
-    $company = winmo_company_api($company_id, $type);
-
-    // store the company's data and set it to expire in 1 year
-    set_transient('winmo_' . $type . '_' . $company_id, $company, 31536000);
+  // Company info doesn't exist in the database, or we're here to change it
+  if (!empty($data)) {
+    // store the company's data into the DB table
+    if ($result) {
+      $sql = "UPDATE `winmo` SET `data` = CAST('" . addslashes($data) . "' AS JSON) WHERE id = '" . $result->id . "'";
+    } else {
+      $sql = "INSERT INTO `winmo` (`type`, `api_id`, `data`)
+  VALUES('" . $type . "', '" . $company_id . "', CAST('" . addslashes($data) . "' AS JSON))";
+    }
+    $result = $wpdb->query($sql);
+    if ($result) $result = $data;
   }
-  return $company;
+
+  return $result;
 }
 
-function set_companies_transient()
+function set_companies_transient($results = array(), $page = false, $last = false)
 {
   $companies = get_transient('winmo_companies');
 
-  // check to see if companies was successfully retrieved from the cache
-  if (false === $companies) {
-    // do this if no transient set
+  // if we're rebuilding (page 1) then lets reset the array
+  if ($page == 1) { // Rebuild transient
     $companies = array();
-
-    if ($file = fopen(get_stylesheet_directory() . "/inc/companies.csv", "r")) {
-      while (($data = fgetcsv($file)) !== FALSE) {
-        if (!strpos($data[0], 'Id')) {
-          $permalink = strtolower(str_replace(" ", '-', $data[1]));
-          $permalink = str_replace(array(',-inc', ',-llc', "?", ".", ","), "", $permalink);
-          $companies[$data[0]] = array(
-            'name' => $data[1],
-            'industry' => $data[8],
-            'permalink' => $permalink
-          );
-        }
-      }
-
-      // store the companies array and set it to never expire
-      // This doesnt need to expire, we can manually refresh the transient when we get a new CSV
-      set_transient('winmo_companies', $companies, 0);
-    }
-    fclose($file);
+  } elseif ($page > 1) { // Dont change transient until all data is uploaded
+    $companies = get_transient('winmo_companies_temp');
   }
-}
-add_action('after_setup_theme', 'set_companies_transient');
 
+  $rework = array();
+  foreach ($results as $company) :
+    $permalink = strtolower(str_replace(" ", '-', $company['name']));
+    $permalink = str_replace(array(',-inc', ',-llc', "?", ".", ","), "", $permalink);
+    $rework[$company['id']] = array(
+      'name' => $company['name'],
+      'permalink' => $permalink
+    );
+    set_company_transient($company['id'], json_encode($company), 'company');
+  endforeach;
+  $companies = $companies + $rework;
 
-function winmo_company_api($id, $type)
-{
-  // Include Request and Response classes
-  $url = 'https://api.winmo.com/web_api/business_details?id=' . $id . '&entity_type=' . $type;
-
-  $args = array(
-    'headers' => array(
-      'Content-Type' => 'application/json',
-      'Authorization' => 'Bearer ' . WINMO_TOKEN
-    ),
-  );
-
-  $request = wp_remote_get($url, $args);
-
-  if (!is_wp_error($request)) {
-    if ($request['response']['code'] == "404") {
-      return new WP_Error('broke', 'Page not found.');
-    } else {
-      $body = json_decode(wp_remote_retrieve_body($request), true);
-      return $body['result'];
-    }
-  } else {
-    $body = wp_remote_retrieve_body($request);
-    if (isset($body['result'])) {
-      return $body['result'];
-    } else {
-      return new WP_Error('broke', $request->get_error_message());
-    }
+  // store the companies array and set it to never expire
+  // This doesnt need to expire, we can manually refresh the transient when we get a new CSV
+  $transient_name = 'winmo_companies_temp';
+  if ($last) {
+    delete_transient($transient_name); // Remove temporary transient
+    $transient_name = 'winmo_companies';  // Last page, now update officialdelete_transient($transient_name); // Remove temporary transient
+    delete_transient($transient_name); // Remove previous transient
   }
+  set_transient($transient_name, $companies, 0);
+
+  return array('data' => true);
 }
+
 
 // Show unlock button in header of company pages
 add_filter('avf_main_menu_nav', function ($stuff) {
@@ -149,7 +132,7 @@ function winmo_brand_transients($brand_id, $callback)
   if (false === $brand_details) {
 
     // Grab brand details from the API
-    $brand_details = winmo_company_api($brand_id, "brand");
+    $brand_details = winmo_api($brand_id, "brand");
 
     // store the brand as a transient and set it to expire in 1 week
     set_transient('winmo_brand_' . $brand_id, $brand_details, 604800);

@@ -8,7 +8,7 @@
         </div>
         <div class="col">
           <p><strong>Which agencies’ accounts are worth the most marketing dollars?</strong><Br>
-            According to Winmo, ad agencies with advertising accounts worth the most are independent media agency Horizon Media (client accounts worth $4.83 billion in estimated ad spend); Omnicom Group-owned full service shop BBDO Worldwide (client accounts worth $4.82 billion estimated ad spend), and media planning and Interpublic Group-owned media planning and buying agency Initiative (client accounts worth $4.27 in estimated ad spend).</p>
+            According to Winmo, ad agencies with advertising accounts worth the most are independent media agency Horizon Media (client accounts worth $4.83 billion in estimated ad spend); Omnicom Group-owned full service shop BBDO Worldwide (client accounts worth $4.82 billion estimated ad spend), and Interpublic Group-owned media planning and buying agency Initiative (client accounts worth $4.27 in estimated ad spend).</p>
           <p><strong>Which media agencies have the most ad spend?</strong><br>
             As of <?php print date('Y'); ?>, the media agency with top client media spend is Horizon Media. Horizon Media is one of the nation's largest independent media-buying firms. Founded in 1988 by current President and CEO, Bill Koenigsberg, the New York City-based firm coordinates and negotiates deals across the media spectrum, with television accounting for about half of its billings. According to Winmo, Horizon Media is the media agency of record for financial institutions, retail stores, eCommerce brands, media corporations and social media apps, among others.</p>
         </div>

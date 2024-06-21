@@ -2,6 +2,7 @@
 /*
 	Template Name: API Display
 */
+
 if (!defined('ABSPATH')) {
   die();
 }

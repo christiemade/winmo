@@ -1,45 +1,64 @@
 <?php
-function set_agencies_transient()
+function set_agencies_transient($results = array(), $page = false, $last = false)
 {
   $agencies = get_transient('winmo_agencies');
 
-  // check to see if agencies were successfully retrieved from the cache
-  if (false === $agencies) {
-    // do this if no transient set
+  // if we're rebuilding (page 1) then lets reset the array
+  if ($page == 1) { // Rebuild transient
     $agencies = array();
-
-    if ($file = fopen(get_stylesheet_directory() . "/inc/agencies.csv", "r")) {
-      while (($data = fgetcsv($file)) !== FALSE) {
-        if (!strpos($data[0], 'Id')) {
-          $permalink = strtolower(str_replace(" ", '-', $data[2]));
-          $permalink = str_replace(array(',-inc', ',-llc', "?", ".", ","), "", $permalink);
-
-          // Check if permalink already exists (agencies with identical names)
-          $duplicates = array_filter($agencies, function ($v) use ($permalink) {
-            // Do the permalinks match exactly or close but with a -digit at the end?
-            $answer = ($v['permalink'] == $permalink) || (preg_match('#(' . str_replace("+", "\+", $permalink) . ')-\d#', $v['permalink']));
-            return $answer;
-          }, ARRAY_FILTER_USE_BOTH);
-          if (sizeof($duplicates)) $permalink .= "-" . ceil(sizeof($duplicates) + 1);
-
-          $agencies[$data[0]] = array(
-            'name' => $data[2],
-            'location' => $data[6],
-            'state' => $data[10],
-            'industry' => $data[14],
-            'permalink' => $permalink
-          );
-        }
-      }
-
-      // store the agencies array and set it to never expire
-      // This doesnt need to expire, we can manually refresh the transient when we get a new CSV
-      set_transient('winmo_agencies', $agencies, 0);
-    }
-    fclose($file);
+  } elseif ($page > 1) { // Dont change transient until all data is uploaded
+    $agencies = get_transient('winmo_agencies_temp');
   }
+
+  // check to see if agencies were successfully retrieved from the cache
+  $rework = array();
+  foreach ($results as $agency) :
+
+    $permalink = strtolower(str_replace(" ", '-', $agency['name']));
+    $permalink = str_replace(array(',-inc', ',-llc', "?", ".", ","), "", $permalink);
+
+    // Special non-english character handling
+    setlocale(LC_ALL, 'en_US.UTF8');
+    $permalink = iconv("utf-8", "ascii//TRANSLIT", $permalink);
+
+    // Check if permalink already exists (agencies with identical names)
+    $duplicates = array_filter($agencies, function ($v) use ($permalink) {
+      // Do the permalinks match exactly or close but with a -digit at the end?
+      $answer = ($v['permalink'] == $permalink) || (preg_match('#(' . str_replace("+", "\+", $permalink) . ')-\d#', $v['permalink']));
+      return $answer;
+    }, ARRAY_FILTER_USE_BOTH);
+    if (!sizeof($duplicates)) {
+      // Check if permalink already exists - within current loop
+      $duplicates = array_filter($rework, function ($v) use ($permalink) {
+        // Do the permalinks match exactly or close but with a -digit at the end?
+        $answer = ($v['permalink'] == $permalink) || (preg_match('#(' . str_replace("+", "\+", $permalink) . ')-\d#', $v['permalink']));
+        return $answer;
+      }, ARRAY_FILTER_USE_BOTH);
+    }
+    if (sizeof($duplicates)) $permalink .= "-" . ceil(sizeof($duplicates) + 1);
+
+    $rework[$agency['id']] = array(
+      'name' => $agency['name'],
+      'location' => $agency['location'],
+      'state' => $agency['location']['state'],
+      //'industry' => $data[14],
+      'permalink' => $permalink
+    );
+
+    set_company_transient($agency['id'], json_encode($agency), 'agency');
+  endforeach;
+
+  $agencies = $agencies + $rework;
+  $transient_name = 'winmo_agencies_temp';
+  if ($last) {
+    delete_transient($transient_name); // Remove temporary transient
+    $transient_name = 'winmo_agencies';  // Last page, now update officialdelete_transient($transient_name); // Remove temporary transient
+    delete_transient($transient_name); // Remove previous transient
+  }
+  set_transient($transient_name, $agencies, 0);
+
+  return array('data' => true);
 }
-add_action('after_setup_theme', 'set_agencies_transient');
 
 // Show unlock button in header of agency pages
 add_filter('avf_main_menu_nav', function ($stuff) {

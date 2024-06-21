@@ -1,5 +1,8 @@
 <?php
 
+if (file_exists(__DIR__ . '/vendor/autoload.php'))
+  require __DIR__ . '/vendor/autoload.php';
+
 // Stylesheet caching version
 function avia_get_theme_version($which = 'parent')
 {
@@ -22,6 +25,12 @@ function avia_include_shortcode_template($paths)
   array_unshift($paths, $template_url . '/shortcodes/');
   return $paths;
 }
+
+// CRON Jobs
+include("inc/admin.php");
+
+// API Call(s)
+require_once("inc/winmo_api.php");
 
 // Company display related hooks
 include("inc/companies.php");
@@ -78,7 +87,7 @@ function winmo_load_scipts()
   wp_register_script('sticky-nav', get_stylesheet_directory_uri() . '/assets/js/sticky-nav.js', array('jquery', 'gsap', 'scrollTrigger'), '1.0.0.8');
   //wp_enqueue_script('fontawesome', get_stylesheet_directory_uri() . '/assets/fonts/js/all.min.js');
 
-  wp_enqueue_script('popups', get_stylesheet_directory_uri() . '/assets/js/popups.js', array('jquery'), '1.0.0.8');
+  wp_enqueue_script('popups', get_stylesheet_directory_uri() . '/assets/js/popups.js', array('jquery'), '1.0.0.9');
   wp_register_script('filters', get_stylesheet_directory_uri() . '/assets/js/filters.js', array('jquery'), '1.0.0.5');
   wp_localize_script('filters', 'winmoAjax', array('ajaxurl' => admin_url('admin-ajax.php')));
   wp_enqueue_script('filters');
@@ -89,6 +98,24 @@ add_action('wp_enqueue_scripts', 'winmo_load_scipts', 100);
 add_filter('http_request_timeout', function () {
   return 60;
 });
+
+// Create table for WINMO content if it doesn't exist yet
+add_action('after_switch_theme', function () {
+  global $wpdb;
+  $sql = 'CREATE TABLE IF NOT EXISTS `winmo` (
+    `id` int NOT NULL,
+    `type` varchar(20) NOT NULL,
+    `api_id` int NOT NULL,
+    `data` json NOT NULL
+  )';
+  $wpdb->query($sql);
+
+  $wpdb->query('ALTER TABLE `winmo`
+      ADD PRIMARY KEY (`api_id`),
+      ADD KEY `id` (`id`);
+    COMMIT');
+}, 10);
+
 
 // Add custom body classes to each template
 add_filter('body_class', function ($classes) {

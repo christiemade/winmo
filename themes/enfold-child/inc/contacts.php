@@ -3,89 +3,80 @@
 // Save the individual contact as a transient, if it doesn't exist yet
 function set_contact_transient($contact_id)
 {
-  $contact = get_transient('winmo_contact_' . $contact_id);
+  error_log("Single contact transient " . $contact_id);
+  /* $contact = get_transient('winmo_contact_' . $contact_id);
 
   // check to see if companies was successfully retrieved from the cache
   if (false === $contact) {
     // do this if no transient set
-    $contact = winmo_contact_api($contact_id);
+    //$contact = winmo_contact_api($contact_id);
+    // temporary testing JSON
+    $contact = '{
+      "id": 12345
+      "type": "Agency",
+      "entity_id": 234
+      "fname": "Jill",
+      "lname": "Smith",
+      "title": "Chief Executive Officer",
+      "phone": "(555) 555-5555",
+      "email": "chiefjill@bigagency.com",
+      "address1": "1234 Main St",
+      "address2": "Suite 200",
+      "city": "Anytown",
+      "state": "CA",
+      "zip_code": "12345",
+      "country": "US"
+    }';
 
     // store the company's data and set it to expire in 1 week
     set_transient('winmo_contact_' . $contact_id, $contact, 604800);
   }
-  return $contact;
+  return json_decode($contact);*/
 }
 
-// Pull in all contacts from a CSV
-function set_contacts_transient()
+// Put all contacts into a transient
+function set_contacts_transient($results = array(), $page = false, $last = false)
 {
   $contacts = get_transient('winmo_contacts');
 
-  // check to see if companies was successfully retrieved from the cache
-  if (false === $contacts) {
-    // do this if no transient set
+  // if we're rebuilding (page 1) then lets reset the array
+  if ($page == 1) { // Rebuild transient
     $contacts = array();
-    $contact_links = array();
-
-    if ($file = fopen(get_stylesheet_directory() . "/inc/contacts.csv", "r")) {
-      $keys = array();
-      while (($data = fgetcsv($file)) !== FALSE) {
-        if ($data[0] <> 'Contact Type') {
-
-          $permalink = strtolower(str_replace(" ", '-', $data[3]));
-
-          if (isset($contact_links[$permalink])) {
-            $contact_links[$permalink][] = $permalink;
-            $permalink .= "-" . ceil(sizeof($contact_links[$permalink]) + 1);
-          } else {
-            $contact_links[$permalink] = array();
-          }
-
-          $contacts[$data[$keys[0]]] = array($data[1], $data[2], $data[4], $data[5], $permalink);
-        } else {
-          // Find key for person ID
-          $keys = array_keys($data, 'Person ID');
-        }
-      }
-
-      // store the contacts array and set it to never expire
-      // we can manually refresh the transient when we get a new CSV
-      set_transient('winmo_contacts',  $contacts, 0);
-    }
-    fclose($file);
+  } elseif ($page > 1) { // Dont change transient until all data is uploaded
+    $contacts = get_transient('winmo_contacts_temp');
   }
-}
-add_action('after_setup_theme', 'set_contacts_transient');
 
-// Grab an individual contact from the API
-function winmo_contact_api($id)
-{
-  // Include Request and Response classes
-  $url = 'https://api.winmo.com/web_api/contacts?ids[]=' . $id;
-  $args = array(
-    'headers' => array(
-      'Content-Type' => 'application/json',
-      'Authorization' => 'Bearer ' . WINMO_TOKEN
-    ),
-  );
+  $rework = array();
+  $contact_links = array();
 
-  $request = wp_remote_get($url, $args);
+  foreach ($results as $contact) :
+    $permalink = strtolower(str_replace(" ", '-', $contact['fname'] . ' ' . $contact['lname']));
 
-  if (!is_wp_error($request)) {
-    if ($request['response']['code'] == "404") {
-      return new WP_Error('broke', 'Page not found 2.');
+    if (isset($contact_links[$permalink])) {
+      $contact_links[$permalink][] = $permalink;
+      $permalink .= "-" . ceil(sizeof($contact_links[$permalink]) + 1);
     } else {
-      $body = json_decode(wp_remote_retrieve_body($request), true);
-      return $body['result'];
+      $contact_links[$permalink] = array();
     }
-  } else {
-    $body = wp_remote_retrieve_body($request);
-    if (isset($body['result'])) {
-      return $body['result'];
-    } else {
-      return new WP_Error('broke', "XXX" . $request->get_error_message());
-    }
+
+    $rework[$contact['id']] = array($contact['fname'], $contact['lname'], $contact['title'], $contact['entity_id'], $permalink, $contact['type']);
+
+  // Set individual data into database
+  //set_transient('winmo_contacts',  $contacts, 0);
+  endforeach;
+  $contacts = $contacts + $rework;
+
+  // store the companies array and set it to never expire
+  // This doesnt need to expire, we can manually refresh the transient when we get a new CSV
+  $transient_name = 'winmo_contacts_temp';
+  if ($last) {
+    delete_transient($transient_name); // Remove temporary transient
+    $transient_name = 'winmo_contacts';  // Last page, now update officialdelete_transient($transient_name); // Remove temporary transient
+    delete_transient($transient_name); // Remove previous transient
   }
+  set_transient($transient_name, $contacts, 0);
+
+  return array('data' => true);
 }
 
 // Show unlock button in header of contact pages

@@ -22,34 +22,33 @@ if (!sizeof($keys)) {
 }
 
 $company = $keys[0];
-$company_data = set_company_transient($company, "company");
+$company_data = set_company_transient($company, "", "company");
 
 // Error check
 if (is_wp_error($company_data)) {
   $error_message = $company_data->get_error_message();
   echo "<div id=\"error\"><h2>Error:</h2> <p>" . $error_message . '</p></div>';
-} elseif (!is_array($company_data)) {
-  delete_transient('winmo_company_' . $company);
+} elseif (!is_object($company_data)) {
   echo '<meta http-equiv="Refresh" content="5">';
 } else {
 
   // Create single variable for company address display
-  $address = $company_data['location']['address1']
-    . '<br>' . $company_data['location']['address2']
-    . ($company_data['location']['address2'] ? "<Br>" : "") .
-    $company_data['location']['city'] . ", " . $company_data['location']['state'] . " " . $company_data['location']['zip_code'] . "<br>" .
-    $company_data['location']['country'];
+  $address = $company_data->location->address1
+    . '<br>' . $company_data->location->address2
+    . ($company_data->location->address2 ? "<Br>" : "") .
+    $company_data->location->city . ", " . $company_data->location->state . " " . $company_data->location->zip_code . "<br>" .
+    $company_data->location->country;
 ?>
   <header id="company" class="business">
     <div class="container">
       <div id="overview" class="gray_box">
-        <h1><?php print $company_data['name']; ?> Advertising Profile</h1>
-        <h5><?php print $company_data['name']; ?> Company Overview:</h5>
-        <p><?php print $company_data['notes']; ?></p>
+        <h1><?php print $company_data->name; ?> Advertising Profile</h1>
+        <h5><?php print $company_data->name; ?> Company Overview:</h5>
+        <p><?php print $company_data->notes; ?></p>
         <div class="contact">
           <div class="phone">
             <?php print do_shortcode("[av_icon_box icon='ue809' font='winmo' title='Main Telephone' position='left' icon_style='' boxed='' font_color='' custom_title='' custom_content='' color='' custom_bg='' custom_font='' custom_border='' custom_title_size='' av-desktop-font-size-title='' av-medium-font-size-title='' av-small-font-size-title='' av-mini-font-size-title='' custom_content_size='' av-desktop-font-size='' av-medium-font-size='' av-small-font-size='' av-mini-font-size='' heading_tag='' heading_class='' link='' linktarget='' title_attr='' linkelement='' id='' custom_class='' template_class='' av_uid='av-luvpcjbw' sc_version='1.0' admin_preview_bg='']<a href='https://winmo.com' class=\"modal\">" .
-              $company_data['phone'] . "</a>[/av_icon_box]"); ?>
+              $company_data->phone . "</a>[/av_icon_box]"); ?>
           </div>
           <div class="address">
             <?php print do_shortcode("[av_icon_box icon='ue808' font='winmo' title='Primary Address' position='left' icon_style='' boxed='' font_color='' custom_title='' custom_content='' color='' custom_bg='' custom_font='' custom_border='' custom_title_size='' av-desktop-font-size-title='' av-medium-font-size-title='' av-small-font-size-title='' av-mini-font-size-title='' custom_content_size='' av-desktop-font-size='' av-medium-font-size='' av-small-font-size='' av-mini-font-size='' heading_tag='' heading_class='' link='' linktarget='' title_attr='' linkelement='' id='' custom_class='' template_class='' av_uid='av-luvpcjbw' sc_version='1.0' admin_preview_bg='']" . $address . "[/av_icon_box]"); ?>
@@ -64,31 +63,34 @@ if (is_wp_error($company_data)) {
     <aside>
       <nav>
         <ul>
-          <li><a href="#advertising"><?php print $company_data['name']; ?> Advertising Agencies</a></li>
-          <li><a href="#marketing"><?php print $company_data['name']; ?> Marketing Team</a></li>
-          <li><a href="#ad_agency_contacts"><?php print $company_data['name']; ?> Ad Agency Contacts</a></li>
-          <li><a href="#ad_spend"><?php print $company_data['name']; ?> Ad Spend <?php print date('Y'); ?></a></li>
-          <li><a href="#social_media_marketing"><?php print $company_data['name']; ?> Social Media Marketing</a></li>
+          <li><a href="#advertising"><?php print $company_data->name; ?> Advertising Agencies</a></li>
+          <li><a href="#marketing"><?php print $company_data->name; ?> Marketing Team</a></li>
+          <li><a href="#ad_agency_contacts"><?php print $company_data->name; ?> Ad Agency Contacts</a></li>
+          <li><a href="#ad_spend"><?php print $company_data->name; ?> Ad Spend <?php print date('Y'); ?></a></li>
+          <li><a href="#social_media_marketing"><?php print $company_data->name; ?> Social Media Marketing</a></li>
         </ul>
       </nav>
       <?php get_template_part('partials/sidebar_cta'); ?>
     </aside>
     <?php
-
-    $brands_total = sizeof($company_data['related_brands']); ?>
+    error_log(json_encode($company_data));
+    $brands_total = sizeof($company_data->related_brands); ?>
     <main class="col">
       <section id="advertising">
-        <?php print do_shortcode("[av_icon_box icon='ue812' font='winmo' title='" . $company_data['name'] . " Advertising Agencies' position='left' icon_style='' boxed='' font_color='' custom_title='' custom_content='' color='' custom_bg='' custom_font='' custom_border='' custom_title_size='' av-desktop-font-size-title='' av-medium-font-size-title='' av-small-font-size-title='' av-mini-font-size-title='' custom_content_size='' av-desktop-font-size='' av-medium-font-size='' av-small-font-size='' av-mini-font-size='' heading_tag='h2' heading_class='' link='' linktarget='' title_attr='' linkelement='' id='' custom_class='' template_class='' av_uid='av-luvpcjbw' sc_version='1.0' admin_preview_bg=''][/av_icon_box]"); ?>
+        <?php print do_shortcode("[av_icon_box icon='ue812' font='winmo' title='" . $company_data->name . " Advertising Agencies' position='left' icon_style='' boxed='' font_color='' custom_title='' custom_content='' color='' custom_bg='' custom_font='' custom_border='' custom_title_size='' av-desktop-font-size-title='' av-medium-font-size-title='' av-small-font-size-title='' av-mini-font-size-title='' custom_content_size='' av-desktop-font-size='' av-medium-font-size='' av-small-font-size='' av-mini-font-size='' heading_tag='h2' heading_class='' link='' linktarget='' title_attr='' linkelement='' id='' custom_class='' template_class='' av_uid='av-luvpcjbw' sc_version='1.0' admin_preview_bg=''][/av_icon_box]"); ?>
         <div class="row">
           <div class="col">
-            <p>Explore a detailed list of current and past ad agencies that work with <?php print $company_data['name']; ?>. Sort its marketing agencies by the type of services they offer including creative, PR, media planning, media buying and more. With Winmo’s detailed database of <?php print $company_data['name']; ?>'s advertising agencies at your fingertips you will quickly be able to answer questions like these:</p>
+            <p>Explore a detailed list of current and past ad agencies that work with <?php print $company_data->name; ?>. Sort its marketing agencies by the type of services they offer including creative, PR, media planning, media buying and more. With Winmo’s detailed database of <?php print $company_data->name; ?>'s advertising agencies at your fingertips you will quickly be able to answer questions like these:</p>
           </div>
           <div class="col">
-            <p><strong>How many brands does <?php print $company_data['name']; ?> have?</strong><br>
-              <?php print $company_data['name']; ?> has <?php print $brands_total; ?> unique brands.</p>
+            <p><strong>How many brands does <?php print $company_data->name; ?> have?</strong><br>
+              <?php print $company_data->name; ?> has <?php print $brands_total; ?> unique brands.</p>
 
-            <p><strong>How much does <?php print $company_data['name']; ?> spend on media?</strong><br>
-              <?php print $company_data['name']; ?> spends <?php print $company_data['media_spend']; ?> on media.</p>
+            <p><strong>How much does <?php print $company_data->name; ?> spend on media?</strong><br>
+              <?php if (!empty($company_data->revenues)) :
+                print $company_data->name . ' spends ' . $company_data->revenues;
+              else : print 'It is unknown how much ' . $company_data->name . ' spends ';
+              endif; ?> on media.</p>
           </div>
         </div>
 
@@ -127,17 +129,12 @@ if (is_wp_error($company_data)) {
               // No more than 5 items
               if (sizeof($services) > 4) $services = array_slice($services, 1, 4);
 
-              $brand_id = $company_data['related_brands'][$i]['id'];
-              $brand_details = array();
-
-              $brand_details = winmo_brand_transients($company_data['related_brands'][$i]['id'], function ($data) {
-                return $data;
-              });
+              $brand_details = $company_data->related_brands[$i];
 
             ?><div class="row">
-                <div><?php print $company_data['related_brands'][$i]['name']; ?></div>
+                <div><?php print $brand_details->name; ?></div>
                 <div class="blur"><img src="<?php print $agency_images[rand(0, sizeof($agency_images) - 1)]; ?>"></div>
-                <div><?php print $brand_details['location']['city'] . ", " . $brand_details['location']['state']; ?></div>
+                <div><?php print $brand_details->location->city . ", " . $brand_details->location->state; ?></div>
                 <div class="pills"><?php
                                     // Show AOR 80% of the time
                                     if (rand(1, 5) < 4) : ?><span class="aor">AOR</span><?php endif;
@@ -147,7 +144,7 @@ if (is_wp_error($company_data)) {
               </div><?php
                   endfor; ?>
           </div>
-          <?php if (sizeof($company_data['related_brands']) > 10) : ?>
+          <?php if (sizeof($company_data->related_brands) > 10) : ?>
             <div class="bottom">
               <a href="https://winmo.com" class="modal"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/companies/pagination.svg"></a>
             </div>
@@ -157,26 +154,26 @@ if (is_wp_error($company_data)) {
 
       <section id="marketing">
         <?php
-        $people_total = $company_data['contact_count'];
+        $people_total = $company_data->contact_count;
 
         // Find the CMO
         $cmo = false;
-        foreach ($company_data['contacts'] as $person) :
-          if (strpos($person['title'], "Chief Marketing Officer") !== false) $cmo = $person['fname'] . " " . $person['lname'];
+        foreach ($company_data->contacts as $person) :
+          if (strpos($person->title, "Chief Marketing Officer") !== false) $cmo = $person->fname . " " . $person->lname;
         endforeach;
 
         // Section Title
-        print do_shortcode("[av_icon_box icon='ue80b' font='entypo-fontello' title='" . $company_data['name'] . " Marketing Team' position='left' icon_style='' boxed='' font_color='' custom_title='' custom_content='' color='' custom_bg='' custom_font='' custom_border='' custom_title_size='' av-desktop-font-size-title='' av-medium-font-size-title='' av-small-font-size-title='' av-mini-font-size-title='' custom_content_size='' av-desktop-font-size='' av-medium-font-size='' av-small-font-size='' av-mini-font-size='' heading_tag='h2' heading_class='' link='' linktarget='' title_attr='' linkelement='' id='' custom_class='' template_class='' av_uid='av-luvpcjbw' sc_version='1.0' admin_preview_bg=''][/av_icon_box]"); ?>
+        print do_shortcode("[av_icon_box icon='ue80b' font='entypo-fontello' title='" . $company_data->name . " Marketing Team' position='left' icon_style='' boxed='' font_color='' custom_title='' custom_content='' color='' custom_bg='' custom_font='' custom_border='' custom_title_size='' av-desktop-font-size-title='' av-medium-font-size-title='' av-small-font-size-title='' av-mini-font-size-title='' custom_content_size='' av-desktop-font-size='' av-medium-font-size='' av-small-font-size='' av-mini-font-size='' heading_tag='h2' heading_class='' link='' linktarget='' title_attr='' linkelement='' id='' custom_class='' template_class='' av_uid='av-luvpcjbw' sc_version='1.0' admin_preview_bg=''][/av_icon_box]"); ?>
         <div class="row">
           <div class="col">
-            <p>Winmo tracks marketing team contacts brand by brand (budget by budget), with an update cycle o s for maximum accuracy. With Winmo, you can get detailed information on the entire <?php print $company_data['name']; ?> marketing team. Find basics on each marketer such as name, job title, brand responsibilities, email, and direct phone number, as well as current marketing strategies, areas of media investment, and do’s and don’ts for engaging. Here’s the kinds of questions you’ll be able to quickly answer with our database:</p>
+            <p>Winmo tracks marketing team contacts brand by brand (budget by budget), with an update cycle o s for maximum accuracy. With Winmo, you can get detailed information on the entire <?php print $company_data->name; ?> marketing team. Find basics on each marketer such as name, job title, brand responsibilities, email, and direct phone number, as well as current marketing strategies, areas of media investment, and do’s and don’ts for engaging. Here’s the kinds of questions you’ll be able to quickly answer with our database:</p>
           </div>
           <div class="col">
-            <p><strong>Who is the CMO at <?php print $company_data['name']; ?>?</strong><br>
-              The chief marketing officer at <?php print $company_data['name']; ?> is <?php $cmo ? print $cmo : print "N/A"; ?>.</p>
+            <p><strong>Who is the CMO at <?php print $company_data->name; ?>?</strong><br>
+              The chief marketing officer at <?php print $company_data->name; ?> is <?php $cmo ? print $cmo : print "N/A"; ?>.</p>
 
-            <p><strong>How big is the <?php print $company_data['name']; ?> Marketing Team?</strong><br>
-              There are <?php print $people_total; ?> staff members currently involved in marketing for <?php print $company_data['name']; ?>.</p>
+            <p><strong>How big is the <?php print $company_data->name; ?> Marketing Team?</strong><br>
+              There are <?php print $people_total; ?> staff members currently involved in marketing for <?php print $company_data->name; ?>.</p>
           </div>
         </div>
       </section>
@@ -193,12 +190,12 @@ if (is_wp_error($company_data)) {
             <?php
 
             if ($people_total > 5) $people_total = 5;
-
             for ($i = 0; $i < $people_total; $i++) :
             ?><div class="row modal">
-                <div><?php print $company_data['contacts'][$i]['fname'] ?> <?php print substr($company_data['contacts'][$i]['lname'], 0, 1); ?>.</div>
-                <div><?php print $company_data['contacts'][$i]['title']; ?></div>
-                <div><?php print $company_data['contacts'][$i]['location']['state']; ?></div>
+                <div><?php print $company_data->contacts[$i]->fname ?> <?php print substr($company_data->contacts[$i]->lname, 0, 1); ?>.</div>
+                <div><?php print $company_data->contacts[$i]->title; ?></div>
+                <div><?php print $company_data->contacts[$i]->state;
+                      ?></div>
               </div><?php
 
                     if ($i === 0) :
@@ -212,7 +209,7 @@ if (is_wp_error($company_data)) {
                         </div>
                         <div>
                         <img src="' . get_stylesheet_directory_uri() . '/assets/img/companies/contact-email.svg"><br>
-                        ' . $company_data['contacts'][$i]['phone'] . '<br>
+                        ' . $company_data->contacts[$i]->phone . '<br>
                         <img src="' . get_stylesheet_directory_uri() . '/assets/img/companies/contact-direct-phone.svg"><br>
                         <img src="' . get_stylesheet_directory_uri() . '/assets/img/companies/contact-assistant-name.svg"><br>
                         <img src="' . get_stylesheet_directory_uri() . '/assets/img/companies/contact-assistant-phone.svg"><br>
@@ -231,7 +228,7 @@ if (is_wp_error($company_data)) {
                     endif;
                   endfor; ?>
           </div>
-          <?php if (sizeof($company_data['related_brands']) > 10) : ?>
+          <?php if (sizeof($company_data->related_brands) > 10) : ?>
             <div class="bottom">
               <a href="https://www.winmo.com/profile-1/" class="modal"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/companies/marketing-table-foot.svg"></a>
               <a href="https://www.winmo.com/profile-1/" class="modal"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/companies/pagination.svg"></a>
@@ -245,23 +242,23 @@ if (is_wp_error($company_data)) {
 
 
         // Section Title
-        print do_shortcode("[av_icon_box icon='ue8c5' font='entypo-fontello' title='" . $company_data['name'] . " Ad Spend " . date('Y') . "' position='left' icon_style='' boxed='' font_color='' custom_title='' custom_content='' color='' custom_bg='' custom_font='' custom_border='' custom_title_size='' av-desktop-font-size-title='' av-medium-font-size-title='' av-small-font-size-title='' av-mini-font-size-title='' custom_content_size='' av-desktop-font-size='' av-medium-font-size='' av-small-font-size='' av-mini-font-size='' heading_tag='h2' heading_class='' link='' linktarget='' title_attr='' linkelement='' id='' custom_class='' template_class='' av_uid='av-luvpcjbw' sc_version='1.0' admin_preview_bg=''][/av_icon_box]"); ?>
+        print do_shortcode("[av_icon_box icon='ue8c5' font='entypo-fontello' title='" . $company_data->name . " Ad Spend " . date('Y') . "' position='left' icon_style='' boxed='' font_color='' custom_title='' custom_content='' color='' custom_bg='' custom_font='' custom_border='' custom_title_size='' av-desktop-font-size-title='' av-medium-font-size-title='' av-small-font-size-title='' av-mini-font-size-title='' custom_content_size='' av-desktop-font-size='' av-medium-font-size='' av-small-font-size='' av-mini-font-size='' heading_tag='h2' heading_class='' link='' linktarget='' title_attr='' linkelement='' id='' custom_class='' template_class='' av_uid='av-luvpcjbw' sc_version='1.0' admin_preview_bg=''][/av_icon_box]"); ?>
         <div class="row">
           <div class="col col-7">
-            <p>This section digs into the specifics of the advertising spend at <?php print $company_data['name']; ?> and activity across channels such as Out of Home, Radio, Broadcast, Print, Digital Display, CTV, Digital Video and Social Media, highlighting their peak buying times, media mix, and a month over month comparison.</p>
+            <p>This section digs into the specifics of the advertising spend at <?php print $company_data->name; ?> and activity across channels such as Out of Home, Radio, Broadcast, Print, Digital Display, CTV, Digital Video and Social Media, highlighting their peak buying times, media mix, and a month over month comparison.</p>
           </div>
         </div>
         <div class="row va-center">
           <div class="col">
-            <h3><?php print $company_data['name']; ?> Advertising Spend</h3>
-            <p>Winmo provides comprehensive data detailing annual advertising spend for <?php print $company_data['name']; ?>, showcasing the total spend broken down by month, fiscal quarter and monthly percentage change to illustrate the company's evolving marketing advertising strategies.</p>
+            <h3><?php print $company_data->name; ?> Advertising Spend</h3>
+            <p>Winmo provides comprehensive data detailing annual advertising spend for <?php print $company_data->name; ?>, showcasing the total spend broken down by month, fiscal quarter and monthly percentage change to illustrate the company's evolving marketing advertising strategies.</p>
           </div>
           <div class="col col-5-5"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/companies/advertising-spend.png"></div>
         </div>
         <div class="row va-center">
           <div class="col">
-            <h3><?php print $company_data['name']; ?> Media Mix</h3>
-            <p>Explore a detailed breakdown of the last 12 months media spending for <?php print $company_data['name']; ?> across various advertising channels including digital, broadcast, print, radio and more. Those channels can then be broken down further and viewed monthly or quarterly.</p>
+            <h3><?php print $company_data->name; ?> Media Mix</h3>
+            <p>Explore a detailed breakdown of the last 12 months media spending for <?php print $company_data->name; ?> across various advertising channels including digital, broadcast, print, radio and more. Those channels can then be broken down further and viewed monthly or quarterly.</p>
           </div>
           <div class="col col-5-5"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/companies/media-mix.png"></div>
         </div>
@@ -269,8 +266,8 @@ if (is_wp_error($company_data)) {
       <section id="social_media_marketing">
         <div class="row va-center">
           <div class="col">
-            <h3><?php print $company_data['name']; ?> Social Media Marketing Ad Spend</h3>
-            <p>See whether <?php print $company_data['name']; ?> is spending on social media platforms like X, TikTok, Facebook, Instagram and Pinterest, as well as how active it is on YouTube desktop, iOS or Android.</p>
+            <h3><?php print $company_data->name; ?> Social Media Marketing Ad Spend</h3>
+            <p>See whether <?php print $company_data->name; ?> is spending on social media platforms like X, TikTok, Facebook, Instagram and Pinterest, as well as how active it is on YouTube desktop, iOS or Android.</p>
           </div>
           <div class="col col-5-5"><a href="https://www.winmo.com/profile-1/" class="modal"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/companies/social-media-marketing-ad-spend.png"></a></div>
         </div>
@@ -281,7 +278,7 @@ if (is_wp_error($company_data)) {
   <div class="row alternate_color ha-center" id="win-more">
     <div class="col container">
       <h2>Win More with Winmo</h2>
-      <p>If you are looking to tap into <?php print $company_data['name']; ?> marketing spend, Winmo paves a clear path to engaging the right contacts at the right time. Winmo connects ad spend, marketing activity and peak buying periods to marketing team and ad agency budget-holders, even providing you with AI-powered email templates based on <?php print $company_data['name']; ?> decision-makers' personality types. Winmo's award winning platform tracks this intel for those who control $100 billion in marketing spend each year, making it the top choice among sellers of agency services, advertising, marketing technology, or corporate sponsorships.</p>
+      <p>If you are looking to tap into <?php print $company_data->name; ?> marketing spend, Winmo paves a clear path to engaging the right contacts at the right time. Winmo connects ad spend, marketing activity and peak buying periods to marketing team and ad agency budget-holders, even providing you with AI-powered email templates based on <?php print $company_data->name; ?> decision-makers' personality types. Winmo's award winning platform tracks this intel for those who control $100 billion in marketing spend each year, making it the top choice among sellers of agency services, advertising, marketing technology, or corporate sponsorships.</p>
 
       <div style="padding:56.25% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/864820000?h=7bed84b047&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="Win More with Winmo"></iframe></div>
       <script src="https://player.vimeo.com/api/player.js"></script>

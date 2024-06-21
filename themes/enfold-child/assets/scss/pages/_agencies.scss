@@ -86,6 +86,9 @@ body.agencies {
           width: 18%;
           display: flex;
           align-items: center;
+          img {
+            display: block;
+          }
           &:first-child {  // Checkbox
             text-align: center;
             width: 5%;

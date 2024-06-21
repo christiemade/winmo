@@ -13,7 +13,7 @@
         </div>
         <div class="col">
           <p><strong>How many companies advertise in the <?php print strtolower($industry['name']); ?> Industry?</strong><Br>
-            There are <?php print sizeof($industry['companies']); ?> companies that advertise in the <?php print strtolower($industry['name']); ?> Industry.</p>
+            Winmo tracks <?php print sizeof($industry['companies']); ?> advertisers in the <?php print strtolower($industry['name']); ?> industry.</p>
         </div>
       </div>
     </div>
