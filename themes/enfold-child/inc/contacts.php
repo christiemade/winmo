@@ -1,37 +1,29 @@
 <?php
 
 // Save the individual contact as a transient, if it doesn't exist yet
-function set_contact_transient($contact_id)
+function set_contact_transient($contact_id, $data = "")
 {
-  error_log("Single contact transient " . $contact_id);
-  /* $contact = get_transient('winmo_contact_' . $contact_id);
 
-  // check to see if companies was successfully retrieved from the cache
-  if (false === $contact) {
-    // do this if no transient set
-    //$contact = winmo_contact_api($contact_id);
-    // temporary testing JSON
-    $contact = '{
-      "id": 12345
-      "type": "Agency",
-      "entity_id": 234
-      "fname": "Jill",
-      "lname": "Smith",
-      "title": "Chief Executive Officer",
-      "phone": "(555) 555-5555",
-      "email": "chiefjill@bigagency.com",
-      "address1": "1234 Main St",
-      "address2": "Suite 200",
-      "city": "Anytown",
-      "state": "CA",
-      "zip_code": "12345",
-      "country": "US"
-    }';
+  global $wpdb;
+  // Pull company info from database
+  $sql = "SELECT * FROM `winmo` WHERE `type` = 'contacts' AND `api_id` = '" . $contact_id . "' LIMIT 1";
+  $result = $wpdb->get_results($sql);
+  if ($result) $result = json_decode($result[0]->data);
 
-    // store the company's data and set it to expire in 1 week
-    set_transient('winmo_contact_' . $contact_id, $contact, 604800);
+  // Contact info doesn't exist in the database, or we're here to change it
+  if (!empty($data)) {
+    // store the contact's data into the DB table
+    if ($result) {
+      $sql = "UPDATE `winmo` SET `data` = CAST('" . addslashes($data) . "' AS JSON) WHERE id = '" . $result->id . "'";
+    } else {
+      $sql = "INSERT INTO `winmo` (`type`, `api_id`, `data`)
+        VALUES('contacts', '" . $contact_id . "', CAST('" . addslashes($data) . "' AS JSON))";
+    }
+    $result = $wpdb->query($sql);
+    if ($result) $result = $data;
   }
-  return json_decode($contact);*/
+
+  return $result;
 }
 
 // Put all contacts into a transient
@@ -61,8 +53,8 @@ function set_contacts_transient($results = array(), $page = false, $last = false
 
     $rework[$contact['id']] = array($contact['fname'], $contact['lname'], $contact['title'], $contact['entity_id'], $permalink, $contact['type']);
 
-  // Set individual data into database
-  //set_transient('winmo_contacts',  $contacts, 0);
+    // Set individual data into database
+    set_contact_transient($contact['id'], json_encode($contact));
   endforeach;
   $contacts = $contacts + $rework;
 

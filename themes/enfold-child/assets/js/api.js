@@ -44,7 +44,6 @@ jQuery(function ($) {
     let first_total = "";
     if (type == "contacts") {
       first_total = metadata.first_total;
-      console.log(first_total);
     }
     
 
@@ -53,20 +52,16 @@ jQuery(function ($) {
     $(progressBar).removeClass('loading').addClass('building');
     $(progressBar).children('div').text('');
     var barWidth = $(progressBar).width();
-    console.log(first_total);
     for (current_page; current_page <= total; current_page++) {
-      console.log(first_total);
       const response = await fetchPage(type, current_page, total, first_total);
-      console.log(first_total);
-      if (response && response.data) {console.log(first_total);
-        try {console.log(first_total);
-          console.log(`Page ${current_page} processed successfully.`);
+
+      if (response && response.data) {
+        try {
+
           $(progressBar).children('div').css('width', Math.ceil((current_page * barWidth) / total));
   
           // Contacts, start round 2
-          console.log(first_total);
           if ((type == "contacts") && (current_page == first_total)) {
-            console.log("Start second set");
             fetchData("company_contacts", progressBar);
           }
 
@@ -76,11 +71,14 @@ jQuery(function ($) {
             $('.row').removeClass('processing');
           }
         } catch (error) {
-            console.log(`Error processing page ${current_page}:`, error);
-            // Handle error, maybe retry or log
+          console.log(`Error processing page ${current_page}:`, error);
+          $(progressBar).removeClass('loading').removeClass('building').addClass('error');
+          $(progressBar).children('div').text('Error processing pages.');
         }
       } else {
-          console.log(`No data found for page ${current_page}`);
+        console.log(`No data found for page ${current_page}`);
+        $(progressBar).removeClass('loading').removeClass('building').addClass('error');
+        $(progressBar).children('div').text('No data found for page '+current_page);
       }
 
       
