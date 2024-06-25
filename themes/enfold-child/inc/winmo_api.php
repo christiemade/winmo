@@ -6,7 +6,7 @@ function winmo_api($type, $page = 1)
 {
   // Generate URL for API
   $url = 'https://api.winmo.com/web_api/seo/' . $type . '/?page=' . $page;
-  //error_log($url);
+  error_log($url);
 
   $args = array(
     'headers' => array(
@@ -34,7 +34,11 @@ function winmo_api($type, $page = 1)
     if (!$body) $body = json_decode(wp_remote_retrieve_body($request), true);
     return $body;
   } else {
-    return $error;
+    error_log('Error: ' . json_encode($error->errors));
+    $results = array(
+      'error' => $error->errors['broke']
+    );
+    return $results;
   }
 }
 
@@ -53,10 +57,10 @@ function process_api_data()
     if (isset($_POST['first_total'])) $first_total = stripslashes($_POST['first_total']);
 
     $promise = new Promise(function () use ($type, $page, $grab, $total, $first_total, &$promise) {
-      //error_log("Received from API: " . $type . " " . $page . " " . $grab . " " . $total . " " . $first_total);
 
       // Just send meta information
       if (($grab == "meta") && ($type != "company_contacts")) {
+
         // Include total for both contact APIs
         //error_log("Meta check for type: " . $type);
         if ($type === "contacts") {
@@ -91,16 +95,18 @@ function process_api_data()
         // Contacts broken into two API calls - second set here
         if ($page > $first_total) {
           $page = (int)$page - (int)$first_total;
-          //error_log("Second set data... here is our new page #: " . $page);
-          $type = "company_contacts";
-        } else {
-          $type = "agency_contacts";
+
+          // Make sure this ONLY applies to contact queries
+          // We've gotten through the first total, so change which API is used now
+          if ($type == "contacts") $type = "company_contacts";
+        } elseif ($type == "contacts") {
+          $type = "agency_contacts";  // Change API call for (first round) specific type of contacts
         }
 
         //error_log("Grab page # " . $page . " for " . $type . " in " . $function);
 
         $result = winmo_api($type, $page);
-        //error_log("Received back a " . substr(json_encode($result), 0, 200));
+        //error_log("Received back a " . substr(json_encode($result), -200));
         $last = false;
         if ($total == $page) $last = true;
 

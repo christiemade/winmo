@@ -65,6 +65,12 @@
           font-weight: bold;
         }
       }
+      &.error {
+        margin: 0px;
+        & > div {
+          width: 100% !important;
+        }
+      }
     }
   }
   &:not(.processing):not(.loaded) {

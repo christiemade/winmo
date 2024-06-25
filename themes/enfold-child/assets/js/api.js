@@ -68,7 +68,7 @@ jQuery(function ($) {
           // Finish
           if (current_page == total) {
             $(progressBar).removeClass('building').addClass('complete');
-            $('.row').removeClass('processing');
+            $('.row').removeClass('processing').addClass('loaded');
           }
         } catch (error) {
           console.log(`Error processing page ${current_page}:`, error);
@@ -76,9 +76,11 @@ jQuery(function ($) {
           $(progressBar).children('div').text('Error processing pages.');
         }
       } else {
-        console.log(`No data found for page ${current_page}`);
-        $(progressBar).removeClass('loading').removeClass('building').addClass('error');
-        $(progressBar).children('div').text('No data found for page '+current_page);
+        $(progressBar).addClass('removeClass').removeClass('building').addClass('error');
+        $(progressBar).children('div').text(response[0]);
+        $('.row').removeClass('processing').addClass('loaded');
+        // STOP THE LOOP
+        break;
       }
 
       

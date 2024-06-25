@@ -38,13 +38,15 @@ function set_companies_transient($results = array(), $page = false, $last = fals
 
   $rework = array();
   foreach ($results as $company) :
-    $permalink = strtolower(str_replace(" ", '-', $company['name']));
-    $permalink = str_replace(array(',-inc', ',-llc', "?", ".", ","), "", $permalink);
-    $rework[$company['id']] = array(
-      'name' => $company['name'],
-      'permalink' => $permalink
-    );
-    set_company_transient($company['id'], json_encode($company), 'company');
+    if (isset($company['name'])) :
+      $permalink = strtolower(str_replace(" ", '-', $company['name']));
+      $permalink = str_replace(array(',-inc', ',-llc', "?", ".", ","), "", $permalink);
+      $rework[$company['id']] = array(
+        'name' => $company['name'],
+        'permalink' => $permalink
+      );
+      set_company_transient($company['id'], json_encode($company), 'company');
+    endif;
   endforeach;
   $companies = $companies + $rework;
 
