@@ -11,7 +11,7 @@ $contact = get_query_var('pid');
 // Reverse look up contact id
 $contacts = get_transient('winmo_contacts');
 $contact = array_filter($contacts, function ($v) use ($contact) {
-  return $v[4] == $contact;
+  return $v[2] == $contact;
 }, ARRAY_FILTER_USE_BOTH);
 $keys =  array_keys($contact);
 
@@ -28,6 +28,9 @@ $contact_data = set_contact_transient($contact);
 $type = strtolower($contact_data->type);
 $company = $contact_data->entity_id;
 $company_data = set_company_transient($company, "", $type);
+error_log($type);
+//error_log(json_encode($company_data));
+// {"id":1504,"name":"Chick-Fil-A, Inc.","notes":"Founded in 1946, in Hapeville, GA, and headquartered in Atlanta, GA, Chik-Fil-A is a fast food chicken restaurant credited with inventing the boneless chicken breast sandwich. Since it's inception, Chick-Fil-A has grown to become one of the largest privately held restaurant chains.","phone":"(404) 765-8000","founded":"1967","contacts":[{"id":1320,"email":"david.farmer@chick-fil-a.com","fname":"David","lname":"Farmer","phone":"(404) 765-8913","state":"GA","title":"Senior Vice President, Restaurant Experience"},
 
 // Error check
 if (is_wp_error($contact_data)) {
@@ -99,13 +102,12 @@ if (is_wp_error($contact_data)) {
             <?php
 
             // Create an address string
-            $location = $contact_data->location;
-            $address = $location->address1 ? $location->address1 . '<br>' : "";
-            $address .= $location->address2 ? $location->address2 . '<br>' : "";
-            $address .= $location->city ? $location->city . ', ' : "";
-            $address .= $location->state ? $location->state . ' ' : '';
-            $address .= $location->zip_code ? $location->zip_code . '<br>' : '<br>';
-            $address .= $location->country;
+            $address = $contact_data->address1 ? $contact_data->address1 . '<br>' : "";
+            $address .= $contact_data->address2 ? $contact_data->address2 . '<br>' : "";
+            $address .= $contact_data->city ? $contact_data->city . ', ' : "";
+            $address .= $contact_data->state ? $contact_data->state . ' ' : '';
+            $address .= $contact_data->zip_code ? $contact_data->zip_code . '<br>' : '<br>';
+            $address .= $contact_data->country;
             print do_shortcode("[av_icon_box icon='ue808' font='winmo' title='" . $full_name . " Office Address' position='left_content' icon_style='' boxed='' font_color='' custom_title='' custom_content='' color='' custom_bg='' custom_font='' custom_border='' custom_title_size='' av-desktop-font-size-title='' av-medium-font-size-title='' av-small-font-size-title='' av-mini-font-size-title='' custom_content_size='' av-desktop-font-size='' av-medium-font-size='' av-small-font-size='' av-mini-font-size='' heading_tag='' heading_class='' link='' linktarget='' title_attr='' linkelement='' id='' custom_class='' template_class='']
 " . $address . '<br>' . "[/av_icon_box]"); ?></div>
         </div>
@@ -161,7 +163,7 @@ if (is_wp_error($contact_data)) {
                   a <?php print strtolower($company_data->type); ?> company with <?php print $company_data->employees; ?> employees located in <?php print $company_data->location->city; ?>, <?php print $company_data->location->state; ?>.
                   <?php if (!empty($company_data->holding_company)) : ?> They are part of the holding company <?php print $company_data->holding_company; ?>.<?php endif;
                                                                                                                                                           else :
-                                                                                                                                                            print $company_data->description;
+                                                                                                                                                            print $company_data->notes;
                                                                                                                                                           endif; ?>
               </p>
             </div>

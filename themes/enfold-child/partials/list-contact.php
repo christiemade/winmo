@@ -44,7 +44,7 @@
 
 <!-- The filtered and paginated content will be dynamically loaded into the #all-products div -->
 <div id="all-contacts" class="all-content">
-
+  <div class="row container">Loading....</div>
 </div>
 
 <?php do_action('ava_after_content_templatebuilder_page'); ?>

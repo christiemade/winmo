@@ -54,6 +54,7 @@ function set_companies_transient($results = array(), $page = false, $last = fals
   // This doesnt need to expire, we can manually refresh the transient when we get a new CSV
   $transient_name = 'winmo_companies_temp';
   if ($last) {
+    error_log("Warning: we are deleting a transient..." . $transient_name);
     delete_transient($transient_name); // Remove temporary transient
     $transient_name = 'winmo_companies';  // Last page, now update officialdelete_transient($transient_name); // Remove temporary transient
     delete_transient($transient_name); // Remove previous transient

@@ -1,7 +1,7 @@
 jQuery(function ($) {
    jQuery(document).ready(function () {
-      
       if ($("#filter-form").length) {
+
          // Autoload some items
          jQuery.ajax({
             type: "post",

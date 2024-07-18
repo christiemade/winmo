@@ -34,8 +34,23 @@ function set_contacts_transient($results = array(), $page = false, $last = false
   // if we're rebuilding (page 1) then lets reset the array
   if ($page == 1) { // Rebuild transient
     $contacts = array();
-  } elseif ($page > 1) { // Dont change transient until all data is uploaded
+  }
+
+  // Dont change transient until all data is uploaded
+  if ($page > 1) {
     $contacts = get_transient('winmo_contacts_temp');
+
+    // Set current page - this is where we'll START from next time
+    if ($contacts) {
+      set_transient('contacts_last_page', $page, 0);
+    }
+    // Something went wrong - our temporary contacts are missing - start over
+    else {
+      $contacts = array(); // start over
+      $page = 0; // so that it loops to page 1 next time
+      error_log("Need to start over on contacts :(");
+      $results = array();  // dont use the results because theyre not the first set
+    }
   }
 
   $rework = array();
@@ -51,24 +66,31 @@ function set_contacts_transient($results = array(), $page = false, $last = false
       $contact_links[$permalink] = array();
     }
 
-    $rework[$contact['id']] = array($contact['fname'], $contact['lname'], $contact['title'], $contact['entity_id'], $permalink, $contact['type']);
+    //$rework[$contact['id']] = array($contact['fname'], $contact['lname'], $contact['title'], $contact['entity_id'], $permalink, $contact['type']);
+    $rework[$contact['id']] = array($contact['fname'], $contact['lname'], $permalink);
+
+    // Save permalink into database as well
+    $contact['permalink'] = $permalink;
 
     // Set individual data into database
     set_contact_transient($contact['id'], json_encode($contact));
   endforeach;
+  //error_log(gettype($contacts) . " " . gettype($rework));
   $contacts = $contacts + $rework;
 
   // store the companies array and set it to never expire
   // This doesnt need to expire, we can manually refresh the transient when we get a new CSV
   $transient_name = 'winmo_contacts_temp';
   if ($last) {
+    error_log("Warning: we are deleting a transient..." . $transient_name);
+    delete_transient('contacts_last_page'); // Remove last page check
     delete_transient($transient_name); // Remove temporary transient
     $transient_name = 'winmo_contacts';  // Last page, now update officialdelete_transient($transient_name); // Remove temporary transient
     delete_transient($transient_name); // Remove previous transient
   }
   set_transient($transient_name, $contacts, 0);
-
-  return array('data' => true);
+  //set_transient("winmo_contacts", $contacts, 0);
+  return array('data' => true, 'page' => $page);
 }
 
 // Show unlock button in header of contact pages
@@ -101,7 +123,6 @@ function winmo_contacts_list()
     $filter[$keyval[0]] = $keyval[1];
   endforeach;
 
-
   // Filter query
   $search_filter = isset($filter['search']) ? $filter['search'] : '';
 
@@ -110,6 +131,7 @@ function winmo_contacts_list()
 
   // If an alpha sort is provided, do that first
   if ($alpha) {
+
     $filtered = array_filter($contacts, function ($contact) use ($alpha) {
 
       $letter = substr($contact[1], 0, 1);
@@ -123,6 +145,7 @@ function winmo_contacts_list()
       }
     });
   } else {
+    error_log(gettype($contacts));
     $filtered = $contacts;
   }
 
@@ -139,6 +162,15 @@ function winmo_contacts_list()
   // Define total products
   $total_items = sizeof($filtered);
 
+  // Go through filtered items and acquire additional data (permalink)
+  foreach ($filtered as $key => $val) :
+    $result = set_contact_transient($key);
+    if (isset($val[2])) $filtered[$key]['permalink'] = $val[2];
+    if (!isset($val['permalink']) && isset($result->permalink)) $filtered[$key]['permalink'] = $result->permalink;
+  endforeach;
+
+  // Sort our filtered items
+  usort($filtered, "last_name_sort");
 
   /*********************
     The Template
@@ -153,7 +185,7 @@ function winmo_contacts_list()
         if ($counter > 1) $html .= '</div><!-- /col -->';
         $html .= '<div class="col">';
       }
-      $html .= '<a href="/decision_makers/' . $contact[4] . '/">' . $contact[0] . ' ' . $contact[1] . '</a>';
+      $html .= '<a href="/decision_makers/' . $contact['permalink'] . '/">' . $contact[0] . ' ' . $contact[1] . '</a>';
       $counter++;
     }
     $html .= '</div><!-- /col --></div><!-- /row -->';
@@ -169,4 +201,9 @@ function winmo_contacts_list()
   }
 
   die();
+}
+
+function last_name_sort($a, $b)
+{
+  return $a[1] > $b[1];
 }

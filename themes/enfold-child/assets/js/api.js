@@ -25,8 +25,6 @@ jQuery(function ($) {
           break;
       }
 
-      console.log(type);
-
       // Initiate empty progress bar - flashing
       var progressBar = $(this).parents('.row').find(".progress");
       $(progressBar).removeClass('building').removeClass('complete').addClass('loading');
@@ -39,8 +37,10 @@ jQuery(function ($) {
   const fetchData = async (type, progressBar, page = 1) => {
 
     let metadata = await fetchMeta(type);
+    console.log(metadata);
     let total = metadata.total_pages;
     let current_page = metadata.page; 
+    console.log("current page set to : " + current_page);
     let first_total = "";
     if (type == "contacts") {
       first_total = metadata.first_total;
@@ -82,7 +82,6 @@ jQuery(function ($) {
         // STOP THE LOOP
         break;
       }
-
       
     }
 
@@ -99,8 +98,31 @@ jQuery(function ($) {
               page: page,
               type: type
             }, success: function (data) {
+              console.log(data);
               resolve(JSON.parse(data));
+            },
+            statusCode: {
+              502: function (e) {
+                console.log(e);
+                $(progressBar).addClass('removeClass').removeClass('building').addClass('error');
+                $(progressBar).children('div').text("Server time out on page #"+page+"!");
+                $('.row').removeClass('processing').addClass('loaded');
+              }
             }
+          })
+          .fail(function (jqXHR, textStatus, errorThrown) {
+              // Request failed. Show error message to user. 
+              // errorThrown has error message, or "timeout" in case of timeout.
+              $(progressBar).addClass('removeClass').removeClass('building').addClass('error');
+              $(progressBar).children('div').text("Server time out on page #"+page+"!");
+              $('.row').removeClass('processing').addClass('loaded');
+            console.log(errorThrown);
+              JL().fatal({
+                          "msg": "AJAX error response",
+                          "errorThrown": errorThrown,
+                          "url": url,
+                          "requestData": requestData
+                      });
           });
         },
       };

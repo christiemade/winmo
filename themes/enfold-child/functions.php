@@ -82,13 +82,14 @@ add_action('init', 'winmo_rewrite_basic');
 // Enqueue styles and scripts when ready
 function winmo_load_scipts()
 {
+  wp_dequeue_script('avia-module-slideshow-video');
   wp_register_script('gsap', get_stylesheet_directory_uri() . '/assets/js/gsap.min.js');
   wp_register_script('scrollTrigger', get_stylesheet_directory_uri() . '/assets/js/ScrollTrigger.min.js', array('gsap'));
   wp_register_script('sticky-nav', get_stylesheet_directory_uri() . '/assets/js/sticky-nav.js', array('jquery', 'gsap', 'scrollTrigger'), '1.0.0.8');
   //wp_enqueue_script('fontawesome', get_stylesheet_directory_uri() . '/assets/fonts/js/all.min.js');
 
   wp_enqueue_script('popups', get_stylesheet_directory_uri() . '/assets/js/popups.js', array('jquery'), '1.0.0.9');
-  wp_register_script('filters', get_stylesheet_directory_uri() . '/assets/js/filters.js', array('jquery'), '1.0.0.5');
+  wp_register_script('filters', get_stylesheet_directory_uri() . '/assets/js/filters.js', array('jquery'), '1.0.0.7');
   wp_localize_script('filters', 'winmoAjax', array('ajaxurl' => admin_url('admin-ajax.php')));
   wp_enqueue_script('filters');
 }
@@ -112,8 +113,7 @@ add_action('after_switch_theme', function () {
 
   $wpdb->query('ALTER TABLE `winmo`
       ADD PRIMARY KEY (`api_id`),
-      ADD KEY `id` (`id`);
-    COMMIT');
+      ADD KEY `id` (`id`)');
 }, 10);
 
 
