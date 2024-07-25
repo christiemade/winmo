@@ -5,56 +5,81 @@ function set_contact_transient($contact_id, $data = "")
 {
 
   global $wpdb;
-  // Pull company info from database
-  $sql = "SELECT * FROM `winmo` WHERE `type` = 'contacts' AND `api_id` = '" . $contact_id . "' LIMIT 1";
-  $result = $wpdb->get_results($sql);
-  if ($result) $result = json_decode($result[0]->data);
 
-  // Contact info doesn't exist in the database, or we're here to change it
-  if (!empty($data)) {
+  $wpdb->show_errors();
+
+  // No data provided, so we're fishing
+  if (empty($data)) {
+
+    // Pull company info from database
+    $sql = "SELECT data FROM `winmo` WHERE `type` = 'contacts' AND `api_id` = '" . $contact_id . "' LIMIT 1";
+
+    $result = $wpdb->get_var($sql);
+    if ($result !== null) $result = json_decode($result);
+  }
+  // Data provided, so we're adding or updating
+  else {
+
+    // Checking if contacts exist
+    $sql = "SELECT id FROM `winmo` WHERE `type` = 'contacts' AND `api_id` = '" . $contact_id . "' LIMIT 1";
+
+    $result = $wpdb->get_var($sql);
+    error_log(gettype($result));
+
     // store the contact's data into the DB table
-    if ($result) {
+    if ($result !== null) {
+      $result = json_decode($result);
       $sql = "UPDATE `winmo` SET `data` = CAST('" . addslashes($data) . "' AS JSON) WHERE id = '" . $result->id . "'";
     } else {
       $sql = "INSERT INTO `winmo` (`type`, `api_id`, `data`)
         VALUES('contacts', '" . $contact_id . "', CAST('" . addslashes($data) . "' AS JSON))";
     }
+
     $result = $wpdb->query($sql);
+
     if ($result) $result = $data;
   }
+  $wpdb->hide_errors();
 
   return $result;
 }
 
-// Put all contacts into a transient
-function set_contacts_transient($results = array(), $page = false, $last = false)
+// Put all contacts into a transient (custom db table, because of how much data it is)
+function set_contacts_transient($results = array(), $atts = array())
 {
-  $contacts = get_transient('winmo_contacts');
+  extract($atts);
 
   // if we're rebuilding (page 1) then lets reset the array
-  if ($page == 1) { // Rebuild transient
-    $contacts = array();
+  if (($page == 1) && ($type == "company_contacts")) { // Rebuild transient
+    $wpdb->delete('winmo_contacts', array('status' => 'temp'));
   }
 
-  // Dont change transient until all data is uploaded
-  if ($page > 1) {
-    $contacts = get_transient('winmo_contacts_temp');
+  // Prevent switch to agencies from breaking the pager
+  error_log($page . " (" . gettype($page) . ") + " . $first_total . "(" . gettype($first_total) . ")");
+  if ($type == "agency_contacts") $page = (int)$page + (int)$first_total;
 
+  error_log("Page is now: " . $page);
+
+  // Dont change official contact list until all data is uploaded
+  if (($page > 1) || ($type == "agency_contacts")) {
+    $contacts = get_winmo_contacts('temp');
+    error_log("Contacts we found: " . sizeof($contacts));
     // Set current page - this is where we'll START from next time
     if ($contacts) {
       set_transient('contacts_last_page', $page, 0);
     }
     // Something went wrong - our temporary contacts are missing - start over
     else {
-      $contacts = array(); // start over
+      global $wpdb;
+      $wpdb->delete('winmo_contacts', array('status' => 'temp')); // start over
       $page = 0; // so that it loops to page 1 next time
       error_log("Need to start over on contacts :(");
       $results = array();  // dont use the results because theyre not the first set
     }
   }
 
-  $rework = array();
   $contact_links = array();
+  $rework = array();
 
   foreach ($results as $contact) :
     $permalink = strtolower(str_replace(" ", '-', $contact['fname'] . ' ' . $contact['lname']));
@@ -66,31 +91,76 @@ function set_contacts_transient($results = array(), $page = false, $last = false
       $contact_links[$permalink] = array();
     }
 
-    //$rework[$contact['id']] = array($contact['fname'], $contact['lname'], $contact['title'], $contact['entity_id'], $permalink, $contact['type']);
-    $rework[$contact['id']] = array($contact['fname'], $contact['lname'], $permalink);
+    // Save all basic info for the index
+    $rework[] = array($contact['id'], $contact['fname'], $contact['lname'], $page, $permalink);
 
     // Save permalink into database as well
     $contact['permalink'] = $permalink;
 
-    // Set individual data into database
+    // Set individual data into the winmo database
     set_contact_transient($contact['id'], json_encode($contact));
-  endforeach;
-  //error_log(gettype($contacts) . " " . gettype($rework));
-  $contacts = $contacts + $rework;
 
-  // store the companies array and set it to never expire
-  // This doesnt need to expire, we can manually refresh the transient when we get a new CSV
-  $transient_name = 'winmo_contacts_temp';
+  endforeach;
+
+  // Take all the indexes we collected and all them to the database now
+  add_winmo_contact($rework, 'temp');
+
+  // We're at the end of the import - clean up
   if ($last) {
-    error_log("Warning: we are deleting a transient..." . $transient_name);
+    global $wpdb;
+    error_log("We got to the last item");
     delete_transient('contacts_last_page'); // Remove last page check
-    delete_transient($transient_name); // Remove temporary transient
-    $transient_name = 'winmo_contacts';  // Last page, now update officialdelete_transient($transient_name); // Remove temporary transient
-    delete_transient($transient_name); // Remove previous transient
+    //delete_transient($transient_name); // Remove temporary transient
+
+    // Turn all temporary transients into official ones
+    $wpdb->delete('winmo_contacts', array('status' => 'official'));
+    $wpdb->update('winmo_contacts', array('status' => 'official'), array('status' => 'temp'));
+    error_log("Official deleted, and temp became official");
   }
-  set_transient($transient_name, $contacts, 0);
-  //set_transient("winmo_contacts", $contacts, 0);
+
   return array('data' => true, 'page' => $page);
+}
+
+function get_winmo_contacts($status = "official", $alpha = '', $permalink = '')
+{
+  global $wpdb;
+
+  $wpdb->show_errors();
+
+  // Pull all contacts from database
+  $sql = "SELECT * FROM `winmo_contacts` WHERE `status` = '" . $status . "'";
+  if (!empty($alpha)) $sql .= ' AND `last_name` LIKE \'' . $alpha . '%\'';
+  if (!empty($permalink))  $sql .= ' AND `permalink` = \'' . $permalink . '\'';
+  $sql .= ' GROUP BY(api_id)';
+
+  $result = $wpdb->get_results($sql);
+
+  return $result;
+}
+
+function add_winmo_contact($contact, $status)
+{
+  global $wpdb;
+
+  $howditgo = false;
+
+  $wpdb->show_errors();
+  foreach ($contact as $insert) :
+    $howditgo = $wpdb->insert(
+      'winmo_contacts',
+      array(
+        'api_id' => $insert[0],
+        'first_name' => $insert[1],
+        'last_name' => $insert[2],
+        'page' => $insert[3],
+        'permalink' => $insert[4],
+        'status' => $status,
+      )
+    );
+  endforeach;
+
+  $wpdb->hide_errors();
+  if (!$howditgo) return false;
 }
 
 // Show unlock button in header of contact pages
@@ -113,8 +183,6 @@ function winmo_contacts_list()
     exit("There has been an error.");
   }
 
-  $contacts = get_transient('winmo_contacts');
-
   // Turn filter values into an array
   $data = explode('&', $data);
   $filter = array();
@@ -131,28 +199,16 @@ function winmo_contacts_list()
 
   // If an alpha sort is provided, do that first
   if ($alpha) {
-
-    $filtered = array_filter($contacts, function ($contact) use ($alpha) {
-
-      $letter = substr($contact[1], 0, 1);
-
-      if (strtolower($letter) == strtolower($alpha)) {
-        return true;
-      }
-      // In non-alpha sort
-      else {
-        return false;
-      }
-    });
+    $contacts = $filtered = get_winmo_contacts("official", $alpha);
   } else {
-    error_log(gettype($contacts));
+    $contacts = get_winmo_contacts("official");
     $filtered = $contacts;
   }
 
   // filter companies array based on query
   if (!empty($search_filter)) {
     foreach ($filtered as $key => $contact) {
-      if ((stripos($contact[0], urldecode($search_filter)) !== false) || (stripos($contact[1], urldecode($search_filter)) !== false)) {
+      if ((stripos($contact->first_name, urldecode($search_filter)) !== false) || (stripos($contact->last_name, urldecode($search_filter)) !== false)) {
       } else {
         unset($filtered[$key]);
       }
@@ -161,13 +217,16 @@ function winmo_contacts_list()
 
   // Define total products
   $total_items = sizeof($filtered);
+  error_log($total_items);
 
   // Go through filtered items and acquire additional data (permalink)
-  foreach ($filtered as $key => $val) :
-    $result = set_contact_transient($key);
-    if (isset($val[2])) $filtered[$key]['permalink'] = $val[2];
-    if (!isset($val['permalink']) && isset($result->permalink)) $filtered[$key]['permalink'] = $result->permalink;
-  endforeach;
+  //foreach ($filtered as $key => $val) :
+  //error_log(json_encode($filtered));
+  /*$result = set_contact_transient($key);
+    if (isset($val->permalink)) $filtered[$key]->permalink = $val->permalink;
+    if (!isset($val->permalink) && isset($result->permalink)) $filtered[$key]['permalink'] = $result->permalink;
+    */
+  //endforeach;
 
   // Sort our filtered items
   usort($filtered, "last_name_sort");
@@ -185,7 +244,7 @@ function winmo_contacts_list()
         if ($counter > 1) $html .= '</div><!-- /col -->';
         $html .= '<div class="col">';
       }
-      $html .= '<a href="/decision_makers/' . $contact['permalink'] . '/">' . $contact[0] . ' ' . $contact[1] . '</a>';
+      $html .= '<a href="/decision_makers/' . $contact->permalink . '/">' . $contact->first_name . ' ' . $contact->last_name . '</a>';
       $counter++;
     }
     $html .= '</div><!-- /col --></div><!-- /row -->';
@@ -205,5 +264,5 @@ function winmo_contacts_list()
 
 function last_name_sort($a, $b)
 {
-  return $a[1] > $b[1];
+  return strcmp($a->last_name, $b->last_name);
 }

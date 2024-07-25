@@ -77,7 +77,7 @@
 
   & + .container.row {
     gap: 0px;
-    @include breakpoint(lg, 'min') {
+    @include breakpoint(xl, 'min') {
       main.col {
         margin-left: 55px;
         &:only-child {

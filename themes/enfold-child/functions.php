@@ -6,7 +6,7 @@ if (file_exists(__DIR__ . '/vendor/autoload.php'))
 // Stylesheet caching version
 function avia_get_theme_version($which = 'parent')
 {
-  return '1.0.0.0.39.42';
+  return '1.0.0.0.39.43';
 }
 
 // Quick shortcode to display current year
@@ -65,11 +65,32 @@ add_filter('query_vars', 'winmo_query_var');
 function winmo_rewrite_basic()
 {
   // Allow company page to have any ID
-  $company_page = get_page_by_path('companies');
-  $agency_page = get_page_by_path('agencies');
-  $agencies_page = get_page_by_path('top-agencies');
-  $contact_page = get_page_by_path('contacts');
-  $industries_page = get_page_by_path('industries');
+  $company_page = get_transient('winmo_company_page');
+  if (!$company_page) {
+    $company_page = get_page_by_path('companies');
+    set_transient('winmo_company_page', $company_page, 5000);
+  }
+  $agency_page = get_transient('winmo_agency_page');
+  if (!$agency_page) {
+    $agency_page = get_page_by_path('agencies');
+    set_transient('winmo_agency_page', $agency_page, 5000);
+  }
+  $agencies_page = get_transient('winmo_agencies_page');
+  if (!$agencies_page) {
+    $agencies_page = get_page_by_path('top-agencies');
+    set_transient('winmo_agencies_page', $agencies_page, 5000);
+  }
+  $contact_page = get_transient('winmo_contact_page');
+  if (!$contact_page) {
+    $contact_page = get_page_by_path('contacts');
+    set_transient('winmo_contact_page', $contact_page, 5000);
+  }
+
+  $industries_page = get_transient('winmo_industries_page');
+  if (!$industries_page) {
+    $industries_page = get_page_by_path('industries');
+    set_transient('winmo_industries_page', $industries_page, 5000);
+  }
 
   add_rewrite_rule('^company/([^/]*)/?', 'index.php?page_id=' . $company_page->ID . '&rid=$matches[1]', 'top');
   add_rewrite_rule('^agency/([^/]*)/?', 'index.php?page_id=' . $agency_page->ID . '&rid=$matches[1]', 'top');
@@ -114,6 +135,24 @@ add_action('after_switch_theme', function () {
   $wpdb->query('ALTER TABLE `winmo`
       ADD PRIMARY KEY (`api_id`),
       ADD KEY `id` (`id`)');
+
+  $wpdb->query('CREATE TABLE `winmo_contacts` (
+  `id` int NOT NULL,
+  `api_id` int NOT NULL,
+  `first_name` varchar(60) NOT NULL,
+  `last_name` varchar(60) NOT NULL,
+  `permalink` varchar(30) NOT NULL,
+  `page` int NOT NULL,
+  `status` varchar(10) NOT NULL
+');
+
+
+  $wpdb->query('ALTER TABLE `winmo_contacts`
+  ADD PRIMARY KEY (`id`)');
+
+
+  $wpdb->query('ALTER TABLE `winmo_contacts`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT');
 }, 10);
 
 

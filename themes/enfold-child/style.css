@@ -242,14 +242,14 @@ Template: enfold
 
 @media (prefers-reduced-motion: reduce) {
   .fa-beat,
-.fa-bounce,
-.fa-fade,
-.fa-beat-fade,
-.fa-flip,
-.fa-pulse,
-.fa-shake,
-.fa-spin,
-.fa-spin-pulse {
+  .fa-bounce,
+  .fa-fade,
+  .fa-beat-fade,
+  .fa-flip,
+  .fa-pulse,
+  .fa-shake,
+  .fa-spin,
+  .fa-spin-pulse {
     animation-delay: -1ms;
     animation-duration: 1ms;
     animation-iteration-count: 1;
@@ -10546,8 +10546,7 @@ h5 {
 }
 #main > .container_wrap_first > header:after {
   content: "";
-  -webkit-clip-path: ellipse(87% 83% at 51% 16%);
-          clip-path: ellipse(87% 83% at 51% 16%);
+  clip-path: ellipse(87% 83% at 51% 16%);
   position: absolute;
   left: 0;
   height: 90%;
@@ -10560,14 +10559,12 @@ h5 {
 }
 @media (max-width: 991.98px) {
   #main > .container_wrap_first > header:after {
-    -webkit-clip-path: ellipse(120% 83% at 51% 16%);
-            clip-path: ellipse(120% 83% at 51% 16%);
+    clip-path: ellipse(120% 83% at 51% 16%);
   }
 }
 @media (max-width: 767.98px) {
   #main > .container_wrap_first > header:after {
-    -webkit-clip-path: ellipse(170% 83% at 51% 16%);
-            clip-path: ellipse(170% 83% at 51% 16%);
+    clip-path: ellipse(170% 83% at 51% 16%);
   }
 }
 #main > .container_wrap_first > header > .container {
@@ -10578,7 +10575,7 @@ h5 {
 #main > .container_wrap_first > header + .container.row {
   gap: 0px;
 }
-@media (min-width: 992px) {
+@media (min-width: 1200px) {
   #main > .container_wrap_first > header + .container.row main.col {
     margin-left: 55px;
   }
@@ -10598,8 +10595,7 @@ h5 {
 }
 #win-more:after {
   content: "";
-  -webkit-clip-path: ellipse(87% 83% at 51% 16%);
-          clip-path: ellipse(87% 83% at 51% 16%);
+  clip-path: ellipse(87% 83% at 51% 16%);
   position: absolute;
   left: 0;
   height: 90%;
@@ -10615,14 +10611,12 @@ h5 {
 }
 @media (max-width: 991.98px) {
   #win-more:after {
-    -webkit-clip-path: ellipse(120% 83% at 51% 16%);
-            clip-path: ellipse(120% 83% at 51% 16%);
+    clip-path: ellipse(120% 83% at 51% 16%);
   }
 }
 @media (max-width: 767.98px) {
   #win-more:after {
-    -webkit-clip-path: ellipse(170% 83% at 51% 16%);
-            clip-path: ellipse(170% 83% at 51% 16%);
+    clip-path: ellipse(170% 83% at 51% 16%);
   }
 }
 #win-more h2 {
@@ -10896,7 +10890,7 @@ aside #cta img {
 }
 @media (max-width: 575.98px) {
   #top .iconbox.iconbox_left .iconbox_icon,
-#top .iconbox.iconbox_left svg {
+  #top .iconbox.iconbox_left svg {
     margin-right: 0px;
     margin-bottom: 15px;
     height: 47px;
@@ -10955,8 +10949,7 @@ aside #cta img {
 }
 #hero:after {
   content: "";
-  -webkit-clip-path: ellipse(87% 83% at 51% 16%);
-          clip-path: ellipse(87% 83% at 51% 16%);
+  clip-path: ellipse(87% 83% at 51% 16%);
   position: absolute;
   left: 0;
   height: 90%;
@@ -10970,14 +10963,12 @@ aside #cta img {
 }
 @media (max-width: 991.98px) {
   #hero:after {
-    -webkit-clip-path: ellipse(120% 83% at 51% 16%);
-            clip-path: ellipse(120% 83% at 51% 16%);
+    clip-path: ellipse(120% 83% at 51% 16%);
   }
 }
 @media (max-width: 767.98px) {
   #hero:after {
-    -webkit-clip-path: ellipse(170% 83% at 51% 16%);
-            clip-path: ellipse(170% 83% at 51% 16%);
+    clip-path: ellipse(170% 83% at 51% 16%);
   }
 }
 #hero .container > .content {
@@ -11175,8 +11166,7 @@ body .container_wrap_first ul.company_list {
   grid-template-areas: "media detail detail";
   grid-template-columns: 200px 200px 200px 200px;
   grid-auto-columns: 150px;
-  -moz-column-gap: 32px;
-       column-gap: 32px;
+  column-gap: 32px;
 }
 body #error {
   border: 5px #fcc solid;
@@ -11193,6 +11183,8 @@ body .gray_box {
   line-height: 1.6875em;
   font-weight: 300;
   gap: 30px;
+  -webkit-box-shadow: 0px 4px 64px 0px rgba(0, 0, 0, 0.07);
+  -moz-box-shadow: 0px 4px 64px 0px rgba(0, 0, 0, 0.07);
   box-shadow: 0px 4px 64px 0px rgba(0, 0, 0, 0.07);
 }
 @media (min-width: 768px) {
@@ -11669,8 +11661,7 @@ header.business {
 }
 header.business:after {
   content: "";
-  -webkit-clip-path: ellipse(87% 83% at 51% 16%);
-          clip-path: ellipse(87% 83% at 51% 16%);
+  clip-path: ellipse(87% 83% at 51% 16%);
   position: absolute;
   left: 0;
   height: 90%;
@@ -11683,14 +11674,12 @@ header.business:after {
 }
 @media (max-width: 991.98px) {
   header.business:after {
-    -webkit-clip-path: ellipse(120% 83% at 51% 16%);
-            clip-path: ellipse(120% 83% at 51% 16%);
+    clip-path: ellipse(120% 83% at 51% 16%);
   }
 }
 @media (max-width: 767.98px) {
   header.business:after {
-    -webkit-clip-path: ellipse(170% 83% at 51% 16%);
-            clip-path: ellipse(170% 83% at 51% 16%);
+    clip-path: ellipse(170% 83% at 51% 16%);
   }
 }
 header.business > .container {
@@ -11858,6 +11847,9 @@ body.agencies section #marketing_table .grid > .row > div, body.agencies section
   width: 18%;
   display: flex;
   align-items: center;
+}
+body.agencies section #marketing_table .grid > .row > div img, body.agencies section #marketing_table .top > div img {
+  display: block;
 }
 body.agencies section #marketing_table .grid > .row > div:first-child, body.agencies section #marketing_table .top > div:first-child {
   text-align: center;
@@ -12259,6 +12251,8 @@ body.contacts aside + main > section {
   }
 }
 #top #sections .entry-content-wrapper article.iconbox {
+  -webkit-box-shadow: 0px 4px 64px 0px rgba(0, 0, 0, 0.07);
+  -moz-box-shadow: 0px 4px 64px 0px rgba(0, 0, 0, 0.07);
   box-shadow: 0px 4px 64px 0px rgba(0, 0, 0, 0.07);
   flex-basis: calc(33.3333% - 40px);
   border-radius: 20px;
@@ -12327,31 +12321,26 @@ body#top.industries section#columned .row > .col:only-child a, body#top.top-agen
   display: block;
 }
 body#top.industries section#columned .row > .col:only-child.columned, body#top.top-agencies section#columned .row > .col:only-child.columned {
-  -moz-columns: 2;
-       columns: 2;
+  columns: 2;
 }
 @media (min-width: 992px) {
   body#top.industries section#columned .row > .col:only-child.columned, body#top.top-agencies section#columned .row > .col:only-child.columned {
-    -moz-columns: 4;
-         columns: 4;
+    columns: 4;
   }
 }
 @media (max-width: 991.98px) {
   body#top.industries section#columned .row > .col:only-child.columned, body#top.top-agencies section#columned .row > .col:only-child.columned {
-    -moz-columns: 3;
-         columns: 3;
+    columns: 3;
   }
 }
 @media (max-width: 767.98px) {
   body#top.industries section#columned .row > .col:only-child.columned, body#top.top-agencies section#columned .row > .col:only-child.columned {
-    -moz-columns: 2;
-         columns: 2;
+    columns: 2;
   }
 }
 @media (max-width: 479.98px) {
   body#top.industries section#columned .row > .col:only-child.columned, body#top.top-agencies section#columned .row > .col:only-child.columned {
-    -moz-columns: 1;
-         columns: 1;
+    columns: 1;
   }
 }
 body#top.industries section#columned .row > .col:only-child ol, body#top.top-agencies section#columned .row > .col:only-child ol {
@@ -12360,8 +12349,7 @@ body#top.industries section#columned .row > .col:only-child ol, body#top.top-age
 }
 @media (min-width: 768px) {
   body#top.industries section#columned .row > .col:only-child ol, body#top.top-agencies section#columned .row > .col:only-child ol {
-    -moz-columns: 2;
-         columns: 2;
+    columns: 2;
   }
 }
 body#top.industries section#columned .row > .col:only-child ol li, body#top.top-agencies section#columned .row > .col:only-child ol li {
@@ -12387,8 +12375,7 @@ body#top.industries section#columned .row > .col:only-child ol li a, body#top.to
 }
 @media (min-width: 768px) {
   #top .row ol {
-    -moz-columns: 2;
-         columns: 2;
+    columns: 2;
   }
 }
 #top .row ol li {
@@ -12415,18 +12402,16 @@ body#top.industries section#columned .row > .col:only-child ol li a, body#top.to
 }
 @media (min-width: 576px) {
   #more .col {
-    -moz-columns: 2;
-         columns: 2;
+    columns: 2;
   }
 }
 @media (min-width: 768px) {
   #more .col {
-    -moz-columns: 3;
-         columns: 3;
+    columns: 3;
   }
 }
 #more .col a {
   display: block;
   margin-bottom: 5px;
   text-decoration: underline;
-}
+}/*# sourceMappingURL=style.css.map */
