@@ -48,9 +48,9 @@ if (!$args) : ?>
               <li>Independent/Other</li>
               <li>Omnicom</li>
               <li>Publicis</li>
-              <li>Interpublic Group</li>
-              <li>WPP</li>
-              <li>Dentsu</li>
+              <li><a href="/agency/interpublic-group-of-companies/">Interpublic Group</a></li>
+              <li><a href="/agency/wpp-group/">WPP</a></li>
+              <li><a href="/agency/dentsu/">Dentsu</a></li>
               <li>Stagwell</li>
               <li>Havas</li>
               <li>Accenture Interactive</li>
