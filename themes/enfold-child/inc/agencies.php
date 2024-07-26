@@ -134,6 +134,9 @@ function winmo_agency_list()
   // Define total products
   $total_items = sizeof($filtered);
 
+  // Sort our filtered items
+  usort($filtered, "name_sort");
+
 
   /*********************
     The Template

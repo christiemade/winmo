@@ -213,6 +213,9 @@ function winmo_company_list()
   // Define total products
   $total_items = sizeof($filtered);
 
+  // Sort our filtered items
+  usort($filtered, "name_sort");
+
 
   /*********************
     The Template
@@ -243,4 +246,9 @@ function winmo_company_list()
   }
 
   die();
+}
+
+function name_sort($a, $b)
+{
+  return strcmp($a['name'], $b['name']);
 }
