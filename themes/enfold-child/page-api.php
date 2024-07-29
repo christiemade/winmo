@@ -27,7 +27,9 @@ do_action('ava_page_template_after_header'); ?>
     $companies = get_transient('winmo_companies');
     if (is_array($companies)) :
       $dataid = get_query_var('rid');
-      if ($dataid) {
+      $weird_company_id = get_query_var('wid');
+
+      if ($dataid || $weird_company_id) {
         get_template_part('partials/business', '', 'company');
       } else {
         get_template_part('partials/list', 'company');
@@ -35,7 +37,9 @@ do_action('ava_page_template_after_header'); ?>
     endif;
   elseif (is_page('contacts')) :
     $dataid = get_query_var('pid');
-    if ($dataid) {
+    $weird_contact_id = get_query_var('wid');
+
+    if ($dataid || $weird_contact_id) {
       get_template_part('partials/contact');
     } else {
       get_template_part('partials/list', 'contact');
@@ -44,7 +48,8 @@ do_action('ava_page_template_after_header'); ?>
     $agencies = get_transient('winmo_agencies');
     if (is_array($agencies)) :
       $dataid = get_query_var('rid');
-      if ($dataid) {
+      $weird_agency_id = get_query_var('wid');
+      if ($dataid || $weird_agency_id) {
         get_template_part('partials/business', 'agency');
       } else {
         get_template_part('partials/list', 'agency');

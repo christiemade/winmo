@@ -7,9 +7,17 @@ wp_enqueue_script('sticky-nav');
 
 // Grab data for page from query vars and the API
 $contact = get_query_var('pid');
+$weird_contact_id = get_query_var('wid');
+
+if (isset($weird_contact_id)) {
+  // Get the company permalink to pull up the data
+  $weird_contact_id = (int)$weird_contact_id - 1423;
+  $contact = get_contact_permalink($weird_contact_id);
+}
 
 // Reverse look up contact id
 $contact = get_winmo_contacts("official", "", $contact);
+
 
 /*$contact = array_filter($contacts, function ($v) use ($contact) {
   return $v[2] == $contact;

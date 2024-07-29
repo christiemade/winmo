@@ -1,5 +1,18 @@
 <?php
 
+// Obtain the individual contact permalink by api_id
+function get_contact_permalink($contact_id)
+{
+
+  global $wpdb;
+  $result = null;
+
+  $sql = "SELECT permalink FROM `winmo_contacts` WHERE `api_id` = '" . $contact_id . "' LIMIT 1";
+  $result = $wpdb->get_var($sql);
+  return $result;
+}
+
+
 // Save the individual contact as a transient, if it doesn't exist yet
 function set_contact_transient($contact_id, $data = "")
 {

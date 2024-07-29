@@ -7,13 +7,24 @@ wp_enqueue_script('sticky-nav');
 
 // Grab data for page from query vars and the API
 $company = get_query_var('rid');
+$weird_company_id = get_query_var('wid');
 
 // Reverse look up company id
 $companies = get_transient('winmo_companies');
+if (isset($weird_company_id) && $weird_company_id > 0) {
+  // Get the company permalink to pull up the data
+  $weird_company_id = (int)$weird_company_id - (int)1423;
+  $company = $companies[$weird_company_id]['permalink'];
+  $permalink = get_bloginfo('wpurl') . "/company/" . $company . "/";
+  header("Location: " . $permalink, true, 301);
+  exit;
+}
+
 $company = array_filter($companies, function ($v) use ($company) {
   return $v['permalink'] == $company;
 }, ARRAY_FILTER_USE_BOTH);
 $keys =  array_keys($company);
+
 
 // Error check
 if (!sizeof($keys)) {
@@ -28,6 +39,10 @@ $company_data = set_company_transient($company, "", "company");
 if (is_wp_error($company_data)) {
   $error_message = $company_data->get_error_message();
   echo "<div id=\"error\"><h2>Error:</h2> <p>" . $error_message . '</p></div>';
+} elseif (empty($company_data)) {
+  error_log("Missing data for " . $company);
+  $error_message = "The data for this company could not be located.";
+  echo "<header id=\"page404\" class=\"\"><div class=\"container\"></div></header><div id=\"error\"><h2>Error:</h2> <p>" . $error_message . "</p></div>";
 } elseif (!is_object($company_data)) {
   echo '<meta http-equiv="Refresh" content="5">';
 } else {

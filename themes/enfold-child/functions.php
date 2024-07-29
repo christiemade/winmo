@@ -55,6 +55,7 @@ add_action('after_setup_theme', 'winmo_avia_overrides');
 function winmo_query_var($vars)
 {
   $vars[] = "rid";
+  $vars[] = "wid";
   $vars[] = "pid";
   $vars[] = "state";
   return $vars;
@@ -92,11 +93,17 @@ function winmo_rewrite_basic()
     set_transient('winmo_industries_page', $industries_page, 5000);
   }
 
-  add_rewrite_rule('^company/([^/]*)/?', 'index.php?page_id=' . $company_page->ID . '&rid=$matches[1]', 'top');
-  add_rewrite_rule('^agency/([^/]*)/?', 'index.php?page_id=' . $agency_page->ID . '&rid=$matches[1]', 'top');
+  // Unique URLS generated for new website
+  add_rewrite_rule('^company/([^/]*)/?$', 'index.php?page_id=' . $company_page->ID . '&rid=$matches[1]', 'top');
+  add_rewrite_rule('^agency/([^/]*)/?$', 'index.php?page_id=' . $agency_page->ID . '&rid=$matches[1]', 'top');
   add_rewrite_rule('^agencies/([a-z]{2})/?', 'index.php?page_id=' . $agencies_page->ID . '&state=$matches[1]', 'top');
   add_rewrite_rule('^industries/([^/]*)/?', 'index.php?page_id=' . $industries_page->ID . '&rid=$matches[1]', 'top');
-  add_rewrite_rule('^decision_makers/([^/]*)/?', 'index.php?page_id=' . $contact_page->ID . '&pid=$matches[1]', 'top');
+  add_rewrite_rule('^decision_makers/([^/]*)/?$', 'index.php?page_id=' . $contact_page->ID . '&pid=$matches[1]', 'top');
+
+  // Redirects from original website
+  add_rewrite_rule('^company/([^/]+)/([a-z][a-z])/([^/]+)/([^/]+)/([0-9]*)/?$', 'index.php?page_id=' . $company_page->ID . '&wid=$matches[5]', 'top');
+  add_rewrite_rule('^agency/([a-z][a-z])/([^/]+)/([^/]+)/([0-9]*)/?$', 'index.php?page_id=' . $agency_page->ID . '&wid=$matches[4]', 'top');
+  add_rewrite_rule('^decision_makers/([a-z][a-z])/([^/]+)/([^/]+)/([^/]+)/([0-9]*)/?$', 'index.php?page_id=' . $contact_page->ID . '&wid=$matches[5]', 'top');
 }
 add_action('init', 'winmo_rewrite_basic');
 

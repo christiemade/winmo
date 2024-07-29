@@ -7,6 +7,8 @@ wp_enqueue_script('sticky-nav');
 
 // Grab data for page from query vars and the API
 $agency = get_query_var('rid');
+$weird_agency_id = get_query_var('wid');
+
 $second = false;
 if (preg_match('#(' . substr($agency, 0, -2) . ')-\d#', $agency)) {
   $second = true;
@@ -14,6 +16,13 @@ if (preg_match('#(' . substr($agency, 0, -2) . ')-\d#', $agency)) {
 
 // Reverse look up agency id
 $agencies = get_transient('winmo_agencies');
+
+if (isset($weird_agency_id) && ($weird_agency_id > 0)) {
+  // Get the company permalink to pull up the data
+  $weird_agency_id = (int)$weird_agency_id - 1423;
+  $agency = $agencies[$weird_agency_id]['permalink'];
+}
+
 $agency = array_filter($agencies, function ($v) use ($agency) {
   return $v['permalink'] == $agency;
 }, ARRAY_FILTER_USE_BOTH);
@@ -27,10 +36,13 @@ if (!sizeof($keys)) {
 
 $agency = $keys[0];
 $agency_data = set_company_transient($agency, "", 'agency');
-
 if (is_wp_error($agency_data)) {
   $error_message = $agency_data->get_error_message();
   echo "<header id=\"page404\" class=\"\"><div class=\"container\"></div></header><div id=\"error\"><h2>Error:</h2> <p>" . $error_message . '</p></div>';
+} elseif (empty($company_data)) {
+  error_log("Missing data for " . $agency);
+  $error_message = "The data for this agency could not be located.";
+  echo "<header id=\"page404\" class=\"\"><div class=\"container\"></div></header><div id=\"error\"><h2>Error:</h2> <p>" . $error_message . "</p></div>";
 } else {
 
   // Create single variable for agency address display
