@@ -52,14 +52,12 @@ function set_agencies_transient($results = array(), $atts = array())
 
   $agencies = $agencies ? $agencies + $rework : $rework;
   $transient_name = 'winmo_agencies_temp';
-  error_log("Last says: " . $last);
   if ($last) {
     delete_transient($transient_name); // Remove temporary transient
     $transient_name = 'winmo_agencies';  // Last page, now update officialdelete_transient($transient_name); // Remove temporary transient
     delete_transient($transient_name); // Remove previous transient
   }
   set_transient($transient_name, $agencies, 0);
-  error_log("Set transient for : " . $transient_name . "  will be a " . gettype($agencies));
   return array('data' => true);
 }
 

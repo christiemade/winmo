@@ -12150,7 +12150,7 @@ body.contacts #main header #overview {
   }
 }
 body.contacts #main header + .container > main .iconbox_left {
-  margin: 30px 0px 20px 0px;
+  margin: 0;
 }
 body.contacts #main header + .container > main .gray_box .col .p {
   margin-top: 33px;

@@ -132,7 +132,7 @@ function process_api_data()
         $response = array();
       } else {
         // Sometimes pages drop
-        error_log("Page is: " . $page . " " . $total);
+        error_log("Page is: " . $page . " out of " . $total);
 
         $type = $type == "company_contacts" ? "contacts" : $type;
         $function = 'set_' . $type . '_transient';
