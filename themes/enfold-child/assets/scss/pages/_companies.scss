@@ -177,13 +177,16 @@ header {
     #overview {
       @include breakpoint(md) { flex-basis: 48.1%; }
       .contact {
-        padding-top: 3em;
+        padding-top: 1.5em;
         @include breakpoint(lg, 'max') { 
           flex-direction: column; 
           padding-top: 1em;
           .iconbox {
             margin-bottom: 1em;
           }
+        }
+        .iconbox {
+          margin-bottom: 0px;
         }
       }
     }
