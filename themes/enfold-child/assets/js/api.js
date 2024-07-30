@@ -76,6 +76,8 @@ jQuery(function ($) {
     if (type == "contacts") {
       first_total = metadata.first_total;
       second_total = metadata.second_total;
+    } else {
+      first_total = metadata.total_pages;
     }
 
     // Build progress bar

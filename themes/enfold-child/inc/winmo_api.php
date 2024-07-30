@@ -124,6 +124,7 @@ function process_api_data()
           $response['second_total'] = $result['meta']['total_pages'];
         } elseif ($type != "contacts") {
           $result = winmo_api($type, $page);
+          $result['first_total'] = $result['meta']['total_pages'];
           $response = $result['meta'];
         }
       } elseif (($grab == "meta") && ($type == "agency_contacts")) {
@@ -136,7 +137,7 @@ function process_api_data()
         $type = $type == "company_contacts" ? "contacts" : $type;
         $function = 'set_' . $type . '_transient';
         $last = false;
-        error_log($page . " >= " . $total);
+
         // Contacts broken into two API calls - second set here
         if ($page > $first_total) {
           if ($page >= $total) {
@@ -153,13 +154,11 @@ function process_api_data()
           $type = "company_contacts";  // Change API call for (first round) specific type of contacts
         }
 
-        error_log("Grab page # " . $page . " for " . $type . " in " . $function . " first_page_total is " . $first_total);
+        //error_log("Grab page # " . $page . " for " . $type . " in " . $function . " first_page_total is " . $first_total);
 
         $result = winmo_api($type, $page);
-        error_log("array: " . sizeof($result));
 
-        error_log($total . " == " . $page);
-        if ($total >= $page) $last = true;
+        if ($total <= $page) $last = true;
         $atts = array(
           'page' => $page,
           'total' => $total,
@@ -173,10 +172,7 @@ function process_api_data()
           error_log('The result has an error');
           $response = $result['error'];
         } else {
-          // Something goes wrong here
           $page = isset($result['page']) ? $result['page'] : $page;
-          error_log("winmo_api.php:165 " . $page);
-          error_log("Problem occurs inside of: " . $function);
           $response = $function($result['data'], $atts); // Send to processer
         }
 

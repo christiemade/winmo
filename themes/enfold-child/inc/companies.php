@@ -30,7 +30,7 @@ function set_companies_transient($results = array(), $atts = array())
   $companies = get_transient('winmo_companies');
   $page = $atts['page'];
   $last = $atts['last'];
-  error_log(gettype($companies) . " " . json_encode($page));
+
   // if we're rebuilding (page 1) then lets reset the array
   if ($page == 1) { // Rebuild transient
     $companies = array();
