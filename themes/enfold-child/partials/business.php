@@ -88,7 +88,7 @@ if (is_wp_error($company_data)) {
       <?php get_template_part('partials/sidebar_cta'); ?>
     </aside>
     <?php
-    error_log(json_encode($company_data));
+
     $brands_total = sizeof($company_data->related_brands); ?>
     <main class="col">
       <section id="advertising">

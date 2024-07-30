@@ -25,10 +25,12 @@ function set_company_transient($company_id, $data = "", $type = "company")
   return $result;
 }
 
-function set_companies_transient($results = array(), $page = false, $last = false)
+function set_companies_transient($results = array(), $atts = array())
 {
   $companies = get_transient('winmo_companies');
-
+  $page = $atts['page'];
+  $last = $atts['last'];
+  error_log(gettype($companies) . " " . json_encode($page));
   // if we're rebuilding (page 1) then lets reset the array
   if ($page == 1) { // Rebuild transient
     $companies = array();
@@ -48,7 +50,7 @@ function set_companies_transient($results = array(), $page = false, $last = fals
       set_company_transient($company['id'], json_encode($company), 'company');
     endif;
   endforeach;
-  $companies = $companies + $rework;
+  $companies = $companies ? $companies + $rework : $rework;
 
   // store the companies array and set it to never expire
   // This doesnt need to expire, we can manually refresh the transient when we get a new CSV

@@ -72,8 +72,10 @@ jQuery(function ($) {
     let total = metadata.total_pages;
     let current_page = metadata.page;
     let first_total = "";
+    let second_total = "";
     if (type == "contacts") {
       first_total = metadata.first_total;
+      second_total = metadata.second_total;
     }
 
     // Build progress bar

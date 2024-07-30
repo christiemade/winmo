@@ -10866,6 +10866,7 @@ aside #cta img {
 }
 #top .iconbox .iconbox_content h2.iconbox_content_title {
   font-size: 38px;
+  margin-bottom: 0px;
 }
 @media (max-width: 575.98px) {
   #top .iconbox .iconbox_content h2.iconbox_content_title {
@@ -11646,7 +11647,7 @@ ol li::before {
   padding-bottom: 4em;
 }
 .responsive body#top.companies #wrap_all section > article.iconbox {
-  margin-bottom: 20px;
+  margin-bottom: 6px;
 }
 .responsive body#top.companies #wrap_all section#marketing, .responsive body#top.companies #wrap_all section#ad_spend {
   padding-bottom: 0px;

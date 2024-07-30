@@ -12,6 +12,7 @@
     }
     h2.iconbox_content_title {
       font-size: 38px;
+      margin-bottom: 0px;
       @include breakpoint(sm, 'max') { 
         font-size: 22px;
         line-height: 42px;

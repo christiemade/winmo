@@ -70,6 +70,7 @@ function process_api_data()
           $response = $result['meta'];
           // Add results together
           $response['first_total'] = $result['meta']['total_pages'];
+          $response['second_total'] = $contact_set2['meta']['total_pages'];
           $response['total_pages'] = $result['meta']['total_pages'] + $contact_set2['meta']['total_pages'];
           error_log("First total after first meta check: " . $response['first_total']);
           error_log("Total Pages: " . $response['total_pages']);
@@ -107,6 +108,7 @@ function process_api_data()
 
           $agency_page_number = $page - $contact_set2['meta']['total_pages']; // Offset the page number
           error_log("C: New page # for agencies: " . $agency_page_number . " but page page is still " . $page);
+
           $result = winmo_api($type, $agency_page_number);
           $response = $result['meta'];
 
@@ -115,8 +117,11 @@ function process_api_data()
           error_log("D. First total after first meta check: " . json_encode($response['first_total']));
 
           $response['total_pages'] = $result['meta']['total_pages'] + $contact_set2['meta']['total_pages'];
+
+          // Original intent of this line is not working
           $response['page'] = $result['meta']['page'] = $page; // Set current page to agency size, so it keeps flowing
-          //error_log($response['page'] . " / " . $response['total_pages']);
+          error_log("Need to limit Agency contact loop to new size..." . $response['page'] . " or " . $result['meta']['page'] . " or " . $page);
+          $response['second_total'] = $result['meta']['total_pages'];
         } elseif ($type != "contacts") {
           $result = winmo_api($type, $page);
           $response = $result['meta'];
@@ -154,7 +159,7 @@ function process_api_data()
         error_log("array: " . sizeof($result));
 
         error_log($total . " == " . $page);
-        if ($total == $page) $last = true;
+        if ($total >= $page) $last = true;
         $atts = array(
           'page' => $page,
           'total' => $total,
@@ -171,7 +176,7 @@ function process_api_data()
           // Something goes wrong here
           $page = isset($result['page']) ? $result['page'] : $page;
           error_log("winmo_api.php:165 " . $page);
-          //error_log("Problem occurs inside of: " . $function);
+          error_log("Problem occurs inside of: " . $function);
           $response = $function($result['data'], $atts); // Send to processer
         }
 
