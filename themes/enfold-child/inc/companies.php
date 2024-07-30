@@ -34,13 +34,18 @@ function set_companies_transient($results = array(), $atts = array())
   // if we're rebuilding (page 1) then lets reset the array
   if ($page == 1) { // Rebuild transient
     $companies = array();
+    $industries = array();
   } elseif ($page > 1) { // Dont change transient until all data is uploaded
     $companies = get_transient('winmo_companies_temp');
+    $industries = get_transient('winmo_industries');
   }
 
   $rework = array();
+
   foreach ($results as $company) :
     if (isset($company['name'])) :
+
+      // Prepare Permalink and individual contact transient
       $permalink = strtolower(str_replace(" ", '-', $company['name']));
       $permalink = str_replace(array(',-inc', ',-llc', "?", ".", ","), "", $permalink);
       $rework[$company['id']] = array(
@@ -48,9 +53,29 @@ function set_companies_transient($results = array(), $atts = array())
         'permalink' => $permalink
       );
       set_company_transient($company['id'], json_encode($company), 'company');
+
+      // Now is a great time to grab industry information, too
+      $list = $company['industries'];
+      if (is_array($list)) {
+        foreach ($list as $industry) :
+          // Turn industry into a machine name
+          $industry_mx = strtolower(str_replace(array(' ', '&'), '-', trim($industry)));
+          $industry_mx = str_replace("---", "-", $industry_mx);
+          if (!isset($industries[$industry_mx])) {
+            $industries[$industry_mx] = array(
+              'name' => ucwords($industry),
+              'companies' => array()
+            );
+          }
+        endforeach;
+      }
+      $industries[$industry_mx]['companies'][$permalink] = $company['name'];
     endif;
   endforeach;
   $companies = $companies ? $companies + $rework : $rework;
+
+  // store the industry list as a transient
+  if (sizeof($industries)) set_transient('winmo_industries', $industries, 0);
 
   // store the companies array and set it to never expire
   // This doesnt need to expire, we can manually refresh the transient when we get a new CSV
@@ -76,38 +101,6 @@ add_filter('avf_main_menu_nav', function ($stuff) {
   return $stuff;
 });
 
-// Grab details on a brand from the API
-function winmo_brand_api($id)
-{
-  // Include Request and Response classes
-  $url = 'https://api.winmo.com/web_api/business_details?id=' . $id . '&entity_type=company';
-
-  $args = array(
-    'headers' => array(
-      'Content-Type' => 'application/json',
-      'Authorization' => 'Bearer ' . WINMO_TOKEN
-    ),
-  );
-
-  $request = wp_remote_get($url, $args);
-
-  if (!is_wp_error($request)) {
-    if ($request['response']['code'] == "404") {
-      return new WP_Error('broke', 'Page not found.');
-    } else {
-      $body = json_decode(wp_remote_retrieve_body($request), true);
-      return $body['result'];
-    }
-  } else {
-    $body = wp_remote_retrieve_body($request);
-    if (isset($body['result'])) {
-      return $body['result'];
-    } else {
-      return new WP_Error('broke', $request->get_error_message());
-    }
-  }
-}
-
 // Create transients for all images in the provided placeholder folder
 function winmo_image_placeholder_transients($type)
 {
@@ -128,24 +121,6 @@ function winmo_image_placeholder_transients($type)
   }
   return $images;
 }
-
-function winmo_brand_transients($brand_id, $callback)
-{
-  $brand_details = get_transient('winmo_brand_' . $brand_id);
-
-  // check to see if this brand was successfully retrieved from the cache
-  if (false === $brand_details) {
-
-    // Grab brand details from the API
-    $brand_details = winmo_api($brand_id, "brand");
-
-    // store the brand as a transient and set it to expire in 1 week
-    set_transient('winmo_brand_' . $brand_id, $brand_details, 604800);
-  }
-
-  return $callback($brand_details);
-}
-
 
 
 // Create AJAX Call for Company Pager

@@ -10620,10 +10620,11 @@ h5 {
   }
 }
 #win-more h2 {
-  margin-bottom: 45px;
+  margin-bottom: 12px;
 }
 #win-more p {
   font-weight: 300;
+  margin-bottom: 24px;
 }
 #win-more .container {
   max-width: 967px;
@@ -12192,7 +12193,7 @@ body.contacts #main header + .container > main #company {
   font-size: 1em;
 }
 body.contacts #main header + .container > main #company .row {
-  margin-top: 1em;
+  margin-top: 0;
   gap: 44px;
 }
 @media (max-width: 1199.98px) {

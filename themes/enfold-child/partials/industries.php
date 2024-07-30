@@ -52,7 +52,7 @@
   <h3>More Industries that are Big Ad spenders</h3>
   <div class="row">
     <div class="col">
-      <?php $industries = get_industry_transient();
+      <?php $industries = get_transient('winmo_industries');
       foreach ($industries as $link => $industry) :
         print '<a href="/industries/' . $link . '">' . $industry['name'] . '</a>';
       endforeach;

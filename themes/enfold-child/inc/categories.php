@@ -7,38 +7,6 @@ add_filter('avf_main_menu_nav', function ($stuff) {
   return $stuff;
 });
 
-function get_industry_transient()
-{
-  $industries = get_transient('winmo_industries');
-
-  // check to see if industries is already saved
-  if (false === $industries) {
-
-    // do this if no transient set
-    $companies = get_transient('winmo_companies');
-    $industries = array();
-    foreach ($companies as $cid => $company) :
-      $list = explode(",", $company['industry']);
-      foreach ($list as $industry) :
-        // Turn industry into a machine name
-        $industry_mx = strtolower(str_replace(array(' ', '&'), '-', trim($industry)));
-        $industry_mx = str_replace("---", "-", $industry_mx);
-        if (!isset($industries[$industry_mx])) {
-          $industries[$industry_mx] = array(
-            'name' => ucwords($industry),
-            'companies' => array()
-          );
-        }
-      endforeach;
-      $industries[$industry_mx]['companies'][$cid] = $company['name'];
-    endforeach;
-
-    // store the industry list as a transient
-    set_transient('winmo_industries', $industries, 0);
-  }
-  return $industries;
-}
-
 function get_agencies_by_state_transient()
 {
   $agencies_by_state = get_transient('winmo_agencies_by_state');

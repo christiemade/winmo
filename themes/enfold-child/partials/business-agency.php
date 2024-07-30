@@ -39,7 +39,7 @@ $agency_data = set_company_transient($agency, "", 'agency');
 if (is_wp_error($agency_data)) {
   $error_message = $agency_data->get_error_message();
   echo "<header id=\"page404\" class=\"\"><div class=\"container\"></div></header><div id=\"error\"><h2>Error:</h2> <p>" . $error_message . '</p></div>';
-} elseif (empty($company_data)) {
+} elseif (empty($agency_data)) {
   error_log("Missing data for " . $agency);
   $error_message = "The data for this agency could not be located.";
   echo "<header id=\"page404\" class=\"\"><div class=\"container\"></div></header><div id=\"error\"><h2>Error:</h2> <p>" . $error_message . "</p></div>";

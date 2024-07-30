@@ -3,7 +3,7 @@
     <div id="overview" class="gray_box">
       <?php
       // Convert machine name
-      $industries = get_industry_transient();
+      $industries = get_transient('winmo_industries');
       $industry = $industries[$args]; ?>
       <h1>Top Companies in the <?php print $industry['name']; ?> Industry in <?php print date("Y"); ?></h1>
       <div class="row">
