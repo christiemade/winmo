@@ -59,7 +59,7 @@ if (is_wp_error($agency_data)) {
         <div class="row">
           <div class="col">
             <h5>Company Overview:</h5>
-            <p><?php print $agency_data->name;; ?> is an agency with a focus on <?php print $agency_data->description; ?>. They are a <?php print strtolower($agency_data->type); ?> company with <?php print $agency_data->employees; ?> employees located in <?php print $agency_data->location->city; ?>, <?php print $agency_data->location->state; ?>.<?php if (!empty($agency_data->holding_company)) { ?> They are part of the holding company <?php print $agency_data->holding_company; ?>.<?php } ?></p>
+            <p><?php print $agency_data->name; ?> is an agency with a focus on <?php isset($agency_data->notes) ? print $agency_data->notes : print $agency_data->description; ?>. They are a <?php isset($agency_data->type) ? print strtolower($agency_data->type) : print ''; ?> company with <?php print $agency_data->employees; ?> employees located in <?php print $agency_data->location->city; ?>, <?php print $agency_data->location->state; ?>.<?php if (!empty($agency_data->holding_company)) { ?> They are part of the holding company <?php print $agency_data->holding_company; ?>.<?php } ?></p>
           </div>
           <div class="col contact">
             <div class="phone">

@@ -4,6 +4,7 @@ body {
   font-size: 16px;
   font-family:"proxima-nova";
   color: $black;
+  @include breakpoint(sm, "max") { font-size: 18px; }
 }
 .template-page .entry-content-wrapper {
   h1, h2 {
@@ -42,6 +43,10 @@ h3 {
   font-weight: 900;
   .main_color & {
     color: $blue;
+  }
+  
+  @include breakpoint(sm, 'max') { 
+    font-size: 23px;
   }
 }
 h4 {

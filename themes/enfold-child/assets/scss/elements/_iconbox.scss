@@ -14,16 +14,22 @@
       font-size: 38px;
       margin-bottom: 0px;
       @include breakpoint(sm, 'max') { 
-        font-size: 22px;
-        line-height: 42px;
+        font-size: 30px;
+        line-height: 30px;
       }
     }
 
   }
   &.iconbox_left {
+    .entry-content-header {
+      @include breakpoint(md, "max") {  
+        display: flex; align-items: center; 
+      .iconbox_content_title {
+        flex:1;
+      }
+      }
+    }
     .iconbox_icon,   //:not(.fa)
-      
-    
     svg {
       height: 55px;
       line-height: 55px;
@@ -37,9 +43,11 @@
       color:$teal;
       margin-top: 2px;
       text-align: center;
+      @include breakpoint(md, "max") { 
+        margin-bottom: 0px;
+      }
       @include breakpoint(sm, 'max') { 
         margin-right: 0px;
-        margin-bottom: 15px;
         height: 47px;
         line-height: 47px;
         font-size: 33px;

@@ -1,3 +1,9 @@
+.responsive #top #wrap_all .container {
+  @include breakpoint(sm, "max") {
+    width: 95%;
+    max-width: 95%;
+  }
+}
 .row {
   @include breakpoint(md) {
     display: flex;
@@ -81,6 +87,11 @@ body {
   main.col .gray_box {
     padding: 30px;
     @include breakpoint(sm, 'max') { padding: 20px; }
+    & > .iconbox_left  {
+      @include breakpoint(sm, 'max') {
+        margin-bottom: 15px;
+      }
+    }
   }
    
  }

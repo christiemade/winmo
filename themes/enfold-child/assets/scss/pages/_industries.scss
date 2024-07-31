@@ -18,14 +18,13 @@ body#top.industries, body#top.top-agencies {
     .iconbox_content header {
       display: flex;
       align-items: center;
-      margin-bottom: 16px;
-      @include breakpoint(sm, 'max') { flex-direction: column; }
+      @include breakpoint(md) {  margin-bottom: 16px; }
       h2 {
         margin-bottom: 0px;
       }
     }
     &#columned {
-      margin-bottom: 3em;
+      @include breakpoint(md) { margin-bottom: 3em; }
       .row > .col:only-child {
         a {
           display: block;
@@ -76,10 +75,11 @@ body#top.industries, body#top.top-agencies {
   }
 }
 #more {
-  padding-top: 0px;
+  padding-top: 3em;
   padding-bottom: 4em;
   .row {
-    padding-top: 2em;
+    padding-top: 0.6em;
+    @include breakpoint(sm) { padding-top: 2em; }
     gap: 0px;
   }
   .col {

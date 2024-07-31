@@ -65,7 +65,8 @@
 
 #main > .container_wrap_first > header {
   position: relative;
-  margin-bottom: 3em;
+  margin-bottom: 1.5em;
+  @include breakpoint(sm) { margin-bottom: 3em; }
   &:after {
     @include arc;
   }

@@ -47,7 +47,7 @@ function set_companies_transient($results = array(), $atts = array())
 
       // Prepare Permalink and individual contact transient
       $permalink = strtolower(str_replace(" ", '-', $company['name']));
-      $permalink = str_replace(array(',-inc', ',-llc', "?", ".", ","), "", $permalink);
+      $permalink = str_replace(array(',-inc', ',-llc', "?", ".", ",", "'"), "", $permalink);
       $rework[$company['id']] = array(
         'name' => $company['name'],
         'permalink' => $permalink
@@ -59,7 +59,7 @@ function set_companies_transient($results = array(), $atts = array())
       if (is_array($list)) {
         foreach ($list as $industry) :
           // Turn industry into a machine name
-          $industry_mx = strtolower(str_replace(array(' ', '&'), '-', trim($industry)));
+          $industry_mx = strtolower(str_replace(array(' ', '&', ':', ','), '-', trim($industry)));
           $industry_mx = str_replace("---", "-", $industry_mx);
           if (!isset($industries[$industry_mx])) {
             $industries[$industry_mx] = array(

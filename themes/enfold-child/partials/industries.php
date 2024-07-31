@@ -53,6 +53,15 @@
   <div class="row">
     <div class="col">
       <?php $industries = get_transient('winmo_industries');
+
+      // Only show industries that have names
+      $industries = array_filter($industries, function ($v) {
+        return isset($v['name']);
+      }, ARRAY_FILTER_USE_BOTH);
+
+      // Sort our filtered items
+      usort($industries, "name_sort");
+
       foreach ($industries as $link => $industry) :
         print '<a href="/industries/' . $link . '">' . $industry['name'] . '</a>';
       endforeach;

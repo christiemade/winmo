@@ -8,6 +8,12 @@
       max-width: 95%;
     }
   }
+  #overview .contact .phone {
+    @include breakpoint(sm, "max") { 
+      padding-bottom: 1em;
+    }
+  }
+
   .table {
     &#advertising_table {
       .grid > .row, .top {
@@ -146,9 +152,11 @@
 
       }
     }
-    padding-bottom: 4em;
+    padding-bottom: 2em;
+    @include breakpoint(sm) {  padding-bottom: 4em; }
     &#marketing, &#ad_spend {
-      padding-bottom: 0px;
+      @include breakpoint(sm) { padding-bottom: 0px; }
+      
     }
     &#top {
       & > article.iconbox {

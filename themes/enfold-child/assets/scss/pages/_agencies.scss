@@ -1,4 +1,4 @@
-body.agencies {
+body#top.agencies {
   #header_main nav { display: none;}
   #main header > .container { 
     padding-top: 50px;
@@ -10,6 +10,11 @@ body.agencies {
           flex-wrap: wrap; 
           gap: 20px;
           display: flex;
+        }
+        .contact .phone {
+          @include breakpoint(sm, "max") { 
+            padding-bottom: 1em;
+          }
         }
         .col:first-child {
           flex: auto;
@@ -50,17 +55,23 @@ body.agencies {
   section {
     padding-bottom: 4em;
     @include breakpoint(md, 'max') { 
-      padding-top: 3em;
+      padding-top: 0em;
       padding-bottom: 1em;
+      &:first-child {
+        padding-top: 1em;
+      }
     }
     & > .row {
       @include breakpoint(lg, 'max') { 
         flex-direction: column;
         gap: 0px;
       }
+      ol li:last-child {
+        @include breakpoint(sm, 'max') {  margin-bottom: 0px; }
+      }
     }
     & > article.iconbox {
-      margin-bottom: 20px;
+      margin-bottom: 13px;
     }
     &#employees {
       padding-bottom: 0em;
