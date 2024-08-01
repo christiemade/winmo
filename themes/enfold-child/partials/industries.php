@@ -60,7 +60,7 @@
       }, ARRAY_FILTER_USE_BOTH);
 
       // Sort our filtered items
-      usort($industries, "name_sort");
+      uasort($industries, "name_sort");
 
       foreach ($industries as $link => $industry) :
         print '<a href="/industries/' . $link . '">' . $industry['name'] . '</a>';

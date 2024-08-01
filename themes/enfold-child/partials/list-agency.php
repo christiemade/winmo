@@ -28,7 +28,7 @@
       <div class="row">
         <div class="col">
           <ol>
-            <li><a href="/agency/horizon-media/">Horizon Media Inc.</a></li>
+            <li><a href="/agency/horizon-media-2/">Horizon Media Inc.</a></li>
             <li><a href="/agency/bbdo-worldwide/">BBDO Worldwide</a></li>
             <li><a href="/agency/initiative/">Initiative</a></li>
             <li><a href="/agency/essencemediacom">EssenceMediaCom</a></li>

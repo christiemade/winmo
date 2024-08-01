@@ -8,10 +8,10 @@
         </div>
         <div class="col col-6">
           <p><strong>Which companies spend the most money on advertising?</strong><Br>
-            Topping the list of ad spenders Winmo tracks is consumer packaged goods (CPG) advertiser Proctor & Gamble, which spent over $3 billion on media in the past twelve months, ranging from print and broadcast to OOH and digital video. This includes advertising spend across its entire portfolio of brands. Other top advertising spenders include ecommerce retailer Amazon, Inc., ExxonMobile, General Motors, and Abbvie. To see which industries topped the list <a href="https://winmo.com" class="modal">click here</a>.
+            Topping the list of ad spenders Winmo tracks is consumer packaged goods (CPG) advertiser Procter & Gamble, which spent over $3 billion on media in the past twelve months, ranging from print and broadcast to OOH and digital video. This includes advertising spend across its entire portfolio of brands. Other top advertising spenders include ecommerce retailer Amazon, Inc., ExxonMobile, General Motors, and Abbvie. To see which industries topped the list <a href="https://winmo.com" class="modal">click here</a>.
           </p>
           <p><strong>Who is the largest advertiser?</strong><br>
-            It makes sense that the largest advertiser Winmo tracks is a consumer packaged goods company with multiple brands. In addition to the corporate advertising done by Procter & Gamble itself, P&G’s ad spend encompasses media budgets for over 90 brands tracked by Winmo including Vicks, Downy, Secret, Bounty, Dawn, Swiffer, Fabrese, Cascade, Charmin and Gillette. These advertisers have different marketing decision-makers and even different ad agencies, which is why Winmo segments them on the brand level in addition to presenting company information as a whole.</p>
+            It makes sense that the largest advertiser Winmo tracks is a consumer packaged goods company with multiple brands. In addition to the corporate advertising done by Procter & Gamble itself, P&G’s ad spend encompasses media budgets for over 90 brands tracked by Winmo including Vicks, Downy, Secret, Bounty, Dawn, Swiffer, Febreze, Cascade, Charmin and Gillette. These advertisers have different marketing decision-makers and even different ad agencies, which is why Winmo segments them on the brand level in addition to presenting company information as a whole.</p>
         </div>
       </div>
     </div>

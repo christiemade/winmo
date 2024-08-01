@@ -10967,6 +10967,9 @@ aside #cta img {
 #top .iconbox.iconbox_left_content .iconbox_content_container p {
   margin-top: 7px;
 }
+#top .iconbox.iconbox_top {
+  padding: 0px 20px;
+}
 
 #top .contact .iconbox .iconbox_icon {
   border: 0px;
@@ -12381,6 +12384,9 @@ body#top.industries #main header > .container, body#top.top-agencies #main heade
 }
 body#top.industries #main header:after, body#top.top-agencies #main header:after {
   background-image: url(assets/img/categories/header-category.jpg);
+}
+body#top.industries #main header#agency + #more, body#top.top-agencies #main header#agency + #more {
+  padding-top: 0px;
 }
 body#top.industries section .iconbox_content header, body#top.top-agencies section .iconbox_content header {
   display: flex;
