@@ -3,21 +3,29 @@ function set_company_transient($company_id, $data = "", $type = "company")
 {
 
   global $wpdb;
-
+  //print $company_id . " " . $type;
+  if ($type == "agency") {
+    error_log($company_id . " entering sql:");
+  }
   // Pull company info from database
   $sql = "SELECT * FROM `winmo` WHERE `type` = '" . $type . "' AND `api_id` = '" . $company_id . "' LIMIT 1";
   $result = $wpdb->get_results($sql);
-  if ($result) $result = json_decode($result[0]->data);
+  error_log($sql);
+  if ($result) {
+    $update_id = $result[0]->id;
+    $result = json_decode($result[0]->data);
+  }
 
   // Company info doesn't exist in the database, or we're here to change it
   if (!empty($data)) {
     // store the company's data into the DB table
     if ($result) {
-      $sql = "UPDATE `winmo` SET `data` = CAST('" . addslashes($data) . "' AS JSON) WHERE id = '" . $result->id . "'";
+      $sql = "UPDATE `winmo` SET `data` = CAST('" . addslashes($data) . "' AS JSON) WHERE id = '" . $update_id . "'";
     } else {
       $sql = "INSERT INTO `winmo` (`type`, `api_id`, `data`)
   VALUES('" . $type . "', '" . $company_id . "', CAST('" . addslashes($data) . "' AS JSON))";
     }
+    error_log($sql);
     $result = $wpdb->query($sql);
     if ($result) $result = $data;
   }

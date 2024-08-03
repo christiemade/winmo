@@ -103,7 +103,7 @@ if (is_wp_error($company_data)) {
 
             <p><strong>How much does <?php print $company_data->name; ?> spend on media?</strong><br>
               <?php if (!empty($company_data->revenues)) :
-                print $company_data->name . ' spends ' . $company_data->revenues;
+                print $company_data->name . ' spends $' . $company_data->revenues;
               else : print 'It is unknown how much ' . $company_data->name . ' spends ';
               endif; ?> on media.</p>
           </div>

@@ -17,7 +17,7 @@ function set_agencies_transient($results = array(), $atts = array())
   foreach ($results as $agency) :
 
     $permalink = strtolower(str_replace(" ", '-', $agency['name']));
-    $permalink = str_replace(array(',-inc', ',-llc', "?", ".", ","), "", $permalink);
+    $permalink = str_replace(array(',-inc', ',-llc', "?", ".", ",", ")", "("), "", $permalink);
 
     // Special non-english character handling
     setlocale(LC_ALL, 'en_US.UTF8');
@@ -47,6 +47,7 @@ function set_agencies_transient($results = array(), $atts = array())
       'permalink' => $permalink
     );
 
+    error_log($agency['id'] . " entering for " . $agency['name']);
     set_company_transient($agency['id'], json_encode($agency), 'agency');
   endforeach;
 
@@ -56,6 +57,7 @@ function set_agencies_transient($results = array(), $atts = array())
     delete_transient($transient_name); // Remove temporary transient
     $transient_name = 'winmo_agencies';  // Last page, now update officialdelete_transient($transient_name); // Remove temporary transient
     delete_transient($transient_name); // Remove previous transient
+    delete_transient('winmo_agencies_by_state');
   }
   set_transient($transient_name, $agencies, 0);
   return array('data' => true);

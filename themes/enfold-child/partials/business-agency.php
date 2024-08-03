@@ -71,7 +71,7 @@ if (is_wp_error($agency_data)) {
                                                                                                                                                                                                     break;
                                                                                                                                                                                                 }
                                                                                                                                                                                                 print $type;
-                                                                                                                                                                                              } ?> company with <?php print $agency_data->employees; ?> employees located in <?php print $agency_data->location->city; ?>, <?php print $agency_data->location->state; ?>.<?php if (!empty($agency_data->holding_company)) { ?> They are part of the holding company <?php print $agency_data->holding_company; ?>.<?php } ?></p>
+                                                                                                                                                                                              } ?> agency.</p>
           </div>
           <div class="col contact">
             <div class="phone">
@@ -167,11 +167,13 @@ if (is_wp_error($agency_data)) {
                               print do_shortcode("[av_icon_box icon='ue800' font='winmo' title='" . str_replace("'", "&lsquo;", $title) . " Employees' position='left' icon_style='' boxed='' font_color='' custom_title='' custom_content='' color='' custom_bg='' custom_font='' custom_border='' custom_title_size='' av-desktop-font-size-title='' av-medium-font-size-title='' av-small-font-size-title='' av-mini-font-size-title='' custom_content_size='' av-desktop-font-size='' av-medium-font-size='' av-small-font-size='' av-mini-font-size='' heading_tag='h2' heading_class='' link='' linktarget='' title_attr='' linkelement='' id='' custom_class='' template_class='' av_uid='av-luvpcjbw' sc_version='1.0' admin_preview_bg=''][/av_icon_box]"); ?>
         <div class="row">
           <div class="col col-6">
-            <p>Explore a complete list of <?php print $agency_data->name; ?> Employees. We not only have the basics on each team member such as name, job title, brand responsibilities, email, and direct phone number, we also have detailed profiles that include unique insights, do’s and don’ts for engaging, plus both DiSC and Ocean personality profiles. </p>
+            <p>Explore a complete list of <?php print $agency_data->name; ?> employees. We not only have the basics on each team member such as name, job title, brand responsibilities, email, and direct phone number, we also have detailed profiles that include unique insights, do’s and don’ts for engaging, plus both DiSC and Ocean personality profiles. </p>
           </div>
           <div class="col">
+            <?php $employee_count = $agency_data->employees;
+            if (!$employee_count) $employee_count = "an unknown number of"; ?>
             <p><strong>How many employees does <?php print $agency_data->name; ?> have?</strong><br>
-              <?php print $agency_data->name; ?> has <?php print $agency_data->employees; ?> people on their staff.</p>
+              <?php print $agency_data->name; ?> has <?php print $employee_count; ?> people on their staff.</p>
           </div>
         </div>
       </section>

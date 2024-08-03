@@ -17,14 +17,26 @@ function get_agencies_by_state_transient()
     // do this if no transient set
     $agencies = get_transient('winmo_agencies');
     $agencies_by_state = array();
+
     foreach ($agencies as $aid => $agency) :
-      if (!isset($agencies_by_state[$agency['state']])) {
-        $agencies_by_state[$agency['state']] = array();
+      if (!is_null($agency['state'])) {
+        if (!isset($agencies_by_state[strtoupper($agency['state'])])) {
+          $agencies_by_state[strtoupper($agency['state'])] = array();
+        }
+        $agencies_by_state[strtoupper($agency['state'])][$aid] = $agency;
       }
-      $agencies_by_state[$agency['state']][$aid] = $agency;
     endforeach;
+    $agencies_by_state = array_filter($agencies_by_state);  // Remove empty items
 
     ksort($agencies_by_state);
+
+    // Alpha sort agencies within each state
+    foreach ($agencies_by_state as $state => $iagencies) :
+      error_log($state);
+      usort($iagencies, "name_sort");
+      $agencies_by_state[$state] = $iagencies;
+      if (in_array($state, array("AB", "NL"))) unset($agencies_by_state[$state]);
+    endforeach;
 
     // store the industry list as a transient
     set_transient('winmo_agencies_by_state', $agencies_by_state, 0);
@@ -118,3 +130,14 @@ function convertState($name)
 
   return $return;
 } // end function convertState()
+
+function state_sort($a, $b)
+{
+  //error_log(json_encode($a));
+  //error_log("1. " . key($a));
+  //error_log("2. " . gettype($a[key($a)]));
+  //error_log("3. " . $a[key($a)]['state']);
+  //if (!$a[key($a)]['state']) error_log("4. A Is broken: " . json_encode($a[key($a)]));
+  //if (!$b[key($b)]['state']) error_log("4. B Is broken: " . json_encode($b[key($b)]));
+  return strcmp(convertState($a[key($a)]['state']), convertState($b[key($b)]['state']));
+}
