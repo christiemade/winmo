@@ -11354,6 +11354,9 @@ ol li::before {
   flex-direction: column;
   display: flex;
 }
+.all-content > .row:not(.pagination) .col a:hover {
+  color: #25C9BA;
+}
 
 #top .avia_textblock {
   line-height: 1.6em;
@@ -12453,6 +12456,9 @@ body#top.industries section#columned .row > .col:only-child ol li, body#top.top-
 body#top.industries section#columned .row > .col:only-child ol li a, body#top.top-agencies section#columned .row > .col:only-child ol li a {
   text-decoration: underline;
 }
+body#top.industries section#columned .row > .col:only-child ol li a:hover, body#top.top-agencies section#columned .row > .col:only-child ol li a:hover {
+  color: #25C9BA;
+}
 
 #top .row {
   margin-bottom: 0px;
@@ -12478,6 +12484,9 @@ body#top.industries section#columned .row > .col:only-child ol li a, body#top.to
 }
 #top .row ol li a {
   text-decoration: underline;
+}
+#top .row ol li a:hover {
+  color: #25C9BA;
 }
 
 #more {
@@ -12507,4 +12516,7 @@ body#top.industries section#columned .row > .col:only-child ol li a, body#top.to
   display: block;
   margin-bottom: 5px;
   text-decoration: underline;
+}
+#more .col a:hover {
+  color: #25C9BA;
 }/*# sourceMappingURL=style.css.map */

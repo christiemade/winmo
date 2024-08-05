@@ -6,7 +6,7 @@ if (file_exists(__DIR__ . '/vendor/autoload.php'))
 // Stylesheet caching version
 function avia_get_theme_version($which = 'parent')
 {
-  return '1.0.0.0.39.65';
+  return '1.0.0.0.39.69';
 }
 
 // Quick shortcode to display current year

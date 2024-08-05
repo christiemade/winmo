@@ -175,6 +175,9 @@ body {
     .col {
       flex-direction: column;
       display: flex;
+      a:hover {
+        color:$teal;
+      }
     }
   }
 }
