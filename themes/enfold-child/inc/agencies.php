@@ -105,12 +105,12 @@ function winmo_agency_list()
   if ($alpha) {
     $filtered = array_filter($agencies, function ($agency) use ($alpha) {
       $letter = substr($agency['name'], 0, 1);
-
+      error_log($alpha);
       if (strtolower($letter) == strtolower($alpha)) {
         return true;
       }
       // In non-alpha sort
-      elseif ($alpha == "#") {
+      elseif (in_array($alpha, array("#", "%23"))) {
         if (!ctype_alpha($letter)) {  // If this letter is NOT alpha then keep it
           return true;
         } else {

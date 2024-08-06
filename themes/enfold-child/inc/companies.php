@@ -168,7 +168,7 @@ function winmo_company_list()
         return true;
       }
       // In non-alpha sort
-      elseif ($alpha == "#") {
+      elseif (in_array($alpha, array("#", "%23"))) {
         if (!ctype_alpha($letter)) {  // If this letter is NOT alpha then keep it
           return true;
         } else {
