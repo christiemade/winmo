@@ -7,6 +7,7 @@ wp_enqueue_script('sticky-nav');
 
 // Grab data for page from query vars and the API
 $contact = get_query_var('pid');
+$weird_contact_id = get_query_var('wid');
 
 if (isset($weird_contact_id)) {
   // Get the company permalink to pull up the data
