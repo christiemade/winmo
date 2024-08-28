@@ -15,6 +15,11 @@ if (isset($weird_contact_id)) {
   $contact = get_contact_permalink($weird_contact_id);
 }
 
+if ($contact === NULL) {
+  echo "<header id=\"page404\" class=\"\"><div class=\"container\"></div></header><div id=\"error\"><h2>Error:</h2> <p>This decision maker does not exist.</p></div>";
+  exit;
+}
+
 // Reverse look up contact id
 $contact = get_winmo_contacts("official", "", $contact);
 
