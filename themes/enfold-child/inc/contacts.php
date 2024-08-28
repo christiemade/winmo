@@ -60,6 +60,7 @@ function set_contact_transient($contact_id, $data = "")
 // Put all contacts into a transient (custom db table, because of how much data it is)
 function set_contacts_transient($results = array(), $atts = array())
 {
+  global $wpdb;
   extract($atts);
 
   // if we're rebuilding (page 1) then lets reset the array
