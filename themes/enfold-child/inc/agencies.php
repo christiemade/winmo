@@ -47,7 +47,7 @@ function set_agencies_transient($results = array(), $atts = array())
       'permalink' => $permalink
     );
 
-    error_log($agency['id'] . " entering for " . $agency['name']);
+    //error_log($agency['id'] . " entering for " . $agency['name']);
     set_company_transient($agency['id'], json_encode($agency), 'agency');
   endforeach;
 
@@ -105,7 +105,7 @@ function winmo_agency_list()
   if ($alpha) {
     $filtered = array_filter($agencies, function ($agency) use ($alpha) {
       $letter = substr($agency['name'], 0, 1);
-      error_log($alpha);
+      //error_log($alpha);
       if (strtolower($letter) == strtolower($alpha)) {
         return true;
       }

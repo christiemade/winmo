@@ -32,7 +32,7 @@ function get_agencies_by_state_transient()
 
     // Alpha sort agencies within each state
     foreach ($agencies_by_state as $state => $iagencies) :
-      error_log($state);
+      //error_log($state);
       usort($iagencies, "name_sort");
       $agencies_by_state[$state] = $iagencies;
       if (in_array($state, array("AB", "NL"))) unset($agencies_by_state[$state]);

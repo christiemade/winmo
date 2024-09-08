@@ -67,7 +67,7 @@ jQuery(function ($) {
   });
 
   const fetchData = async (type, progressBar, page = 1) => {
-    let metadata = await fetchMeta(type, page);
+    let metadata = await fetchMeta(type, page, progressBar);
     console.log(metadata);
     let total = metadata.total_pages;
     let current_page = metadata.page;
@@ -125,7 +125,7 @@ jQuery(function ($) {
       }
     }
   };
-  async function fetchMeta(type, page) {
+  async function fetchMeta(type, page, progressBar) {
     const thenable = {
       then(resolve, _reject) {
         $.ajax({
@@ -159,8 +159,9 @@ jQuery(function ($) {
             },
           },
           error: function (data, more) {
+            // more == "error"
             console.log("Error met");
-            console.log(more);
+            console.log(data);
           },
         }).fail(function (jqXHR, textStatus, errorThrown) {
           console.log("Fail field " + textStatus);

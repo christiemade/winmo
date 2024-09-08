@@ -37,12 +37,14 @@ function set_contact_transient($contact_id, $data = "")
     $sql = "SELECT id FROM `winmo` WHERE `type` = 'contacts' AND `api_id` = '" . $contact_id . "' LIMIT 1";
 
     $result = $wpdb->get_var($sql);
-    error_log(gettype($result));
 
     // store the contact's data into the DB table
     if ($result !== null) {
-      $result = json_decode($result);
-      $sql = "UPDATE `winmo` SET `data` = CAST('" . addslashes($data) . "' AS JSON) WHERE id = '" . $result->id . "'";
+      if (in_array(gettype($result), array("string", "integer"))) {
+        $sql = "UPDATE `winmo` SET `data` = CAST('" . addslashes($data) . "' AS JSON) WHERE id = '" . $result . "'";
+      } else {
+        error_log("We couldn't run the update because the result is " . gettype($result));
+      }
     } else {
       $sql = "INSERT INTO `winmo` (`type`, `api_id`, `data`)
         VALUES('contacts', '" . $contact_id . "', CAST('" . addslashes($data) . "' AS JSON))";
@@ -63,28 +65,34 @@ function set_contacts_transient($results = array(), $atts = array())
   global $wpdb;
   extract($atts);
 
+  error_log($type . " page " . $page . " " . json_encode($atts));
   // if we're rebuilding (page 1) then lets reset the array
   if (($page == 1) && ($type == "company_contacts")) { // Rebuild transient
     $wpdb->delete('winmo_contacts', array('status' => 'temp'));
   }
 
   // Prevent switch to agencies from breaking the pager
-  error_log($page . " (" . gettype($page) . ") + " . $first_total . "(" . gettype($first_total) . ")");
-  if ($type == "agency_contacts") $page = (int)$page + (int)$first_total;
-
-  error_log("Page is now: " . $page);
+  //error_log($page . " (" . gettype($page) . ") + " . $first_total . "(" . gettype($first_total) . ")");
+  if ($type == "agency_contacts") {
+    $page = (int)$page + (int)$first_total;
+    error_log("Inside " . $type . " so page is now: " . $page);
+  }
 
   // Dont change official contact list until all data is uploaded
+  // This pulls existing contacts from the temporary transient
   if (($page > 1) || ($type == "agency_contacts")) {
-    $contacts = get_winmo_contacts('temp');
-    error_log("Contacts we found: " . sizeof($contacts));
-    // Set current page - this is where we'll START from next time
+
+    // Just checking that we have already added temporary contacts
+    $contacts = get_winmo_contacts('temp', '', '', 1);
+
+    // Set current page - that way if something breaks we'll know where to START from next time - A bookmark!
     if ($contacts) {
       set_transient('contacts_last_page', $page, 0);
     }
     // Something went wrong - our temporary contacts are missing - start over
     else {
       global $wpdb;
+      error_log('Something went wrong.');
       $wpdb->delete('winmo_contacts', array('status' => 'temp')); // start over
       $page = 0; // so that it loops to page 1 next time
       error_log("Need to start over on contacts :(");
@@ -96,7 +104,7 @@ function set_contacts_transient($results = array(), $atts = array())
   $rework = array();
 
   foreach ($results as $contact) :
-    $permalink = strtolower(str_replace(" ", '-', $contact['fname'] . ' ' . $contact['lname']));
+    $permalink = strtolower(str_replace(array(" ", "'"), '-', $contact['fname'] . ' ' . $contact['lname']));
 
     if (isset($contact_links[$permalink])) {
       $contact_links[$permalink][] = $permalink;
@@ -120,6 +128,7 @@ function set_contacts_transient($results = array(), $atts = array())
   add_winmo_contact($rework, 'temp');
 
   // We're at the end of the import - clean up
+  if ($last) error_log("THIS WAS THE END! Do something drastic now.");
   if ($last) {
     global $wpdb;
     error_log("We got to the last item");
@@ -135,7 +144,7 @@ function set_contacts_transient($results = array(), $atts = array())
   return array('data' => true, 'page' => $page);
 }
 
-function get_winmo_contacts($status = "official", $alpha = '', $permalink = '')
+function get_winmo_contacts($status = "official", $alpha = '', $permalink = '', $limit = '')
 {
   global $wpdb;
 
@@ -145,7 +154,8 @@ function get_winmo_contacts($status = "official", $alpha = '', $permalink = '')
   $sql = "SELECT * FROM `winmo_contacts` WHERE `status` = '" . $status . "'";
   if (!empty($alpha)) $sql .= ' AND `last_name` LIKE \'' . $alpha . '%\'';
   if (!empty($permalink))  $sql .= ' AND `permalink` = \'' . $permalink . '\'';
-  $sql .= ' GROUP BY(api_id)';
+  if ($limit !== "1") $sql .= ' GROUP BY(api_id)';
+  if (!empty($limit)) $sql .= " LIMIT " . $limit;
 
   $result = $wpdb->get_results($sql);
 
