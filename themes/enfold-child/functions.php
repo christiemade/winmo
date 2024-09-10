@@ -188,3 +188,10 @@ add_action('ava_after_content_templatebuilder_page', function () { ?>
   </div>
 <?php
 });
+
+// Disable heartbeat - it may be slowing the site down unneccesarily
+function wb_stop_heartbeat()
+{
+  wp_deregister_script('heartbeat');
+}
+add_action('init', 'wb_stop_heartbeat', 1);
