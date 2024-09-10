@@ -5,9 +5,9 @@
       // Convert machine name
       $industries = get_transient('winmo_industries');
       if (!isset($industries[$args])) {
-      ?><h1>Industry not found.</h1><?php
-                                  } else {
-                                    $industry = $industries[$args]; ?>
+      ?><h1>'<?php print $args; ?>' Industry not found.</h1><?php
+                                                          } else {
+                                                            $industry = $industries[$args]; ?>
         <h1>Top Companies in the <?php print $industry['name']; ?> Industry in <?php print date("Y"); ?></h1>
         <div class="row">
           <div class="col">
@@ -24,7 +24,7 @@
   </div>
 </header>
 
-<?php if (!isset($industries[$args])) { ?>
+<?php if (isset($industries[$args])) { ?>
   <div class="container" id="more">
     <h3><?php print $industry['name']; ?> Industry Companies</h3>
 

@@ -20,7 +20,11 @@ $agencies = get_transient('winmo_agencies');
 if (isset($weird_agency_id) && ($weird_agency_id > 0)) {
   // Get the company permalink to pull up the data
   $weird_agency_id = (int)$weird_agency_id - 1423;
-  $agency = $agencies[$weird_agency_id]['permalink'];
+  if (isset($agencies[$weird_agency_id])) {
+    $agency = $agencies[$weird_agency_id]['permalink'];
+  } else {
+    $agency = "";
+  }
 }
 
 $agency = array_filter($agencies, function ($v) use ($agency) {

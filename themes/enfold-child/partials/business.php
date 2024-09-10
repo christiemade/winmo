@@ -14,10 +14,14 @@ $companies = get_transient('winmo_companies');
 if (isset($weird_company_id) && $weird_company_id > 0) {
   // Get the company permalink to pull up the data
   $weird_company_id = (int)$weird_company_id - (int)1423;
-  $company = $companies[$weird_company_id]['permalink'];
-  $permalink = get_bloginfo('wpurl') . "/company/" . $company . "/";
-  header("Location: " . $permalink, true, 301);
-  exit;
+  if (array_key_exists($weird_company_id, $companies)) {
+    $company = $companies[$weird_company_id]['permalink'];
+    $permalink = get_bloginfo('wpurl') . "/company/" . $company . "/";
+    header("Location: " . $permalink, true, 301);
+    exit;
+  } else {
+    $companies = array();  // Trying to get an old URL working but it doesnt exist
+  }
 }
 
 $company = array_filter($companies, function ($v) use ($company) {

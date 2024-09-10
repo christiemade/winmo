@@ -178,7 +178,7 @@ function process_api_data()
 
         // Sometimes pages drop - why?
         if (gettype($response) == "string")
-          error_log($response);
+          error_log("winmo_api.php:181 " . $response);
       }
       $promise->resolve(json_encode($response));
     });

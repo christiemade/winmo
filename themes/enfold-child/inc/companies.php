@@ -25,7 +25,7 @@ function set_company_transient($company_id, $data = "", $type = "company")
       $sql = "INSERT INTO `winmo` (`type`, `api_id`, `data`)
   VALUES('" . $type . "', '" . $company_id . "', CAST('" . addslashes($data) . "' AS JSON))";
     }
-    error_log($sql);
+    //error_log($sql);
     $result = $wpdb->query($sql);
     if ($result) $result = $data;
   }

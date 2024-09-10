@@ -241,7 +241,7 @@ function winmo_contacts_list()
 
   // Define total products
   $total_items = sizeof($filtered);
-  error_log($total_items);
+  error_log("contacts.php:244" . $total_items);
 
   // Go through filtered items and acquire additional data (permalink)
   //foreach ($filtered as $key => $val) :

@@ -43,7 +43,7 @@ $contact_data = set_contact_transient($contact);
 $type = strtolower($contact_data->type);
 $company = $contact_data->entity_id;
 $company_data = set_company_transient($company, "", $type);
-error_log($type);
+error_log("contact.php:46 " . $type);
 //error_log(json_encode($company_data));
 // {"id":1504,"name":"Chick-Fil-A, Inc.","notes":"Founded in 1946, in Hapeville, GA, and headquartered in Atlanta, GA, Chik-Fil-A is a fast food chicken restaurant credited with inventing the boneless chicken breast sandwich. Since it's inception, Chick-Fil-A has grown to become one of the largest privately held restaurant chains.","phone":"(404) 765-8000","founded":"1967","contacts":[{"id":1320,"email":"david.farmer@chick-fil-a.com","fname":"David","lname":"Farmer","phone":"(404) 765-8913","state":"GA","title":"Senior Vice President, Restaurant Experience"},
 

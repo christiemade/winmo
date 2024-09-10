@@ -5,8 +5,10 @@ jQuery(function ($) {
   $(document).on("ajaxError", function (e, xhr, settings, exception) {
     //console.log("Acknowledging an error occured!");
     console.log("stopme is: " + stopme);
-    console.log(xhr.status);
-    //console.log(settings);
+    console.log(e);
+    console.log(xhr.status); // 502
+    console.log(settings); // "action=process_api_data&grab=page&page=431&type=contacts&total=971&first_total=725"
+    console.log(exception); // empty or "timeout"
     const date = new Date(e.timeStamp);
     console.log(date.toDateString() + " " + date.toTimeString());
     stopme = true;
@@ -126,6 +128,7 @@ jQuery(function ($) {
     }
   };
   async function fetchMeta(type, page, progressBar) {
+    console.log(progressBar);
     const thenable = {
       then(resolve, _reject) {
         $.ajax({
