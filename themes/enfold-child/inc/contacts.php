@@ -86,17 +86,21 @@ function set_contacts_transient($results = array(), $atts = array())
     $contacts = get_winmo_contacts('temp', '', '', 1);
 
     // Set current page - that way if something breaks we'll know where to START from next time - A bookmark!
-    if ($contacts) {
+    error_log("Contacts is of type: " . gettype($contacts));
+    if ($contacts === NULL || sizeof($contacts)) {
+      error_log("Setting the transient");
       set_transient('contacts_last_page', $page, 0);
     }
     // Something went wrong - our temporary contacts are missing - start over
     else {
       global $wpdb;
-      error_log('Something went wrong.');
-      $wpdb->delete('winmo_contacts', array('status' => 'temp')); // start over
-      $page = 0; // so that it loops to page 1 next time
+      error_log('Something went wrong. Dont delete unless we are actually getting back 0');
+      //$wpdb->delete('winmo_contacts', array('status' => 'temp')); // start over
+      //$page = 0; // so that it loops to page 1 next time
       error_log("Need to start over on contacts :(");
       $results = array();  // dont use the results because theyre not the first set
+      return array('data' => true, 'page' => $page);
+      exit;
     }
   }
 
@@ -151,11 +155,29 @@ function get_winmo_contacts($status = "official", $alpha = '', $permalink = '', 
   $wpdb->show_errors();
 
   // Pull all contacts from database
-  $sql = "SELECT * FROM `winmo_contacts` WHERE `status` = '" . $status . "'";
-  if (!empty($alpha)) $sql .= ' AND `last_name` LIKE \'' . $alpha . '%\'';
-  if (!empty($permalink))  $sql .= ' AND `permalink` = \'' . $permalink . '\'';
-  if ($limit !== "1") $sql .= ' GROUP BY(api_id)';
-  if (!empty($limit)) $sql .= " LIMIT " . $limit;
+  $args = array();
+  $args[] = $status;
+  $sql = "SELECT * FROM `winmo_contacts` WHERE `status` = %s";
+  if (!empty($alpha)) {
+    $sql .= ' AND `last_name` LIKE %s';
+    $args[] = $wpdb->esc_like($alpha) . '%';
+  }
+  if (!empty($permalink)) {
+    $sql .= ' AND `permalink` = %s';
+    $args[] = $permalink;
+  }
+  if ($limit !== "1") {
+    $sql .= ' GROUP BY(api_id)';
+  }
+  if (!empty($limit)) {
+    $sql .= " LIMIT %d";
+    $args[] = $limit;
+  }
+
+  $sql = $wpdb->prepare(
+    $sql,
+    $args
+  );
 
   $result = $wpdb->get_results($sql);
 
