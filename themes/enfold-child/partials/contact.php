@@ -13,6 +13,7 @@ if (empty($contact) && isset($weird_contact_id)) {
   // Get the company permalink to pull up the data
   $weird_contact_id = (int)$weird_contact_id - 1423;
   $contact = get_contact_permalink($weird_contact_id);
+  header("Location: /decision_makers/" . $contact);
 }
 
 if ($contact === NULL) {
