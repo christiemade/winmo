@@ -68,7 +68,9 @@ function set_contacts_transient($results = array(), $atts = array())
   error_log($type . " page " . $page . " " . json_encode($atts));
   // if we're rebuilding (page 1) then lets reset the array
   if (($page == 1) && ($type == "company_contacts")) { // Rebuild transient
-    $wpdb->delete('winmo_contacts', array('status' => 'temp'));
+    error_log("Trying to delete all of the temporary contacts");
+    error_log($page . " && " . $type);
+    //$wpdb->delete('winmo_contacts', array('status' => 'temp'));
   }
 
   // Prevent switch to agencies from breaking the pager
@@ -132,8 +134,9 @@ function set_contacts_transient($results = array(), $atts = array())
   add_winmo_contact($rework, 'temp');
 
   // We're at the end of the import - clean up
-  if ($last) error_log("THIS WAS THE END! Do something drastic now.");
   if ($last) {
+    error_log("THIS WAS THE END! Do something drastic now.");
+
     global $wpdb;
     error_log("We got to the last item");
     delete_transient('contacts_last_page'); // Remove last page check

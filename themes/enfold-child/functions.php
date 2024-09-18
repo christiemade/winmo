@@ -195,3 +195,129 @@ function wb_stop_heartbeat()
   wp_deregister_script('heartbeat');
 }
 add_action('init', 'wb_stop_heartbeat', 1);
+
+add_filter('wpseo_title', function ($title) {
+
+  if (is_page_template('page-api.php')) {
+    $pid = get_query_var('rid') ?: get_query_var('pid');
+    $state = get_query_var('state');
+
+    // Company
+    if (isset($pid) && is_page(20)) {
+      // Get company name
+      $companies = get_transient('winmo_companies');
+      $company = array_filter($companies, function ($v) use ($pid) {
+        return $v['permalink'] == $pid;
+      }, ARRAY_FILTER_USE_BOTH);
+      $keys =  array_keys($company);
+
+      // Found a company
+      if (sizeof($keys)) {
+        $title = $company[$keys[0]]['name'] . " Advertising Profile - Winmo";
+      }
+    }
+
+    // Industry
+    elseif (isset($pid) && is_page(74)) {
+      // Get Industry name
+      $industry = get_query_var('rid');
+      $title = "Top Companies in the " . ucwords($industry) . " Industry in 2024";
+    }
+
+    // Agencies by State
+    elseif (isset($state) && is_page(82)) {
+      $title = "Top Ad Agencies in " . ucwords($state) . " 2024 - Winmo";
+    }
+
+    // Agency
+    elseif (isset($pid) && is_page(71)) {
+      $agencies = get_transient('winmo_agencies');
+      $agency = array_filter($agencies, function ($v) use ($pid) {
+        return $v['permalink'] == $pid;
+      }, ARRAY_FILTER_USE_BOTH);
+      $keys =  array_keys($agency);
+
+      // Found an agency
+      if (sizeof($keys)) {
+        $title = $agency[$keys[0]]['name'] . " Agency Profile - Winmo";
+      }
+    }
+    // Decision Makers
+    elseif (isset($pid) && is_page(56)) {
+      $contact = get_winmo_contacts("official", "", $pid);
+      $contact = $contact[0]->api_id;
+      $contact_data = set_contact_transient($contact);
+      $type = strtolower($contact_data->type);
+      $company = $contact_data->entity_id;
+      $company_data = set_company_transient($company, "", $type);
+      if (isset($contact_data))
+        $title = $contact_data->fname . " " . $contact_data->lname . ", " . $contact_data->title . " at " . $company_data->name . " - Winmo";
+    }
+  }
+  return $title;
+});
+
+
+function prefix_filter_description_example($description)
+{
+
+  if (is_page_template('page-api.php')) {
+    $pid = get_query_var('rid') ?: get_query_var('pid');
+    $state = get_query_var('state');
+
+    // Company
+    if (isset($pid) && is_page(20)) {
+      // Get company name
+      $companies = get_transient('winmo_companies');
+      $company = array_filter($companies, function ($v) use ($pid) {
+        return $v['permalink'] == $pid;
+      }, ARRAY_FILTER_USE_BOTH);
+      $keys =  array_keys($company);
+
+      // Found a company
+      if (sizeof($keys)) {
+        $description = "Explore the advertising profile of " . $company[$keys[0]]['name'] . ". Access detailed info on ad agencies, media spend, and the marketing team. ";
+      }
+    }
+
+    // Industry
+    elseif (isset($pid) && is_page(74)) {
+      // Get Industry name
+      $industry = get_query_var('rid');
+      $description = "Discover top companies in the " . ucwords($industry) . " industry for 2024. Access detailed analyses, key decision-makers, and contact info. Request a trial today!";
+    }
+
+    // Agencies by State
+    elseif (isset($state) && is_page(82)) {
+      $description = "Discover top ad agencies in " . ucwords($state) . " for 2024. Access detailed analyses, key decision-makers, and contact info. Request a trial today!";
+    }
+
+    // Agency
+    elseif (isset($pid) && is_page(71)) {
+      $agencies = get_transient('winmo_agencies');
+      $agency = array_filter($agencies, function ($v) use ($pid) {
+        return $v['permalink'] == $pid;
+      }, ARRAY_FILTER_USE_BOTH);
+      $keys =  array_keys($agency);
+
+      // Found an agency
+      if (sizeof($keys)) {
+        $description = "Explore the agency profile for " . $agency[$keys[0]]['name'] . ". Access client lists, employee insights, media spend details, and more. Boost your outreach with Winmo.";
+      }
+    }
+
+    // Decision Makers
+    elseif (isset($pid) && is_page(56)) {
+      $contact = get_winmo_contacts("official", "", $pid);
+      $contact = $contact[0]->api_id;
+      $contact_data = set_contact_transient($contact);
+      $type = strtolower($contact_data->type);
+      $company = $contact_data->entity_id;
+      $company_data = set_company_transient($company, "", $type);
+      if (isset($contact_data))
+        $description =  "Connect with " . $contact_data->fname . " " . $contact_data->lname . ", " . $contact_data->title . " at " . $company_data->name . ". Access business email, insights, and personality-driven outreach tips. ";
+    }
+  }
+  return $description;
+}
+add_filter('wpseo_metadesc', 'prefix_filter_description_example');
