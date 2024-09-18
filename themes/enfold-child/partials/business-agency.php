@@ -22,6 +22,7 @@ if (isset($weird_agency_id) && ($weird_agency_id > 0)) {
   $weird_agency_id = (int)$weird_agency_id - 1423;
   if (isset($agencies[$weird_agency_id])) {
     $agency = $agencies[$weird_agency_id]['permalink'];
+    header("Location: /agency/" . $agency . "/");
   } else {
     $agency = "";
   }
