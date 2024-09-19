@@ -104,6 +104,7 @@ function process_api_data()
           $contact_set2 = winmo_api("company_contacts", 1);
           error_log("A" . json_encode($contact_set2['meta']));
 
+          // PAGE was wrong - fixed it to continue with current page - so hopefully this says 731
           error_log("B" . $page . " - " . $contact_set2['meta']['total_pages']);
 
           $agency_page_number = $page - $contact_set2['meta']['total_pages']; // Offset the page number
@@ -119,8 +120,9 @@ function process_api_data()
           $response['total_pages'] = $result['meta']['total_pages'] + $contact_set2['meta']['total_pages'];
 
           // Original intent of this line is not working
-          $response['page'] = $result['meta']['page'] = $page; // Set current page to agency size, so it keeps flowing
-          error_log("Need to limit Agency contact loop to new size..." . $response['page'] . " or " . $result['meta']['page'] . " or " . $page);
+          // Trying this as total number of agencies.
+          $response['page'] =  $response['first_total'] + $agency_page_number;
+          error_log("E. Page set to: " . $response['page']);
           $response['second_total'] = $result['meta']['total_pages'];
         } elseif ($type != "contacts") {
           $result = winmo_api($type, $page);
@@ -132,14 +134,16 @@ function process_api_data()
         $response = array();
       } else {
         // Sometimes pages drop
-        error_log("Page is: " . $page . " out of " . $total);
+        error_log("Page is: " . $page . " out of " . $total);   // $total came through as 0??
 
         $type = $type == "company_contacts" ? "contacts" : $type;
+        $type = $type == "agency_contacts" ? "contacts" : $type;
         $function = 'set_' . $type . '_transient';
         $last = false;
 
         // Contacts broken into two API calls - second set here
         if ($page > $first_total) {
+          error_log("Checking if " . $page . " >= " . $total);
           if ($page >= $total) {
             error_log("Ok stop this madneess");
             $last = true;
@@ -158,7 +162,9 @@ function process_api_data()
 
         $result = winmo_api($type, $page);
 
+        error_log("Last var also gets changed to true here if " . $total . " <= " . $page);
         if ($total <= $page) $last = true;
+        error_log("winmo_api.php:164 Page being sent back as " . $page);
         $atts = array(
           'page' => $page,
           'total' => $total,

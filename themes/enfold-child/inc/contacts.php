@@ -148,7 +148,7 @@ function set_contacts_transient($results = array(), $atts = array())
     error_log("Official deleted, and temp became official");
   }
 
-  return array('data' => true, 'page' => $page);
+  return array('data' => true, 'page' => $page, 'last' => $last);
 }
 
 function get_winmo_contacts($status = "official", $alpha = '', $permalink = '', $limit = '')

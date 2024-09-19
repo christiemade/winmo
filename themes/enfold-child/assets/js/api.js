@@ -6,9 +6,9 @@ jQuery(function ($) {
     //console.log("Acknowledging an error occured!");
     console.log("stopme is: " + stopme);
     console.log(e);
-    console.log(xhr.status); // 502
-    console.log(settings); // "action=process_api_data&grab=page&page=431&type=contacts&total=971&first_total=725"
-    console.log(exception); // empty or "timeout"
+    console.log(xhr.status);
+    console.log(settings);
+    console.log(exception);
     const date = new Date(e.timeStamp);
     console.log(date.toDateString() + " " + date.toTimeString());
     stopme = true;
@@ -68,14 +68,18 @@ jQuery(function ($) {
     }
   });
 
-  const fetchData = async (type, progressBar, page = 1) => {
-    let metadata = await fetchMeta(type, page, progressBar);
+  const fetchData = async (type, progressBar, atts = []) => {
+    console.log(atts);
+    if (!atts["page"]) atts["page"] = 1;
+    console.log(type);
+    let metadata = await fetchMeta(type, atts, progressBar);
     console.log(metadata);
     let total = metadata.total_pages;
     let current_page = metadata.page;
     let first_total = "";
     let second_total = "";
-    if (type == "contacts") {
+
+    if (type == "contacts" || type == "agency_contacts") {
       first_total = metadata.first_total;
       second_total = metadata.second_total;
     } else {
@@ -97,6 +101,8 @@ jQuery(function ($) {
       ]);
 
       if (response && response[0].data) {
+        // Could loop be stopped here? if last = true then dont try?
+        console.log(stopme);
         try {
           console.log(first_total);
           console.log(`Page ${current_page} processed successfully.`);
@@ -110,11 +116,25 @@ jQuery(function ($) {
 
           // Contacts, start round 2
           if (type == "contacts" && current_page == first_total) {
-            fetchData("company_contacts", progressBar);
+            // We need to sent total and first_total through
+            atts = {
+              page: Math.ceil(parseInt(current_page) + 1),
+              first_total: first_total,
+              total: total,
+            };
+            console.log(atts);
+            fetchData("agency_contacts", progressBar, atts);
           }
+
+          // Need to see if the last var is available
+          console.log(response[0].data);
+
+          // Need to make sure the PHP scripts are stopped
+          console.log("Stop yet? " + stopme);
 
           // Finish
           if (current_page == total) {
+            stopme = true;
             $(progressBar).removeClass("building").addClass("complete");
             $(".row").removeClass("processing");
           }
@@ -127,8 +147,9 @@ jQuery(function ($) {
       }
     }
   };
-  async function fetchMeta(type, page, progressBar) {
-    console.log(progressBar);
+  async function fetchMeta(type, atts, progressBar) {
+    console.log(atts);
+    console.log(type);
     const thenable = {
       then(resolve, _reject) {
         $.ajax({
@@ -137,8 +158,10 @@ jQuery(function ($) {
           data: {
             action: "process_api_data", // Your WP action hook
             grab: "meta",
-            page: page,
-            type: type,
+            page: atts["page"],
+            total: atts["total"],
+            first_total: atts["first_total"],
+            type: type, // TYPE needs to be "agency_contacts"
           },
           success: function (data) {
             console.log(data);
@@ -214,6 +237,7 @@ jQuery(function ($) {
             first_total: first_total,
           },
           success: function (data) {
+            console.log(data); // Could loop be stopped here?
             resolve(JSON.parse(data));
           },
         });

@@ -245,13 +245,15 @@ add_filter('wpseo_title', function ($title) {
     // Decision Makers
     elseif (isset($pid) && is_page(56)) {
       $contact = get_winmo_contacts("official", "", $pid);
-      $contact = $contact[0]->api_id;
-      $contact_data = set_contact_transient($contact);
-      $type = strtolower($contact_data->type);
-      $company = $contact_data->entity_id;
-      $company_data = set_company_transient($company, "", $type);
-      if (isset($contact_data))
-        $title = $contact_data->fname . " " . $contact_data->lname . ", " . $contact_data->title . " at " . $company_data->name . " - Winmo";
+      if (sizeof($contact)) {
+        $contact = $contact[0]->api_id;
+        $contact_data = set_contact_transient($contact);
+        $type = strtolower($contact_data->type);
+        $company = $contact_data->entity_id;
+        $company_data = set_company_transient($company, "", $type);
+        if (isset($contact_data))
+          $title = $contact_data->fname . " " . $contact_data->lname . ", " . $contact_data->title . " at " . $company_data->name . " - Winmo";
+      }
     }
   }
   return $title;
@@ -309,13 +311,15 @@ function prefix_filter_description_example($description)
     // Decision Makers
     elseif (isset($pid) && is_page(56)) {
       $contact = get_winmo_contacts("official", "", $pid);
-      $contact = $contact[0]->api_id;
-      $contact_data = set_contact_transient($contact);
-      $type = strtolower($contact_data->type);
-      $company = $contact_data->entity_id;
-      $company_data = set_company_transient($company, "", $type);
-      if (isset($contact_data))
-        $description =  "Connect with " . $contact_data->fname . " " . $contact_data->lname . ", " . $contact_data->title . " at " . $company_data->name . ". Access business email, insights, and personality-driven outreach tips. ";
+      if (sizeof($contact)) {
+        $contact = $contact[0]->api_id;
+        $contact_data = set_contact_transient($contact);
+        $type = strtolower($contact_data->type);
+        $company = $contact_data->entity_id;
+        $company_data = set_company_transient($company, "", $type);
+        if (isset($contact_data))
+          $description =  "Connect with " . $contact_data->fname . " " . $contact_data->lname . ", " . $contact_data->title . " at " . $company_data->name . ". Access business email, insights, and personality-driven outreach tips. ";
+      }
     }
   }
   return $description;
