@@ -64,8 +64,8 @@ if (is_wp_error($contact_data)) {
             <h5><?php print $contact_data->title . " - " . $company_data->name; ?></h5>
             <p><?php print $full_name; ?> is <?php print $contact_data->title; ?> for <?php print $company_data->name; ?>s. On this page, you'll find the business email and phone number for <?php print $full_name; ?> as unique insights such as do's and don'ts for engaging, and outreach tips based on both DiSC and Ocean personality profiles.</p>
           </div>
-          <div class="col"><strong>Social:</strong><br><a href="https://www.winmo.com/profile-1/" class="modal"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/contacts/socials.svg"></a></div>
-          <div class="col"><a href="https://www.winmo.com/profile-1/" class="modal"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/contacts/action-buttons.svg?id=2"></a></div>
+          <div class="col"><strong>Social:</strong><br><a href="#request_demo" class="modal"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/contacts/socials.svg"></a></div>
+          <div class="col"><a href="#request_demo" class="modal"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/contacts/action-buttons.svg?id=2"></a></div>
         </div>
       </div>
     </div>
@@ -133,7 +133,7 @@ if (is_wp_error($contact_data)) {
           <div class="col">
             <?php print do_shortcode("[av_icon_box icon='ue800' font='winmo2' title='" . $full_name . " Personality Insights' position='left' icon_style='' boxed='' font_color='' custom_title='' custom_content='' color='' custom_bg='' custom_font='' custom_border='' custom_title_size='' av-desktop-font-size-title='' av-medium-font-size-title='' av-small-font-size-title='' av-mini-font-size-title='' custom_content_size='' av-desktop-font-size='' av-medium-font-size='' av-small-font-size='' av-mini-font-size='' heading_tag='h2' heading_class='' link='' linktarget='' title_attr='' linkelement='' id='' custom_class='' template_class='' av_uid='av-luvpcjbw' sc_version='1.0' admin_preview_bg=''][/av_icon_box]"); ?>
             <p>Get personality-driven outreach tips to strike the right chord with <?php print $full_name; ?>. From suggested email length and tone to AI-generated subject lines, personality-based tips make decision-makers like <?php print $full_name; ?> 233% more likely to reply to your outreach.</p>
-            <p style="text-align: center;"><a href="https://www.winmo.com/profile-1/" class="modal"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/contacts/personality-insights.svg"></a></p>
+            <p style="text-align: center;"><a href="#request_demo" class="modal"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/contacts/personality-insights.svg"></a></p>
           </div>
         </div>
       </section>
@@ -146,7 +146,7 @@ if (is_wp_error($contact_data)) {
           <div class="col">
             <h4><?php print $full_name; ?> DISC Profile</h4>
             <p>DiSC is an assessment tool used to improve communication, sales outreach and negotiations. Winmo subscribers use this assessment to get specific information about [John Lewnard] to help determine the best way to interact and engage.</p>
-            <p><a href="https://www.winmo.com/profile-1/" class="modal"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/contacts/generate-recommended-email.svg"></a></p>
+            <p><a href="#request_demo" class="modal"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/contacts/generate-recommended-email.svg"></a></p>
           </div>
         </div>
       </section>
@@ -204,7 +204,7 @@ if (is_wp_error($contact_data)) {
               <?php endif; ?>
             </div>
             <div class="col buttons">
-              <a href="https://www.winmo.com/profile-1/" class="modal"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/contacts/company-info-buttons.svg"></a>
+              <a href="#request_demo" class="modal"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/contacts/company-info-buttons.svg"></a>
             </div>
           </div>
         </div>
@@ -230,6 +230,9 @@ if (is_wp_error($contact_data)) {
   <div class="popup-wrapper">
     <div id="request_demo">
       <?php get_template_part('partials/sidebar_cta'); ?>
+    </div>
+    <div id="request_form">
+      <?php get_template_part('partials/hubspot_form'); ?>
     </div>
   </div><?php
       }

@@ -199,11 +199,11 @@ if (is_wp_error($company_data)) {
 
       <section id="ad_agency_contacts">
         <div class="row table" id="marketing_table">
-          <div class="top desktop"><a href="https://www.winmo.com/profile-1/" class="modal"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/companies/marketing-table-top-1.svg"></a></div>
+          <div class="top desktop"><a href="#request_demo" class="modal"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/companies/marketing-table-top-1.svg"></a></div>
           <div class="top">
-            <div><a href="https://www.winmo.com/profile-1/" class="modal"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/table-label-name.png"><span>Name</span></a></div>
-            <div><a href="https://www.winmo.com/profile-1/" class="modal"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/table-label-title.png"><span>Title</span></a></div>
-            <div><a href="https://www.winmo.com/profile-1/" class="modal"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/clients-top-state.png"><span>State</span></a></div>
+            <div><a href="#request_demo" class="modal"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/table-label-name.png"><span>Name</span></a></div>
+            <div><a href="#request_demo" class="modal"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/table-label-title.png"><span>Title</span></a></div>
+            <div><a href="#request_demo" class="modal"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/clients-top-state.png"><span>State</span></a></div>
           </div>
           <div class="grid">
             <?php
@@ -239,18 +239,18 @@ if (is_wp_error($company_data)) {
                         </div>
                         <div>
                         Social:<br>
-                        <a href="https://www.winmo.com/profile-1/" class="modal"><img src="' . get_stylesheet_directory_uri() . '/assets/img/companies/social.svg"></a>
+                        <a href="#request_demo" class="modal"><img src="' . get_stylesheet_directory_uri() . '/assets/img/companies/social.svg"></a>
                         </div>
                       </div>
-                      <div class="row buttons"><a href="https://www.winmo.com/profile-1/" class="modal"><img src="' . get_stylesheet_directory_uri() . '/assets/img/companies/contact-details-footer.svg"></a></div>
+                      <div class="row buttons"><a href="#request_demo" class="modal"><img src="' . get_stylesheet_directory_uri() . '/assets/img/companies/contact-details-footer.svg"></a></div>
                       </div>';
                     endif;
                   endfor; ?>
           </div>
           <?php if (sizeof($company_data->related_brands) > 10) : ?>
             <div class="bottom">
-              <a href="https://www.winmo.com/profile-1/" class="modal"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/companies/marketing-table-foot.svg"></a>
-              <a href="https://www.winmo.com/profile-1/" class="modal"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/companies/pagination.svg"></a>
+              <a href="#request_demo" class="modal"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/companies/marketing-table-foot.svg"></a>
+              <a href="#request_demo" class="modal"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/companies/pagination.svg"></a>
             </div>
           <?php endif; ?>
         </div>
@@ -288,7 +288,7 @@ if (is_wp_error($company_data)) {
             <h3><?php print $company_data->name; ?> Social Media Marketing Ad Spend</h3>
             <p>See whether <?php print $company_data->name; ?> is spending on social media platforms like X, TikTok, Facebook, Instagram and Pinterest, as well as how active it is on YouTube desktop, iOS or Android.</p>
           </div>
-          <div class="col col-5-5"><a href="https://www.winmo.com/profile-1/" class="modal"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/companies/social-media-marketing-ad-spend.png"></a></div>
+          <div class="col col-5-5"><a href="#request_demo" class="modal"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/companies/social-media-marketing-ad-spend.png"></a></div>
         </div>
       </section>
     </main>
@@ -309,6 +309,9 @@ if (is_wp_error($company_data)) {
   <div class="popup-wrapper">
     <div id="request_demo">
       <?php get_template_part('partials/sidebar_cta'); ?>
+    </div>
+    <div id="request_form">
+      <?php get_template_part('partials/hubspot_form'); ?>
     </div>
   </div><?php
       }
