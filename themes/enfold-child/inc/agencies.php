@@ -67,7 +67,7 @@ function set_agencies_transient($results = array(), $atts = array())
 add_filter('avf_main_menu_nav', function ($stuff) {
   $agency = get_query_var('rid');
   if ($agency && is_page('agencies')) {
-    $stuff .= '<div class="button"><a class="modal" href="https://www.winmo.com/profile-1/"><img src="' . get_stylesheet_directory_uri() . '/assets/img/companies/unlock.png"></a></div>';
+    $stuff .= '<div class="button"><a class="modal" href="#request_demo"><img src="' . get_stylesheet_directory_uri() . '/assets/img/companies/unlock.png"></a></div>';
   }
   return $stuff;
 });

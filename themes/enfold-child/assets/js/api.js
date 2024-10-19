@@ -102,9 +102,10 @@ jQuery(function ($) {
 
       if (response && response[0].data) {
         // Could loop be stopped here? if last = true then dont try?
+        // This used to me false but maybe now its true?
+        console.log(response[0].last);
         console.log(stopme);
         try {
-          console.log(first_total);
           console.log(`Page ${current_page} processed successfully.`);
           $(progressBar)
             .children("div")
@@ -122,18 +123,16 @@ jQuery(function ($) {
               first_total: first_total,
               total: total,
             };
-            console.log(atts);
             fetchData("agency_contacts", progressBar, atts);
           }
 
-          // Need to see if the last var is available
-          console.log(response[0].data);
+          // Need to see if the last var is available -another change to stop it
+          console.log(response[0].last);
 
-          // Need to make sure the PHP scripts are stopped
-          console.log("Stop yet? " + stopme);
-
-          // Finish
-          if (current_page == total) {
+          // Finish - Double stopme to cover our bases
+          console.log(current_page + " == " + total);
+          if (stopme || current_page == total) {
+            console.log("No we need to stop for real");
             stopme = true;
             $(progressBar).removeClass("building").addClass("complete");
             $(".row").removeClass("processing");
@@ -215,14 +214,17 @@ jQuery(function ($) {
 
   // Delay each fetchPage call by 3 seconds whenever ready
   async function jsdelay(type, current_page, total, first_total) {
-    await timeout(6000);
-    return fetchPage(type, current_page, total, first_total);
+    console.log(stopme);
+    if (!stopme) {
+      await timeout(6000);
+      return fetchPage(type, current_page, total, first_total);
+    } else {
+      return false;
+    }
   }
 
   // Grab a single page from the API
   async function fetchPage(type, page, total, first_total = 0) {
-    console.log("Fetch page from " + type + " " + page + " Total: " + total);
-
     const thenable = {
       then(resolve, _reject) {
         $.ajax({
@@ -237,8 +239,13 @@ jQuery(function ($) {
             first_total: first_total,
           },
           success: function (data) {
-            console.log(data); // Could loop be stopped here?
-            resolve(JSON.parse(data));
+            var decodeData = JSON.parse(data);
+            if (decodeData.last == true) {
+              stopme = true;
+              throw new Error("Completed!");
+            } else {
+              resolve(JSON.parse(data));
+            }
           },
         });
       },
