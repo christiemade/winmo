@@ -262,6 +262,9 @@ if (is_wp_error($agency_data)) {
     <div id="request_demo">
       <?php get_template_part('partials/sidebar_cta'); ?>
     </div>
+    <div id="request_form">
+      <?php get_template_part('partials/hubspot_form'); ?>
+    </div>
   </div>
 <?php
 } ?>
