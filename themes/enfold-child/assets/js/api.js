@@ -1,33 +1,34 @@
 jQuery(function ($) {
   // Ability control loops inside the promise based on external events
   var stopme = false;
+  var progressBar;
 
+  // We only want to run this if it's one of ours
   $(document).on("ajaxError", function (e, xhr, settings, exception) {
-    //console.log("Acknowledging an error occured!");
-    console.log("stopme is: " + stopme);
-    console.log(e);
-    console.log(xhr.status);
-    console.log(settings);
-    console.log(exception);
     const date = new Date(e.timeStamp);
     console.log(date.toDateString() + " " + date.toTimeString());
-    stopme = true;
-    if (xhr.status == 502) {
-      console.log("502 Error");
+    if (settings.data) {
+      var errormsg = "There has been a fatal error.  Please press restart<div></div>";
+      stopme = true;
+      if (xhr.status == 502) {
+        errormsg = "502 Error. Server is feeling sluggish. Press Restart or come back later.";
+      }
+
+      progressBar = $(".row.processing");
+
+      $(progressBar)
+        .removeClass("processing")
+        .addClass("error")
+        .addClass("loaded");
+      $(progressBar).find(".launch").val("Restart");
+      $(progressBar).find(".progress").removeClass("building");
+      $(progressBar)
+        .find(".progress")
+        .html(errormsg + "<div></div>");
+      $(".row").removeClass("processing").addClass("loaded");
+    } else {
+      console.log("Not our ajax");
     }
-
-    var progressBar = $(".row.processing");
-
-    $(progressBar)
-      .removeClass("processing")
-      .addClass("error")
-      .addClass("loaded");
-    $(progressBar).find(".launch").val("Restart");
-    $(progressBar).find(".progress").removeClass("building");
-    $(progressBar)
-      .find(".progress")
-      .html("There has been a fatal error.  Please press restart<div></div>");
-    $(".row").removeClass("processing").addClass("loaded");
   });
 
   $(document).on("click", ".launch", function (e) {
@@ -54,7 +55,8 @@ jQuery(function ($) {
       }
 
       // Initiate empty progress bar - flashing
-      var progressBar = $(this).parents(".row").find(".progress");
+      progressBar = $(this).parents(".row").find(".progress");
+      console.log(progressBar);
       $(progressBar)
         .removeClass("building")
         .removeClass("complete")
@@ -64,16 +66,14 @@ jQuery(function ($) {
         .text("loading")
         .width("100%");
 
+      stopme = false;
       fetchData(type, progressBar);
     }
   });
 
   const fetchData = async (type, progressBar, atts = []) => {
-    console.log(atts);
     if (!atts["page"]) atts["page"] = 1;
-    console.log(type);
     let metadata = await fetchMeta(type, atts, progressBar);
-    console.log(metadata);
     let total = metadata.total_pages;
     let current_page = metadata.page;
     let first_total = "";
@@ -92,63 +92,79 @@ jQuery(function ($) {
     $(progressBar).children("div").text("");
     var barWidth = $(progressBar).width();
 
-    console.log(current_page);
-    console.log(total);
     for (current_page; current_page <= total || stopme; current_page++) {
-      var response = await Promise.all([
-        jsdelay(type, current_page, total, first_total),
-        timeout(1000),
-      ]);
+      if (!stopme) {
+        var response = await Promise.all([
+          jsdelay(type, current_page, total, first_total),
+          timeout(1000),
+        ]);
 
-      if (response && response[0].data) {
-        // Could loop be stopped here? if last = true then dont try?
-        // This used to me false but maybe now its true?
-        console.log(response[0].last);
-        console.log(stopme);
-        try {
-          console.log(`Page ${current_page} processed successfully.`);
-          $(progressBar)
-            .children("div")
-            .css("width", Math.ceil((current_page * barWidth) / total));
-          $(progressBar).attr(
-            "data-before",
-            "Downloading: " + current_page + " / " + total
-          );
+        if (response && response[0].data) {
+          try {
+            console.log(`Page ${current_page} processed successfully.`);
+            $(progressBar)
+              .children("div")
+              .css("width", Math.ceil((current_page * barWidth) / total));
+            $(progressBar).attr(
+              "data-before",
+              "Downloading: " + current_page + " / " + total
+            );
 
-          // Contacts, start round 2
-          if (type == "contacts" && current_page == first_total) {
-            // We need to sent total and first_total through
-            atts = {
-              page: Math.ceil(parseInt(current_page) + 1),
-              first_total: first_total,
-              total: total,
-            };
-            fetchData("agency_contacts", progressBar, atts);
+            // Contacts, start round 2
+            if (type == "contacts" && current_page == first_total) {
+              // We need to sent total and first_total through
+              atts = {
+                page: Math.ceil(parseInt(current_page) + 1),
+                first_total: first_total,
+                total: total,
+              };
+              fetchData("agency_contacts", progressBar, atts);
+            }
+
+            // Finish - Double stopme to cover our bases
+            if (stopme || current_page == total) {
+              stopme = true;
+              $(progressBar).removeClass("building");
+              $(".row").removeClass("processing");
+            }
+          } catch (error) {
+            console.log(`Error processing page ${current_page}:`, error);
+            if ($(progressBar).hasClass('building')) {
+              $(progressBar)
+                .removeClass("building")
+                .addClass("error");
+              $(progressBar)
+                .children("div")
+                .text("`Error processing page ${current_page}");
+              $(".row").removeClass("processing").addClass("loaded");
+            }
           }
+        } else {
+          console.log(`No data found for page ${current_page}`);
 
-          // Need to see if the last var is available -another change to stop it
-          console.log(response[0].last);
-
-          // Finish - Double stopme to cover our bases
-          console.log(current_page + " == " + total);
-          if (stopme || current_page == total) {
-            console.log("No we need to stop for real");
-            stopme = true;
-            $(progressBar).removeClass("building").addClass("complete");
-            $(".row").removeClass("processing");
+          if ($(progressBar).hasClass('building')) {
+            $(progressBar)
+              .removeClass("building")
+              .addClass("error");
+            $(progressBar)
+              .children("div")
+              .text("No data found for page ${current_page}");
+            $(".row").removeClass("processing").addClass("loaded");
           }
-        } catch (error) {
-          console.log(`Error processing page ${current_page}:`, error);
-          // Handle error, maybe retry or log
         }
       } else {
-        console.log(`No data found for page ${current_page}`);
+        stopme = true;
+        $(progressBar)
+          .removeClass("building")
+          .addClass("error");
+        $(progressBar)
+          .children("div")
+          .text("Server time out on page #" + page + "!");
+        $(".row").removeClass("processing").addClass("loaded");
       }
     }
   };
   async function fetchMeta(type, atts, progressBar) {
-    console.log(atts);
-    console.log(type);
     const thenable = {
       then(resolve, _reject) {
         $.ajax({
@@ -163,15 +179,11 @@ jQuery(function ($) {
             type: type, // TYPE needs to be "agency_contacts"
           },
           success: function (data) {
-            console.log(data);
             resolve(JSON.parse(data));
           },
           statusCode: {
             502: function (e) {
-              console.log("Custom effect here please");
-              console.log(e);
               $(progressBar)
-                .addClass("removeClass")
                 .removeClass("building")
                 .addClass("error");
               $(progressBar)
@@ -193,14 +205,12 @@ jQuery(function ($) {
           // Request failed. Show error message to user.
           // errorThrown has error message, or "timeout" in case of timeout.
           $(progressBar)
-            .addClass("removeClass")
             .removeClass("building")
             .addClass("error");
           $(progressBar)
             .children("div")
             .text("Server time out on page #" + page + "!");
           $(".row").removeClass("processing").addClass("loaded");
-          console.log(errorThrown);
         });
       },
     };
@@ -214,7 +224,6 @@ jQuery(function ($) {
 
   // Delay each fetchPage call by 3 seconds whenever ready
   async function jsdelay(type, current_page, total, first_total) {
-    console.log(stopme);
     if (!stopme) {
       await timeout(6000);
       return fetchPage(type, current_page, total, first_total);
@@ -227,6 +236,7 @@ jQuery(function ($) {
   async function fetchPage(type, page, total, first_total = 0) {
     const thenable = {
       then(resolve, _reject) {
+        
         $.ajax({
           url: apiAjax.ajaxurl,
           type: "POST",
@@ -240,9 +250,23 @@ jQuery(function ($) {
           },
           success: function (data) {
             var decodeData = JSON.parse(data);
+
+            // This is the end of the script, clean up!
             if (decodeData.last == true) {
               stopme = true;
-              throw new Error("Completed!");
+
+              progressBar
+                .removeClass("building")
+                .addClass("complete");
+              
+              progressBar.parents('.row')
+                .removeClass('processing')
+                .siblings().addClass('loaded');
+              
+              progressBar.parents('.row').addClass('loaded').find('.launch')
+                  .val('Restart');
+              
+              $(".row").removeClass("processing");
             } else {
               resolve(JSON.parse(data));
             }

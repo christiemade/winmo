@@ -43,9 +43,6 @@ $contact_data = set_contact_transient($contact);
 $type = strtolower($contact_data->type);
 $company = $contact_data->entity_id;
 $company_data = set_company_transient($company, "", $type);
-error_log("contact.php:46 " . $type);
-//error_log(json_encode($company_data));
-// {"id":1504,"name":"Chick-Fil-A, Inc.","notes":"Founded in 1946, in Hapeville, GA, and headquartered in Atlanta, GA, Chik-Fil-A is a fast food chicken restaurant credited with inventing the boneless chicken breast sandwich. Since it's inception, Chick-Fil-A has grown to become one of the largest privately held restaurant chains.","phone":"(404) 765-8000","founded":"1967","contacts":[{"id":1320,"email":"david.farmer@chick-fil-a.com","fname":"David","lname":"Farmer","phone":"(404) 765-8913","state":"GA","title":"Senior Vice President, Restaurant Experience"},
 
 // Error check
 if (is_wp_error($contact_data)) {
@@ -62,7 +59,8 @@ if (is_wp_error($contact_data)) {
           <div class="col">
 
             <h5><?php print $contact_data->title . " - " . $company_data->name; ?></h5>
-            <p><?php print $full_name; ?> is <?php print $contact_data->title; ?> for <?php print $company_data->name; ?>s. On this page, you'll find the business email and phone number for <?php print $full_name; ?> as unique insights such as do's and don'ts for engaging, and outreach tips based on both DiSC and Ocean personality profiles.</p>
+            <?php if(is_array($company_data)) error_log("Found an array on contact.php:62 that should be an object." .$full_name); ?>
+            <p><?php print $full_name; ?> is <?php print $contact_data->title; ?> for <?php print $company_data->name ?: $company_data['name']; ?>s. On this page, you'll find the business email and phone number for <?php print $full_name; ?> as unique insights such as do's and don'ts for engaging, and outreach tips based on both DiSC and Ocean personality profiles.</p>
           </div>
           <div class="col"><strong>Social:</strong><br><a href="#request_demo" class="modal"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/contacts/socials.svg"></a></div>
           <div class="col"><a href="#request_demo" class="modal"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/contacts/action-buttons.svg?id=2"></a></div>
