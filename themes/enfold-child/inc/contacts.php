@@ -169,8 +169,8 @@ function get_winmo_contacts($status = "official", $alpha = '', $permalink = '', 
     $sql .= ' AND `permalink` = %s';
     $args[] = $permalink;
   }
-  if ($limit !== "1") {
-    $sql .= ' GROUP BY(api_id)';
+  if ($limit !== 1) {
+    $sql .= ' ORDER BY api_id DESC LIMIT 1';
   }
   if (!empty($limit)) {
     $sql .= " LIMIT %d";
