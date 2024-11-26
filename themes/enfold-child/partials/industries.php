@@ -52,7 +52,7 @@
   <h3>More Industries that are Big Ad spenders</h3>
   <div class="row">
     <div class="col">
-      <?php $industries = get_transient('winmo_industries');
+      <?php $industries = get_option('winmo_industries');
 
       // Only show industries that have names
       $industries = array_filter($industries, function ($v) {

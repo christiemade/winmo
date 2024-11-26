@@ -45,7 +45,7 @@ function set_companies_transient($results = array(), $atts = array())
     $industries = array();
   } elseif ($page > 1) { // Dont change transient until all data is uploaded
     $companies = get_option('winmo_companies_temp');
-    $industries = get_transient('winmo_industries');
+    $industries = get_option('winmo_industries');
   }
 
   $rework = array();
@@ -83,7 +83,7 @@ function set_companies_transient($results = array(), $atts = array())
   $companies = $companies ? $companies + $rework : $rework;
 
   // store the industry list as a transient
-  if (sizeof($industries)) set_transient('winmo_industries', $industries, 0);
+  if (sizeof($industries)) update_option('winmo_industries', $industries);
 
   // store the companies array and set it to never expire
   // This doesnt need to expire, we can manually refresh the transient when we get a new CSV

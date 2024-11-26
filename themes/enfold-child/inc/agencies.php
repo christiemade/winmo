@@ -54,12 +54,12 @@ function set_agencies_transient($results = array(), $atts = array())
   $agencies = $agencies ? $agencies + $rework : $rework;
   $transient_name = 'winmo_agencies_temp';
   if ($last) {
-    delete_transient($transient_name); // Remove temporary transient
+    //delete_transient($transient_name); // Remove temporary transient
     $transient_name = 'winmo_agencies';  // Last page, now update officialdelete_transient($transient_name); // Remove temporary transient
-    delete_transient($transient_name); // Remove previous transient
-    delete_transient('winmo_agencies_by_state');
+    //delete_transient($transient_name); // Remove previous transient
+    //delete_transient('winmo_agencies_by_state');
   }
-  set_transient($transient_name, $agencies, 0);
+  update_option($transient_name, $agencies, 0);
   return array('data' => true);
 }
 

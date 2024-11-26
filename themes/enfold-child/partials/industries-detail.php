@@ -3,7 +3,7 @@
     <div id="overview" class="gray_box">
       <?php
       // Convert machine name
-      $industries = get_transient('winmo_industries');
+      $industries = get_option('winmo_industries');
       if (!isset($industries[$args])) {
       ?><h1>'<?php print $args; ?>' Industry not found.</h1><?php
                                                           } else {
