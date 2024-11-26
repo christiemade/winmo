@@ -9,7 +9,7 @@ add_filter('avf_main_menu_nav', function ($stuff) {
 
 function get_agencies_by_state_transient()
 {
-  $agencies_by_state = get_transient('winmo_agencies_by_state');
+  $agencies_by_state = get_option('winmo_agencies_by_state');
 
   // check to see if industries is already saved
   if (false === $agencies_by_state) {
@@ -39,7 +39,7 @@ function get_agencies_by_state_transient()
     endforeach;
 
     // store the industry list as a transient
-    set_transient('winmo_agencies_by_state', $agencies_by_state, 0);
+    update_option('winmo_agencies_by_state', $agencies_by_state);
   }
   return $agencies_by_state;
 }
