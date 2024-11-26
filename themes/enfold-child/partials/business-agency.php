@@ -15,7 +15,7 @@ if (preg_match('#(' . substr($agency, 0, -2) . ')-\d#', $agency)) {
 }
 
 // Reverse look up agency id
-$agencies = get_transient('winmo_agencies');
+$agencies = get_option('winmo_agencies');
 
 if (isset($weird_agency_id) && ($weird_agency_id > 0)) {
   // Get the company permalink to pull up the data

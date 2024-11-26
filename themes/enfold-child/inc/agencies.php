@@ -1,7 +1,7 @@
 <?php
 function set_agencies_transient($results = array(), $atts = array())
 {
-  $agencies = get_transient('winmo_agencies');
+  $agencies = get_option('winmo_agencies');
   $page = $atts['page'];
   $last = $atts['last'];
 

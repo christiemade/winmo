@@ -15,7 +15,7 @@ function get_agencies_by_state_transient()
   if (false === $agencies_by_state) {
 
     // do this if no transient set
-    $agencies = get_transient('winmo_agencies');
+    $agencies = get_option('winmo_agencies');
     $agencies_by_state = array();
 
     foreach ($agencies as $aid => $agency) :

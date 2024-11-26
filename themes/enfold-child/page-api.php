@@ -45,7 +45,7 @@ do_action('ava_page_template_after_header'); ?>
       get_template_part('partials/list', 'contact');
     }
   elseif (is_page('agencies')) :
-    $agencies = get_transient('winmo_agencies');
+    $agencies = get_option('winmo_agencies');
     if (is_array($agencies)) :
       $dataid = get_query_var('rid');
       $weird_agency_id = get_query_var('wid');

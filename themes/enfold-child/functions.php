@@ -240,7 +240,7 @@ add_filter('wpseo_title', function ($title) {
 
     // Agency
     elseif (isset($pid) && is_page(71)) {
-      $agencies = get_transient('winmo_agencies');
+      $agencies = get_option('winmo_agencies');
       $agency = array_filter($agencies, function ($v) use ($pid) {
         return $v['permalink'] == $pid;
       }, ARRAY_FILTER_USE_BOTH);
@@ -307,7 +307,7 @@ function prefix_filter_description_example($description)
 
     // Agency
     elseif (isset($pid) && is_page(71)) {
-      $agencies = get_transient('winmo_agencies');
+      $agencies = get_option('winmo_agencies');
       $agency = array_filter($agencies, function ($v) use ($pid) {
         return $v['permalink'] == $pid;
       }, ARRAY_FILTER_USE_BOTH);
