@@ -35,7 +35,7 @@ function set_company_transient($company_id, $data = "", $type = "company")
 
 function set_companies_transient($results = array(), $atts = array())
 {
-  $companies = get_transient('winmo_companies');
+  $companies = get_option('winmo_companies');
   $page = $atts['page'];
   $last = $atts['last'];
 
@@ -44,7 +44,7 @@ function set_companies_transient($results = array(), $atts = array())
     $companies = array();
     $industries = array();
   } elseif ($page > 1) { // Dont change transient until all data is uploaded
-    $companies = get_transient('winmo_companies_temp');
+    $companies = get_option('winmo_companies_temp');
     $industries = get_transient('winmo_industries');
   }
 
@@ -142,7 +142,7 @@ function winmo_company_list()
     exit("There has been an error.");
   }
 
-  $companies = get_transient('winmo_companies');
+  $companies = get_option('winmo_companies');
 
   // Turn filter values into an array
   $data = explode('&', $data);

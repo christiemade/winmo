@@ -10,7 +10,7 @@ $company = get_query_var('rid');
 $weird_company_id = get_query_var('wid');
 
 // Reverse look up company id
-$companies = get_transient('winmo_companies');
+$companies = get_option('winmo_companies');
 if (isset($weird_company_id) && $weird_company_id > 0) {
   // Get the company permalink to pull up the data
   $weird_company_id = (int)$weird_company_id - (int)1423;

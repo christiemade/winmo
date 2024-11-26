@@ -212,15 +212,17 @@ add_filter('wpseo_title', function ($title) {
     // Company
     if (isset($pid) && is_page(20)) {
       // Get company name
-      $companies = get_transient('winmo_companies');
-      $company = array_filter($companies, function ($v) use ($pid) {
-        return $v['permalink'] == $pid;
-      }, ARRAY_FILTER_USE_BOTH);
-      $keys =  array_keys($company);
+      $companies = get_option('winmo_companies');
+      if(is_array($companies)) {
+        $company = array_filter($companies, function ($v) use ($pid) {
+          return $v['permalink'] == $pid;
+        }, ARRAY_FILTER_USE_BOTH);
+        $keys =  array_keys($company);
 
-      // Found a company
-      if (sizeof($keys)) {
-        $title = $company[$keys[0]]['name'] . " Advertising Profile - Winmo";
+        // Found a company
+        if (sizeof($keys)) {
+          $title = $company[$keys[0]]['name'] . " Advertising Profile - Winmo";
+        }
       }
     }
 
@@ -277,15 +279,17 @@ function prefix_filter_description_example($description)
     // Company
     if (isset($pid) && is_page(20)) {
       // Get company name
-      $companies = get_transient('winmo_companies');
-      $company = array_filter($companies, function ($v) use ($pid) {
-        return $v['permalink'] == $pid;
-      }, ARRAY_FILTER_USE_BOTH);
-      $keys =  array_keys($company);
+      $companies = get_option('winmo_companies');
+      if(is_array($companies)) {
+        $company = array_filter($companies, function ($v) use ($pid) {
+          return $v['permalink'] == $pid;
+        }, ARRAY_FILTER_USE_BOTH);
+        $keys =  array_keys($company);
 
-      // Found a company
-      if (sizeof($keys)) {
-        $description = "Explore the advertising profile of " . $company[$keys[0]]['name'] . ". Access detailed info on ad agencies, media spend, and the marketing team. ";
+        // Found a company
+        if (sizeof($keys)) {
+          $description = "Explore the advertising profile of " . $company[$keys[0]]['name'] . ". Access detailed info on ad agencies, media spend, and the marketing team. ";
+        }
       }
     }
 

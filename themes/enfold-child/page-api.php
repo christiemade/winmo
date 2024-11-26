@@ -24,7 +24,7 @@ do_action('ava_page_template_after_header'); ?>
 
   <?php
   if (is_page('companies')) :
-    $companies = get_transient('winmo_companies');
+    $companies = get_option('winmo_companies');
     if (is_array($companies)) :
       $dataid = get_query_var('rid');
       $weird_company_id = get_query_var('wid');
