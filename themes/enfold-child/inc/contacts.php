@@ -13,8 +13,8 @@ function get_contact_permalink($contact_id)
 }
 
 
-// Save the individual contact as a transient, if it doesn't exist yet
-function set_contact_transient($contact_id, $data = "")
+// Grab or update individual contact from the database
+function set_contact_information($contact_id, $data = "")
 {
 
   global $wpdb;
@@ -126,7 +126,7 @@ function set_contacts_transient($results = array(), $atts = array())
     $contact['permalink'] = $permalink;
 
     // Set individual data into the winmo database
-    set_contact_transient($contact['id'], json_encode($contact));
+    set_contact_information($contact['id'], json_encode($contact));
 
   endforeach;
 
@@ -266,16 +266,6 @@ function winmo_contacts_list()
 
   // Define total products
   $total_items = sizeof($filtered);
-  error_log("contacts.php:244" . $total_items);
-
-  // Go through filtered items and acquire additional data (permalink)
-  //foreach ($filtered as $key => $val) :
-  //error_log(json_encode($filtered));
-  /*$result = set_contact_transient($key);
-    if (isset($val->permalink)) $filtered[$key]->permalink = $val->permalink;
-    if (!isset($val->permalink) && isset($result->permalink)) $filtered[$key]['permalink'] = $result->permalink;
-    */
-  //endforeach;
 
   // Sort our filtered items
   usort($filtered, "last_name_sort");

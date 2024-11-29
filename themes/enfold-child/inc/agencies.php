@@ -48,7 +48,7 @@ function set_agencies_transient($results = array(), $atts = array())
     );
 
     //error_log($agency['id'] . " entering for " . $agency['name']);
-    set_company_transient($agency['id'], json_encode($agency), 'agency');
+    set_company_information($agency['id'], json_encode($agency), 'agency');
   endforeach;
 
   $agencies = $agencies ? $agencies + $rework : $rework;

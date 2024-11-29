@@ -37,7 +37,7 @@ if (!sizeof($keys)) {
 }
 
 $company = $keys[0];
-$company_data = set_company_transient($company, "", "company");
+$company_data = set_company_information($company, "", "company");
 
 // Error check
 if (is_wp_error($company_data)) {

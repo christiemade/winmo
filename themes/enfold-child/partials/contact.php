@@ -37,12 +37,12 @@ if (!sizeof($contact)) {
 }
 
 $contact = $contact[0]->api_id;
-$contact_data = set_contact_transient($contact);
+$contact_data = set_contact_information($contact);
 
 // Some contacts are part of an agency and some are part of a company
 $type = strtolower($contact_data->type);
 $company = $contact_data->entity_id;
-$company_data = set_company_transient($company, "", $type);
+$company_data = set_company_information($company, "", $type);
 
 // Error check
 if (is_wp_error($contact_data)) {

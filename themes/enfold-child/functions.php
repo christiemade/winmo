@@ -256,10 +256,10 @@ add_filter('wpseo_title', function ($title) {
       $contact = get_winmo_contacts("official", "", $pid);
       if (sizeof($contact)) {
         $contact = $contact[0]->api_id;
-        $contact_data = set_contact_transient($contact);
+        $contact_data = set_contact_information($contact);
         $type = strtolower($contact_data->type);
         $company = $contact_data->entity_id;
-        $company_data = set_company_transient($company, "", $type);
+        $company_data = set_company_information($company, "", $type);
         if (isset($contact_data))
           $title = $contact_data->fname . " " . $contact_data->lname . ", " . $contact_data->title . " at " . $company_data->name . " - Winmo";
       }
@@ -324,10 +324,10 @@ function prefix_filter_description_example($description)
       $contact = get_winmo_contacts("official", "", $pid);
       if (sizeof($contact)) {
         $contact = $contact[0]->api_id;
-        $contact_data = set_contact_transient($contact);
+        $contact_data = set_contact_information($contact);
         $type = strtolower($contact_data->type);
         $company = $contact_data->entity_id;
-        $company_data = set_company_transient($company, "", $type);
+        $company_data = set_company_information($company, "", $type);
         if (isset($contact_data))
           $description =  "Connect with " . $contact_data->fname . " " . $contact_data->lname . ", " . $contact_data->title . " at " . $company_data->name . ". Access business email, insights, and personality-driven outreach tips. ";
       }

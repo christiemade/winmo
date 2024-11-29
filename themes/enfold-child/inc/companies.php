@@ -1,16 +1,15 @@
 <?php
-function set_company_transient($company_id, $data = "", $type = "company")
+
+// Update or pulldown individual company information from the database
+function set_company_information($company_id, $data = "", $type = "company")
 {
 
   global $wpdb;
-  //print $company_id . " " . $type;
-  if ($type == "agency") {
-    //($company_id . " entering sql:");
-  }
+
   // Pull company info from database
   $sql = "SELECT * FROM `winmo` WHERE `type` = '" . $type . "' AND `api_id` = '" . $company_id . "' LIMIT 1";
   $result = $wpdb->get_results($sql);
-  //error_log($sql);
+
   if ($result) {
     $update_id = $result[0]->id;
     $result = json_decode($result[0]->data);
@@ -60,7 +59,7 @@ function set_companies_transient($results = array(), $atts = array())
         'name' => $company['name'],
         'permalink' => $permalink
       );
-      set_company_transient($company['id'], json_encode($company), 'company');
+      set_company_information($company['id'], json_encode($company), 'company');
 
       // Now is a great time to grab industry information, too
       $list = $company['industries'];
