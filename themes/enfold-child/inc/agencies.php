@@ -1,5 +1,5 @@
 <?php
-function set_agencies_transient($results = array(), $atts = array())
+function set_agencies_information($results = array(), $atts = array())
 {
   $agencies = get_option('winmo_agencies');
   $page = $atts['page'];

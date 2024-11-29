@@ -14,7 +14,7 @@ function get_agencies_by_state()
   // check to see if industries is already saved
   if (false === $agencies_by_state) {
 
-    // do this if no transient set
+    // do this if no option set
     $agencies = get_option('winmo_agencies');
     $agencies_by_state = array();
 
@@ -38,7 +38,7 @@ function get_agencies_by_state()
       if (in_array($state, array("AB", "NL"))) unset($agencies_by_state[$state]);
     endforeach;
 
-    // store the industry list as a transient
+    // store the industry list as an option
     update_option('winmo_agencies_by_state', $agencies_by_state);
   }
   return $agencies_by_state;

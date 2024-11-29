@@ -32,7 +32,7 @@ function set_company_information($company_id, $data = "", $type = "company")
   return $result;
 }
 
-function set_companies_transient($results = array(), $atts = array())
+function set_companies_information($results = array(), $atts = array())
 {
   $companies = get_option('winmo_companies');
   $page = $atts['page'];

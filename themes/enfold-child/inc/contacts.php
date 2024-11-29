@@ -60,7 +60,7 @@ function set_contact_information($contact_id, $data = "")
 }
 
 // Put all contacts into a transient (custom db table, because of how much data it is)
-function set_contacts_transient($results = array(), $atts = array())
+function set_contacts_information($results = array(), $atts = array())
 {
   global $wpdb;
   extract($atts);
@@ -135,17 +135,15 @@ function set_contacts_transient($results = array(), $atts = array())
 
   // We're at the end of the import - clean up
   if ($last) {
-    error_log("THIS WAS THE END! Do something drastic now.");
 
     global $wpdb;
-    error_log("We got to the last item");
     delete_transient('contacts_last_page'); // Remove last page check
     //delete_transient($transient_name); // Remove temporary transient
 
     // Turn all temporary transients into official ones
     $wpdb->delete('winmo_contacts', array('status' => 'official'));
     $wpdb->update('winmo_contacts', array('status' => 'official'), array('status' => 'temp'));
-    error_log("Official deleted, and temp became official");
+    error_log("Official contacts deleted, and temporary contacts became the new official contacts.");
   }
 
   return array('data' => true, 'page' => $page, 'last' => $last);

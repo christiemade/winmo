@@ -138,7 +138,7 @@ function process_api_data()
 
         $type = $type == "company_contacts" ? "contacts" : $type;
         $type = $type == "agency_contacts" ? "contacts" : $type;
-        $function = 'set_' . $type . '_transient';
+        $function = 'set_' . $type . '_information';
         $last = false;
 
         // Contacts broken into two API calls - second set here
