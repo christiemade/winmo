@@ -7,7 +7,7 @@ add_filter('avf_main_menu_nav', function ($stuff) {
   return $stuff;
 });
 
-function get_agencies_by_state_transient()
+function get_agencies_by_state()
 {
   $agencies_by_state = get_option('winmo_agencies_by_state');
 
