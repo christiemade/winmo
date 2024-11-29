@@ -59,7 +59,7 @@ function set_contact_information($contact_id, $data = "")
   return $result;
 }
 
-// Put all contacts into a transient (custom db table, because of how much data it is)
+// Put all contacts into a custom db table (because of how much data it is)
 function set_contacts_information($results = array(), $atts = array())
 {
   global $wpdb;

@@ -34,16 +34,15 @@ function set_company_information($company_id, $data = "", $type = "company")
 
 function set_companies_information($results = array(), $atts = array())
 {
-  $companies = get_option('winmo_companies');
+  $companies = get_transient('winmo_companies_temp');
   $page = $atts['page'];
   $last = $atts['last'];
 
   // if we're rebuilding (page 1) then lets reset the array
-  if ($page == 1) { // Rebuild transient
+  if ($page == 1) { // Rebuild companies array
     $companies = array();
     $industries = array();
-  } elseif ($page > 1) { // Dont change transient until all data is uploaded
-    $companies = get_option('winmo_companies_temp');
+  } elseif ($page > 1) { // Dont change official companies array until all data is uploaded
     $industries = get_option('winmo_industries');
   }
 
@@ -52,7 +51,7 @@ function set_companies_information($results = array(), $atts = array())
   foreach ($results as $company) :
     if (isset($company['name'])) :
 
-      // Prepare Permalink and individual contact transient
+      // Prepare Permalink and individual contact information
       $permalink = strtolower(str_replace(" ", '-', $company['name']));
       $permalink = str_replace(array(',-inc', ',-llc', "?", ".", ",", "'"), "", $permalink);
       $rework[$company['id']] = array(
@@ -81,19 +80,18 @@ function set_companies_information($results = array(), $atts = array())
   endforeach;
   $companies = $companies ? $companies + $rework : $rework;
 
-  // store the industry list as a transient
+  // store the industry list as an option
   if (sizeof($industries)) update_option('winmo_industries', $industries);
 
   // store the companies array and set it to never expire
-  // This doesnt need to expire, we can manually refresh the transient when we get a new CSV
-  $transient_name = 'winmo_companies_temp';
+  // This doesnt need to expire, we can manually refresh the array when we get a new CSV
   if ($last) {
-    error_log("Warning: we are deleting a transient..." . $transient_name);
-    delete_transient($transient_name); // Remove temporary transient
-    $transient_name = 'winmo_companies';  // Last page, now update officialdelete_transient($transient_name); // Remove temporary transient
-    delete_transient($transient_name); // Remove previous transient
+    error_log("Warning: we are deleting a transient...winmo_companies_temp");
+    delete_transient('winmo_companies_temp'); // Remove temporary transient
+    update_option('winmo_companies', $companies); 
+  } else {
+    set_transient('winmo_companies_temp', $companies, 0); // Add more to our temp transient
   }
-  set_transient($transient_name, $companies, 0);
 
   return array('data' => true);
 }
