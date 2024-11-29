@@ -66,31 +66,31 @@ add_filter('query_vars', 'winmo_query_var');
 function winmo_rewrite_basic()
 {
   // Allow company page to have any ID
-  $company_page = get_transient('winmo_company_page');
+  $company_page = get_option('winmo_company_page');
   if (!$company_page) {
     $company_page = get_page_by_path('companies');
-    set_transient('winmo_company_page', $company_page, 5000);
+    update_option('winmo_company_page', $company_page);
   }
-  $agency_page = get_transient('winmo_agency_page');
+  $agency_page = get_option('winmo_agency_page');
   if (!$agency_page) {
     $agency_page = get_page_by_path('agencies');
-    set_transient('winmo_agency_page', $agency_page, 5000);
+    update_option('winmo_agency_page', $agency_page);
   }
-  $agencies_page = get_transient('winmo_agencies_page');
+  $agencies_page = get_option('winmo_agencies_page');
   if (!$agencies_page) {
     $agencies_page = get_page_by_path('top-agencies');
-    set_transient('winmo_agencies_page', $agencies_page, 5000);
+    update_option('winmo_agencies_page', $agencies_page);
   }
-  $contact_page = get_transient('winmo_contact_page');
+  $contact_page = get_option('winmo_contact_page');
   if (!$contact_page) {
     $contact_page = get_page_by_path('contacts');
-    set_transient('winmo_contact_page', $contact_page, 5000);
+    update_option('winmo_contact_page', $contact_page);
   }
 
-  $industries_page = get_transient('winmo_industries_page');
+  $industries_page = get_option('winmo_industries_page');
   if (!$industries_page) {
     $industries_page = get_page_by_path('industries');
-    set_transient('winmo_industries_page', $industries_page, 5000);
+    update_option('winmo_industries_page', $industries_page);
   }
 
   // Unique URLS generated for new website
