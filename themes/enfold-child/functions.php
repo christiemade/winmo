@@ -44,6 +44,9 @@ include("inc/contacts.php");
 // Industry/Category display related hooks
 include("inc/categories.php");
 
+// SEO related adjustments
+include("inc/seo.php");
+
 // Remove portfolio functionality from backend
 function winmo_avia_overrides()
 {

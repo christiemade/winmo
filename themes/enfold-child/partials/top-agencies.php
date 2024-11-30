@@ -73,7 +73,7 @@ if (false) : ?>
         <?php
         uasort($agencies, "state_sort");
         foreach ($agencies as $state => $agencylist) :
-          print '<a href="/agencies/' . strtolower($state) . '">' . convertState($state) . '</a>';
+          print '<a href="/agencies/' . strtolower($state) . '/">' . convertState($state) . '</a>';
         endforeach;
         ?>
       </div>
