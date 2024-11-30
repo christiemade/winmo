@@ -168,7 +168,8 @@ function get_winmo_contacts($status = "official", $alpha = '', $permalink = '', 
     $args[] = $permalink;
   }
   if ($limit !== 1) {
-    $sql .= ' ORDER BY api_id DESC LIMIT 1';
+    $sql .= ' GROUP BY(api_id)';
+    //$sql .= ' ORDER BY api_id DESC LIMIT 1';
   }
   if (!empty($limit)) {
     $sql .= " LIMIT %d";

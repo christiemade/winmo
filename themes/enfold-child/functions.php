@@ -255,7 +255,7 @@ add_filter('wpseo_title', function ($title) {
       }
     }
     // Decision Makers
-    elseif (isset($pid) && is_page(56)) {
+    elseif (isset($pid) && (!empty($pid)) && is_page(56)) {
       $contact = get_winmo_contacts("official", "", $pid);
       if (sizeof($contact)) {
         $contact = $contact[0]->api_id;
