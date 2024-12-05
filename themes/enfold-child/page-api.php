@@ -68,7 +68,8 @@ do_action('ava_page_template_after_header'); ?>
     if(array_key_exists($state, $agencies_by_state)) {
       get_template_part('partials/top-agencies', '', $state);
     } else {
-      get_template_part('partials/list', 'agency');
+      //get_template_part('partials/list', 'agency');
+      get_template_part('partials/top-agencies', '', '');
     }
   endif;
 

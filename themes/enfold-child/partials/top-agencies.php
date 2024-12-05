@@ -7,6 +7,7 @@
       <div class="row">
 
         <?php $agencies = get_agencies_by_state(); ?>
+
         <?php if ($args) :  ?>
           <div class="col col-6">
             <p> Explore the advertising agencies in <?php print convertState($args); ?> to discover which agencies are responsible for major advertising budgets in <?php print date('Y'); ?>. For each agency, we provide a detailed analysis including which companies they have as clients, the type of services they offer including creative, PR, media planning, media buying and more. Quickly assess who the key decision makers are and how to contact them. With Winmo, you can quickly get answers to questions like these:</p>
