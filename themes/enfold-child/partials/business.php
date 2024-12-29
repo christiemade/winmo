@@ -10,10 +10,11 @@ $company = get_query_var('rid');
 $weird_company_id = get_query_var('wid');
 
 // Reverse look up company id
-$companies = get_option('winmo_companies');
 if (isset($weird_company_id) && $weird_company_id > 0) {
   // Get the company permalink to pull up the data
   $weird_company_id = (int)$weird_company_id - (int)1423;
+
+  error_log("Looking for ".$weird_company_id ." in the database");
   if (array_key_exists($weird_company_id, $companies)) {
     $company = $companies[$weird_company_id]['permalink'];
     $permalink = get_bloginfo('wpurl') . "/company/" . $company . "/";
@@ -24,20 +25,18 @@ if (isset($weird_company_id) && $weird_company_id > 0) {
   }
 }
 
-$company = array_filter($companies, function ($v) use ($company) {
-  return $v['permalink'] == $company;
-}, ARRAY_FILTER_USE_BOTH);
-$keys =  array_keys($company);
-
+$companies = array();
+global $wpdb;
+$company_sql = "SELECT data FROM winmo WHERE type = 'company' AND permalink = '".$company."' LIMIT 1";
+$company = $wpdb->get_var($company_sql);
 
 // Error check
-if (!sizeof($keys)) {
+if ($company === NULL) {
   echo "<header id=\"page404\" class=\"\"><div class=\"container\"></div></header><div id=\"error\"><h2>Error:</h2> <p>This company does not exist.</p></div>";
   exit;
 }
 
-$company = $keys[0];
-$company_data = set_company_information($company, "", "company");
+$company_data = json_decode($company);
 
 // Error check
 if (is_wp_error($company_data)) {

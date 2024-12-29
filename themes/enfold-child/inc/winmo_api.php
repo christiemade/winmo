@@ -81,7 +81,7 @@ function process_api_data()
             error_log("GoOD.");
             // Removely previous added temp contacts from index for this page (to prevent duplicates)
             global $wpdb;
-            $wpdb->delete('winmo_contacts', array('status' => 'temp', 'page' => $last_contact_page));
+            $wpdb->delete('winmo_contacts', array('status' => 'temp', 'page' => $last_contact_page)); /// LOOKHERE, Why page?
 
             // Set current page to the last saved page
             $response['page'] = $last_contact_page;

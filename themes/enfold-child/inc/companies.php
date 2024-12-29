@@ -1,52 +1,31 @@
 <?php
-
-// Update or pulldown individual company information from the database
-function set_company_information($company_id, $data = "", $type = "company")
-{
-
-  global $wpdb;
-
-  // Pull company info from database
-  $sql = "SELECT * FROM `winmo` WHERE `type` = '" . $type . "' AND `api_id` = '" . $company_id . "' LIMIT 1";
-  $result = $wpdb->get_results($sql);
-
-  if ($result) {
-    $update_id = $result[0]->id;
-    $result = json_decode($result[0]->data);
-  }
-
-  // Company info doesn't exist in the database, or we're here to change it
-  if (!empty($data)) {
-    // store the company's data into the DB table
-    if ($result) {
-      $sql = "UPDATE `winmo` SET `data` = CAST('" . addslashes($data) . "' AS JSON) WHERE id = '" . $update_id . "'";
-    } else {
-      $sql = "INSERT INTO `winmo` (`type`, `api_id`, `data`)
-  VALUES('" . $type . "', '" . $company_id . "', CAST('" . addslashes($data) . "' AS JSON))";
-    }
-    //error_log($sql);
-    $result = $wpdb->query($sql);
-    if ($result) $result = $data;
-  }
-
-  return $result;
-}
-
+// Enter items as company2 and change back to company at the end of import
 function set_companies_information($results = array(), $atts = array())
 {
-  $companies = get_transient('winmo_companies_temp');
   $page = $atts['page'];
   $last = $atts['last'];
 
-  // if we're rebuilding (page 1) then lets reset the array
-  if ($page == 1) { // Rebuild companies array
-    $companies = array();
-    $industries = array();
+  global $wpdb;
+  $wpdb->suppress_errors = false;
+  $wpdb->show_errors = false;
+
+  error_log("Last is set to: ".$last);
+
+  // We're rebuilding
+  if ($page == 1) {
+    //$industries = array();
+    // Do we want to clear industry/company relations table? That would disable some features until import was complete
   } elseif ($page > 1) { // Dont change official companies array until all data is uploaded
-    $industries = get_option('winmo_industries');
+    //$industries = get_current_industries();
   }
 
   $rework = array();
+  $query = array();
+  $companies = array(); // Keep track of companies and industries
+  $count = highest_industries() + 1;
+  error_log("New API page, count start is ".$count);
+  $industries = get_current_industries(); // Industries already saved in the database
+  $company_industries = array(); // Industries for this API page loop
 
   foreach ($results as $company) :
     if (isset($company['name'])) :
@@ -54,48 +33,134 @@ function set_companies_information($results = array(), $atts = array())
       // Prepare Permalink and individual contact information
       $permalink = strtolower(str_replace(" ", '-', $company['name']));
       $permalink = str_replace(array(',-inc', ',-llc', "?", ".", ",", "'"), "", $permalink);
-      $rework[$company['id']] = array(
-        'name' => $company['name'],
-        'permalink' => $permalink
-      );
-      set_company_information($company['id'], json_encode($company), 'company');
+      $query[] = array($company['name'], $permalink, $company['id'], json_encode($company));
 
       // Now is a great time to grab industry information, too
       $list = $company['industries'];
+      $company_industries_local = array(); // Industries for this company
       if (is_array($list)) {
         foreach ($list as $industry) :
+
           // Turn industry into a machine name
-          $industry_mx = strtolower(str_replace(array(' ', '&', ':', ','), '-', trim($industry)));
-          $industry_mx = str_replace("---", "-", $industry_mx);
-          if (!isset($industries[$industry_mx])) {
-            $industries[$industry_mx] = array(
-              'name' => ucwords($industry),
-              'companies' => array()
-            );
+          $industry_mx = strtolower(str_replace(array(' ', '&', ':', ',',"(",")","+"), '-', trim($industry)));
+          $industry_mx = str_replace(array("---",".-","--"), "-", $industry_mx);
+          
+          if ((!isset($industries[$industry_mx])) && (!isset($company_industries[$industry_mx]))) {
+            $company_industries_local[$industry_mx] = array($count, ucwords($industry)); // Send to import
+            $count++;
+          } else {
+            $company_industries[$industry_mx] = array();
+            $key = isset($industries[$industry_mx]) ? $industries[$industry_mx] : $company_industries[$industry_mx];
+            $company_industries[$industry_mx] = array($key, ucwords($industry)); // Send to API page
           }
         endforeach;
+        $companies[$company['id']] = $company_industries_local;
       }
-      $industries[$industry_mx]['companies'][$permalink] = $company['name'];
+      $company_industries = array_merge($company_industries, $company_industries_local); // Merge with other current API page newly found industry items
     endif;
   endforeach;
-  $companies = $companies ? $companies + $rework : $rework;
 
-  // store the industry list as an option
-  if (sizeof($industries)) update_option('winmo_industries', $industries);
-
-  // store the companies array and set it to never expire
-  // This doesnt need to expire, we can manually refresh the array when we get a new CSV
-  if ($last) {
-    error_log("Warning: we are deleting a transient...winmo_companies_temp");
-    delete_transient('winmo_companies_temp'); // Remove temporary transient
-    update_option('winmo_companies', $companies); 
-  } else {
-    set_transient('winmo_companies_temp', $companies, 0); // Add more to our temp transient
+  // Run the bulk queries for Industry stuff for this entire API page
+  // Store the updated industry list in the database
+  // Also make a company/industry relation query
+  if (sizeof($companies)) {
+    $company_query = "INSERT INTO winmo_industries_companies (`api_id`, `industry_id`) VALUES";
+    $industry_query = "INSERT INTO winmo_industries (`name`, `permalink`, `industry_id`) VALUES";
+    $query_added = 0;
+    foreach($companies as $companyID=>$industry):
+      if(sizeof($industry)):
+        foreach($industry as $permalink=>$indus):
+          $query_added = 1;
+          $company_query .= "('".$companyID."','".$indus[0]."'),";
+          $industry_query .= "('".$indus[1]."','".$permalink."','".$indus[0]."'),";
+        endforeach;
+      endif;
+    endforeach;
+    if($query_added) {
+      $industry_query = substr($industry_query,0,-1)." ON DUPLICATE KEY UPDATE ";
+      $company_query = substr($company_query,0,-1)." ON DUPLICATE KEY UPDATE ";
+      $industry_query .= "name = VALUES(name), permalink = VALUES(permalink), industry_id = VALUES(industry_id);";
+      $company_query .= "api_id = VALUES(api_id), industry_id = VALUES(industry_id);";
+      //error_log("Industry Query: ".$industry_query);
+      //error_log("Company Query: ".$company_query);
+      $industries_insert = $wpdb->query($industry_query);
+      if($wpdb->last_error !== '') { 
+        error_log("Industry Query: ".$industry_query);
+        error_log($wpdb->last_error); 
+        return array('data' => false); 
+        exit;
+      }
+      $company_insert = $wpdb->query($company_query);
+      //error_log("Howd the industry insert go? ".$industries_insert);
+      //error_log("Howd the company go? ".$company_insert);
+    }
   }
 
-  return array('data' => true);
+  // Run the bulk query for this entire API page
+  $sql = "INSERT INTO winmo (`type`, `name`, `permalink`, `api_id`, `data`) VALUES";
+  $update = "";
+
+  // This could say 'company2' until complete?
+  foreach($query as $columns):
+    $sql .= "('company2', '".str_replace("'","\'",$columns[0])."', '".$columns[1]."', '".$columns[2]."', CAST('".addslashes($columns[3])."' AS JSON)),";
+  endforeach;
+  $sql = substr($sql,0,-1);
+  $sql .= ' ON DUPLICATE KEY UPDATE ';
+  $sql .= ' type = VALUES(type), name = VALUES(name), permalink = VALUES(permalink), api_id = VALUES(api_id), data = VALUES(data);';
+
+  $result = $wpdb->query( $sql );
+  if($result === false) {
+    error_log("There was a problem importing page ".$page);
+    error_log($wpdb->last_error);
+  }
+      
+  // Last page in the API
+  if ($last) {
+    error_log("We're finishing, but I don't think we actually need to do anything anymore.");
+    
+    // Change temp to official
+    $deletesql = "DELETE FROM winmo WHERE type = 'company'";
+    $wpdb->query( $deletesql );
+    if($wpdb->last_error !== '') { 
+      error_log("Ran into a problem deleting the old company items with ".$deletesql);
+      error_log($wpdb->last_error);
+    } else {
+      $updatesql = "UPDATE winmo SET type = 'company' WHERE type = 'company2'";
+      $wpdb->query( $updatesql );
+      if($wpdb->last_error !== '') { 
+        error_log("Ran into a problem updating company database ".$updatesql);
+        error_log($wpdb->last_error);
+        mail("christie@launchsnap.com","Winmo Database Error","Company API Update successfully removed old entries but failed in adding new entries.");
+      } else {
+        error_log("All IS WELL! LETS BE SUCCESSFULL!!!!!!");
+        $last = true;
+      }
+    }
+    error_log("Hopefully last gets sent as true and the script stops now.".$last);
+  } 
+
+  return array('data' => true, 'last' => $last);
 }
 
+// Industry index start
+function highest_industries() {
+  global $wpdb;
+  $id = $wpdb->get_var('SELECT industry_id FROM winmo_industries ORDER BY industry_id DESC');
+  if($id === NULL) $id = 1;
+  return $id;
+}
+
+// Grab existing industries from database
+function get_current_industries() {
+  global $wpdb;
+  $industries_results = $wpdb->get_results('SELECT permalink, industry_id FROM winmo_industries', 'ARRAY_A');
+  $industries = array();
+  foreach ($industries_results as $result)
+  {
+    $industries[$result['permalink']] = $result['industry_id'];
+  }
+  return $industries;
+}
 
 // Show unlock button in header of company pages
 add_filter('avf_main_menu_nav', function ($stuff) {
@@ -139,7 +204,8 @@ function winmo_company_list()
     exit("There has been an error.");
   }
 
-  $companies = get_option('winmo_companies');
+  global $wpdb;
+  $sql = "SELECT * FROM winmo WHERE type = 'company'";
 
   // Turn filter values into an array
   $data = explode('&', $data);
@@ -153,50 +219,28 @@ function winmo_company_list()
   $search_filter = isset($filter['search']) ? $filter['search'] : '';
 
   // Pull out all entries by alpha
-  $html = json_encode($companies);
   $alpha = $filter['alpha'];
 
   // If an alpha sort is provided, do that first
   if ($alpha) {
-    $filtered = array_filter($companies, function ($company) use ($alpha) {
-      $letter = substr($company['name'], 0, 1);
+    $sql .= ' AND LOWER(name) LIKE \''.strtolower($alpha).'%\'';
+  } 
 
-      if (strtolower($letter) == strtolower($alpha)) {
-        return true;
-      }
-      // In non-alpha sort
-      elseif (in_array($alpha, array("#", "%23"))) {
-        if (!ctype_alpha($letter)) {  // If this letter is NOT alpha then keep it
-          return true;
-        } else {
-          return false;
-        }
-      } else {
-        return false;
-      }
-    });
-  } else {
-    $filtered = $companies;
-  }
-
-  // filter companies array based on query
+  // keyword search on company name
   if (!empty($search_filter)) {
-
-    foreach ($filtered as $key => $company) {
-      if (!empty($search_filter)) {
-        if ((stripos($company['name'], urldecode($search_filter)) !== false)) {
-        } else {
-          unset($filtered[$key]);
-        }
-      }
-    }
+    $sql .= ' AND name LIKE \'%'.$search_filter.'%\'';
   }
+
+  // order by company name
+  $sql .= ' ORDER BY name ASC';
+
+  $filtered = $wpdb->get_results($sql, 'ARRAY_A');
 
   // Define total products
   $total_items = sizeof($filtered);
 
   // Sort our filtered items
-  usort($filtered, "name_sort");
+  // usort($filtered, "name_sort");
 
 
   /*********************
@@ -228,9 +272,4 @@ function winmo_company_list()
   }
 
   die();
-}
-
-function name_sort($a, $b)
-{
-  return strcmp($a['name'], $b['name']);
 }

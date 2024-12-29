@@ -24,17 +24,15 @@ do_action('ava_page_template_after_header'); ?>
 
   <?php
   if (is_page('companies')) :
-    $companies = get_option('winmo_companies');
-    if (is_array($companies)) :
-      $dataid = get_query_var('rid');
-      $weird_company_id = get_query_var('wid');
 
-      if ($dataid || $weird_company_id) {
-        get_template_part('partials/business', '', 'company');
-      } else {
-        get_template_part('partials/list', 'company');
-      }
-    endif;
+    $dataid = get_query_var('rid');
+    $weird_company_id = get_query_var('wid');
+
+    if ($dataid || $weird_company_id) {
+      get_template_part('partials/business', '', 'company');
+    } else {
+      get_template_part('partials/list', 'company');
+    }
   elseif (is_page('contacts')) :
     $dataid = get_query_var('pid');
     $weird_contact_id = get_query_var('wid');

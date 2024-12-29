@@ -249,6 +249,8 @@ jQuery(function ($) {
             first_total: first_total,
           },
           success: function (data) {
+            //console.log("Eventually we got a parse issue here. Unexpected character at line one.");
+            console.log(data);
             var decodeData = JSON.parse(data);
 
             // This is the end of the script, clean up!
