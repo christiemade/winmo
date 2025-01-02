@@ -1,269 +1,414 @@
 body#top.agencies {
-  #header_main nav { display: none;}
-  #main header > .container { 
+  #header_main nav {
+    display: none;
+  }
+
+  #main header>.container {
     padding-top: 50px;
-    @include breakpoint(md) { padding-top: 150px; }
+
+    @include breakpoint(md) {
+      padding-top: 150px;
+    }
+
     #overview {
       flex: 1;
+
       .row {
-        @include breakpoint(xl, 'max') { 
-          flex-wrap: wrap; 
+        @include breakpoint(xl, 'max') {
+          flex-wrap: wrap;
           gap: 20px;
           display: flex;
         }
+
         .contact .phone {
-          @include breakpoint(sm, "max") { 
+          @include breakpoint(sm, "max") {
             padding-bottom: 1em;
           }
         }
+
         .col:first-child {
           flex: auto;
           flex-basis: 15%;
+
           @include breakpoint(xl, 'max') {
             flex-basis: 100%;
           }
         }
+
         .col:last-child {
-          @include breakpoint(lg) { 
+          @include breakpoint(lg) {
             flex: none;
-            width: 250px; 
+            width: 250px;
           }
         }
+
         .contact {
           flex-direction: column;
-          @include breakpoint(lg, 'max') { min-width: 200px; }
+
+          @include breakpoint(lg, 'max') {
+            min-width: 200px;
+          }
         }
+
         .social {
           min-width: 90px;
-          @include breakpoint(sm, 'max') { flex-basis: 100%; }
+
+          @include breakpoint(sm, 'max') {
+            flex-basis: 100%;
+          }
         }
       }
+
       &.agency-list {
         .row {
           .col {
             &:first-child {
-              @include breakpoint(sm) { flex: 1; }
+              @include breakpoint(sm) {
+                flex: 1;
+              }
             }
+
             &:last-child {
-              @include breakpoint(sm) { flex: 1; }
+              @include breakpoint(sm) {
+                flex: 1;
+              }
             }
           }
         }
       }
     }
   }
+
   section {
     padding-bottom: 4em;
-    @include breakpoint(md, 'max') { 
+
+    @include breakpoint(md, 'max') {
       padding-top: 0em;
       padding-bottom: 1em;
+
       &:first-child {
         padding-top: 1em;
       }
     }
-    & > .row {
-      @include breakpoint(lg, 'max') { 
+
+    &>.row {
+      @include breakpoint(lg, 'max') {
         flex-direction: column;
         gap: 0px;
       }
+
       ol li:last-child {
-        @include breakpoint(sm, 'max') {  margin-bottom: 0px; }
+        @include breakpoint(sm, 'max') {
+          margin-bottom: 0px;
+        }
       }
     }
-    & > article.iconbox {
+
+    &>article.iconbox {
       margin-bottom: 13px;
     }
+
     &#employees {
       padding-bottom: 0em;
     }
-    
+
     #marketing_table {
-      & > .top:first-child {
+      &>.top:first-child {
         border-bottom: 0px;
-        & + .top {
+
+        &+.top {
           img {
             max-height: 19.5px;
             width: auto;
             margin-left: -4px;
           }
-          & > div:not(.blank)::after {
+
+          &>div:not(.blank)::after {
             right: 10px;
           }
         }
       }
 
-      .grid > .row, .top {
-        & > div {
+      .grid>.row,
+      .top {
+        &>div {
           width: 18%;
           display: flex;
           align-items: center;
+
           img {
             display: block;
           }
-          &:first-child {  // Checkbox
+
+          &:first-child {
+            // Checkbox
             text-align: center;
             width: 5%;
             justify-content: center;
+
             @include breakpoint(md, 'max') {
               display: none;
             }
           }
-          &:nth-child(2) {  // Name
+
+          &:nth-child(2) {
+            // Name
             width: 19%;
-            @include breakpoint(md, 'max') { padding-left: 2.5%; }
-            @include breakpoint(sm, 'max') { font-size: 9px; width:23%; }
+
+            @include breakpoint(md, 'max') {
+              padding-left: 2.5%;
+            }
+
+            @include breakpoint(sm, 'max') {
+              font-size: 9px;
+              width: 23%;
+            }
           }
-          &:nth-child(3) {  // title
+
+          &:nth-child(3) {
+            // title
             width: 27%;
             line-height: 12px;
-            @include breakpoint(md, 'max') { width: 36%; }
-            @include breakpoint(sm, 'max') { width: 39%; font-size: 9px; }
+
+            @include breakpoint(md, 'max') {
+              width: 36%;
+            }
+
+            @include breakpoint(sm, 'max') {
+              width: 39%;
+              font-size: 9px;
+            }
           }
-          &:nth-child(4) {  // email
+
+          &:nth-child(4) {
+            // email
             width: 26.5%;
-            @include breakpoint(md, 'max') { width: 33.5%; }
-            @include breakpoint(sm, 'max') { width: 38%; }
+
+            @include breakpoint(md, 'max') {
+              width: 33.5%;
+            }
+
+            @include breakpoint(sm, 'max') {
+              width: 38%;
+            }
           }
-          &:nth-child(5) {  // state
+
+          &:nth-child(5) {
+            // state
             width: 12%;
-            @include breakpoint(sm, 'max') { display: none; }
+
+            @include breakpoint(sm, 'max') {
+              display: none;
+            }
           }
+
           &:last-child {
-           width: 10.5%;
-           justify-content: center;
-           @include breakpoint(md, 'max') {
-             display: none;
-           }
+            width: 10.5%;
+            justify-content: center;
+
+            @include breakpoint(md, 'max') {
+              display: none;
+            }
           }
         }
       }
+
       .grid {
-        & > .row {
+        &>.row {
           gap: 0px;
           align-items: center;
           padding-top: 0px;
+
           &:first-child {
             background-color: $teal;
           }
-          & > div {
-            &:nth-child(3) { 
+
+          &>div {
+            &:nth-child(3) {
               line-height: 12px;
               padding-right: 10px;
             }
-            &:nth-child(4) {  // email
+
+            a {
+              color: #fff;
+            }
+
+            &:nth-child(4) {
+
+              // email
               img {
                 margin-left: -13px;
                 max-height: 20.5px;
-                @include breakpoint(sm, 'max') { margin-left: 0px; }
+
+                @include breakpoint(sm, 'max') {
+                  margin-left: 0px;
+                }
               }
             }
           }
         }
+
         .details {
           & .row {
-            @include breakpoint(sm, 'max') { flex-wrap: wrap; gap: 30px; }
-            & > div {
+            @include breakpoint(sm, 'max') {
+              flex-wrap: wrap;
+              gap: 30px;
+            }
+
+            &>div {
               .phone {
                 line-height: 30px;
               }
+
               &:first-child {
-                @include breakpoint(md, 'max') { width: 77px; }
-                @include breakpoint(sm, 'max') { width: calc(50% - 30px); }
+                @include breakpoint(md, 'max') {
+                  width: 77px;
+                }
+
+                @include breakpoint(sm, 'max') {
+                  width: calc(50% - 30px);
+                }
               }
+
               &:not(.social) img {
                 height: auto;
               }
+
               &:nth-child(2) {
                 @include breakpoint(md, 'max') {
                   flex-basis: calc(41.9% - 77px);
                 }
-                @include breakpoint(sm, 'max') { flex-basis: 50%; }
+
+                @include breakpoint(sm, 'max') {
+                  flex-basis: 50%;
+                }
               }
+
               &:nth-child(3) {
-                flex: 1; 
-                @include breakpoint(md, 'max') { padding-left: 5%; }
-                @include breakpoint(sm, 'max') { padding-left: 0px; width: calc(50% - 30px); }
+                flex: 1;
+
+                @include breakpoint(md, 'max') {
+                  padding-left: 5%;
+                }
+
+                @include breakpoint(sm, 'max') {
+                  padding-left: 0px;
+                  width: calc(50% - 30px);
+                }
+
                 img {
                   margin-top: -8px;
                   margin-bottom: 0px;
                   height: 15px;
                   margin-left: 0px;
-                } 
+                }
               }
-              &:nth-child(4) { 
-                flex: 1; 
-            
+
+              &:nth-child(4) {
+                flex: 1;
+
               }
             }
           }
 
           .buttons {
-            @include breakpoint(md, 'max') { display: none; }
+            @include breakpoint(md, 'max') {
+              display: none;
+            }
           }
         }
-        & > .row:not(:first-of-type) {
-          div:nth-child(2) {  // Additional Names Blur
+
+        &>.row:not(:first-of-type) {
+          div:nth-child(2) {
+            // Additional Names Blur
             filter: blur(4px);
           }
         }
       }
+
       .bottom {
         margin-top: 15px;
         display: flex;
         justify-content: space-between;
-        @include breakpoint(sm, 'max') { img:first-child { display: none; } }
-      } 
+
+        @include breakpoint(sm, 'max') {
+          img:first-child {
+            display: none;
+          }
+        }
+      }
     }
+
     #clients_table {
 
-      .grid > .row, .top {
-        & > div {
+      .grid>.row,
+      .top {
+        &>div {
           width: 22.5%;
           padding-left: 2.5%;
           box-sizing: content-box;
+
           &:first-child {
-           width: 23%;
+            width: 23%;
           }
-          &:nth-child(2) { // State
+
+          &:nth-child(2) {
+            // State
             width: 14%;
           }
-          &:nth-child(3) {  // Service
+
+          &:nth-child(3) {
+            // Service
             width: 30%;
           }
-          &:nth-child(4) {  // Est. Media Spend
+
+          &:nth-child(4) {
+            // Est. Media Spend
             width: 25%;
           }
         }
       }
+
       .top:first-child {
         display: flex;
         justify-content: space-between;
         align-items: flex-start;
+
         img {
           width: auto;
+
           &:first-child {
-            @include breakpoint(xs, 'max') { display: none; }
+            @include breakpoint(xs, 'max') {
+              display: none;
+            }
           }
         }
-        
+
       }
+
       .grid {
         .row {
           gap: 0px;
-          & > div {
+
+          &>div {
             display: flex;
             align-items: center;
+
             img {
-              @include breakpoint(sm, 'max') { max-height: 20px; }
+              @include breakpoint(sm, 'max') {
+                max-height: 20px;
+              }
             }
           }
         }
       }
+
       .bottom {
         display: flex;
         justify-content: end;
       }
     }
+
     &#more {
       padding-top: 0px;
     }

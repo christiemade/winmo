@@ -43,6 +43,7 @@ function api_refresh_admin_page()
         <div id="agency_progress" class="progress">
           <div></div>
         </div>
+        <div>Should take roughly 8 minutes on a non-quarantine server.</div>
       </div>
     </div>
     <div class="row loaded">

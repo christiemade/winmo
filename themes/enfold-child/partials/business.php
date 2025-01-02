@@ -7,26 +7,8 @@ wp_enqueue_script('sticky-nav');
 
 // Grab data for page from query vars and the API
 $company = get_query_var('rid');
-$weird_company_id = get_query_var('wid');
-
-// Reverse look up company id
-if (isset($weird_company_id) && $weird_company_id > 0) {
-  // Get the company permalink to pull up the data
-  $weird_company_id = (int)$weird_company_id - (int)1423;
-
-  error_log("Looking for ".$weird_company_id ." in the database");
-  if (array_key_exists($weird_company_id, $companies)) {
-    $company = $companies[$weird_company_id]['permalink'];
-    $permalink = get_bloginfo('wpurl') . "/company/" . $company . "/";
-    header("Location: " . $permalink, true, 301);
-    exit;
-  } else {
-    $companies = array();  // Trying to get an old URL working but it doesnt exist
-  }
-}
-
-$companies = array();
 global $wpdb;
+$companies = array();
 $company_sql = "SELECT data FROM winmo WHERE type = 'company' AND permalink = '".$company."' LIMIT 1";
 $company = $wpdb->get_var($company_sql);
 
@@ -226,11 +208,11 @@ if (is_wp_error($company_data)) {
                         Assistant Phone:
                         </div>
                         <div>
-                        <img src="' . get_stylesheet_directory_uri() . '/assets/img/companies/contact-email.svg"><br>
+                        <a href="#request_demo" class="modal"><img src="' . get_stylesheet_directory_uri() . '/assets/img/companies/contact-email.svg"></a><br>
                         ' . $company_data->contacts[$i]->phone . '<br>
-                        <img src="' . get_stylesheet_directory_uri() . '/assets/img/companies/contact-direct-phone.svg"><br>
-                        <img src="' . get_stylesheet_directory_uri() . '/assets/img/companies/contact-assistant-name.svg"><br>
-                        <img src="' . get_stylesheet_directory_uri() . '/assets/img/companies/contact-assistant-phone.svg"><br>
+                        <a href="#request_demo" class="modal"><img src="' . get_stylesheet_directory_uri() . '/assets/img/companies/contact-direct-phone.svg"></a><br>
+                        <a href="#request_demo" class="modal"><img src="' . get_stylesheet_directory_uri() . '/assets/img/companies/contact-assistant-name.svg"></a><br>
+                        <a href="#request_demo" class="modal"><img src="' . get_stylesheet_directory_uri() . '/assets/img/companies/contact-assistant-phone.svg"></a><br>
                         </div>
                         <div>
                         Sample of Related Brands:<br>

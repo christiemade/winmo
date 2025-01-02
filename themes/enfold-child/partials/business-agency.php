@@ -7,40 +7,25 @@ wp_enqueue_script('sticky-nav');
 
 // Grab data for page from query vars and the API
 $agency = get_query_var('rid');
-$weird_agency_id = get_query_var('wid');
 
 $second = false;
 if (preg_match('#(' . substr($agency, 0, -2) . ')-\d#', $agency)) {
   $second = true;
 }
 
-// Reverse look up agency id
-$agencies = get_option('winmo_agencies');
-
-if (isset($weird_agency_id) && ($weird_agency_id > 0)) {
-  // Get the company permalink to pull up the data
-  $weird_agency_id = (int)$weird_agency_id - 1423;
-  if (isset($agencies[$weird_agency_id])) {
-    $agency = $agencies[$weird_agency_id]['permalink'];
-    header("Location: /agency/" . $agency . "/");
-  } else {
-    $agency = "";
-  }
-}
-
-$agency = array_filter($agencies, function ($v) use ($agency) {
-  return $v['permalink'] == $agency;
-}, ARRAY_FILTER_USE_BOTH);
-$keys =  array_keys($agency);
+global $wpdb;
+$agencies = array();
+$agency_sql = "SELECT data FROM winmo WHERE type = 'agency' AND permalink = '".$agency."' LIMIT 1";
+$agency = $wpdb->get_var($agency_sql);
 
 // Error check
-if (!sizeof($keys)) {
+if ($agency === NULL) {
   echo "<header id=\"page404\" class=\"\"><div class=\"container\"></div></header><div id=\"error\"><h2>Error:</h2> <p>This agency does not exist.</p></div>";
   exit;
 }
 
-$agency = $keys[0];
-$agency_data = set_company_information($agency, "", 'agency');
+$agency_data = json_decode($agency);
+
 if (is_wp_error($agency_data)) {
   $error_message = $agency_data->get_error_message();
   echo "<header id=\"page404\" class=\"\"><div class=\"container\"></div></header><div id=\"error\"><h2>Error:</h2> <p>" . $error_message . '</p></div>';
@@ -202,11 +187,10 @@ if (is_wp_error($agency_data)) {
             for ($i = 0; $i < $people_total; $i++) :
             ?><div class="row modal">
                 <div><a href="#request_demo" class="modal"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/checkbox.svg"></a></div>
-                <div><?php print $agency_data->contacts[$i]->fname ?> <?php print substr($agency_data->contacts[$i]->lname, 0, 1); ?>.</div>
-                <div><?php print $agency_data->contacts[$i]->title; ?></div>
-                <div><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/contact-email.png"></div>
-                <div><?php print $agency_data->contacts[$i]->state;
-                      ?></div>
+                <div><a href="#request_demo" class="modal"><?php print $agency_data->contacts[$i]->fname ?> <?php print substr($agency_data->contacts[$i]->lname, 0, 1); ?></a>.</div>
+                <div><a href="#request_demo" class="modal"><?php print $agency_data->contacts[$i]->title; ?></a></div>
+                <div><a href="#request_demo" class="modal"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/contact-email.png"></a></div>
+                <div><a href="#request_demo" class="modal"><?php print $agency_data->contacts[$i]->state; ?></a></div>
                 <div><a href="#request_demo" class="modal"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/export.svg"></a></div>
               </div><?php
                     if ($i === 0) {

@@ -161,7 +161,6 @@ function process_api_data()
         //error_log("Grab page # " . $page . " for " . $type . " in " . $function . " first_page_total is " . $first_total);
 
         $result = winmo_api($type, $page);
-
         error_log("Last var also gets changed to true here if " . $total . " <= " . $page);
         if ($total <= $page) $last = true;
         error_log("winmo_api.php:164 Page being sent back as " . $page);
@@ -172,6 +171,8 @@ function process_api_data()
           'type' => $type,
           'first_total' => $first_total
         );
+
+        if(isset($result['error'])) $atts['error'] = $result['error'];
 
         // API Error scenario
         if (isset($result['error'])) {

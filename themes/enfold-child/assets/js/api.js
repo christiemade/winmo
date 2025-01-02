@@ -141,6 +141,7 @@ jQuery(function ($) {
           }
         } else {
           console.log(`No data found for page ${current_page}`);
+          console.log(atts);
 
           if ($(progressBar).hasClass('building')) {
             $(progressBar)

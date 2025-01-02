@@ -1,64 +1,107 @@
 <?php
+// Enter items as agency2 and change back to company at the end of import
 function set_agencies_information($results = array(), $atts = array())
 {
-  $agencies = get_option('winmo_agencies');
   $page = $atts['page'];
   $last = $atts['last'];
+  $error = "";
 
-  // if we're rebuilding (page 1) then lets reset the array
-  if ($page == 1) { // Rebuild transient
-    $agencies = array();
-  } elseif ($page > 1) { // Dont change transient until all data is uploaded
-    $agencies = get_transient('winmo_agencies_temp');
-  }
+  global $wpdb;
+  $wpdb->suppress_errors = false;
+  $wpdb->show_errors = false;
+
+  $success = true;
 
   // check to see if agencies were successfully retrieved from the cache
   $rework = array();
+  $query = array();
+  $agencies = array(); // Keep track of agencies
+  if ($page == 1) {
+    // Reset temp table data to start a new import
+    $permalinks = array();
+    $undo_import = "DELETE FROM `winmo` WHERE `type` LIKE 'agency2'";
+    $wpdb->query( $undo_import );
+  } else {
+    $permalinks = get_transient('agency_permalinks');
+    error_log( gettype($permalinks));
+  }
+
+  error_log("Permalinks: ".json_encode($permalinks));
+
   foreach ($results as $agency) :
 
     $permalink = strtolower(str_replace(" ", '-', $agency['name']));
-    $permalink = str_replace(array(',-inc', ',-llc', "?", ".", ",", ")", "("), "", $permalink);
+    $permalink = str_replace(array(',-inc', ',-llc', "?", ".", ",", "'", ")", "("), "", $permalink);
 
     // Special non-english character handling
     setlocale(LC_ALL, 'en_US.UTF8');
     $permalink = iconv("utf-8", "ascii//TRANSLIT", $permalink);
 
     // Check if permalink already exists (agencies with identical names)
-    $duplicates = array_filter($agencies, function ($v) use ($permalink) {
+    $duplicates = array_filter($permalinks, function ($v) use ($permalink) {
       // Do the permalinks match exactly or close but with a -digit at the end?
-      $answer = ($v['permalink'] == $permalink) || (preg_match('#(' . str_replace("+", "\+", $permalink) . ')-\d#', $v['permalink']));
+      $answer = ($v == $permalink) || (preg_match('#(' . str_replace("+", "\+", $permalink) . ')-\d#', $v));
       return $answer;
     }, ARRAY_FILTER_USE_BOTH);
-    if (!sizeof($duplicates)) {
-      // Check if permalink already exists - within current loop
-      $duplicates = array_filter($rework, function ($v) use ($permalink) {
-        // Do the permalinks match exactly or close but with a -digit at the end?
-        $answer = ($v['permalink'] == $permalink) || (preg_match('#(' . str_replace("+", "\+", $permalink) . ')-\d#', $v['permalink']));
-        return $answer;
-      }, ARRAY_FILTER_USE_BOTH);
-    }
+    
     if (sizeof($duplicates)) $permalink .= "-" . ceil(sizeof($duplicates) + 1);
 
-    $rework[$agency['id']] = array(
-      'name' => $agency['name'],
-      'location' => $agency['location'],
-      'state' => $agency['location']['state'],
-      //'industry' => $data[14],
-      'permalink' => $permalink
-    );
+    $query[] = array($agency['name'], $permalink, $agency['id'], json_encode($agency));
+    
+    $permalinks[] = $permalink;
 
-    //error_log($agency['id'] . " entering for " . $agency['name']);
-    set_company_information($agency['id'], json_encode($agency), 'agency');
   endforeach;
 
-  $agencies = $agencies ? $agencies + $rework : $rework;
-  if ($last) {
-    delete_transient('winmo_agencies_temp'); // Remove temporary transient
-    update_option('winmo_agencies', $agencies);
-  } else {
-    set_transient('winmo_agencies_temp', $agencies, 0);
+  $sql = "INSERT INTO winmo (`type`, `name`, `permalink`, `api_id`, `data`) VALUES";
+  
+  // agency2 used as a placeholder to not override live data
+  foreach($query as $columns):
+    $sql .= "('agency2', '".str_replace("'","\'",$columns[0])."', '".$columns[1]."', '".$columns[2]."', CAST('".addslashes($columns[3])."' AS JSON)),";
+  endforeach;
+  $sql = substr($sql,0,-1).';';
+  //$sql .= ' ON DUPLICATE KEY UPDATE ';
+  //$sql .= ' type = VALUES(type), name = VALUES(name), 
+  //permalink = CONCAT(permalink, IF(RIGHT(permalink, 1) REGEXP "[0-9]", CAST(RIGHT(permalink, 1) AS UNSIGNED) + 1, "-1")), 
+  //api_id = VALUES(api_id), data = VALUES(data);';
+
+  $result = $wpdb->query( $sql );
+  set_transient('agency_permalinks', $permalinks, '1200');
+
+  if($result === false) {
+    $error = "There was a problem importing page ".$page;
+    error_log($error);
+    $undo_import = "DELETE FROM `winmo` WHERE `type` LIKE 'agency2'";
+    error_log($wpdb->last_error);
+    $success = false;
+    $wpdb->query( $undo_import );
   }
-  return array('data' => true);
+
+  // Last page in the API
+  if ($last) {
+    error_log("We're finishing, but I don't think we actually need to do anything anymore.");
+    
+    // Change temp to official
+    $deletesql = "DELETE FROM winmo WHERE type = 'agency'";
+    $wpdb->query( $deletesql );
+    if($wpdb->last_error !== '') { 
+      error_log("Ran into a problem deleting the old agency items with ".$deletesql);
+      error_log($wpdb->last_error);
+    } else {
+      $updatesql = "UPDATE winmo SET type = 'agency' WHERE type = 'agency2'";
+      $wpdb->query( $updatesql );
+      if($wpdb->last_error !== '') { 
+        error_log("Ran into a problem updating agency database ".$updatesql);
+        error_log($wpdb->last_error);
+        mail("christie@launchsnap.com","Winmo Database Error","Agency API Update successfully removed old entries but failed in adding new entries.");
+      } else {
+        error_log("All IS WELL! LETS BE SUCCESSFULL!!!!!!");
+        $last = true;
+        delete_transient('agency_permalinks');
+      }
+    }
+  }
+
+  return array('data' => $success, 'last' => $last, 'error' => $error);
 }
 
 // Show unlock button in header of agency pages
@@ -81,7 +124,8 @@ function winmo_agency_list()
     exit("There has been an error.");
   }
 
-  $agencies = get_option('winmo_agencies');
+  global $wpdb;
+  $sql = "SELECT * FROM winmo WHERE type = 'agency'";
 
   // Turn filter values into an array
   $data = explode('&', $data);
@@ -91,52 +135,32 @@ function winmo_agency_list()
     $filter[$keyval[0]] = $keyval[1];
   endforeach;
 
-
   // Filter query
   $search_filter = isset($filter['search']) ? $filter['search'] : '';
 
   // Pull out all entries by alpha
-  $html = json_encode($agencies);
   $alpha = $filter['alpha'];
 
   // If an alpha sort is provided, do that first
   if ($alpha) {
-    $filtered = array_filter($agencies, function ($agency) use ($alpha) {
-      $letter = substr($agency['name'], 0, 1);
-      //error_log($alpha);
-      if (strtolower($letter) == strtolower($alpha)) {
-        return true;
-      }
-      // In non-alpha sort
-      elseif (in_array($alpha, array("#", "%23"))) {
-        if (!ctype_alpha($letter)) {  // If this letter is NOT alpha then keep it
-          return true;
-        } else {
-          return false;
-        }
-      } else {
-        return false;
-      }
-    });
-  } else {
-    $filtered = $agencies;
+    $sql .= ' AND LOWER(name) LIKE \''.strtolower($alpha).'%\'';
+  } 
+
+  // keyword search on agency name
+  if (!empty($search_filter)) {
+    $sql .= ' AND name LIKE \'%'.$search_filter.'%\'';
   }
 
-  // filter companies array based on query
-  if (!empty($search_filter)) {
-    foreach ($filtered as $key => $agency) {
-      if ((stripos($agency['name'], urldecode($search_filter)) !== false)) {
-      } else {
-        unset($filtered[$key]);
-      }
-    }
-  }
+  // order by company name
+  $sql .= ' ORDER BY name ASC';
+
+  $filtered = $wpdb->get_results($sql, 'ARRAY_A');
 
   // Define total products
   $total_items = sizeof($filtered);
 
   // Sort our filtered items
-  usort($filtered, "name_sort");
+  //usort($filtered, "name_sort");
 
 
   /*********************
