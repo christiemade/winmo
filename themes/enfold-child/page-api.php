@@ -35,24 +35,20 @@ do_action('ava_page_template_after_header'); ?>
     }
   elseif (is_page('contacts')) :
     $dataid = get_query_var('pid');
-    $weird_contact_id = get_query_var('wid');
 
-    if ($dataid || $weird_contact_id) {
+    if ($dataid) {
       get_template_part('partials/contact');
     } else {
       get_template_part('partials/list', 'contact');
     }
   elseif (is_page('agencies')) :
-    $agencies = get_option('winmo_agencies');
-    if (is_array($agencies)) :
-      $dataid = get_query_var('rid');
-      $weird_agency_id = get_query_var('wid');
-      if ($dataid || $weird_agency_id) {
-        get_template_part('partials/business', 'agency');
-      } else {
-        get_template_part('partials/list', 'agency');
-      }
-    endif;
+    $dataid = get_query_var('rid');
+
+    if ($dataid) {
+      get_template_part('partials/business', 'agency');
+    } else {
+      get_template_part('partials/list', 'agency');
+    }
   elseif (is_page('industries')) :
     $industry = get_query_var('rid');
     if ($industry) {

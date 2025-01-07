@@ -185,7 +185,7 @@ if (is_wp_error($agency_data)) {
             if ($people_total > 5) $people_total = 5;
 
             for ($i = 0; $i < $people_total; $i++) :
-            ?><div class="row modal">
+            ?><div class="row">
                 <div><a href="#request_demo" class="modal"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/checkbox.svg"></a></div>
                 <div><a href="#request_demo" class="modal"><?php print $agency_data->contacts[$i]->fname ?> <?php print substr($agency_data->contacts[$i]->lname, 0, 1); ?></a>.</div>
                 <div><a href="#request_demo" class="modal"><?php print $agency_data->contacts[$i]->title; ?></a></div>
