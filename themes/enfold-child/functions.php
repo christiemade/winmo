@@ -6,7 +6,7 @@ if (file_exists(__DIR__ . '/vendor/autoload.php'))
 // Stylesheet caching version
 function avia_get_theme_version($which = 'parent')
 {
-  return '1.0.0.0.39.72';
+  return '1.0.0.0.39.75';
 }
 
 // Quick shortcode to display current year
@@ -207,7 +207,6 @@ function wb_stop_heartbeat()
 add_action('init', 'wb_stop_heartbeat', 1);
 
 add_filter('wpseo_title', function ($title) {
-
   if (is_page_template('page-api.php')) {
     $pid = get_query_var('rid') ?: get_query_var('pid');
     $state = get_query_var('state');
@@ -256,15 +255,18 @@ add_filter('wpseo_title', function ($title) {
     }
     // Decision Makers
     elseif (isset($pid) && (!empty($pid)) && is_page(56)) {
+
       $contact = get_winmo_contact($pid);
       if (sizeof($contact)) {
+        $contact_data = json_decode($contact[0]->data);
         $contact = $contact[0]->api_id;
-        $contact_data = ($contact);
         $type = strtolower($contact_data->type);
         $company = $contact_data->entity_id;
         $company_data = get_company($company);
-        if (isset($contact_data))
+        if (isset($contact_data)) {
+          $company_data = json_decode($company_data); 
           $title = $contact_data->fname . " " . $contact_data->lname . ", " . $contact_data->title . " at " . $company_data->name . " - Winmo";
+        }
       }
     }
   }
@@ -324,8 +326,7 @@ function prefix_filter_description_example($description)
 
     // Decision Makers
     elseif (isset($pid) && is_page(56)) {
-      print $pid;
-      error_log("PID: ".$pid);
+
       $contact = array();
     //  $contact = get_winmo_contact($pid);
       if (sizeof($contact)) {

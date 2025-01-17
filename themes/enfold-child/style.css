@@ -11337,6 +11337,10 @@ ol li::before {
   width: auto;
   margin: 0px;
 }
+#top .main_color #filter-form > input:not(.btn), #top .main_color #filter-form > select {
+  font: -moz-pull-down-menu;
+  font-family: "proxima-nova";
+}
 @media (max-width: 575.98px) {
   #filter-form > input:not(.btn) {
     flex-basis: calc(100% - 140px);
@@ -11366,7 +11370,8 @@ ol li::before {
   line-height: 1.6em;
   font-weight: 300;
 }
-#top .avia_textblock strong, #top .avia_textblock b {
+#top .avia_textblock strong,
+#top .avia_textblock b {
   color: #FF601A;
 }
 #top .avia_textblock p:first-child {

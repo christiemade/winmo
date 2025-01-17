@@ -163,8 +163,8 @@ function get_winmo_contact($permalink = '', $alpha = '')
   $wpdb->show_errors();
 
   // Pull all contacts from database
-  $args = array();
   $type = 'contacts';
+  $args = array($type);
   $sql = "SELECT * FROM `winmo` WHERE `type` = %s";
   if (!empty($alpha)) {
     $sql .= ' AND `name` LIKE %s';
@@ -259,8 +259,8 @@ function winmo_contacts_list()
   }
 
   // order by contact name
-  $sql .= ' ORDER BY name ASC LIMIT 20';
-error_log($sql);
+  $sql .= ' ORDER BY name ASC';
+  
   $filtered = $wpdb->get_results($sql, 'ARRAY_A');
 
   // Define total products

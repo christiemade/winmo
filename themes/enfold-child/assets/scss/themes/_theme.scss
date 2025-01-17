@@ -4,49 +4,65 @@
     max-width: 95%;
   }
 }
+
 .row {
   @include breakpoint(md) {
     display: flex;
     gap: 55px;
   }
+
   &.va-center {
     align-items: center;
+
     p:last-child {
       margin-bottom: 0px;
     }
   }
+
   &.ha-center {
     justify-content: center;
     text-align: center;
   }
+
   &.alternate_color {
-    color:#fff;
+    color: #fff;
   }
+
   .col {
     flex: 1;
+
     &.col-7 {
-      @include breakpoint(md) {  max-width: 70%; }
+      @include breakpoint(md) {
+        max-width: 70%;
+      }
     }
+
     &.col-6 {
-      @include breakpoint(lg) { 
-        max-width: 60%; 
+      @include breakpoint(lg) {
+        max-width: 60%;
         flex: none;
-      }  // lg on agency - may be md elsewhere?
-      
+      }
+
+      // lg on agency - may be md elsewhere?
+
     }
+
     &.col-5-5 {
       padding-top: 16px;
       padding-bottom: 20px;
-      @include breakpoint(md) { 
+
+      @include breakpoint(md) {
         max-width: 55%;
         flex: auto;
         padding-top: 0px;
         padding-bottom: 0px;
       }
     }
+
     &.col-5 {
       max-width: 50%;
     }
+
     &.col-4 {
       flex: unset;
       flex-basis: 40%;
@@ -56,18 +72,19 @@
 
 body {
   .container_wrap_first ul.company_list {
-   display: grid;
-   grid-template-areas: "media detail detail";
-   grid-template-columns: 200px 200px 200px 200px;
-   grid-auto-columns: 150px;
-   column-gap: 32px;
+    display: grid;
+    grid-template-areas: "media detail detail";
+    grid-template-columns: 200px 200px 200px 200px;
+    grid-auto-columns: 150px;
+    column-gap: 32px;
   }
+
   #error {
-   border: 5px #fcc solid;
-   padding: 50px;
-   font-size: 2em;
-   max-width: 800px;
-   margin: 30px auto;
+    border: 5px #fcc solid;
+    padding: 50px;
+    font-size: 2em;
+    max-width: 800px;
+    margin: 30px auto;
   }
 
   .gray_box {
@@ -78,32 +95,42 @@ body {
     line-height: 1.6875em;
     font-weight: 300;
     gap: 30px;
-    -webkit-box-shadow: 0px 4px 64px 0px rgba(0,0,0,0.07);
-    -moz-box-shadow: 0px 4px 64px 0px rgba(0,0,0,0.07);
-    box-shadow: 0px 4px 64px 0px rgba(0,0,0,0.07);
-    @include breakpoint(md, 'min') { padding: 40px; }
+    -webkit-box-shadow: 0px 4px 64px 0px rgba(0, 0, 0, 0.07);
+    -moz-box-shadow: 0px 4px 64px 0px rgba(0, 0, 0, 0.07);
+    box-shadow: 0px 4px 64px 0px rgba(0, 0, 0, 0.07);
+
+    @include breakpoint(md, 'min') {
+      padding: 40px;
+    }
   }
-  
+
   main.col .gray_box {
     padding: 30px;
-    @include breakpoint(sm, 'max') { padding: 20px; }
-    & > .iconbox_left  {
+
+    @include breakpoint(sm, 'max') {
+      padding: 20px;
+    }
+
+    &>.iconbox_left {
       @include breakpoint(sm, 'max') {
         margin-bottom: 15px;
       }
     }
   }
-   
- }
- ol {
+
+}
+
+ol {
   list-style: none;
   counter-reset: my-awesome-counter;
+
   li {
     counter-increment: my-awesome-counter;
     display: flex;
     flex-wrap: nowrap;
     align-items: center;
     gap: 10px;
+
     &::before {
       content: counter(my-awesome-counter);
       text-align: center;
@@ -117,6 +144,7 @@ body {
       line-height: 26px;
       min-width: 26px;
       font-size: 15px;
+
       @include breakpoint(md) {
         line-height: 33px;
         width: 33px;
@@ -128,13 +156,16 @@ body {
     }
   }
 }
+
 .filters {
   padding-top: 3em;
   padding-bottom: 4em;
+
   #top &.row {
     padding-bottom: 1em;
   }
 }
+
 #filter-form {
   display: flex;
   align-items: center;
@@ -142,51 +173,80 @@ body {
   max-width: 685px;
   margin: 20px 0px 0px;
   justify-content: center;
-  @include breakpoint(sm, 'max') { flex-wrap: wrap;}
-  & > span { 
+
+  @include breakpoint(sm, 'max') {
+    flex-wrap: wrap;
+  }
+
+  &>span {
     flex-basis: fit-content;
     text-align: right;
+
     &:first-child {
       text-align: left;
     }
-    @include breakpoint(xs, 'max') { flex-basis: 100%; text-align: left; }
+
+    @include breakpoint(xs, 'max') {
+      flex-basis: 100%;
+      text-align: left;
+    }
+
     &:last-of-type {
       flex-basis: 88px;
     }
   }
-  & > input:not(.btn), & > select {
+
+  &>input:not(.btn),
+  &>select {
     flex: 1;
     width: auto;
     margin: 0px;
+
+    #top .main_color & {
+      font: -moz-pull-down-menu;
+      font-family: "proxima-nova";
+    }
   }
-  & > input:not(.btn) {
+
+  &>input:not(.btn) {
     @include breakpoint(sm, 'max') {
       flex-basis: calc(100% - 140px);
     }
-    @include breakpoint(xs, 'max') { flex-basis: 100%; }
+
+    @include breakpoint(xs, 'max') {
+      flex-basis: 100%;
+    }
   }
-  & > .btn {
+
+  &>.btn {
     flex-basis: 90px;
   }
 }
+
 .all-content {
   padding-bottom: 3em;
-  & > .row:not(.pagination) {
+
+  &>.row:not(.pagination) {
     .col {
       flex-direction: column;
       display: flex;
+
       a:hover {
-        color:$teal;
+        color: $teal;
       }
     }
   }
 }
+
 #top .avia_textblock {
   line-height: 1.6em;
   font-weight: 300;
-  strong, b {
-    color:$orange;
+
+  strong,
+  b {
+    color: $orange;
   }
+
   p:first-child {
     margin-top: 0px;
   }

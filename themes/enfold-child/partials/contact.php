@@ -7,13 +7,14 @@ wp_enqueue_script('sticky-nav');
 
 // Grab data for page from query vars and the API
 $permalink = get_query_var('pid');
+
+// Reverse look up contact id
+$contact = get_winmo_contact($permalink);
+
 if ($contact === NULL) {
   echo "<header id=\"page404\" class=\"\"><div class=\"container\"></div></header><div id=\"error\"><h2>Error:</h2> <p>This decision maker does not exist.</p></div>";
   exit;
 }
-
-// Reverse look up contact id
-$contact = get_winmo_contact($permalink);
 
 // Error check
 if (!sizeof($contact)) {
@@ -28,6 +29,7 @@ $contact_data = get_contact_information($contact);
 $type = strtolower($contact_data->type);
 $company = $contact_data->entity_id;
 $company_data = get_company($company);
+$company_data = json_decode($company_data); 
 
 // Error check
 if (is_wp_error($contact_data)) {

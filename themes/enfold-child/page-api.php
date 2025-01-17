@@ -23,12 +23,12 @@ do_action('ava_page_template_after_header'); ?>
 <div class='container_wrap container_wrap_first main_color <?php avia_layout_class('main'); ?>'>
 
   <?php
+
   if (is_page('companies')) :
 
     $dataid = get_query_var('rid');
-    $weird_company_id = get_query_var('wid');
 
-    if ($dataid || $weird_company_id) {
+    if ($dataid) {
       get_template_part('partials/business', '', 'company');
     } else {
       get_template_part('partials/list', 'company');
