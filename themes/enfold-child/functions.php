@@ -256,13 +256,13 @@ add_filter('wpseo_title', function ($title) {
     }
     // Decision Makers
     elseif (isset($pid) && (!empty($pid)) && is_page(56)) {
-      $contact = get_winmo_contacts("official", "", $pid);
+      $contact = get_winmo_contact($pid);
       if (sizeof($contact)) {
         $contact = $contact[0]->api_id;
-        $contact_data = set_contact_information($contact);
+        $contact_data = ($contact);
         $type = strtolower($contact_data->type);
         $company = $contact_data->entity_id;
-        $company_data = set_company_information($company, "", $type);
+        $company_data = get_company($company);
         if (isset($contact_data))
           $title = $contact_data->fname . " " . $contact_data->lname . ", " . $contact_data->title . " at " . $company_data->name . " - Winmo";
       }
@@ -324,13 +324,16 @@ function prefix_filter_description_example($description)
 
     // Decision Makers
     elseif (isset($pid) && is_page(56)) {
-      $contact = get_winmo_contacts("official", "", $pid);
+      print $pid;
+      error_log("PID: ".$pid);
+      $contact = array();
+    //  $contact = get_winmo_contact($pid);
       if (sizeof($contact)) {
         $contact = $contact[0]->api_id;
-        $contact_data = set_contact_information($contact);
+        $contact_data = ($contact);
         $type = strtolower($contact_data->type);
         $company = $contact_data->entity_id;
-        $company_data = set_company_information($company, "", $type);
+        $company_data = get_company($company);
         if (isset($contact_data))
           $description =  "Connect with " . $contact_data->fname . " " . $contact_data->lname . ", " . $contact_data->title . " at " . $company_data->name . ". Access business email, insights, and personality-driven outreach tips. ";
       }

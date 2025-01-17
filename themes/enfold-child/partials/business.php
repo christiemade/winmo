@@ -6,11 +6,7 @@ wp_enqueue_script('scrollTrigger');
 wp_enqueue_script('sticky-nav');
 
 // Grab data for page from query vars and the API
-$company = get_query_var('rid');
-global $wpdb;
-$companies = array();
-$company_sql = "SELECT data FROM winmo WHERE type = 'company' AND permalink = '".$company."' LIMIT 1";
-$company = $wpdb->get_var($company_sql);
+$company = get_company(get_query_var('rid'), 'permalink');
 
 // Error check
 if ($company === NULL) {

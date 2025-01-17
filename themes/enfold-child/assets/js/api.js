@@ -90,79 +90,87 @@ jQuery(function ($) {
     $(progressBar).children("div").css("width", "0px");
     $(progressBar).removeClass("loading").addClass("building");
     $(progressBar).children("div").text("");
+
     var barWidth = $(progressBar).width();
+    console.log("Attempt to get bar going after a restart: ");
+    updateBar($(progressBar), 'pass', { current_page: current_page, total: total });
 
-    for (current_page; current_page <= total || stopme; current_page++) {
-      if (!stopme) {
-        var response = await Promise.all([
-          jsdelay(type, current_page, total, first_total),
-          timeout(1000),
-        ]);
+    for (current_page; current_page <= total; current_page++) {
+      if (stopme) {
+        break;
+      }
 
-        if (response && response[0].data) {
-          try {
-            console.log(`Page ${current_page} processed successfully.`);
-            $(progressBar)
-              .children("div")
-              .css("width", Math.ceil((current_page * barWidth) / total));
-            $(progressBar).attr(
-              "data-before",
-              "Downloading: " + current_page + " / " + total
-            );
+      try {
+        const response = await jsdelay(type, current_page, total, first_total);
+        console.log(response);
+        if (response && response.data) {
+          console.log(`Response recieved - Page ${current_page} processed successfully.`);
+          $(progressBar)
+            .children("div")
+            .css("width", Math.ceil((current_page * barWidth) / total));
+          $(progressBar).attr(
+            "data-before",
+            "Downloading: " + current_page + " / " + total);
 
-            // Contacts, start round 2
-            if (type == "contacts" && current_page == first_total) {
-              // We need to sent total and first_total through
-              atts = {
-                page: Math.ceil(parseInt(current_page) + 1),
-                first_total: first_total,
-                total: total,
-              };
-              fetchData("agency_contacts", progressBar, atts);
-            }
-
-            // Finish - Double stopme to cover our bases
-            if (stopme || current_page == total) {
-              stopme = true;
-              $(progressBar).removeClass("building");
-              $(".row").removeClass("processing");
-            }
-          } catch (error) {
-            console.log(`Error processing page ${current_page}:`, error);
-            if ($(progressBar).hasClass('building')) {
-              $(progressBar)
-                .removeClass("building")
-                .addClass("error");
-              $(progressBar)
-                .children("div")
-                .text("`Error processing page ${current_page}");
-              $(".row").removeClass("processing").addClass("loaded");
-            }
+          // Switch to Agency
+          console.log("Current Page: " + current_page + ", Total: " + total + ", First Total: " + first_total);
+          if (type === "contacts" && current_page === first_total) {
+            // We need to send total and first_total through
+            atts = {
+              page: Math.ceil(current_page + 1),
+              first_total,
+              total,
+            };
+            await fetchData("agency_contacts", progressBar, atts);
+          }
+          
+          // Finish
+          if (current_page === total) {
+            console.log('Finished processing all pages.');
+            stopme = true;
           }
         } else {
-          console.log(`No data found for page ${current_page}`);
-          console.log(atts);
-
+          
           if ($(progressBar).hasClass('building')) {
             $(progressBar)
               .removeClass("building")
               .addClass("error");
             $(progressBar)
               .children("div")
-              .text("No data found for page ${current_page}");
+              .text(atts['error']);
             $(".row").removeClass("processing").addClass("loaded");
           }
+          console.warn('No data for page:', current_page);
+          stopme = true;
+          break;
         }
-      } else {
+
+
+      } catch (error) {
+        console.error('Error in jsdelay or fetchPage:', error);
+        stopme = true
+        if ($(progressBar).hasClass('building')) {
+          $(progressBar)
+            .removeClass("building")
+            .addClass("error");
+          $(progressBar)
+            .children("div")
+            .text(atts['error']);
+          $(".row").removeClass("processing").addClass("loaded");
+        }
+        break;
+      }
+
+       /*if(stopme) {
         stopme = true;
         $(progressBar)
           .removeClass("building")
           .addClass("error");
         $(progressBar)
           .children("div")
-          .text("Server time out on page #" + page + "!");
+          .text("Server time out on page #" + current_page + "!");
         $(".row").removeClass("processing").addClass("loaded");
-      }
+      }*/
     }
   };
   async function fetchMeta(type, atts, progressBar) {
@@ -225,19 +233,26 @@ jQuery(function ($) {
 
   // Delay each fetchPage call by 3 seconds whenever ready
   async function jsdelay(type, current_page, total, first_total) {
-    if (!stopme) {
-      await timeout(6000);
-      return fetchPage(type, current_page, total, first_total);
-    } else {
+    console.log("Going into JS delay with type " + type);
+    if (stopme) {
+      console.log('Stopped by stopme.');
       return false;
     }
+
+    console.log('Delaying for 4000ms...');
+    await timeout(4000);
+
+    console.log('Calling fetchPage...');
+    return await fetchPage(type, current_page, total, first_total);
+
   }
 
   // Grab a single page from the API
   async function fetchPage(type, page, total, first_total = 0) {
-    const thenable = {
-      then(resolve, _reject) {
-        
+    console.log("Inside fetchPage " + page);
+    return new Promise((resolve, reject) => {
+     
+        console.log("Inside then... so this is what gets send to PHP: " + page);
         $.ajax({
           url: apiAjax.ajaxurl,
           type: "POST",
@@ -252,32 +267,73 @@ jQuery(function ($) {
           success: function (data) {
             //console.log("Eventually we got a parse issue here. Unexpected character at line one.");
             console.log(data);
-            var decodeData = JSON.parse(data);
+            try {
+              var decodeData = JSON.parse(data);
 
-            // This is the end of the script, clean up!
-            if (decodeData.last == true) {
-              stopme = true;
+              // This is the end of the script, clean up!
+              if (decodeData.last) {
+                stopme = true;
+                resolve(JSON.parse(data)); // Resolve the last page
+                updateBar(progressBar, "end");
+              } else {
+                resolve(JSON.parse(data)); // Resolve normally
+                updateBar(progressBar, "pass");
+              }
 
-              progressBar
-                .removeClass("building")
-                .addClass("complete");
-              
-              progressBar.parents('.row')
-                .removeClass('processing')
-                .siblings().addClass('loaded');
-              
-              progressBar.parents('.row').addClass('loaded').find('.launch')
-                  .val('Restart');
-              
-              $(".row").removeClass("processing");
-            } else {
-              resolve(JSON.parse(data));
+            } catch (error) {
+              console.error('Error parsing data:', error);
+              reject(error);
+              updateBar(progressBar, "fail");
             }
           },
+          error: function (jqXHR, textStatus, errorThrown) {
+            console.log(errorThrown);
+            console.error('AJAX error:', textStatus, errorThrown);
+            reject(new Error('AJAX request failed'));
+            updateBar(progressBar, "fail", { current_page: page, total: total, error: textStatus });
+          },
         });
-      },
-    };
+      });
+  }  
 
-    return await thenable; // "resolved!"
+  function updateBar(progressBar, action = "", atts = {}) {
+    console.log("Make the bar... " + action);
+
+    switch (action) {
+      case "fail":
+        progressBar
+        .removeClass("building")
+          .addClass("error");
+        progressBar.children('div').text(atts.error);
+        $(".row").removeClass("processing").addClass("loaded");
+
+        break;
+      case "end":
+        progressBar
+        .removeClass("building").removeClass("error")
+        .addClass("complete");
+        
+        progressBar.parents('.row')
+          .removeClass('processing')
+          .siblings().addClass('loaded');
+        
+        progressBar.parents('.row').addClass('loaded').find('.launch')
+            .val('Restart');
+        
+        $(".row").removeClass("processing");
+        break;
+      case "pass":
+        progressBar.removeClass("error");
+        var barWidth = progressBar.width();
+        console.log(barWidth);
+        console.log("Fix Bar now...");
+        progressBar
+          .children("div")
+          .css("width", Math.ceil((atts.current_page * barWidth) / atts.total));
+        progressBar.children('div').css("width", Math.ceil((atts.current_page * barWidth) / atts.total));
+        progressBar.attr("data-before", "Downloading: " + atts.current_page + " / " + atts.total);
+        break;
+    }
+
   }
 });

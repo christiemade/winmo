@@ -13,9 +13,7 @@ function set_agencies_information($results = array(), $atts = array())
   $success = true;
 
   // check to see if agencies were successfully retrieved from the cache
-  $rework = array();
   $query = array();
-  $agencies = array(); // Keep track of agencies
   if ($page == 1) {
     // Reset temp table data to start a new import
     $permalinks = array();
@@ -23,10 +21,7 @@ function set_agencies_information($results = array(), $atts = array())
     $wpdb->query( $undo_import );
   } else {
     $permalinks = get_transient('agency_permalinks');
-    error_log( gettype($permalinks));
   }
-
-  error_log("Permalinks: ".json_encode($permalinks));
 
   foreach ($results as $agency) :
 

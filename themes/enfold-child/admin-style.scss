@@ -1,14 +1,18 @@
 .row {
   display: flex;
   align-items: center;
+
   .col {
     padding: 20px;
+
     &:first-child {
       padding-left: 0px;
     }
+
     &:last-child {
       flex: 1;
     }
+
     .progress {
       &.loading {
         border: 1px #666 solid;
@@ -17,11 +21,13 @@
         line-height: 22px;
         font-size: 13px;
         letter-spacing: 2px;
+
         div {
           height: 23px;
           text-align: center;
         }
       }
+
       &.building {
         border: 1px #11b86f solid;
         border-radius: 13px;
@@ -30,22 +36,25 @@
         letter-spacing: 2px;
         position: relative;
         overflow: hidden;
+
         &:before {
-          content: "downloading";
+          content: attr(data-before);
           position: absolute;
           left: 0;
           width: 100%;
           text-align: center;
           overflow: hidden;
         }
+
         div {
           height: 23px;
-          background-color:#11b86f;
+          background-color: #11b86f;
           text-align: center;
           transition: linear 3s;
         }
 
       }
+
       &.complete {
         background-color: #666;
         border-radius: 13px;
@@ -55,6 +64,7 @@
         width: 100%;
         line-height: 22px;
         position: relative;
+
         &:before {
           content: "finished";
           position: absolute;
@@ -65,14 +75,17 @@
           font-weight: bold;
         }
       }
+
       &.error {
         margin: 0px;
-        & > div {
+
+        &>div {
           width: 100% !important;
         }
       }
     }
   }
+
   &:not(.processing):not(.loaded) {
     .launch {
       opacity: 0.3;

@@ -6,29 +6,14 @@ wp_enqueue_script('scrollTrigger');
 wp_enqueue_script('sticky-nav');
 
 // Grab data for page from query vars and the API
-$contact = get_query_var('pid');
-$weird_contact_id = get_query_var('wid');
-
-if (empty($contact) && isset($weird_contact_id)) {
-  // Get the company permalink to pull up the data
-  $weird_contact_id = (int)$weird_contact_id - 1423;
-  $contact = get_contact_permalink($weird_contact_id);
-  header("Location: /decision_makers/" . $contact);
-}
-
+$permalink = get_query_var('pid');
 if ($contact === NULL) {
   echo "<header id=\"page404\" class=\"\"><div class=\"container\"></div></header><div id=\"error\"><h2>Error:</h2> <p>This decision maker does not exist.</p></div>";
   exit;
 }
 
 // Reverse look up contact id
-$contact = get_winmo_contacts("official", "", $contact);
-
-
-/*$contact = array_filter($contacts, function ($v) use ($contact) {
-  return $v[2] == $contact;
-}, ARRAY_FILTER_USE_BOTH);
-$keys =  array_keys($contact);*/
+$contact = get_winmo_contact($permalink);
 
 // Error check
 if (!sizeof($contact)) {
@@ -37,12 +22,12 @@ if (!sizeof($contact)) {
 }
 
 $contact = $contact[0]->api_id;
-$contact_data = set_contact_information($contact);
+$contact_data = get_contact_information($contact);
 
 // Some contacts are part of an agency and some are part of a company
 $type = strtolower($contact_data->type);
 $company = $contact_data->entity_id;
-$company_data = set_company_information($company, "", $type);
+$company_data = get_company($company);
 
 // Error check
 if (is_wp_error($contact_data)) {

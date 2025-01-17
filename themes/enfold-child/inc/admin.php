@@ -7,7 +7,7 @@ function winmo_wp_admin_style()
 {
   wp_register_style('custom_wp_admin_css', get_stylesheet_directory_uri() . '/admin-style.css', false, '1.0.29');
   wp_enqueue_style('custom_wp_admin_css');
-  wp_register_script('api', get_stylesheet_directory_uri() . '/assets/js/api.js', array('jquery'), '1.0.2.07');
+  wp_register_script('api', get_stylesheet_directory_uri() . '/assets/js/api.js', array('jquery'), '1.0.2.36');
   wp_localize_script('api', 'apiAjax', array('ajaxurl' => admin_url('admin-ajax.php')));
   wp_enqueue_script('api');
 }
@@ -56,6 +56,7 @@ function api_refresh_admin_page()
         <div id="contacts_progress" class="progress">
           <div></div>
         </div>
+        <div>Should take roughly 4.5 hours on a non-quarantine server.</div>
       </div>
     </div>
   </div>

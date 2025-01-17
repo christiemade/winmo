@@ -142,6 +142,13 @@ function set_companies_information($results = array(), $atts = array())
   return array('data' => true, 'last' => $last);
 }
 
+function get_company($value, $how = 'api_id') {
+  global $wpdb;
+  $company_sql = "SELECT data FROM winmo WHERE type = 'company' AND ".$how." = '".$value."' LIMIT 1";
+  $company = $wpdb->get_var($company_sql);
+  return $company;
+}
+
 // Industry index start
 function highest_industries() {
   global $wpdb;
