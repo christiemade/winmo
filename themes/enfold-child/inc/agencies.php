@@ -112,6 +112,14 @@ add_filter('avf_main_menu_nav', function ($stuff) {
 add_action("wp_ajax_winmo_agency_list", "winmo_agency_list");
 add_action("wp_ajax_nopriv_winmo_agency_list", "winmo_agency_list");
 
+function get_agencies_by_state($state) {
+  global $wpdb;
+  $sql = "SELECT * FROM winmo WHERE type = 'agency' AND data LIKE '%\"state\": \"".strtoupper($state)."\",%'";
+  $sql .= ' ORDER BY name ASC';
+error_log($sql);
+  return $wpdb->get_results($sql, 'ARRAY_A');
+}
+
 function winmo_agency_list()
 {
   $data = $_POST["data"];

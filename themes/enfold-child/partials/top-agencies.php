@@ -1,16 +1,19 @@
 <header id="agency" class="business">
   <div class="container">
     <div id="overview" class="gray_box">
-      <h1><?php if ($args) :  print "Top Ad Agencies in " . convertState($args) . " " . date('Y');
+      <h1><?php 
+
+      if (is_array($args)) :  print "Top Ad Agencies in " . convertState($args[0]) . " " . date('Y');
           else :  the_title();
           endif; ?></h1>
       <div class="row">
 
-        <?php $agencies = get_agencies_by_state(); ?>
 
-        <?php if ($args) :  ?>
+        <?php if (is_array($args)): 
+        $agencies = $args[1];
+        $state = $args[0]; ?>
           <div class="col col-6">
-            <p> Explore the advertising agencies in <?php print convertState($args); ?> to discover which agencies are responsible for major advertising budgets in <?php print date('Y'); ?>. For each agency, we provide a detailed analysis including which companies they have as clients, the type of services they offer including creative, PR, media planning, media buying and more. Quickly assess who the key decision makers are and how to contact them. With Winmo, you can quickly get answers to questions like these:</p>
+            <p> Explore the advertising agencies in <?php print convertState($state); ?> to discover which agencies are responsible for major advertising budgets in <?php print date('Y'); ?>. For each agency, we provide a detailed analysis including which companies they have as clients, the type of services they offer including creative, PR, media planning, media buying and more. Quickly assess who the key decision makers are and how to contact them. With Winmo, you can quickly get answers to questions like these:</p>
           </div>
         <?php else :
           print '<div class="col">';
@@ -19,9 +22,9 @@
         endif;
         ?>
 
-        <div class="col"><?php if ($args) : ?>
-            <p><strong>How many ad agencies are located in <?php print convertState($args); ?>?</strong>
-              <br>There are <?php print number_format(sizeof($agencies[strtoupper($args)])); ?> ad agencies in <?php print convertState($args); ?>.
+        <div class="col"><?php if (isset($state)) : ?>
+            <p><strong>How many ad agencies are located in <?php print convertState($state); ?>?</strong>
+              <br>There are <?php print sizeof($agencies); ?> ad agencies in <?php print convertState($state); ?>.
             </p>
           <?php else : ?>
             <p><strong>Which state is home to the most advertising agencies?</strong><br>
@@ -67,26 +70,29 @@ if (false) : ?>
 <?php endif; ?>
 
 <div class="container" id="more">
-  <?php if (!$args) : ?>
+  <?php if (!is_array($args)) : ?>
     <h3>See Top Advertisers for Each State</h3>
     <div class="row">
       <div class="col">
         <?php
-        uasort($agencies, "state_sort");
-        foreach ($agencies as $state => $agencylist) :
-          print '<a href="/agencies/' . strtolower($state) . '/">' . convertState($state) . '</a>';
+        global $states;
+        foreach ($states as $state):
+          print '<a href="/agencies/' . strtolower($state['abbr']) . '/">' . $state['name'] . '</a>';
         endforeach;
         ?>
       </div>
     </div>
-  <?php else : ?>
-    <h3>Agencies in <?php print convertState($args); ?></h3>
+  <?php else:
+    $agencies = $args[1];
+    $state = $args[0]; 
+    
+    ?>
+    <h3>Agencies in <?php print convertState($state); ?></h3>
     <div class="row">
       <div class="col columned">
         <?php
-        $agencies = $agencies[strtoupper($args)];  // Pull specific state if provideds
-        foreach ($agencies as $state => $agencylist) :
-          print '<a href="/agency/' . $agencylist['permalink'] . '">' . $agencylist['name'] . '</a>';
+        foreach ($agencies as $agency) :
+          print '<a href="/agency/' . $agency['permalink'] . '">' . $agency['name'] . '</a>';
         endforeach;
         ?>
       </div>

@@ -58,9 +58,11 @@ do_action('ava_page_template_after_header'); ?>
     }
   elseif (is_page('top-agencies')) :
     $state = get_query_var('state');
-    $agencies_by_state = get_option('winmo_agencies_by_state');
-    if(array_key_exists($state, $agencies_by_state)) {
-      get_template_part('partials/top-agencies', '', $state);
+    if($state) $agencies = get_agencies_by_state($state);
+    if($state && sizeof($agencies)) {
+      get_template_part('partials/top-agencies', '', array($state,$agencies));
+    } elseif($state && !sizeof($agencies)) {
+      get_template_part('partials/error', '');
     } else {
       //get_template_part('partials/list', 'agency');
       get_template_part('partials/top-agencies', '', '');

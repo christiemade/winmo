@@ -3,11 +3,13 @@
     <div id="overview" class="gray_box">
       <?php
       // Convert machine name
-      $industries = get_option('winmo_industries');
-      if (!isset($industries[$args])) {
+      $industries = get_all_industries($args);
+      if (!is_array($industries)) {
       ?><h1>'<?php print $args; ?>' Industry not found.</h1><?php
                                                           } else {
-                                                            $industry = $industries[$args]; ?>
+                                                            $industry = $industries[0]; 
+                                                            $companies = get_companies_by_industry($industry['industry_id']);
+                                                           ?>
         <h1>Top Companies in the <?php print $industry['name']; ?> Industry in <?php print date("Y"); ?></h1>
         <div class="row">
           <div class="col">
@@ -16,7 +18,7 @@
           </div>
           <div class="col">
             <p><strong>How many companies advertise in the <?php print strtolower($industry['name']); ?> Industry?</strong><Br>
-              Winmo tracks <?php print sizeof($industry['companies']); ?> advertisers in the <?php print strtolower($industry['name']); ?> industry.</p>
+              Winmo tracks <?php print sizeof($companies); ?> advertisers in the <?php print strtolower($industry['name']); ?> industry.</p>
           </div>
         </div>
       <?php } ?>
@@ -24,14 +26,14 @@
   </div>
 </header>
 
-<?php if (isset($industries[$args])) { ?>
+<?php if (is_array($industries)) { ?>
   <div class="container" id="more">
     <h3><?php print $industry['name']; ?> Industry Companies</h3>
 
     <div class="row">
       <div class="col columned">
-        <?php foreach ($industry['companies'] as $pid => $name) : ?>
-          <a href="/company/<?php print $pid; ?>"><?php print $name; ?></a>
+        <?php foreach ($companies as $company) : ?>
+          <a href="/company/<?php print $company['permalink']; ?>"><?php print $company['name']; ?></a>
         <?php endforeach; ?>
       </div>
 

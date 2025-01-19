@@ -52,18 +52,15 @@
   <h3>More Industries that are Big Ad spenders</h3>
   <div class="row">
     <div class="col">
-      <?php $industries = get_option('winmo_industries');
+      <?php $industries = get_all_industries();
 
       // Only show industries that have names
       $industries = array_filter($industries, function ($v) {
         return isset($v['name']);
       }, ARRAY_FILTER_USE_BOTH);
 
-      // Sort our filtered items
-      uasort($industries, "name_sort");
-
-      foreach ($industries as $link => $industry) :
-        print '<a href="/industries/' . $link . '">' . $industry['name'] . '</a>';
+      foreach ($industries as $industry) :
+        print '<a href="/industries/' . $industry['permalink'] . '">' . $industry['name'] . '</a>';
       endforeach;
       ?>
     </div>

@@ -335,8 +335,10 @@ function prefix_filter_description_example($description)
         $type = strtolower($contact_data->type);
         $company = $contact_data->entity_id;
         $company_data = get_company($company);
-        if (isset($contact_data))
-          $description =  "Connect with " . $contact_data->fname . " " . $contact_data->lname . ", " . $contact_data->title . " at " . $company_data->name . ". Access business email, insights, and personality-driven outreach tips. ";
+        if (isset($contact_data)) {
+          $company_data = json_decode($company_data); 
+          $description =  "Connect with " . $contact_data->fname . " " . $contact_data->lname . ", " . $contact_data->title . " at " . $company_data->name . ". Access business email, insights, and personality-driven outreach tips. ";      
+        }
       }
     }
   }

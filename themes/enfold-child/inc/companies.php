@@ -169,6 +169,27 @@ function get_current_industries() {
   return $industries;
 }
 
+// Grab existing industries from database
+function get_all_industries($industry = "") {
+  global $wpdb;
+  $sql = 'SELECT permalink, name, industry_id FROM winmo_industries ';
+  if (!empty($industry)) $sql .= "WHERE permalink = '".$industry."' ";
+  $sql .= 'ORDER BY name ASC';
+  if (!empty($industry)) $sql .= " LIMIT 1";
+  error_log($sql);
+  $industries = $wpdb->get_results($sql, 'ARRAY_A');
+  return $industries;
+}
+
+// Get all companies associated with an industry
+function get_companies_by_industry($industry_id) {
+  global $wpdb;
+  $sql = 'SELECT c.api_id, w.name, w.permalink FROM winmo_industries i INNER JOIN winmo_industries_companies c ON i.industry_id = c.industry_id LEFT JOIN winmo w ON c.api_id = w.api_id WHERE i.industry_id = \''.$industry_id.'\' AND w.type = \'company\'';
+  error_log($sql);
+  $companies = $wpdb->get_results($sql, 'ARRAY_A');
+  return $companies;
+}
+
 // Show unlock button in header of company pages
 add_filter('avf_main_menu_nav', function ($stuff) {
   $company = get_query_var('rid');
