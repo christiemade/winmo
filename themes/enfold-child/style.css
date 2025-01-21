@@ -10622,7 +10622,6 @@ h5 {
   background-position: center bottom;
   background-color: #074058;
   transform: rotateX(180deg);
-  background-image: url(assets/img/companies/win-more-bg.png);
 }
 @media (max-width: 991.98px) {
   #win-more:after {

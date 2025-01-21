@@ -1,6 +1,6 @@
 <div id="cta-footer" class="cta row va-center">
   <div>
-    <img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/companies/request-trial.png">
+    <img decoding="async" loading="lazy" class="" src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/companies/request-trial.png">
   </div>
   <div>
     <h4>Get your unfair advantage with Winmo</h4>

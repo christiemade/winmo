@@ -117,12 +117,16 @@ function winmo_load_scipts()
   wp_register_script('gsap', get_stylesheet_directory_uri() . '/assets/js/gsap.min.js');
   wp_register_script('scrollTrigger', get_stylesheet_directory_uri() . '/assets/js/ScrollTrigger.min.js', array('gsap'));
   wp_register_script('sticky-nav', get_stylesheet_directory_uri() . '/assets/js/sticky-nav.js', array('jquery', 'gsap', 'scrollTrigger'), '1.0.0.8');
-  //wp_enqueue_script('fontawesome', get_stylesheet_directory_uri() . '/assets/fonts/js/all.min.js');
+  wp_enqueue_script('hubspot', '//js.hsforms.net/forms/embed/v2.js');
 
   wp_enqueue_script('popups', get_stylesheet_directory_uri() . '/assets/js/popups.js', array('jquery'), '1.0.0.24');
   wp_register_script('filters', get_stylesheet_directory_uri() . '/assets/js/filters.js', array('jquery'), '1.0.0.7');
   wp_localize_script('filters', 'winmoAjax', array('ajaxurl' => admin_url('admin-ajax.php')));
   wp_enqueue_script('filters');
+
+  wp_dequeue_style( 'wp-block-library' ); // Wordpress core
+  wp_dequeue_style( 'wp-block-library-theme' ); // Wordpress core
+  wp_dequeue_style( 'wc-block-style' ); // WooCommerce
 }
 add_action('wp_enqueue_scripts', 'winmo_load_scipts', 100);
 
@@ -345,3 +349,21 @@ function prefix_filter_description_example($description)
   return $description;
 }
 add_filter('wpseo_metadesc', 'prefix_filter_description_example');
+
+
+
+function winmo_defer_css( $html, $handle ) {
+  $handles = array( 'avia-grid', 'avia-module-icon', 'avia-module-slideshow', 'avia-widget-css','avia-layout','avia-module-dynamic-field', 'enfold-custom-block-css');
+error_log($handle);
+  if ( in_array( $handle, $handles ) ) {
+    // Find HREF
+    $pos = strpos($html, "href") + 6;
+    $end = strpos($html, "'", $pos);
+    $href = substr($html,$pos, $end-$pos);
+    $html = '<link rel="preload" href="'.$href.'" as="style" onload="this.onload=null;this.rel=\'stylesheet\'">';
+    $html .= '<noscript><link rel="stylesheet" href="'.$href.'"></noscript>';
+
+  }
+  return $html;
+}
+add_filter( 'style_loader_tag', 'winmo_defer_css', 10, 2 );

@@ -1,36 +1,43 @@
-
 #win-more {
   background: transparent;
   min-height: 500px;
   padding-top: 6em;
   padding-bottom: 125px;
-  & > * {
+
+  &>* {
     z-index: 1;
   }
+
   &:after {
     @include arc;
     background-color: $blue;
     transform: rotateX(180deg);
-    background-image: url(assets/img/companies/win-more-bg.png);
+    //background-image: url(assets/img/companies/win-more-bg.png);
   }
+
   h2 {
     margin-bottom: 12px;
   }
+
   p {
     font-weight: 300;
     margin-bottom: 24px;
   }
+
   .container {
     max-width: 967px;
     padding-bottom: 175px;
+
     img {
       max-width: 724px;
       margin: 30px auto;
       display: block;
+
       @include breakpoint(lg, "max") {
         max-width: 100%;
       }
     }
+
     .image-overlay {
       display: none !important;
     }
@@ -42,56 +49,76 @@
   margin: -220px auto 0px auto;
   padding-left: 74px;
   padding-right: 30px;
-  @include breakpoint(lg, 'max') {  
-    padding-left: 40px; gap: 20px; 
+
+  @include breakpoint(lg, 'max') {
+    padding-left: 40px;
+    gap: 20px;
   }
-  @include breakpoint(md) { flex-direction: row-reverse; }
+
+  @include breakpoint(md) {
+    flex-direction: row-reverse;
+  }
+
   @include breakpoint(md, "max") {
     display: flex;
     flex-direction: column;
     padding-bottom: 30px;
     margin-left: 20px;
     margin-right: 20px;
-    div > h4 {
+
+    div>h4 {
       margin-top: -40px;
       text-align: center;
     }
   }
+
   @include breakpoint(sm, "max") {
     padding-left: 30px;
   }
+
   .image-overlay {
     display: none !important;
   }
 
-  & > div {
+  &>div {
     &:first-child {
       width: 405px;
       position: relative;
-      @include breakpoint(md, "max") { width: 100%; }
+
+      @include breakpoint(md, "max") {
+        width: 100%;
+      }
+
       a {
         overflow: visible !important;
+
         img {
           margin-top: -36px;
-          @include breakpoint(sm, "max") { margin-top: -22px; }
+
+          @include breakpoint(sm, "max") {
+            margin-top: -22px;
+          }
         }
       }
     }
+
     &:last-child {
       flex: 1;
       padding: 0px;
       font-size: 22px;
-    
-      @include breakpoint(md, "max") { 
+
+      @include breakpoint(md, "max") {
         display: flex;
         flex-direction: column;
         align-items: center;
       }
+
       @include breakpoint(sm, "max") {
         text-align: center;
       }
     }
   }
+
   .avia-button-wrap .avia-button.avia-size-medium {
     background-color: $blue;
     border-color: $blue;
@@ -103,11 +130,15 @@
   font-size: 12px;
   border: 0px;
   padding: 53px 0px 30px 0px;
+
   .flex_column:last-child {
     .widget_text .textwidget {
-      @include breakpoint(md) { text-align: right; }
+      @include breakpoint(md) {
+        text-align: right;
+      }
     }
   }
+
   .widget {
     @include breakpoint(md, "max") {
       margin: 0px;
