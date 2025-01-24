@@ -27,6 +27,10 @@ function set_companies_information($results = array(), $atts = array())
   $industries = get_current_industries(); // Industries already saved in the database
   $company_industries = array(); // Industries for this API page loop
 
+  //error_log("Industries size: ".sizeof($industries));
+  //error_log("Industries should come out with dealerships aready ". json_encode($industries['dealerships'])); 
+  //error_log(json_encode($industries));
+
   foreach ($results as $company) :
     if (isset($company['name'])) :
 
@@ -39,24 +43,36 @@ function set_companies_information($results = array(), $atts = array())
       $list = $company['industries'];
       $company_industries_local = array(); // Industries for this company
       if (is_array($list)) {
+        $list  = array_unique($list); // I've notice lots of repeats in the industry arrays
+        error_log("Here is our industry list for ".$company['name']. " " . json_encode($list));
         foreach ($list as $industry) :
 
           // Turn industry into a machine name
-          $industry_mx = strtolower(str_replace(array(' ', '&', ':', ',',"(",")","+"), '-', trim($industry)));
-          $industry_mx = str_replace(array("---",".-","--"), "-", $industry_mx);
+          $industry_mx = preg_replace('/[^a-z0-9]+/', '-', strtolower(trim($industry)));
+          $industry_mx = str_replace(array("---",".-","--","."), "-", $industry_mx);
+          error_log("Determined permalink: ".$industry_mx);
           
-          if ((!isset($industries[$industry_mx])) && (!isset($company_industries[$industry_mx]))) {
+          // PROBLEM: By the time we get to BMW of North America, LLC 'dealerships' should exist already in $industries.
+          error_log("IF never gets called. Problem with our industries array. Is Data not going IN? Or is data not coming back?");
+          if ((!isset($industries[$industry_mx])) && !isset($company_industries[$industry_mx])) {
+            error_log("It's not found in Top or Middle , so add it to local with our new key made from COUNT ." . $count);
             $company_industries_local[$industry_mx] = array($count, ucwords($industry)); // Send to import
+            error_log("COUNT only gets increased in this scenario.");
             $count++;
+            
           } else {
-            $company_industries[$industry_mx] = array();
-            $key = isset($industries[$industry_mx]) ? $industries[$industry_mx] : $company_industries[$industry_mx];
-            $company_industries[$industry_mx] = array($key, ucwords($industry)); // Send to API page
+            error_log("We're in the else. So we should already know about this industry. Make sure it continues to make sense to just grab the 0 value from this: ");
+            error_log(json_encode($company_industries[$industry_mx]));
+            $key = isset($industries[$industry_mx]) ? $industries[$industry_mx] : $company_industries[$industry_mx][0];
+            error_log("So the key we found to use is: " .$key);
+            $company_industries_local[$industry_mx] = array($key, ucwords($industry)); // Send to API page
+        
           }
         endforeach;
         $companies[$company['id']] = $company_industries_local;
+        error_log("Adding the contents of local to this company... (This is also what gets merged now into the Top array: " . json_encode($company_industries_local));
       }
-      $company_industries = array_merge($company_industries, $company_industries_local); // Merge with other current API page newly found industry items
+      $company_industries = array_merge_recursive($company_industries, $company_industries_local); // Merge with other current API page newly found industry items
     endif;
   endforeach;
 
@@ -64,18 +80,26 @@ function set_companies_information($results = array(), $atts = array())
   // Store the updated industry list in the database
   // Also make a company/industry relation query
   if (sizeof($companies)) {
+    error_log('Companies has content...' . sizeof($companies). ' Looking for my SQL.');
     $company_query = "INSERT INTO winmo_industries_companies (`api_id`, `industry_id`) VALUES";
     $industry_query = "INSERT INTO winmo_industries (`name`, `permalink`, `industry_id`) VALUES";
     $query_added = 0;
+
+    error_log(json_encode($companies));
+
     foreach($companies as $companyID=>$industry):
       if(sizeof($industry)):
+        error_log("Has industries");
         foreach($industry as $permalink=>$indus):
           $query_added = 1;
           $company_query .= "('".$companyID."','".$indus[0]."'),";
           $industry_query .= "('".$indus[1]."','".$permalink."','".$indus[0]."'),";
+          error_log("('".$indus[1]."','".$permalink."','".$indus[0]."'),");
         endforeach;
       endif;
     endforeach;
+
+    error_log("Query added: ".$query_added);
     if($query_added) {
       $industry_query = substr($industry_query,0,-1)." ON DUPLICATE KEY UPDATE ";
       $company_query = substr($company_query,0,-1)." ON DUPLICATE KEY UPDATE ";
@@ -83,6 +107,8 @@ function set_companies_information($results = array(), $atts = array())
       $company_query .= "api_id = VALUES(api_id), industry_id = VALUES(industry_id);";
       //error_log("Industry Query: ".$industry_query);
       //error_log("Company Query: ".$company_query);
+
+      error_log($industry_query);
       $industries_insert = $wpdb->query($industry_query);
       if($wpdb->last_error !== '') { 
         error_log("Industry Query: ".$industry_query);
@@ -94,6 +120,8 @@ function set_companies_information($results = array(), $atts = array())
       //error_log("Howd the industry insert go? ".$industries_insert);
       //error_log("Howd the company go? ".$company_insert);
     }
+  } else {
+    error_log("No companies?");
   }
 
   // Run the bulk query for this entire API page

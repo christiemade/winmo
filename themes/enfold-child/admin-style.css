@@ -2,15 +2,19 @@
   display: flex;
   align-items: center;
 }
+
 .row .col {
   padding: 20px;
 }
+
 .row .col:first-child {
   padding-left: 0px;
 }
+
 .row .col:last-child {
   flex: 1;
 }
+
 .row .col .progress.loading {
   border: 1px #666 solid;
   border-radius: 13px;
@@ -19,10 +23,12 @@
   font-size: 13px;
   letter-spacing: 2px;
 }
+
 .row .col .progress.loading div {
   height: 23px;
   text-align: center;
 }
+
 .row .col .progress.building {
   border: 1px #11b86f solid;
   border-radius: 13px;
@@ -32,20 +38,23 @@
   position: relative;
   overflow: hidden;
 }
+
 .row .col .progress.building:before {
-  content: "downloading";
+  content: attr(data-before);
   position: absolute;
   left: 0;
   width: 100%;
   text-align: center;
   overflow: hidden;
 }
+
 .row .col .progress.building div {
   height: 23px;
   background-color: #11b86f;
   text-align: center;
   transition: linear 3s;
 }
+
 .row .col .progress.complete {
   background-color: #666;
   border-radius: 13px;
@@ -56,6 +65,7 @@
   line-height: 22px;
   position: relative;
 }
+
 .row .col .progress.complete:before {
   content: "finished";
   position: absolute;
@@ -65,12 +75,15 @@
   color: #fff;
   font-weight: bold;
 }
+
 .row .col .progress.error {
   margin: 0px;
 }
-.row .col .progress.error > div {
+
+.row .col .progress.error>div {
   width: 100% !important;
 }
+
 .row:not(.processing):not(.loaded) .launch {
   opacity: 0.3;
 }

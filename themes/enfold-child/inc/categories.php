@@ -67,43 +67,6 @@ add_filter('avf_main_menu_nav', function ($stuff) {
   return $stuff;
 });
 
-/*function get_agencies_by_state()
-{
-  $agencies_by_state = get_option('winmo_agencies_by_state');
-
-  // check to see if industries is already saved
-  if (false === $agencies_by_state) {
-
-    // do this if no option set
-    $agencies = get_option('winmo_agencies');
-    $agencies_by_state = array();
-
-    foreach ($agencies as $aid => $agency) :
-      if (!is_null($agency['state'])) {
-        if (!isset($agencies_by_state[strtoupper($agency['state'])])) {
-          $agencies_by_state[strtoupper($agency['state'])] = array();
-        }
-        $agencies_by_state[strtoupper($agency['state'])][$aid] = $agency;
-      }
-    endforeach;
-    $agencies_by_state = array_filter($agencies_by_state);  // Remove empty items
-
-    ksort($agencies_by_state);
-
-    // Alpha sort agencies within each state
-    foreach ($agencies_by_state as $state => $iagencies) :
-      //error_log($state);
-      usort($iagencies, "name_sort");
-      $agencies_by_state[$state] = $iagencies;
-      if (in_array($state, array("AB", "NL"))) unset($agencies_by_state[$state]);
-    endforeach;
-
-    // store the industry list as an option
-    update_option('winmo_agencies_by_state', $agencies_by_state);
-  }
-  return $agencies_by_state;
-}*/
-
 /* -----------------------------------
  * CONVERT STATE NAMES!
  * Goes both ways. e.g.
