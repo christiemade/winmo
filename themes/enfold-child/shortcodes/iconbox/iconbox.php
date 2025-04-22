@@ -793,7 +793,7 @@ if( ! class_exists( 'avia_sc_icon_box', false ) )
 			$output .= 		'<div class="iconbox_content">';
       
       if($linkelement <> "both") {
-			  $output .= '<a href="'.$link.'" class="full_size_link"></a>'; 
+			  $output .= '<a href="'.$link.'" aria-label="'.$esc_linktitle.'" class="full_size_link"></a>'; 
       } 
 
 			$output .= 			'<header class="entry-content-header" ' . $aria_label . '>';
