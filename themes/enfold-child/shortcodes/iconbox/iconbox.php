@@ -702,6 +702,8 @@ if( ! class_exists( 'avia_sc_icon_box', false ) )
 			$blank = AviaHelper::get_link_target( $linktarget );
 
 			$linktitle = '';
+			$linktitle = '' == trim( $atts['title_attr'] ) ? $atts['title'] : $atts['title_attr'];
+			$esc_linktitle = esc_attr( $linktitle );
 
 			if( ! empty( $link ) )
 			{

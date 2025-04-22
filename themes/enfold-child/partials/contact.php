@@ -9,18 +9,22 @@ wp_enqueue_script('sticky-nav');
 $permalink = get_query_var('pid');
 $weird_contact_id = get_query_var('wid');
 
-if (isset($weird_contact_id)) {
+if (isset($weird_contact_id) && ($weird_contact_id != "")) {
   // Get the company permalink to pull up the data
   $weird_contact_id = (int)$weird_contact_id - 1423;
   $contact = get_winmo_contact('','', $weird_contact_id);
-} else {
-
-  // Reverse look up contact id
-  $contact = get_winmo_contact($permalink);
-
+  if (!empty($contact)) {
+    $permalink = "/decision_makers/".$contact[0]->permalink;
+    header("HTTP/1.1 301 Moved Permanently");
+    header("Location: ".$permalink);
+    exit();
+  }
 }
 
-error_log(gettype($contact));
+// Reverse look up contact id
+if($permalink && $permalink != "") {
+  $contact = get_winmo_contact($permalink);
+}
 
 if (($contact === NULL) || gettype($contact) == "string") {
   echo "<header id=\"page404\" class=\"\"><div class=\"container\"></div></header><div id=\"error\"><h2>Error:</h2> <p>This decision maker does not exist.</p></div>";
