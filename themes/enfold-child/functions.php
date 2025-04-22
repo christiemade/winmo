@@ -107,6 +107,7 @@ function winmo_rewrite_basic()
   add_rewrite_rule('^company/([^/]+)/([a-z][a-z])/([^/]+)/([^/]+)/([0-9]*)/?$', 'index.php?page_id=' . $company_page->ID . '&wid=$matches[5]', 'top');
   add_rewrite_rule('^agency/([a-z][a-z])/([^/]+)/([^/]+)/([0-9]*)/?$', 'index.php?page_id=' . $agency_page->ID . '&wid=$matches[4]', 'top');
   add_rewrite_rule('^decision_makers/([a-z][a-z])/([^/]+)/([^/]+)/([^/]+)/([0-9]*)/?$', 'index.php?page_id=' . $contact_page->ID . '&wid=$matches[5]', 'top');
+  add_rewrite_rule('^open/decision_makers/([a-z][a-z])/([^/]+)/([^/]+)/([^/]+)/([0-9]*)/?$', 'index.php?page_id=' . $contact_page->ID . '&wid=$matches[5]', 'top');
 }
 add_action('init', 'winmo_rewrite_basic');
 
@@ -351,7 +352,7 @@ add_filter('wpseo_metadesc', 'prefix_filter_description_example');
 
 function winmo_defer_css( $html, $handle ) {
   $handles = array( 'avia-grid', 'avia-module-icon', 'avia-module-slideshow', 'avia-widget-css','avia-layout','avia-module-dynamic-field', 'enfold-custom-block-css');
-error_log($handle);
+
   if ( in_array( $handle, $handles ) ) {
     // Find HREF
     $pos = strpos($html, "href") + 6;

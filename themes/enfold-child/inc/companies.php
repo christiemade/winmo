@@ -61,10 +61,9 @@ function set_companies_information($results = array(), $atts = array())
             $count++;
             
           } else {
-            error_log("We're in the else. So we should already know about this industry. Make sure it continues to make sense to just grab the 0 value from this: ");
-            error_log(json_encode($company_industries[$industry_mx]));
+            error_log("We're in the else. So we should already know about this industry.");
             $key = isset($industries[$industry_mx]) ? $industries[$industry_mx] : $company_industries[$industry_mx][0];
-            error_log("So the key we found to use is: " .$key);
+            error_log("So the industry id we found to use is: " .$key);
             $company_industries_local[$industry_mx] = array($key, ucwords($industry)); // Send to API page
         
           }
@@ -80,26 +79,20 @@ function set_companies_information($results = array(), $atts = array())
   // Store the updated industry list in the database
   // Also make a company/industry relation query
   if (sizeof($companies)) {
-    error_log('Companies has content...' . sizeof($companies). ' Looking for my SQL.');
     $company_query = "INSERT INTO winmo_industries_companies (`api_id`, `industry_id`) VALUES";
     $industry_query = "INSERT INTO winmo_industries (`name`, `permalink`, `industry_id`) VALUES";
     $query_added = 0;
 
-    error_log(json_encode($companies));
-
     foreach($companies as $companyID=>$industry):
       if(sizeof($industry)):
-        error_log("Has industries");
         foreach($industry as $permalink=>$indus):
           $query_added = 1;
           $company_query .= "('".$companyID."','".$indus[0]."'),";
           $industry_query .= "('".$indus[1]."','".$permalink."','".$indus[0]."'),";
-          error_log("('".$indus[1]."','".$permalink."','".$indus[0]."'),");
         endforeach;
       endif;
     endforeach;
 
-    error_log("Query added: ".$query_added);
     if($query_added) {
       $industry_query = substr($industry_query,0,-1)." ON DUPLICATE KEY UPDATE ";
       $company_query = substr($company_query,0,-1)." ON DUPLICATE KEY UPDATE ";
@@ -108,7 +101,6 @@ function set_companies_information($results = array(), $atts = array())
       //error_log("Industry Query: ".$industry_query);
       //error_log("Company Query: ".$company_query);
 
-      error_log($industry_query);
       $industries_insert = $wpdb->query($industry_query);
       if($wpdb->last_error !== '') { 
         error_log("Industry Query: ".$industry_query);
@@ -164,7 +156,6 @@ function set_companies_information($results = array(), $atts = array())
         $last = true;
       }
     }
-    error_log("Hopefully last gets sent as true and the script stops now.".$last);
   } 
 
   return array('data' => true, 'last' => $last);

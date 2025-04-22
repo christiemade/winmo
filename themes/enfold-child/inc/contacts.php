@@ -156,7 +156,7 @@ function set_contacts_information($results = array(), $atts = array())
   return array('data' => $success, 'page' => $page, 'last' => $last, 'error' => $error);
 }
 
-function get_winmo_contact($permalink = '', $alpha = '')
+function get_winmo_contact($permalink = '', $alpha = '', $api = '')
 {
   global $wpdb;
 
@@ -169,6 +169,10 @@ function get_winmo_contact($permalink = '', $alpha = '')
   if (!empty($alpha)) {
     $sql .= ' AND `name` LIKE %s';
     $args[] = '% '.$wpdb->esc_like($alpha) . '%';
+  }
+  if (!empty($api)) {
+    $sql .= ' AND `api_id` = %d';
+    $args[] = $api;
   }
   if (!empty($permalink)) {
     $sql .= ' AND `permalink` = %s';

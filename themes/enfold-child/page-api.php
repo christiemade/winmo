@@ -35,8 +35,10 @@ do_action('ava_page_template_after_header'); ?>
     }
   elseif (is_page('contacts')) :
     $dataid = get_query_var('pid');
+    $weird_contact_id = get_query_var('wid');
+    error_log("WID: ".$weird_contact_id);
 
-    if ($dataid) {
+    if ($dataid || $weird_contact_id) {
       get_template_part('partials/contact');
     } else {
       get_template_part('partials/list', 'contact');
