@@ -22,6 +22,17 @@
         margin: 10px 0px;
         max-width: 350px;
       }
+      .iconbox_content {
+        position: relative;
+        & > a.full_size_link {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          left: 0px;
+          top: 0px;
+          z-index: 2;
+        }
+      }
       .iconbox_icon {
         background: rgba(7,64,88,0.1);
         border: 0px;
