@@ -6,7 +6,7 @@ if (file_exists(__DIR__ . '/vendor/autoload.php'))
 // Stylesheet caching version
 function avia_get_theme_version($which = 'parent')
 {
-  return '1.0.0.0.39.75';
+  return '1.0.0.0.39.76';
 }
 
 // Quick shortcode to display current year
@@ -97,17 +97,20 @@ function winmo_rewrite_basic()
   }
 
   // Unique URLS generated for new website
-  add_rewrite_rule('^company/([^/]*)/?$', 'index.php?page_id=' . $company_page->ID . '&rid=$matches[1]', 'top');
   add_rewrite_rule('^agency/([^/]*)/?$', 'index.php?page_id=' . $agency_page->ID . '&rid=$matches[1]', 'top');
   add_rewrite_rule('^agencies/([a-z]{2})/?', 'index.php?page_id=' . $agencies_page->ID . '&state=$matches[1]', 'top');
   add_rewrite_rule('^industries/([^/]*)/?', 'index.php?page_id=' . $industries_page->ID . '&rid=$matches[1]', 'top');
   add_rewrite_rule('^decision_makers/([^/]*)/?$', 'index.php?page_id=' . $contact_page->ID . '&pid=$matches[1]', 'top');
 
   // Redirects from original website
-  add_rewrite_rule('^company/([^/]+)/([a-z][a-z])/([^/]+)/([^/]+)/([0-9]*)/?$', 'index.php?page_id=' . $company_page->ID . '&wid=$matches[5]', 'top');
   add_rewrite_rule('^agency/([a-z][a-z])/([^/]+)/([^/]+)/([0-9]*)/?$', 'index.php?page_id=' . $agency_page->ID . '&wid=$matches[4]', 'top');
   add_rewrite_rule('^decision_makers/([a-z][a-z])/([^/]+)/([^/]+)/([^/]+)/([0-9]*)/?$', 'index.php?page_id=' . $contact_page->ID . '&wid=$matches[5]', 'top');
   add_rewrite_rule('^open/decision_makers/([a-z][a-z])/([^/]+)/([^/]+)/([^/]+)/([0-9]*)/?$', 'index.php?page_id=' . $contact_page->ID . '&wid=$matches[5]', 'top');
+  
+  // Company redirects
+  add_rewrite_rule('^company/([^/]+)/([a-z][a-z])/([^/]+)/([^/]+)/([0-9]*)/?$', 'index.php?page_id=' . $company_page->ID . '&wid=$matches[5]', 'top');
+  add_rewrite_rule('^company/id/([0-9]*)/?$', 'index.php?page_id=' . $company_page->ID . '&wid=$matches[1]', 'top');
+  add_rewrite_rule('^company/([^/]*)/?$', 'index.php?page_id=' . $company_page->ID . '&rid=$matches[1]', 'top');
 }
 add_action('init', 'winmo_rewrite_basic');
 

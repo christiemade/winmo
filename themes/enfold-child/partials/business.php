@@ -5,8 +5,29 @@ wp_enqueue_script('gsap');
 wp_enqueue_script('scrollTrigger');
 wp_enqueue_script('sticky-nav');
 
+
 // Grab data for page from query vars and the API
-$company = get_company(get_query_var('rid'), 'permalink');
+$company_id = get_query_var('rid');
+$weird_company_id = get_query_var('wid');
+
+// Old URL catcher
+if (isset($weird_company_id) && $weird_company_id > 0) {
+error_log("Hi im in the wid catcher with ".$weird_company_id);
+  // Old API IDs are off by 1423 for some reason
+  $weird_company_id = (int)$weird_company_id - (int)1423;
+  $weird_company = get_company($weird_company_id, 'api_id');
+
+  // If the company was found, redirect the user
+  if($weird_company !== NULL) {
+    $weird_company = json_decode($weird_company);
+    $company_permalink = get_business_permalink($weird_company->id);
+    $permalink = get_bloginfo('wpurl') . "/company/" . $company_permalink . "/";
+    header("Location: " . $permalink, true, 301);
+  }
+}
+
+// Grab data for page from query vars and the API
+$company = get_company($company_id, 'permalink');
 
 // Error check
 if ($company === NULL) {

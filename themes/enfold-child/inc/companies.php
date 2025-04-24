@@ -1,4 +1,16 @@
 <?php
+// Obtain the individual company permalink by api_id
+function get_business_permalink($api_id)
+{
+
+  global $wpdb;
+  $result = null;
+
+  $sql = "SELECT permalink FROM `winmo` WHERE type = 'company' AND `api_id` = '" . $api_id . "' LIMIT 1";
+  $result = $wpdb->get_var($sql);
+  return $result;
+}
+
 // Enter items as company2 and change back to company at the end of import
 function set_companies_information($results = array(), $atts = array())
 {

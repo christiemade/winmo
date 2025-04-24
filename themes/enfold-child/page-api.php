@@ -27,8 +27,9 @@ do_action('ava_page_template_after_header'); ?>
   if (is_page('companies')) :
 
     $dataid = get_query_var('rid');
+    $weird_company_id = get_query_var('wid');
 
-    if ($dataid) {
+    if ($dataid || $weird_company_id) {
       get_template_part('partials/business', '', 'company');
     } else {
       get_template_part('partials/list', 'company');

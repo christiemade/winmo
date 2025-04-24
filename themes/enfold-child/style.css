@@ -10738,6 +10738,9 @@ h5 {
   border-color: #074058;
   color: #fff;
 }
+#cta-footer h3 {
+  font-size: 25px;
+}
 
 #footer {
   font-size: 12px;
