@@ -12,7 +12,7 @@ $weird_company_id = get_query_var('wid');
 
 // Old URL catcher
 if (isset($weird_company_id) && $weird_company_id > 0) {
-error_log("Hi im in the wid catcher with ".$weird_company_id);
+error_log("business.php file. Hi im in the wid catcher with ".$weird_company_id);
   // Old API IDs are off by 1423 for some reason
   $weird_company_id = (int)$weird_company_id - (int)1423;
   $weird_company = get_company($weird_company_id, 'api_id');

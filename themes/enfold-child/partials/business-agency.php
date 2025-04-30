@@ -7,6 +7,27 @@ wp_enqueue_script('sticky-nav');
 
 // Grab data for page from query vars and the API
 $agency = get_query_var('rid');
+$weird_company_id = get_query_var('wid');
+
+error_log('business-agency.php');
+
+// Old URL catcher
+if (isset($weird_company_id) && $weird_company_id > 0) {
+
+  // Old API IDs are off by 1423 for some reason
+  $weird_company_id = (int)$weird_company_id - (int)1423;
+     
+  $agency_sql = "SELECT permalink FROM winmo WHERE type = 'agency' AND api_id = '".$weird_company_id."' LIMIT 1";
+  error_log($agency_sql);
+  $permalink = $wpdb->get_var($agency_sql);
+  error_log(json_encode($permalink));
+  
+  // If the company was found, redirect the user
+  if($permalink !== NULL) {
+    $permalink = get_bloginfo('wpurl') . "/agency/" . $permalink . "/";
+    header("Location: " . $permalink, true, 301);
+  }
+}
 
 $second = false;
 if (preg_match('#(' . substr($agency, 0, -2) . ')-\d#', $agency)) {

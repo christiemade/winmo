@@ -73,7 +73,17 @@ jQuery(function ($) {
 
   const fetchData = async (type, progressBar, atts = []) => {
     if (!atts["page"]) atts["page"] = 1;
+    console.log(type);
     let metadata = await fetchMeta(type, atts, progressBar);
+
+    // Error Check
+    let metaarray = JSON.parse(metadata);
+    if (metaarray['error']) {
+      console.log(metaarray['error']);
+      updateBar(progressBar, "fail", {error: metaarray['error']});
+      stopme = true;
+      return;
+    }
     let total = metadata.total_pages;
     let current_page = metadata.page;
     let first_total = "";
@@ -176,6 +186,7 @@ jQuery(function ($) {
   async function fetchMeta(type, atts, progressBar) {
     const thenable = {
       then(resolve, _reject) {
+        console.log("Fetching the meta first.");
         $.ajax({
           url: apiAjax.ajaxurl,
           type: "POST",
@@ -204,13 +215,23 @@ jQuery(function ($) {
               console.log("Can I do something about THIS error?");
             },
           },
-          error: function (data, more) {
+          error: function (data, more, message) {
             // more == "error"
             console.log("Error met");
+            console.log(message);
             console.log(data);
+            console.log(more);
+            $(progressBar)
+              .removeClass("building").removeClass("loading")
+              .addClass("error");
+            $(progressBar)
+              .children("div")
+              .text("Test");
+            $(".row").removeClass("processing").addClass("loaded");
           },
         }).fail(function (jqXHR, textStatus, errorThrown) {
           console.log("Fail field " + textStatus);
+
           // Request failed. Show error message to user.
           // errorThrown has error message, or "timeout" in case of timeout.
           $(progressBar)
@@ -302,7 +323,7 @@ jQuery(function ($) {
     switch (action) {
       case "fail":
         progressBar
-        .removeClass("building")
+        .removeClass("building").removeClass('loading')
           .addClass("error");
         progressBar.children('div').text(atts.error);
         $(".row").removeClass("processing").addClass("loaded");

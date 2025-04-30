@@ -45,8 +45,12 @@ do_action('ava_page_template_after_header'); ?>
     }
   elseif (is_page('agencies')) :
     $dataid = get_query_var('rid');
+    $weird_company_id = get_query_var('wid');
 
-    if ($dataid) {
+    error_log("Agency wid ".$weird_company_id);
+
+    if ($dataid || $weird_company_id) {
+      error_log("Line 53. ". $weird_company_id);
       get_template_part('partials/business', 'agency');
     } else {
       get_template_part('partials/list', 'agency');

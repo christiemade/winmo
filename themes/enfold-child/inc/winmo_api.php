@@ -6,8 +6,6 @@ function winmo_api($type, $page = 1)
 {
   // Generate URL for API
   $url = 'https://api.winmo.com/web_api/seo/' . $type . '/?page=' . $page;
-  error_log($url);
-
   $args = array(
     'headers' => array(
       'Content-Type' => 'application/json',
@@ -23,11 +21,14 @@ function winmo_api($type, $page = 1)
     if ($request['response']['code'] == "404") {
       $error =  new WP_Error('broke', 'Page not found.');
     }
-  } else {
-    $body = wp_remote_retrieve_body($request);
-    if (!isset($body['data'])) {
-      $error = new WP_Error('broke', $request->get_error_message());
+    else {
+      $body = wp_remote_retrieve_body($request);
+      if(gettype($body) == "string") {
+        $error =  new WP_Error('broke', $body);
+      }
     }
+  } else {
+    $error = new WP_Error('broke', $request->get_error_message());
   }
 
   if ($error === false) {
@@ -60,6 +61,8 @@ function process_api_data()
 
       // Just send meta information
       if (($grab == "meta") && ($type != "company_contacts")) {
+
+        $error = false;
 
         // Include total for both contact APIs
         error_log("Meta check for type: " . $type);
@@ -125,9 +128,17 @@ function process_api_data()
           error_log("E. Page set to: " . $response['page']);
           $response['second_total'] = $result['meta']['total_pages'];
         } elseif ($type != "contacts") {
+
           $result = winmo_api($type, $page);
-          $result['first_total'] = $result['meta']['total_pages'];
-          $response = $result['meta'];
+
+          // Error check
+          if(sizeof($result['error'])) {
+            $response = json_encode(array('error' => $result['error']));
+            $error = true;
+          } else {
+            $result['first_total'] = $result['meta']['total_pages'];
+            $response = $result['meta'];
+          }
         }
       } elseif (($grab == "meta") && ($type == "agency_contacts")) {
 
@@ -187,7 +198,12 @@ function process_api_data()
         if (gettype($response) == "string")
           error_log("winmo_api.php:181 " . $response);
       }
-      $promise->resolve(json_encode($response));
+
+      if ($error === false) {
+        $promise->reject(json_encode($response));
+      } else {
+        $promise->resolve(json_encode($response));
+      }
     });
 
     // Calling wait will return the value of the promise.
