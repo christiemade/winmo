@@ -144,8 +144,8 @@ function process_api_data()
 
         $response = array();
       } else {
-        // Sometimes pages drop
-        error_log("Page is: " . $page . " out of " . $total);   // $total came through as 0??
+
+        error_log("Page is: " . $page . " out of " . $total);
 
         $type = $type == "company_contacts" ? "contacts" : $type;
         $type = $type == "agency_contacts" ? "contacts" : $type;
@@ -156,7 +156,6 @@ function process_api_data()
         if ($page > $first_total) {
           error_log("Checking if " . $page . " >= " . $total);
           if ($page >= $total) {
-            error_log("Ok stop this madneess");
             $last = true;
           }
 
@@ -172,9 +171,8 @@ function process_api_data()
         //error_log("Grab page # " . $page . " for " . $type . " in " . $function . " first_page_total is " . $first_total);
 
         $result = winmo_api($type, $page);
-        error_log("Last var also gets changed to true here if " . $total . " <= " . $page);
         if ($total <= $page) $last = true;
-        error_log("winmo_api.php:164 Page being sent back as " . $page);
+
         $atts = array(
           'page' => $page,
           'total' => $total,
@@ -187,7 +185,7 @@ function process_api_data()
 
         // API Error scenario
         if (isset($result['error'])) {
-          error_log('The result has an error');
+          error_log('API returned an error');
           $response = $result['error'];
         } else {
           $page = isset($result['page']) ? $result['page'] : $page;
@@ -196,7 +194,7 @@ function process_api_data()
 
         // Sometimes pages drop - why?
         if (gettype($response) == "string")
-          error_log("winmo_api.php:181 " . $response);
+          error_log("Pages drop check - This should no longer be occuring.  winmo_api.php:197 " . $response);
       }
 
       if ($error === false) {

@@ -73,13 +73,11 @@ jQuery(function ($) {
 
   const fetchData = async (type, progressBar, atts = []) => {
     if (!atts["page"]) atts["page"] = 1;
-    console.log(type);
     let metadata = await fetchMeta(type, atts, progressBar);
 
     // Error Check
     let metaarray = JSON.parse(metadata);
     if (metaarray['error']) {
-      console.log(metaarray['error']);
       updateBar(progressBar, "fail", {error: metaarray['error']});
       stopme = true;
       return;
@@ -102,7 +100,6 @@ jQuery(function ($) {
     $(progressBar).children("div").text("");
 
     var barWidth = $(progressBar).width();
-    console.log("Attempt to get bar going after a restart: ");
     updateBar($(progressBar), 'pass', { current_page: current_page, total: total });
 
     for (current_page; current_page <= total; current_page++) {
