@@ -1,6 +1,7 @@
 <?php
 
 use GuzzleHttp\Promise\Promise;
+use GuzzleHttp\Promise\RejectionException;
 
 function winmo_api($type, $page = 1)
 {
@@ -23,21 +24,25 @@ function winmo_api($type, $page = 1)
     }
     else {
       $body = wp_remote_retrieve_body($request);
+      // A string means json, turn it into an array and assign it
       if(gettype($body) == "string") {
-        $error =  new WP_Error('broke', $body);
+        $body = json_decode($body, true);
+        error_log(gettype($body));
+      } else {
+        $error =  'There has been a problem with the data received.';
       }
     }
   } else {
-    $error = new WP_Error('broke', $request->get_error_message());
+    $error = $request->get_error_message();
   }
 
   if ($error === false) {
     if (!$body) $body = json_decode(wp_remote_retrieve_body($request), true);
     return $body;
   } else {
-    error_log('Error: ' . json_encode($error->errors));
+    error_log("G");
     $results = array(
-      'error' => $error->errors['broke']
+      'error' => $error
     );
     return $results;
   }
@@ -59,10 +64,10 @@ function process_api_data()
 
     $promise = new Promise(function () use ($type, $page, $grab, $total, $first_total, &$promise) {
 
+      $error = false;
+
       // Just send meta information
       if (($grab == "meta") && ($type != "company_contacts")) {
-
-        $error = false;
 
         // Include total for both contact APIs
         error_log("Meta check for type: " . $type);
@@ -132,8 +137,8 @@ function process_api_data()
           $result = winmo_api($type, $page);
 
           // Error check
-          if(sizeof($result['error'])) {
-            $response = json_encode(array('error' => $result['error']));
+          if(is_array($result) && isset($result['error'])) {
+            $response = $result['error'];
             $error = true;
           } else {
             $result['first_total'] = $result['meta']['total_pages'];
@@ -181,12 +186,12 @@ function process_api_data()
           'first_total' => $first_total
         );
 
-        if(isset($result['error'])) $atts['error'] = $result['error'];
-
         // API Error scenario
-        if (isset($result['error'])) {
+        if(isset($result['error'])) {
           error_log('API returned an error');
+          $atts['error'] = $result['error'];
           $response = $result['error'];
+          $error = true;
         } else {
           $page = isset($result['page']) ? $result['page'] : $page;
           $response = $function($result['data'], $atts); // Send to processer
@@ -198,14 +203,18 @@ function process_api_data()
       }
 
       if ($error === false) {
-        $promise->reject(json_encode($response));
-      } else {
         $promise->resolve(json_encode($response));
+      } else {
+        $promise->reject(reason: $response);
       }
     });
 
     // Calling wait will return the value of the promise.
-    echo $promise->wait();
+    try {
+      echo $promise->wait();
+    } catch (RejectionException $e) {
+      wp_send_json_error( $e->getReason() );
+    }
   } else {
     wp_send_json_error('No data received.');
   }

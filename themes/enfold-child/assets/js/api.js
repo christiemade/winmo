@@ -73,15 +73,20 @@ jQuery(function ($) {
 
   const fetchData = async (type, progressBar, atts = []) => {
     if (!atts["page"]) atts["page"] = 1;
-    let metadata = await fetchMeta(type, atts, progressBar);
 
-    // Error Check
-    let metaarray = JSON.parse(metadata);
-    if (metaarray['error']) {
-      updateBar(progressBar, "fail", {error: metaarray['error']});
+    let metadata;
+    try {
+      metadata = await fetchMeta(type, atts, progressBar);
+    } catch (error) {
+      console.error("fetchMeta failed:", error);
+  
+      // Handle the UI if needed
+      updateBar(progressBar, "fail", {error: error});
+  
       stopme = true;
-      return;
+      return; // Exit early since fetchMeta failed
     }
+console.log(metadata);
     let total = metadata.total_pages;
     let current_page = metadata.page;
     let first_total = "";
@@ -167,23 +172,15 @@ jQuery(function ($) {
         }
         break;
       }
-
-       /*if(stopme) {
-        stopme = true;
-        $(progressBar)
-          .removeClass("building")
-          .addClass("error");
-        $(progressBar)
-          .children("div")
-          .text("Server time out on page #" + current_page + "!");
-        $(".row").removeClass("processing").addClass("loaded");
-      }*/
     }
   };
+
+
   async function fetchMeta(type, atts, progressBar) {
     const thenable = {
-      then(resolve, _reject) {
+      then(resolve, reject) {
         console.log("Fetching the meta first.");
+
         $.ajax({
           url: apiAjax.ajaxurl,
           type: "POST",
@@ -196,7 +193,16 @@ jQuery(function ($) {
             type: type, // TYPE needs to be "agency_contacts"
           },
           success: function (data) {
-            resolve(JSON.parse(data));
+            console.log(data);
+            // If error is in the data, lets reject
+            if(data.success === false) {
+              console.log(data.data);
+              reject(data.data);
+            }
+            else {
+              data = JSON.parse(data);
+              resolve(data);
+            }
           },
           statusCode: {
             502: function (e) {
@@ -213,11 +219,6 @@ jQuery(function ($) {
             },
           },
           error: function (data, more, message) {
-            // more == "error"
-            console.log("Error met");
-            console.log(message);
-            console.log(data);
-            console.log(more);
             $(progressBar)
               .removeClass("building").removeClass("loading")
               .addClass("error");
@@ -229,6 +230,8 @@ jQuery(function ($) {
         }).fail(function (jqXHR, textStatus, errorThrown) {
           console.log("Fail field " + textStatus);
 
+          console.log(jqXHR);
+          console.log(errorThrown);
           // Request failed. Show error message to user.
           // errorThrown has error message, or "timeout" in case of timeout.
           $(progressBar)
@@ -236,12 +239,18 @@ jQuery(function ($) {
             .addClass("error");
           $(progressBar)
             .children("div")
-            .text("Server time out on page #" + page + "!");
+            .text("Server time out on page #!");
           $(".row").removeClass("processing").addClass("loaded");
         });
       },
     };
-    return await thenable; // "resolved!"
+
+    try {
+      return await thenable;
+    } catch (err) {
+      console.error("Handled in fetchMeta:", err);
+      throw err;
+    }
   }
 
   // Promise to wait x ms before continuing
@@ -285,7 +294,13 @@ jQuery(function ($) {
           success: function (data) {
             //console.log("Eventually we got a parse issue here. Unexpected character at line one.");
             console.log(data);
-            try {
+
+            // If error is in the data, lets reject
+            if(data.success === false) {
+              console.log(data.data);
+              reject(data.data);
+            } else {
+
               var decodeData = JSON.parse(data);
 
               // This is the end of the script, clean up!
@@ -297,11 +312,6 @@ jQuery(function ($) {
                 resolve(JSON.parse(data)); // Resolve normally
                 updateBar(progressBar, "pass");
               }
-
-            } catch (error) {
-              console.error('Error parsing data:', error);
-              reject(error);
-              updateBar(progressBar, "fail");
             }
           },
           error: function (jqXHR, textStatus, errorThrown) {
