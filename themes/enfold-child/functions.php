@@ -6,7 +6,7 @@ if (file_exists(__DIR__ . '/vendor/autoload.php'))
 // Stylesheet caching version
 function avia_get_theme_version($which = 'parent')
 {
-  return '1.0.0.0.39.76';
+  return '1.0.0.0.39.84';
 }
 
 // Quick shortcode to display current year
@@ -197,15 +197,8 @@ add_action('ava_after_content_templatebuilder_page', function () { ?>
   </div>
 
   <?php get_template_part('partials/footer', 'company'); ?>
+  <?php get_template_part('partials/request_form'); ?>
 
-  <div class="popup-wrapper">
-    <div id="request_demo">
-      <?php get_template_part('partials/sidebar_cta'); ?>
-    </div>
-    <div id="request_form">
-      <?php get_template_part('partials/hubspot_form'); ?>
-    </div>
-  </div>
 <?php
 });
 

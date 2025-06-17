@@ -225,7 +225,7 @@ function get_companies_by_industry($industry_id) {
 add_filter('avf_main_menu_nav', function ($stuff) {
   $company = get_query_var('rid');
   if ($company && is_page('companies')) {
-    $stuff .= '<div class="button"><a href="#request_demo" class="modal"><img src="' . get_stylesheet_directory_uri() . '/assets/img/companies/unlock.png"></a></div>';
+    $stuff .= '<div class="button"><a href="#request_form" class="modal"><img src="' . get_stylesheet_directory_uri() . '/assets/img/companies/unlock.png"></a></div>';
   }
   return $stuff;
 });

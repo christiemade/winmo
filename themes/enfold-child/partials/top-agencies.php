@@ -67,6 +67,8 @@ if (false) : ?>
       </section>
     </main>
   </div>
+<?php else: ?>
+      <?php get_template_part('partials/request_form'); ?>
 <?php endif; ?>
 
 <div class="container" id="more">
