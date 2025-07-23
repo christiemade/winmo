@@ -16,7 +16,19 @@ jQuery(function ($) {
                   alert("There was a problem.")
                }
             }
-         })
+         });
+
+         $(document).on('keyup', '#filter-form input[name=search]', function (e) {
+            if($(e.currentTarget).val() != "") {
+               $('#filter-form select[name=alpha]').val('');
+            }
+         });
+
+         $(document).on('change', '#filter-form select[name=alpha]', function (e) {
+            if($(e.currentTarget).val() != "") {
+               $('#filter-form input[name=search]').val('');
+            }
+         });
 
          $(document).on('submit', '#filter-form', function (e) {
             e.preventDefault();

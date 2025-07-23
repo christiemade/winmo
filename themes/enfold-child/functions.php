@@ -9,6 +9,7 @@ function avia_get_theme_version($which = 'parent')
   return '1.0.0.0.39.84';
 }
 
+
 // Quick shortcode to display current year
 function year_shortcode()
 {
@@ -129,7 +130,7 @@ function winmo_load_scipts()
   wp_enqueue_script('hubspot', '//js.hsforms.net/forms/embed/v2.js');
 
   wp_enqueue_script('popups', get_stylesheet_directory_uri() . '/assets/js/popups.js', array('jquery'), '1.0.0.24');
-  wp_register_script('filters', get_stylesheet_directory_uri() . '/assets/js/filters.js', array('jquery'), '1.0.0.7');
+  wp_register_script('filters', get_stylesheet_directory_uri() . '/assets/js/filters.js', array('jquery'), '1.0.0.8');
   wp_localize_script('filters', 'winmoAjax', array('ajaxurl' => admin_url('admin-ajax.php')));
   wp_enqueue_script('filters');
 
