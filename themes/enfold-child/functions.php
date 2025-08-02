@@ -9,6 +9,9 @@ function avia_get_theme_version($which = 'parent')
   return '1.0.0.0.39.84';
 }
 
+add_action('wp_head', function(){
+  ?><!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-MT3J8KL7HJ"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-MT3J8KL7HJ'); </script><?php
+});
 
 // Quick shortcode to display current year
 function year_shortcode()
