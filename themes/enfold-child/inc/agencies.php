@@ -4,11 +4,14 @@ function set_agencies_information($results = array(), $atts = array())
 {
   $page = $atts['page'];
   $last = $atts['last'];
+  $file = ABSPATH . 'agencies-sitemap.txt';
+  $parent_file = ABSPATH . 'content-sitemaps.xml';
   $error = "";
 
   global $wpdb;
   $wpdb->suppress_errors = false;
   $wpdb->show_errors = false;
+  $sitemap_contents = "";
 
   $success = true;
 
@@ -19,6 +22,9 @@ function set_agencies_information($results = array(), $atts = array())
     $permalinks = array();
     $undo_import = "DELETE FROM `winmo` WHERE `type` LIKE 'agency2'";
     $wpdb->query( $undo_import );
+    
+    siteMapCleanup($parent_file, $file);
+    
   } else {
     $permalinks = get_transient('agency_permalinks');
   }
@@ -44,6 +50,7 @@ function set_agencies_information($results = array(), $atts = array())
     $query[] = array($agency['name'], $permalink, $agency['id'], json_encode($agency));
     
     $permalinks[] = $permalink;
+    $sitemap_contents .= get_bloginfo('wpurl').'/agency/'.$permalink."\n";
 
   endforeach;
 
@@ -69,6 +76,10 @@ function set_agencies_information($results = array(), $atts = array())
     error_log($wpdb->last_error);
     $success = false;
     $wpdb->query( $undo_import );
+  } else {
+    // Import successfull, put this in the sitemap
+    error_log("writing to sitemap").
+    file_put_contents($file, $sitemap_contents, FILE_APPEND);
   }
 
   // Last page in the API

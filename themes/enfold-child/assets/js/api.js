@@ -86,15 +86,21 @@ jQuery(function ($) {
       stopme = true;
       return; // Exit early since fetchMeta failed
     }
-console.log(metadata);
+
     let total = metadata.total_pages;
     let current_page = metadata.page;
     let first_total = "";
     let second_total = "";
+    let first_per_page = "";
+    let second_per_page = "";
 
     if (type == "contacts" || type == "agency_contacts") {
       first_total = metadata.first_total;
       second_total = metadata.second_total;
+      first_per_page = metadata.first_per_page;
+      second_per_page = metadata.second_per_page;
+      per_page =  metadata.per_page;
+
     } else {
       first_total = metadata.total_pages;
     }
@@ -113,7 +119,7 @@ console.log(metadata);
       }
 
       try {
-        const response = await jsdelay(type, current_page, total, first_total);
+        const response = await jsdelay(type, current_page, total, first_total, per_page);
         console.log(response);
         if (response && response.data) {
           console.log(`Response recieved - Page ${current_page} processed successfully.`);
@@ -125,13 +131,14 @@ console.log(metadata);
             "Downloading: " + current_page + " / " + total);
 
           // Switch to Agency
-          console.log("Current Page: " + current_page + ", Total: " + total + ", First Total: " + first_total);
+          console.log("Current Page: " + current_page + ", Total: " + total + ", First Total: " + first_total + " Per Page: "+per_page);
           if (type === "contacts" && current_page === first_total) {
             // We need to send total and first_total through
             atts = {
               page: Math.ceil(current_page + 1),
               first_total,
               total,
+              per_page
             };
             await fetchData("agency_contacts", progressBar, atts);
           }
@@ -191,6 +198,7 @@ console.log(metadata);
             total: atts["total"],
             first_total: atts["first_total"],
             type: type, // TYPE needs to be "agency_contacts"
+            per_page: atts['per_page']
           },
           success: function (data) {
             console.log(data);
@@ -259,7 +267,7 @@ console.log(metadata);
   }
 
   // Delay each fetchPage call by 3 seconds whenever ready
-  async function jsdelay(type, current_page, total, first_total) {
+  async function jsdelay(type, current_page, total, first_total, per_page) {
     console.log("Going into JS delay with type " + type);
     if (stopme) {
       console.log('Stopped by stopme.');
@@ -270,12 +278,12 @@ console.log(metadata);
     await timeout(4000);
 
     console.log('Calling fetchPage...');
-    return await fetchPage(type, current_page, total, first_total);
+    return await fetchPage(type, current_page, total, first_total, per_page);
 
   }
 
   // Grab a single page from the API
-  async function fetchPage(type, page, total, first_total = 0) {
+  async function fetchPage(type, page, total, first_total = 0, per_page) {
     console.log("Inside fetchPage " + page);
     return new Promise((resolve, reject) => {
      
@@ -290,6 +298,7 @@ console.log(metadata);
             type: type,
             total: total,
             first_total: first_total,
+            per_page: per_page
           },
           success: function (data) {
             //console.log("Eventually we got a parse issue here. Unexpected character at line one.");

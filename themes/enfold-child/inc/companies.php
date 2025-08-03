@@ -16,15 +16,22 @@ function set_companies_information($results = array(), $atts = array())
 {
   $page = $atts['page'];
   $last = $atts['last'];
+  $file = ABSPATH . 'companies-sitemap.txt';
+  $parent_file = ABSPATH . 'content-sitemaps.xml';
 
   global $wpdb;
   $wpdb->suppress_errors = false;
   $wpdb->show_errors = false;
+  $sitemap_contents = "";
 
   error_log("Last is set to: ".$last);
 
   // We're rebuilding
   if ($page == 1) {
+    error_log("Empty or create the companies sitemap");
+    
+    siteMapCleanup($parent_file, $file);
+    
     //$industries = array();
     // Do we want to clear industry/company relations table? That would disable some features until import was complete
   } elseif ($page > 1) { // Dont change official companies array until all data is uploaded
@@ -48,8 +55,9 @@ function set_companies_information($results = array(), $atts = array())
 
       // Prepare Permalink and individual contact information
       $permalink = strtolower(str_replace(" ", '-', $company['name']));
-      $permalink = str_replace(array(',-inc', ',-llc', "?", ".", ",", "'"), "", $permalink);
+      $permalink = str_replace(array(',-inc', ',-llc', "?", ".", ",", "'","’"), "", $permalink);
       $query[] = array($company['name'], $permalink, $company['id'], json_encode($company));
+      $sitemap_contents .= get_bloginfo('wpurl').'/company/'.$permalink."\n";
 
       // Now is a great time to grab industry information, too
       $list = $company['industries'];
@@ -144,6 +152,10 @@ function set_companies_information($results = array(), $atts = array())
   if($result === false) {
     error_log("There was a problem importing page ".$page);
     error_log($wpdb->last_error);
+  } else {
+    // Import successfull, put this in the sitemap
+    error_log("writing to sitemap").
+    file_put_contents($file, $sitemap_contents, FILE_APPEND);
   }
       
   // Last page in the API
@@ -207,7 +219,7 @@ function get_all_industries($industry = "") {
   if (!empty($industry)) $sql .= "WHERE permalink = '".$industry."' ";
   $sql .= 'ORDER BY name ASC';
   if (!empty($industry)) $sql .= " LIMIT 1";
-  error_log($sql);
+  //error_log($sql);
   $industries = $wpdb->get_results($sql, 'ARRAY_A');
   return $industries;
 }
@@ -215,8 +227,8 @@ function get_all_industries($industry = "") {
 // Get all companies associated with an industry
 function get_companies_by_industry($industry_id) {
   global $wpdb;
-  $sql = 'SELECT c.api_id, w.name, w.permalink FROM winmo_industries i INNER JOIN winmo_industries_companies c ON i.industry_id = c.industry_id LEFT JOIN winmo w ON c.api_id = w.api_id WHERE i.industry_id = \''.$industry_id.'\' AND w.type = \'company\'';
-  error_log($sql);
+  $sql = 'SELECT DISTINCT c.api_id, w.name, w.permalink FROM winmo_industries i INNER JOIN winmo_industries_companies c ON i.industry_id = c.industry_id LEFT JOIN winmo w ON c.api_id = w.api_id WHERE i.industry_id = \''.$industry_id.'\' AND w.type = \'company\'';
+  //error_log($sql);
   $companies = $wpdb->get_results($sql, 'ARRAY_A');
   return $companies;
 }

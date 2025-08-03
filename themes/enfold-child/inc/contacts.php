@@ -38,10 +38,19 @@ function set_contacts_information($results = array(), $atts = array())
   $success = true;
   $error = "";
   $query = array();
+  $file = ABSPATH . 'company-people-sitemap.txt';
+  $parent_file = ABSPATH . 'content-sitemaps.xml';
+  $sitemap_contents = "";
   extract($atts);
 
-  error_log($type . " page " . $page . " " . json_encode($atts));
+  error_log("PEr Page: ".$per_page);
+  // Sitemap pager
+  error_log($file);
+  $file = checkforPagerReq($page, $per_page, $file, $parent_file);
+  
+  error_log($type . " page " . $page . " " . json_encode($atts));   // {"page":"539","total":"1033","last":false,"type":"company_contacts","first_total":"798"}
 
+  error_log($file);
   // We're rebuilding (starting over)
   if (($page == 1) && ($type == "company_contacts")) { 
     error_log("Brand new contacts import.");
@@ -50,6 +59,9 @@ function set_contacts_information($results = array(), $atts = array())
     $permalinks = array();
     $undo_import = "DELETE FROM `winmo` WHERE `type` LIKE 'contacts2'";
     $wpdb->query( $undo_import );
+
+    error_log('To do: update mod date on sitemap');
+    siteMapCleanup($parent_file, $file);
   } else {
     $permalinks = get_transient('contacts_permalinks');
     if(!$permalinks) {
@@ -57,14 +69,24 @@ function set_contacts_information($results = array(), $atts = array())
       $type = 'contacts2';
       $grab_permalinks = $wpdb->prepare( "SELECT permalink FROM `winmo` WHERE  type LIKE %s", $type );
       $permalinks = $wpdb->get_col( $grab_permalinks );
-      error_log("Please be a string: ".gettype($permalinks[0]));
-      error_log("Permalinks: ".json_encode($permalinks));
+      //error_log("Please be a string: ".gettype($permalinks[0]));
+      //error_log("Permalinks: ".json_encode($permalinks));
     }
   }
 
   // Prevent switch to agencies from breaking the pager
   //error_log($page . " (" . gettype($page) . ") + " . $first_total . "(" . gettype($first_total) . ")");
   if ($type == "agency_contacts") {
+    
+    $file = ABSPATH . 'agency-people-sitemap.txt';
+    if($page == 1) {
+      error_log("First page of agencies, filename changed to ".$file);
+      siteMapCleanup($parent_file, $file);
+    } else {
+
+      $file = checkforPagerReq((int)$page, $per_page, $file, $parent_file);
+      error_log("File?? ".$file);
+    }
     $page = (int)$page + (int)$first_total;
     error_log("Inside " . $type . " so page is now: " . $page); // correct
   }
@@ -93,8 +115,10 @@ function set_contacts_information($results = array(), $atts = array())
     
     // Save permalink into database
     $permalinks[] = $permalink;
+    $sitemap_contents .= get_bloginfo('wpurl').'/decision_makers/'.$permalink."\n";
 
   endforeach;
+  error_log("Last item of sitemap push: ".$permalink);
 
   $sql = "INSERT INTO winmo (`type`, `name`, `permalink`, `api_id`, `data`, `lname`) VALUES";
   
@@ -123,6 +147,10 @@ function set_contacts_information($results = array(), $atts = array())
     // After bulk import, bookmark our spot
     set_transient('contacts_last_page', $page, 0);
 
+    // Import successfull, put this in the sitemap
+    error_log("writing to sitemap").
+    file_put_contents($file, $sitemap_contents, FILE_APPEND);
+
   }
 
   // We're at the end of the import - clean up
@@ -130,6 +158,8 @@ function set_contacts_information($results = array(), $atts = array())
     delete_transient('contacts_last_page'); // Remove last page check
     
     error_log("We're finishing, but I don't think we actually need to do anything anymore.");
+
+    // TO DO - Change the modify date on the sitemap
     
     // Change temp to official
     $deletesql = "DELETE FROM winmo WHERE type = 'contacts'";
@@ -154,6 +184,33 @@ function set_contacts_information($results = array(), $atts = array())
   }
 
   return array('data' => $success, 'page' => $page, 'last' => $last, 'error' => $error);
+}
+
+function checkforPagerReq($page, $per_page, $filename,$parent_file) {
+  $total_entries = (int)$per_page * $page;
+  error_log("Total Entries: ".$total_entries);
+  if ($total_entries >= 50000) {
+
+    $pager = ceil($total_entries / 50000);
+
+    // Mods of 50K are new files and should get mod triggers
+    error_log("Mod? ". $total_entries % 50000);
+    
+    // If LAST page a mod then this one should be a new file.
+    $last_total_entries = (int)$per_page * ($page - 1);
+    if(($last_total_entries % 50000) === 0) {
+
+      // Time for a new file
+      $filename = str_replace('.txt','_'.$pager.'.txt', $filename);
+      error_log("Checking for new filename: ".$filename);
+      error_log("New file trigger here.");
+
+      siteMapCleanup($parent_file, $filename);
+    } elseif($pager > 1) {
+      $filename = str_replace('.txt','_'.$pager.'.txt', $filename);
+    }
+  }
+  return $filename;
 }
 
 function get_winmo_contact($permalink = '', $alpha = '', $api = '')

@@ -57,15 +57,17 @@ function process_api_data()
     $page = stripslashes($_POST['page']);
     $type = stripslashes($_POST['type']);
     $grab = stripslashes($_POST['grab']);
+    $per_page = isset($_POST['per_page']) ? stripslashes($_POST['per_page']) : '';
     $first_total = 0;
     $total = 0;
     if (isset($_POST['total'])) $total = stripslashes($_POST['total']);
     if (isset($_POST['first_total'])) $first_total = stripslashes($_POST['first_total']);
 
-    $promise = new Promise(function () use ($type, $page, $grab, $total, $first_total, &$promise) {
+    $promise = new Promise(function () use ($type, $page, $grab, $per_page, $total, $first_total, &$promise) {
 
       $error = false;
 
+      error_log("Per page came from JS aS: ".$per_page);
       // Just send meta information
       if (($grab == "meta") && ($type != "company_contacts")) {
 
@@ -79,9 +81,14 @@ function process_api_data()
           // Add results together
           $response['first_total'] = $result['meta']['total_pages'];
           $response['second_total'] = $contact_set2['meta']['total_pages'];
+          $response['first_per_page'] = $result['meta']['per_page'];
+          $response['second_per_page'] = $contact_set2['meta']['per_page'];
+          $response['per_page'] = $response['first_per_page'];
           $response['total_pages'] = $result['meta']['total_pages'] + $contact_set2['meta']['total_pages'];
+          
           error_log("First total after first meta check: " . $response['first_total']);
           error_log("Total Pages: " . $response['total_pages']);
+          error_log("Per pages have been saved in response var ".$response['first_per_page']. " and ".$response['second_per_page']);
           // Confirm we're actually rebuilding and not restarting from a failed attempt
           $last_contact_page = get_transient('contacts_last_page');
           error_log("last_contact_page :" . $last_contact_page);
@@ -100,6 +107,7 @@ function process_api_data()
               // We got through an entire API the last time, so we need to start on the second one now
               $type = "agency_contacts";
               $page = $last_contact_page;
+              $response['per_page'] = $contact_set2['meta']['per_page'];
             }
           }
           error_log("The page we want to use is " . $response['page']);
@@ -183,7 +191,8 @@ function process_api_data()
           'total' => $total,
           'last' => $last,
           'type' => $type,
-          'first_total' => $first_total
+          'first_total' => $first_total,
+          'per_page' => $per_page
         );
 
         // API Error scenario
