@@ -270,7 +270,7 @@ add_filter('wpseo_title', function ($title) {
         $type = strtolower($contact_data->type);
         $company = $contact_data->entity_id;
         $company_data = get_company($company);
-        if (isset($contact_data)) {
+        if (isset($contact_data) && ($company_data !== NULL)) {
           $company_data = json_decode($company_data); 
           $title = $contact_data->fname . " " . $contact_data->lname . ", " . $contact_data->title . " at " . $company_data->name . " - Winmo";
         }

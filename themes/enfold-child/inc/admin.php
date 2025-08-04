@@ -7,7 +7,7 @@ function winmo_wp_admin_style()
 {
   wp_register_style('custom_wp_admin_css', get_stylesheet_directory_uri() . '/admin-style.css', false, '1.0.29');
   wp_enqueue_style('custom_wp_admin_css');
-  wp_register_script('api', get_stylesheet_directory_uri() . '/assets/js/api.js', array('jquery'), '1.0.2.39');
+  wp_register_script('api', get_stylesheet_directory_uri() . '/assets/js/api.js', array('jquery'), '1.0.2.40');
   wp_localize_script('api', 'apiAjax', array('ajaxurl' => admin_url('admin-ajax.php')));
   wp_enqueue_script('api');
 }
@@ -24,6 +24,7 @@ function siteMapCleanup($sitemap, $filename) {
   error_log("Emptying ".$filename);
 
   file_put_contents($filename, ''); // Empty the sitemap file
+  error_log("Emptying ".$filename);
 
   $parent_sitemap = file_get_contents($sitemap);
   

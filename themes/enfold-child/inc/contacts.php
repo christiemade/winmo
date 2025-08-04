@@ -148,7 +148,7 @@ function set_contacts_information($results = array(), $atts = array())
     set_transient('contacts_last_page', $page, 0);
 
     // Import successfull, put this in the sitemap
-    error_log("writing to sitemap").
+    error_log("writing to:  ".$file);
     file_put_contents($file, $sitemap_contents, FILE_APPEND);
 
   }

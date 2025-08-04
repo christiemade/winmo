@@ -93,6 +93,7 @@ jQuery(function ($) {
     let second_total = "";
     let first_per_page = "";
     let second_per_page = "";
+    let per_page = "";
 
     if (type == "contacts" || type == "agency_contacts") {
       first_total = metadata.first_total;
