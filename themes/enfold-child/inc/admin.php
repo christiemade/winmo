@@ -21,7 +21,6 @@ function my_admin_menu()
 }
 
 function siteMapCleanup($sitemap, $filename) {
-  error_log("Emptying ".$filename);
 
   file_put_contents($filename, ''); // Empty the sitemap file
   error_log("Emptying ".$filename);

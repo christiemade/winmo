@@ -49,8 +49,7 @@ function set_contacts_information($results = array(), $atts = array())
   $file = checkforPagerReq($page, $per_page, $file, $parent_file);
   
   error_log($type . " page " . $page . " " . json_encode($atts));   // {"page":"539","total":"1033","last":false,"type":"company_contacts","first_total":"798"}
-
-  error_log($file);
+  
   // We're rebuilding (starting over)
   if (($page == 1) && ($type == "company_contacts")) { 
     error_log("Brand new contacts import.");

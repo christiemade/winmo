@@ -114,7 +114,6 @@ function winmo_rewrite_basic()
   add_rewrite_rule('^company/([^/]*)/?$', 'index.php?page_id=' . $company_page->ID . '&rid=$matches[1]', 'top');
 
   // Agency redirects
-  error_log($agency_page->ID);
   add_rewrite_rule('^agency/id/([0-9]*)/?$', 'index.php?page_id=' . $agency_page->ID . '&wid=$matches[1]', 'top');
   add_rewrite_rule('^agencies/([a-z]{2})/?', 'index.php?page_id=' . $agencies_page->ID . '&state=$matches[1]', 'top');
   add_rewrite_rule('^agency/([a-z][a-z])/([^/]+)/([^/]+)/([0-9]*)/?$', 'index.php?page_id=' . $agency_page->ID . '&wid=$matches[4]', 'top');
