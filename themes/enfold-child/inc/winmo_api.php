@@ -27,7 +27,6 @@ function winmo_api($type, $page = 1)
       // A string means json, turn it into an array and assign it
       if(gettype($body) == "string") {
         $body = json_decode($body, true);
-        error_log(gettype($body));
       } else {
         $error =  'There has been a problem with the data received.';
       }
@@ -40,7 +39,6 @@ function winmo_api($type, $page = 1)
     if (!$body) $body = json_decode(wp_remote_retrieve_body($request), true);
     return $body;
   } else {
-    error_log("G");
     $results = array(
       'error' => $error
     );
