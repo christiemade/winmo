@@ -127,7 +127,6 @@ function get_agencies_by_state($state) {
   global $wpdb;
   $sql = "SELECT * FROM winmo WHERE type = 'agency' AND data LIKE '%\"state\": \"".strtoupper($state)."\",%'";
   $sql .= ' ORDER BY name ASC';
-error_log($sql);
   return $wpdb->get_results($sql, 'ARRAY_A');
 }
 

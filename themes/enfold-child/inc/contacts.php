@@ -48,8 +48,8 @@ function set_contacts_information($results = array(), $atts = array())
   error_log($file);
   $file = checkforPagerReq($page, $per_page, $file, $parent_file);
   
-  error_log($type . " page " . $page . " " . json_encode($atts));   // {"page":"539","total":"1033","last":false,"type":"company_contacts","first_total":"798"}
-  
+  //error_log($type . " page " . $page . " " . json_encode($atts));   // {"page":"539","total":"1033","last":false,"type":"company_contacts","first_total":"798"}
+
   // We're rebuilding (starting over)
   if (($page == 1) && ($type == "company_contacts")) { 
     error_log("Brand new contacts import.");
@@ -65,11 +65,9 @@ function set_contacts_information($results = array(), $atts = array())
     $permalinks = get_transient('contacts_permalinks');
     if(!$permalinks) {
       // Transient expired, so lets generate a new one.
-      $type = 'contacts2';
-      $grab_permalinks = $wpdb->prepare( "SELECT permalink FROM `winmo` WHERE  type LIKE %s", $type );
+      $version = 'contacts2';
+      $grab_permalinks = $wpdb->prepare( "SELECT permalink FROM `winmo` WHERE type LIKE %s", $version );
       $permalinks = $wpdb->get_col( $grab_permalinks );
-      //error_log("Please be a string: ".gettype($permalinks[0]));
-      //error_log("Permalinks: ".json_encode($permalinks));
     }
   }
 
@@ -78,6 +76,7 @@ function set_contacts_information($results = array(), $atts = array())
   if ($type == "agency_contacts") {
     
     $file = ABSPATH . 'agency-people-sitemap.txt';
+    error_log($file);
     if($page == 1) {
       error_log("First page of agencies, filename changed to ".$file);
       siteMapCleanup($parent_file, $file);
@@ -94,6 +93,7 @@ function set_contacts_information($results = array(), $atts = array())
 
   foreach ($results as $contact) :
     $permalink = strtolower(str_replace(array(" ", "'"), '-', $contact['fname'] . ' ' . $contact['lname']));
+    $permalink = str_replace('Ã','an',$permalink); // Special scenario fix
 
     //$temparray = array_merge($permalinks,$contact_links);
     // Check if permalink already exists (agencies with identical names)  //
@@ -132,6 +132,7 @@ function set_contacts_information($results = array(), $atts = array())
   $sql .= ' type = VALUES(type), name = VALUES(name), permalink = VALUES(permalink), api_id = VALUES(api_id), data = VALUES(data), lname = VALUES(lname);';
 
   $result = $wpdb->query( $sql );
+
   set_transient('contacts_permalinks', $permalinks, '1200'); // transient is only needed until the next loop
 
 

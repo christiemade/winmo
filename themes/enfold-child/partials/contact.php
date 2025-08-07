@@ -44,7 +44,7 @@ $contact_data = get_contact_information($contact);
 $type = strtolower($contact_data->type);
 $company = $contact_data->entity_id;
 $company_data = get_company($company);
-$company_data = json_decode($company_data); 
+if($company_data !== null) $company_data = json_decode($company_data);
 
 // Error check
 if (is_wp_error($contact_data)) {
@@ -57,9 +57,10 @@ if (is_wp_error($contact_data)) {
     <div class="container">
       <div id="overview" class="gray_box">
         <h1><?php print $full_name; ?></h1>
+
+        <?php if($company_data !== null): ?>
         <div class="row">
           <div class="col">
-
             <h5><?php print $contact_data->title . " - " . $company_data->name; ?></h5>
             <?php if(is_array($company_data)) error_log("Found an array on contact.php:62 that should be an object." .$full_name); ?>
             <p><?php print $full_name; ?> is <?php print $contact_data->title; ?> for <?php print $company_data->name ?: $company_data['name']; ?>s. On this page, you'll find the business email and phone number for <?php print $full_name; ?> as unique insights such as do's and don'ts for engaging, and outreach tips based on both DiSC and Ocean personality profiles.</p>
@@ -67,6 +68,7 @@ if (is_wp_error($contact_data)) {
           <div class="col"><strong>Social:</strong><br><a href="#request_form" class="modal"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/contacts/socials.svg"></a></div>
           <div class="col"><a href="#request_form" class="modal"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/contacts/action-buttons.svg?id=2"></a></div>
         </div>
+        <?php endif; ?>
       </div>
     </div>
   </header>

@@ -205,8 +205,15 @@ function process_api_data()
         }
 
         // Sometimes pages drop - why?
-        if (gettype($response) == "string")
+        if (gettype($response) == "string") {
           error_log("Pages drop check - This should no longer be occuring.  winmo_api.php:197 " . $response);
+          error_log("Skipping Page ".$page);
+          $atts['page'] = $page++;
+          $response = $function($result['data'], $atts); // Try again, skip this page
+          if (gettype($response) == "string") {
+            error_log("STILL not working.");
+          }
+        }
       }
 
       if ($error === false) {

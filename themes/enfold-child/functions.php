@@ -219,18 +219,11 @@ add_filter('wpseo_title', function ($title) {
 
     // Company
     if (isset($pid) && is_page(20)) {
-      // Get company name
-      $companies = get_option('winmo_companies');
-      if(is_array($companies)) {
-        $company = array_filter($companies, function ($v) use ($pid) {
-          return $v['permalink'] == $pid;
-        }, ARRAY_FILTER_USE_BOTH);
-        $keys =  array_keys($company);
-
-        // Found a company
-        if (sizeof($keys)) {
-          $title = $company[$keys[0]]['name'] . " Advertising Profile - Winmo";
-        }
+      // Look up company via permalink
+      $company = get_company($pid, 'permalink');
+      if($company) { // Found a company
+        $company = json_decode($company);
+          $title = $company->name . " Advertising Profile - Winmo";
       }
     }
 
@@ -248,15 +241,13 @@ add_filter('wpseo_title', function ($title) {
 
     // Agency
     elseif (isset($pid) && is_page(71)) {
-      $agencies = get_option('winmo_agencies');
-      $agency = array_filter($agencies, function ($v) use ($pid) {
-        return $v['permalink'] == $pid;
-      }, ARRAY_FILTER_USE_BOTH);
-      $keys =  array_keys($agency);
-
-      // Found an agency
-      if (sizeof($keys)) {
-        $title = $agency[$keys[0]]['name'] . " Agency Profile - Winmo";
+      // Look up agency via permalink
+      global $wpdb;
+      $agency_sql = "SELECT data FROM winmo WHERE type = 'agency' AND permalink = '".$pid."' LIMIT 1";
+      $agency = $wpdb->get_var($agency_sql);
+      if($agency) { // Found a company
+        $agency = json_decode($agency);
+        $title = $agency->name . " Agency Profile - Winmo";
       }
     }
     // Decision Makers
