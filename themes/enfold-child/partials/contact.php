@@ -43,7 +43,9 @@ $contact_data = get_contact_information($contact);
 // Some contacts are part of an agency and some are part of a company
 $type = strtolower($contact_data->type);
 $company = $contact_data->entity_id;
+
 $company_data = get_company($company);
+if($company_data === null) $company_data = get_agency($company);
 if($company_data !== null) $company_data = json_decode($company_data);
 
 // Error check

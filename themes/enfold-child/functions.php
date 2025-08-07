@@ -242,9 +242,7 @@ add_filter('wpseo_title', function ($title) {
     // Agency
     elseif (isset($pid) && is_page(71)) {
       // Look up agency via permalink
-      global $wpdb;
-      $agency_sql = "SELECT data FROM winmo WHERE type = 'agency' AND permalink = '".$pid."' LIMIT 1";
-      $agency = $wpdb->get_var($agency_sql);
+      $agency = get_agency($pid,'permalink');
       if($agency) { // Found a company
         $agency = json_decode($agency);
         $title = $agency->name . " Agency Profile - Winmo";

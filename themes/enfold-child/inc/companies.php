@@ -187,9 +187,16 @@ function set_companies_information($results = array(), $atts = array())
 
 function get_company($value, $how = 'api_id') {
   global $wpdb;
-  $company_sql = "SELECT data FROM winmo WHERE type = 'company' AND ".$how." = '".$value."' LIMIT 1";
+  $company_sql = "SELECT data FROM winmo WHERE type IN ('company') AND ".$how." = '".$value."' LIMIT 1";
   $company = $wpdb->get_var($company_sql);
   return $company;
+}
+
+function get_agency($value, $how = 'api_id') {
+  global $wpdb;
+  $agency_sql = "SELECT data FROM winmo WHERE type IN ('agency') AND ".$how." = '".$value."' LIMIT 1";
+  $agency = $wpdb->get_var($agency_sql);
+  return $agency;
 }
 
 // Industry index start
