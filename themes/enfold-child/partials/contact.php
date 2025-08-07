@@ -165,6 +165,7 @@ if (is_wp_error($contact_data)) {
         </div>
       </section>
 
+      <?php if($company_data !== null): ?>
       <section id="company">
         <div class="gray_box">
           <h4><?php print $company_data->name; ?></h4>
@@ -211,6 +212,7 @@ if (is_wp_error($contact_data)) {
           </div>
         </div>
       </section>
+      <?php endif; ?>
 
       <?php
       //print_r($contact_data);
