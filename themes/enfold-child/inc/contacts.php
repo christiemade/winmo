@@ -43,13 +43,9 @@ function set_contacts_information($results = array(), $atts = array())
   $sitemap_contents = "";
   extract($atts);
 
-  error_log("PEr Page: ".$per_page);
   // Sitemap pager
-  error_log($file);
-  $file = checkforPagerReq($page, $per_page, $file, $parent_file);
+  $file = checkforPagerReq($page, $per_page, $file, $parent_file, $loop);
   
-  //error_log($type . " page " . $page . " " . json_encode($atts));   // {"page":"539","total":"1033","last":false,"type":"company_contacts","first_total":"798"}
-
   // We're rebuilding (starting over)
   if (($page == 1) && ($type == "company_contacts")) { 
     error_log("Brand new contacts import.");
@@ -59,12 +55,12 @@ function set_contacts_information($results = array(), $atts = array())
     $undo_import = "DELETE FROM `winmo` WHERE `type` LIKE 'contacts2'";
     $wpdb->query( $undo_import );
 
-    error_log('To do: update mod date on sitemap');
     siteMapCleanup($parent_file, $file);
   } else {
     $permalinks = get_transient('contacts_permalinks');
-    if(!$permalinks) {
-      // Transient expired, so lets generate a new one.
+    if(!$permalinks || ($loop == 1)) {
+      // Transient expired, or is not trustworthy so lets generate a new one.
+      error_log("Pulling list of contacts from database");
       $version = 'contacts2';
       $grab_permalinks = $wpdb->prepare( "SELECT permalink FROM `winmo` WHERE type LIKE %s", $version );
       $permalinks = $wpdb->get_col( $grab_permalinks );
@@ -82,7 +78,7 @@ function set_contacts_information($results = array(), $atts = array())
       siteMapCleanup($parent_file, $file);
     } else {
 
-      $file = checkforPagerReq((int)$page, $per_page, $file, $parent_file);
+      $file = checkforPagerReq((int)$page, $per_page, $file, $parent_file, $loop);
       error_log("File?? ".$file);
     }
     $page = (int)$page + (int)$first_total;
@@ -93,7 +89,7 @@ function set_contacts_information($results = array(), $atts = array())
 
   foreach ($results as $contact) :
     $permalink = strtolower(str_replace(array(" ", "'"), '-', $contact['fname'] . ' ' . $contact['lname']));
-    $permalink = str_replace('Ã','an',$permalink); // Special scenario fix
+    $permalink = str_replace(array('Ã','Ã©'),'an',$permalink); // Special scenario fix
 
     //$temparray = array_merge($permalinks,$contact_links);
     // Check if permalink already exists (agencies with identical names)  //
@@ -133,9 +129,6 @@ function set_contacts_information($results = array(), $atts = array())
 
   $result = $wpdb->query( $sql );
 
-  set_transient('contacts_permalinks', $permalinks, '1200'); // transient is only needed until the next loop
-
-
   if($result === false) {
     $error = "There was a problem importing page ".$page;
     error_log($error);
@@ -143,6 +136,8 @@ function set_contacts_information($results = array(), $atts = array())
     $success = false;
 
   } else {
+
+    set_transient('contacts_permalinks', $permalinks, '1200'); // transient is only needed until the next loop
 
     // After bulk import, bookmark our spot
     set_transient('contacts_last_page', $page, 0);
@@ -186,19 +181,28 @@ function set_contacts_information($results = array(), $atts = array())
   return array('data' => $success, 'page' => $page, 'last' => $last, 'error' => $error);
 }
 
-function checkforPagerReq($page, $per_page, $filename,$parent_file) {
+function checkforPagerReq($page, $per_page, $filename,$parent_file,$loop) {
   $total_entries = (int)$per_page * $page;
   error_log("Total Entries: ".$total_entries);
+  error_log("Loop is set to:".$loop);
+  $mod = $total_entries % 50000;
+
   if ($total_entries >= 50000) {
 
     $pager = ceil($total_entries / 50000);
 
     // Mods of 50K are new files and should get mod triggers
-    error_log("Mod? ". $total_entries % 50000);
+    
+    error_log("Mod? ". $mod);
     
     // If LAST page a mod then this one should be a new file.
-    $last_total_entries = (int)$per_page * ($page - 1);
-    if(($last_total_entries % 50000) === 0) {
+    // This is no longer true?
+    //$last_total_entries = (int)$per_page * ($page - 1);
+    //if(($last_total_entries % 50000) === 0) {
+
+    // If THIS page is a mod then start a new file
+    if(($mod === 0)) {
+      $pager++;
 
       // Time for a new file
       $filename = str_replace('.txt','_'.$pager.'.txt', $filename);
@@ -210,6 +214,86 @@ function checkforPagerReq($page, $per_page, $filename,$parent_file) {
       $filename = str_replace('.txt','_'.$pager.'.txt', $filename);
     }
   }
+
+  // Restarting an API sync mid-sync,
+  if(($loop == 1) && ($page > 1)) {
+        
+    error_log("Just restarted the API sync.");
+    // Remove last 250 from sitemap
+    $lines = file($filename);
+
+    // Only remove lines if theres more than should be in there
+    error_log( "Lines ".sizeof($lines). ' >= Mod '.$mod);
+    if(sizeof($lines) >= $mod) {
+      global $wpdb;
+
+      $version = 'contacts2';
+      error_log("The file has ".sizeof($lines)." lines and MOD is ".$mod);
+
+      $items_in_db = $total_entries - $per_page;
+
+      $lines_to_keep = count($lines) - $per_page;
+      if ($lines_to_keep < 0) {
+        $lines_to_keep = 0;
+      }
+
+      error_log("Updating the database to only have ".$items_in_db ." entries for ".$version);
+
+      // Extract the desired lines
+      $modified_lines = array_slice($lines, 0, $lines_to_keep);
+
+      // Join the lines back into a string
+      $new_content = implode('', $modified_lines);
+
+      // Write the modified content back to the file
+      file_put_contents($filename, $new_content);
+
+      error_log("We removed ".$per_page . " lines from ".$filename);
+
+      // Remove last 250 items from the database and resave permalinks
+      
+
+      error_log("DELETE FROM `winmo`
+      WHERE type = ".$version ." AND id NOT IN (
+          SELECT id
+          FROM (
+              SELECT id
+              FROM `winmo` WHERE type = ".$version."
+              ORDER BY id ASC
+              LIMIT ".$items_in_db."
+          ) AS keepers
+      );");
+
+      $delete_results = $wpdb->query( $wpdb->prepare("DELETE FROM `winmo`
+      WHERE type = %s AND id NOT IN (
+          SELECT id
+          FROM (
+              SELECT id
+              FROM `winmo`
+              WHERE type = %s
+              ORDER BY id ASC
+              LIMIT %d
+          ) AS keepers
+      )",$version, $version, $items_in_db ) );
+
+      error_log("We removed ".$delete_results . " lines from database");
+
+      $last_item_query = $wpdb->prepare( "SELECT permalink FROM `winmo` WHERE type LIKE %s ORDER BY id DESC LIMIT 1", $version );
+      $last_item = $wpdb->get_col( $last_item_query );
+      error_log("The new LAST item in the database is: ".$last_item[0]);
+
+      //$delete_results = $wpdb->query( $wpdb->prepare("DELETE FROM `winmo` WHERE type LIKE %s ORDER BY id DESC LIMIT %d",$version, $per_page ) );
+      //error_log("Delete last ".$per_page. " ".$version . " from DB");
+
+      $grab_permalinks = $wpdb->prepare( "SELECT permalink FROM `winmo` WHERE type LIKE %s", $version );
+      $permalinks = $wpdb->get_col( $grab_permalinks );
+      set_transient('contacts_permalinks', $permalinks, '1200');
+    
+    } else {
+      error_log("We opted not to make any changes to the sitemap.");
+    }
+  }
+
   return $filename;
 }
 

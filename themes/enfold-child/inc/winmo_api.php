@@ -55,17 +55,17 @@ function process_api_data()
     $page = stripslashes($_POST['page']);
     $type = stripslashes($_POST['type']);
     $grab = stripslashes($_POST['grab']);
+    $loop = stripslashes($_POST['loop']);
     $per_page = isset($_POST['per_page']) ? stripslashes($_POST['per_page']) : '';
     $first_total = 0;
     $total = 0;
     if (isset($_POST['total'])) $total = stripslashes($_POST['total']);
     if (isset($_POST['first_total'])) $first_total = stripslashes($_POST['first_total']);
 
-    $promise = new Promise(function () use ($type, $page, $grab, $per_page, $total, $first_total, &$promise) {
+    $promise = new Promise(function () use ($type, $page, $grab, $per_page, $total, $first_total, $loop, &$promise) {
 
       $error = false;
 
-      error_log("Per page came from JS aS: ".$per_page);
       // Just send meta information
       if (($grab == "meta") && ($type != "company_contacts")) {
 
@@ -190,8 +190,11 @@ function process_api_data()
           'last' => $last,
           'type' => $type,
           'first_total' => $first_total,
-          'per_page' => $per_page
+          'per_page' => $per_page,
+          'loop' => $loop
         );
+
+        error_log("Do we still have the loop at 197? ".$loop);
 
         // API Error scenario
         if(isset($result['error'])) {
@@ -208,7 +211,9 @@ function process_api_data()
         if (gettype($response) == "string") {
           error_log("Pages drop check - This should no longer be occuring.  winmo_api.php:197 " . $response);
           error_log("Skipping Page ".$page);
-          $atts['page'] = $page++;
+          $page++;
+          $atts['page'] = $page;
+          $result = winmo_api($type, page: $page);
           $response = $function($result['data'], $atts); // Try again, skip this page
           if (gettype($response) == "string") {
             error_log("STILL not working.");

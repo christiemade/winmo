@@ -94,6 +94,7 @@ jQuery(function ($) {
     let first_per_page = "";
     let second_per_page = "";
     let per_page = "";
+    let loop = 0;
 
     if (type == "contacts" || type == "agency_contacts") {
       first_total = metadata.first_total;
@@ -115,12 +116,13 @@ jQuery(function ($) {
     updateBar($(progressBar), 'pass', { current_page: current_page, total: total });
 
     for (current_page; current_page <= total; current_page++) {
+      loop++;
       if (stopme) {
         break;
       }
 
       try {
-        const response = await jsdelay(type, current_page, total, first_total, per_page);
+        const response = await jsdelay(type, current_page, total, first_total, per_page, loop);
         console.log(response);
         if (response && response.data) {
           console.log(`Response recieved - Page ${current_page} processed successfully.`);
@@ -130,7 +132,7 @@ jQuery(function ($) {
           $(progressBar).attr(
             "data-before",
             "Downloading: " + current_page + " / " + total);
-
+console.log("Loop: " + loop);
           // Switch to Agency
           console.log("Current Page: " + current_page + ", Total: " + total + ", First Total: " + first_total + " Per Page: "+per_page);
           if (type === "contacts" && current_page === first_total) {
@@ -141,6 +143,7 @@ jQuery(function ($) {
               total,
               per_page
             };
+            
             await fetchData("agency_contacts", progressBar, atts);
           }
           
@@ -187,19 +190,20 @@ jQuery(function ($) {
   async function fetchMeta(type, atts, progressBar) {
     const thenable = {
       then(resolve, reject) {
-        console.log("Fetching the meta first.");
 
+        // Fetch metadata from the API first
         $.ajax({
           url: apiAjax.ajaxurl,
           type: "POST",
           data: {
-            action: "process_api_data", // Your WP action hook
+            action: "process_api_data",
             grab: "meta",
             page: atts["page"],
             total: atts["total"],
             first_total: atts["first_total"],
             type: type, // TYPE needs to be "agency_contacts"
-            per_page: atts['per_page']
+            per_page: atts['per_page'],
+            loop: 0
           },
           success: function (data) {
             console.log(data);
@@ -238,7 +242,6 @@ jQuery(function ($) {
           },
         }).fail(function (jqXHR, textStatus, errorThrown) {
           console.log("Fail field " + textStatus);
-
           console.log(jqXHR);
           console.log(errorThrown);
           // Request failed. Show error message to user.
@@ -268,8 +271,8 @@ jQuery(function ($) {
   }
 
   // Delay each fetchPage call by 3 seconds whenever ready
-  async function jsdelay(type, current_page, total, first_total, per_page) {
-    console.log("Going into JS delay with type " + type);
+  async function jsdelay(type, current_page, total, first_total, per_page,loop) {
+    console.log("Going into JS delay with type " + type + " loop "+loop);
     if (stopme) {
       console.log('Stopped by stopme.');
       return false;
@@ -279,13 +282,13 @@ jQuery(function ($) {
     await timeout(4000);
 
     console.log('Calling fetchPage...');
-    return await fetchPage(type, current_page, total, first_total, per_page);
+    return await fetchPage(type, current_page, total, first_total, per_page, loop);
 
   }
 
   // Grab a single page from the API
-  async function fetchPage(type, page, total, first_total = 0, per_page) {
-    console.log("Inside fetchPage " + page);
+  async function fetchPage(type, page, total, first_total = 0, per_page, loop = 1) {
+    console.log("Inside fetchPage " + page + " loop: "+loop);
     return new Promise((resolve, reject) => {
      
         console.log("Inside then... so this is what gets send to PHP: " + page);
@@ -299,7 +302,8 @@ jQuery(function ($) {
             type: type,
             total: total,
             first_total: first_total,
-            per_page: per_page
+            per_page: per_page,
+            loop: loop
           },
           success: function (data) {
             //console.log("Eventually we got a parse issue here. Unexpected character at line one.");
