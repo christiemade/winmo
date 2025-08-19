@@ -127,7 +127,17 @@ function set_contacts_information($results = array(), $atts = array())
   $sql .= ' ON DUPLICATE KEY UPDATE ';
   $sql .= ' type = VALUES(type), name = VALUES(name), permalink = VALUES(permalink), api_id = VALUES(api_id), data = VALUES(data), lname = VALUES(lname);';
 
+  
+  // try to acquire lock, wait up to 1 second
+  $got_lock = $wpdb->get_var("SELECT GET_LOCK('long_query_lock', 5)");
+
+  if ($got_lock != 1) {
+      wp_die("Another process is already running. Please wait until it finishes.");
+  }
   $result = $wpdb->query( $sql );
+
+  // release the lock when done
+  $wpdb->query("SELECT RELEASE_LOCK('long_query_lock')");
 
   if($result === false) {
     $error = "There was a problem importing page ".$page;
