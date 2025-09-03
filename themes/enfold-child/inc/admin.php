@@ -29,10 +29,55 @@ function siteMapCleanup($sitemap, $filename) {
   
   if($parent_sitemap) {
     $parent_sitemap = updateSitemapDate($parent_sitemap, $filename);
-    error_log("NEw sitemap file: ".$parent_sitemap);
     file_put_contents($sitemap, $parent_sitemap);
-    
   }
+}
+
+function strbipos($haystack="", $needle="", $offset=0) {
+  // Search backwards in $haystack for $needle starting from $offset and return the position found or false
+  $len = strlen($haystack);
+  $offset = $len - $offset - 1;
+  $pos = stripos(strrev($haystack), strrev($needle), $offset);
+  return ( ($pos === false) ? false : $len - strlen($needle) - $pos );
+}
+
+function siteMapOutdated($sitemap, $filename, $pager = 4) {
+    $sitemapContents = file_get_contents($sitemap);
+
+    // Extract base name and extension separately
+    $lastslash = strrpos($filename, "/") + 1;
+    $local_file_name = substr($filename, $lastslash);
+
+    // Use regex to split into base and extension (e.g., "something_", ".txt")
+    if (!preg_match('/^(.*_)(\d+)(\.[^.]+)$/', $local_file_name, $matches)) {
+        error_log("Filename does not match expected pattern: " . $local_file_name);
+        return $sitemapContents;
+    }
+
+    $base = $matches[1];   // e.g., "company_contacts_"
+    $ext  = $matches[3];   // e.g., ".txt"
+
+    while (true) {
+        $currentFile = $base . $pager . $ext;
+        $found = strpos($sitemapContents, $currentFile);
+
+        if ($found === false) {
+            break; // stop when not found
+        }
+
+        $end   = strpos($sitemapContents, "</sitemap>", $found) + 10;
+        $start = strbipos($sitemapContents,'<sitemap>',$found);
+        $substring = substr($sitemapContents, $start, $end - $start)."\n\t";
+
+        if ($substring) {
+            $sitemapContents = str_replace($substring, "", $sitemapContents);
+            file_put_contents($sitemap, $sitemapContents);
+        }
+
+        $pager++; // move to the next pager value
+    }
+
+    return;
 }
 
 function updateSitemapDate($parent_sitemap, $filename) {
@@ -52,7 +97,6 @@ function updateSitemapDate($parent_sitemap, $filename) {
     } else {
       // Update the date for this sitemap in the main file
       $datelocation = strpos($parent_sitemap, '<lastmod>', $thisloc) + 9;
-      error_log($datelocation);
       $parent_sitemap = substr_replace($parent_sitemap, date('Y-m-d'), $datelocation, 10);
     }
   }

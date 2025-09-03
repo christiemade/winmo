@@ -43,6 +43,15 @@ function set_contacts_information($results = array(), $atts = array())
   $sitemap_contents = "";
   extract($atts);
 
+  // Last page of contacts - Sitemap cleanup
+  if($atts['page'] == $atts['first_total']) {
+    $total_entries = (int)$atts['per_page'] * $atts['page'];
+    $pager = ceil($total_entries / 50000);
+    $pager = $pager + 1;
+    $filename = str_replace('.txt','_'.$pager.'.txt', $file);
+    siteMapOutdated($parent_file, $filename, $pager);
+  }
+
   // Sitemap pager
   $file = checkforPagerReq($page, $per_page, $file, $parent_file, $loop);
   
