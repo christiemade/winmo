@@ -12,7 +12,6 @@ $weird_company_id = get_query_var('wid');
 
 // Old URL catcher
 if (isset($weird_company_id) && $weird_company_id > 0) {
-error_log("business.php file. Hi im in the wid catcher with ".$weird_company_id);
   // Old API IDs are off by 1423 for some reason
   $weird_company_id = (int)$weird_company_id - (int)1423;
   $weird_company = get_company($weird_company_id, 'api_id');
@@ -103,11 +102,14 @@ if (is_wp_error($company_data)) {
             <p><strong>How many brands does <?php print $company_data->name; ?> have?</strong><br>
               <?php print $company_data->name; ?> has <?php print $brands_total; ?> unique brands.</p>
 
-            <p><strong>How much does <?php print $company_data->name; ?> spend on media?</strong><br>
+            <?php /*<p><strong>How much does <?php print $company_data->name; ?> spend on media?</strong><br>*/?>
+            <p><strong>How much is <?php print $company_data->name; ?>'s annual revenue</strong><br>
               <?php if (!empty($company_data->revenues)) :
-                print $company_data->name . ' spends $' . $company_data->revenues;
-              else : print 'It is unknown how much ' . $company_data->name . ' spends ';
-              endif; ?> on media.</p>
+              $amount = (int)$company_data->revenues . "000";
+              print '$'.number_format($amount,2);
+                //print $company_data->name . ' spends $' . $company_data->revenues;
+              else : print 'It is unknown how much ' . $company_data->name . ' spends on media.';
+              endif; ?></p>
           </div>
         </div>
 
