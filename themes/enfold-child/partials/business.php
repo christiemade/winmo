@@ -103,7 +103,7 @@ if (is_wp_error($company_data)) {
               <?php print $company_data->name; ?> has <?php print $brands_total; ?> unique brands.</p>
 
             <?php /*<p><strong>How much does <?php print $company_data->name; ?> spend on media?</strong><br>*/?>
-            <p><strong>How much is <?php print $company_data->name; ?>'s annual revenue</strong><br>
+            <p><strong>How much is <?php print $company_data->name; ?>'s annual revenue?</strong><br>
               <?php if (!empty($company_data->revenues)) :
               $amount = (int)$company_data->revenues . "000000";
               print '$'.number_format($amount,0);
