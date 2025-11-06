@@ -4,9 +4,9 @@ jQuery(function ($) {
       "click",
       "#request_demo .avia-button, .cta .avia-button",
       function (e) {
-        e.preventDefault();
-        var $target = $(e.currentTarget);
-        openPopup($target);
+        //e.preventDefault();
+        //var $target = $(e.currentTarget);
+        //openPopup($target);
       }
     );
 
