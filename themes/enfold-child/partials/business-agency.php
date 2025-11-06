@@ -86,16 +86,16 @@ if (is_wp_error($agency_data)) {
           </div>
           <div class="col contact">
             <div class="phone">
-              <?php print do_shortcode("[av_icon_box icon='ue809' font='winmo' title='Main Telephone' position='left_content' icon_style='' boxed='' font_color='' custom_title='' custom_content='' color='' custom_bg='' custom_font='' custom_border='' custom_title_size='' av-desktop-font-size-title='' av-medium-font-size-title='' av-small-font-size-title='' av-mini-font-size-title='' custom_content_size='' av-desktop-font-size='' av-medium-font-size='' av-small-font-size='' av-mini-font-size='' heading_tag='' heading_class='' link='' linktarget='' title_attr='' linkelement='' id='' custom_class='' template_class='' av_uid='av-luvpcjbw' sc_version='1.0' admin_preview_bg='']<a href=\"#request_form\" class=\"modal\">" .
+              <?php print do_shortcode("[av_icon_box icon='ue809' font='winmo' title='Main Telephone' position='left_content' icon_style='' boxed='' font_color='' custom_title='' custom_content='' color='' custom_bg='' custom_font='' custom_border='' custom_title_size='' av-desktop-font-size-title='' av-medium-font-size-title='' av-small-font-size-title='' av-mini-font-size-title='' custom_content_size='' av-desktop-font-size='' av-medium-font-size='' av-small-font-size='' av-mini-font-size='' heading_tag='' heading_class='' link='' linktarget='' title_attr='' linkelement='' id='' custom_class='' template_class='' av_uid='av-luvpcjbw' sc_version='1.0' admin_preview_bg='']<ahhref=\"https:\/\/www.winmo.com\/demo" target=\"_blank\">" .
                 $agency_data->phone . "</a>[/av_icon_box]"); ?>
             </div>
             <div class="address">
               <?php print do_shortcode("[av_icon_box icon='ue808' font='winmo' title='Primary Address' position='left_content' icon_style='' boxed='' font_color='' custom_title='' custom_content='' color='' custom_bg='' custom_font='' custom_border='' custom_title_size='' av-desktop-font-size-title='' av-medium-font-size-title='' av-small-font-size-title='' av-mini-font-size-title='' custom_content_size='' av-desktop-font-size='' av-medium-font-size='' av-small-font-size='' av-mini-font-size='' heading_tag='' heading_class='' link='' linktarget='' title_attr='' linkelement='' id='' custom_class='' template_class='' av_uid='av-luvpcjbw' sc_version='1.0' admin_preview_bg='']" . $address . "[/av_icon_box]"); ?>
             </div>
           </div>
-          <div class="col social"><a href="#request_form" class="modal"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/social.svg"></a></div>
+          <div class="col social"><a href="https://www.winmo.com/demo" target="_blank"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/social.svg"></a></div>
           <div class="col">
-            <a href="#request_demo" class="modal"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/buttons.svg"></a>
+            <a href="https://www.winmo.com/demo" target="_blank"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/buttons.svg"></a>
           </div>
         </div>
       </div>
@@ -127,12 +127,12 @@ if (is_wp_error($agency_data)) {
           </div>
         </div>
         <div class="row table" id="clients_table">
-          <div class="top"><a href="#request_form" class="modal"><img width="105" src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/media-cients-current-past-tabs.svg"></a><a href="#request_form" class="modal"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/media-cients-state-industry-filters.svg"></a></div>
+          <div class="top"><a href="https://www.winmo.com/demo" target="_blank"><img width="105" src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/media-cients-current-past-tabs.svg"></a><a href="https://www.winmo.com/demo" target="_blank"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/media-cients-state-industry-filters.svg"></a></div>
           <div class="top">
-            <div><a href="#request_form" class="modal"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/clients-top-brand.png"><span>Brand</span></a></div>
-            <div><a href="#request_form" class="modal"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/clients-top-state.png"><span>State</span></a></div>
-            <div><a href="#request_form" class="modal"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/clients-top-services.png"><span>Service</span></a></div>
-            <div><a href="#request_form" class="modal"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/clients-top-media-spend.png"><span>Est. Spend</span></a></div>
+            <div><a href="https://www.winmo.com/demo" target="_blank"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/clients-top-brand.png"><span>Brand</span></a></div>
+            <div><a href="https://www.winmo.com/demo" target="_blank"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/clients-top-state.png"><span>State</span></a></div>
+            <div><a href="https://www.winmo.com/demo" target="_blank"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/clients-top-services.png"><span>Service</span></a></div>
+            <div><a href="https://www.winmo.com/demo" target="_blank"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/clients-top-media-spend.png"><span>Est. Spend</span></a></div>
           </div>
           <div class="grid">
             <div class="row">
@@ -168,7 +168,7 @@ if (is_wp_error($agency_data)) {
           </div>
 
           <div class="bottom">
-            <a href="#request_form" class="modal"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/companies/pagination.svg"></a>
+            <a href="https://www.winmo.com/demo" target="_blank"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/companies/pagination.svg"></a>
           </div>
 
         </div>
@@ -191,14 +191,14 @@ if (is_wp_error($agency_data)) {
 
       <section id="more">
         <div class="row table" id="marketing_table">
-          <div class="top desktop"><a href="#request_form" class="modal"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/employee-table-top.svg"></a></div>
+          <div class="top desktop"><a href="https://www.winmo.com/demo" target="_blank"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/employee-table-top.svg"></a></div>
           <div class="top">
             <div class="nosort">&nbsp;</div>
-            <div><a href="#request_form" class="modal"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/table-label-name.png"><span>Name</span></a></div>
-            <div><a href="#request_form" class="modal"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/table-label-title.png"><span>Title</span></a></div>
-            <div><a href="#request_form" class="modal"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/table-label-email.png"><span>Email</span></a></div>
-            <div><a href="#request_form" class="modal"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/clients-top-state.png"><span>State</span></a></div>
-            <div class="nosort"><a href="#request_form" class="modal"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/table-label-action.png"><span>Action</span></a></div>
+            <div><a href="https://www.winmo.com/demo" target="_blank"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/table-label-name.png"><span>Name</span></a></div>
+            <div><a href="https://www.winmo.com/demo" target="_blank"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/table-label-title.png"><span>Title</span></a></div>
+            <div><a href="https://www.winmo.com/demo" target="_blank"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/table-label-email.png"><span>Email</span></a></div>
+            <div><a href="https://www.winmo.com/demo" target="_blank"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/clients-top-state.png"><span>State</span></a></div>
+            <div class="nosort"><a href="https://www.winmo.com/demo" target="_blank"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/table-label-action.png"><span>Action</span></a></div>
           </div>
           <div class="grid">
             <?php
@@ -207,12 +207,12 @@ if (is_wp_error($agency_data)) {
 
             for ($i = 0; $i < $people_total; $i++) :
             ?><div class="row">
-                <div><a href="#request_form" class="modal"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/checkbox.svg"></a></div>
-                <div><a href="#request_form" class="modal"><?php print $agency_data->contacts[$i]->fname ?> <?php print substr($agency_data->contacts[$i]->lname, 0, 1); ?></a>.</div>
-                <div><a href="#request_form" class="modal"><?php print $agency_data->contacts[$i]->title; ?></a></div>
-                <div><a href="#request_form" class="modal"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/contact-email.png"></a></div>
-                <div><a href="#request_form" class="modal"><?php print $agency_data->contacts[$i]->state; ?></a></div>
-                <div><a href="#request_form" class="modal"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/export.svg"></a></div>
+                <div><a hhref="https://www.winmo.com/demo" target="_blank"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/checkbox.svg"></a></div>
+                <div><a hhref="https://www.winmo.com/demo" target="_blank"><?php print $agency_data->contacts[$i]->fname ?> <?php print substr($agency_data->contacts[$i]->lname, 0, 1); ?></a>.</div>
+                <div><a hhref="https://www.winmo.com/demo" target="_blank"><?php print $agency_data->contacts[$i]->title; ?></a></div>
+                <div><a hhref="https://www.winmo.com/demo" target="_blank"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/contact-email.png"></a></div>
+                <div><a hhref="https://www.winmo.com/demo" target="_blank"><?php print $agency_data->contacts[$i]->state; ?></a></div>
+                <div><a hhref="https://www.winmo.com/demo" target="_blank"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/export.svg"></a></div>
               </div><?php
                     if ($i === 0) {
                       print '<div class="details">
@@ -228,22 +228,22 @@ if (is_wp_error($agency_data)) {
                         </div>
                         <div class="social">
                         Social:<br>
-                        <a href="#request_form" class="modal"><img src="' . get_stylesheet_directory_uri() . '/assets/img/companies/social.svg"></a>
+                        <a href="https://www.winmo.com/demo" target="_blank"><img src="' . get_stylesheet_directory_uri() . '/assets/img/companies/social.svg"></a>
                         </div>
                         <div>
                         Related Brands:<br>
                         <img src="' . get_stylesheet_directory_uri() . '/assets/img/agencies/blurred-brands.svg">
                         </div>
                       </div>
-                      <div class="row buttons"><a href="#request_form" class="modal"><img src="' . get_stylesheet_directory_uri() . '/assets/img/agencies/employees-details-buttons.svg"></a></div>
+                      <div class="row buttons"><a href="https://www.winmo.com/demo" target="_blank"><img src="' . get_stylesheet_directory_uri() . '/assets/img/agencies/employees-details-buttons.svg"></a></div>
                       </div>';
                     }
                   endfor; ?>
           </div>
 
           <div class="bottom">
-            <a href="#request_form" class="modal"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/employees-footer-buttons.svg"></a>
-            <?php if (sizeof($agency_data->contacts) > 10) { ?><a href="#request_form" class="modal"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/companies/pagination.svg"></a><?php } ?>
+            <a href="https://www.winmo.com/demo" target="_blank"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/agencies/employees-footer-buttons.svg"></a>
+            <?php if (sizeof($agency_data->contacts) > 10) { ?><a href="https://www.winmo.com/demo" target="_blank"><img src="<?php print get_stylesheet_directory_uri(); ?>/assets/img/companies/pagination.svg"></a><?php } ?>
           </div>
 
         </div>

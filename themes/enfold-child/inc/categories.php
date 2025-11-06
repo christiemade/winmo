@@ -62,7 +62,7 @@ $states = array(
 // Show request a demo button in header of category pages
 add_filter('avf_main_menu_nav', function ($stuff) {
   if (is_page('industries')) {
-    $stuff .= '<div class="button"><a href="#request_form" class="modal"><img src="' . get_stylesheet_directory_uri() . '/assets/img/categories/request-a-demo.png"></a></div>';
+    $stuff .= '<div class="button"><a href="https://www.winmo.com/demo" target="_blank"><img src="' . get_stylesheet_directory_uri() . '/assets/img/categories/request-a-demo.png"></a></div>';
   }
   return $stuff;
 });
