@@ -101,15 +101,18 @@ if (is_wp_error($company_data)) {
           <div class="col">
             <p><strong>How many brands does <?php print $company_data->name; ?> have?</strong><br>
               <?php print $company_data->name; ?> has <?php print $brands_total; ?> unique brands.</p>
+              <?php if(!empty($company_data->media_spend)): ?>
 
-            <?php /*<p><strong>How much does <?php print $company_data->name; ?> spend on media?</strong><br>*/?>
+             <p><strong>How much does <?php print $company_data->name; ?> spend on media?</strong><br><?php
+              print $company_data->media_spend.'</p>';
+              else: ?>
             <p><strong>How much is <?php print $company_data->name; ?>'s annual revenue?</strong><br>
               <?php if (!empty($company_data->revenues)) :
               $amount = (int)$company_data->revenues . "000000";
               print '$'.number_format($amount,0);
-                //print $company_data->name . ' spends $' . $company_data->revenues;
               else : print 'It is unknown how much ' . $company_data->name . ' spends on media.';
-              endif; ?></p>
+              endif; // End if Annual Revenue is Empty ?></p>
+            <?php endif; // End if Media Spend is Empty ?>
           </div>
         </div>
 

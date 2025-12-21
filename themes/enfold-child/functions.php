@@ -11,10 +11,10 @@ function avia_get_theme_version($which = 'parent')
 
 add_action('wp_head', function(){
   ?><!-- Google tag (gtag.js) --> <script async src="https://www.googletagmanager.com/gtag/js?id=G-MT3J8KL7HJ"></script> <script> window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-MT3J8KL7HJ'); </script>
-  <!-- Start of HubSpot Embed Code -->
-  <script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/1808942.js"></script>
-  <!-- End of HubSpot Embed Code -->
   <?php
+print '<!-- Start of HubSpot Embed Code -->
+<script type="text/javascript" id="hs-script-loader" async defer src="//js.hs-scripts.com/1808942.js"></script>
+<!-- End of HubSpot Embed Code -->';
 });
 
 // Quick shortcode to display current year
