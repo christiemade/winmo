@@ -172,8 +172,6 @@ function set_contacts_information($results = array(), $atts = array())
     delete_transient('contacts_last_page'); // Remove last page check
     
     error_log("We're finishing, but I don't think we actually need to do anything anymore.");
-
-    // TO DO - Change the modify date on the sitemap
     
     // Change temp to official
     $deletesql = "DELETE FROM winmo WHERE type = 'contacts'";
@@ -348,31 +346,6 @@ function get_winmo_contact($permalink = '', $alpha = '', $api = '')
   $result = $wpdb->get_results($sql);
 
   return $result;
-}
-
-function add_winmo_contact($contact, $status)
-{
-  global $wpdb;
-
-  $howditgo = false;
-
-  $wpdb->show_errors();
-  foreach ($contact as $insert) :
-    $howditgo = $wpdb->insert(
-      'winmo_contacts',
-      array(
-        'api_id' => $insert[0],
-        'first_name' => $insert[1],
-        'last_name' => $insert[2],
-        'page' => $insert[3],
-        'permalink' => $insert[4],
-        'status' => $status,
-      )
-    );
-  endforeach;
-
-  $wpdb->hide_errors();
-  if (!$howditgo) return false;
 }
 
 // Show unlock button in header of contact pages

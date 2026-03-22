@@ -166,6 +166,40 @@ add_action('after_switch_theme', function () {
       ADD PRIMARY KEY (`api_id`),
       ADD KEY `id` (`id`)');
 
+  $sql = 'CREATE TABLE IF NOT EXISTS `winmo_industries` (
+    `id` int NOT NULL,
+    `name` varchar(80) NOT NULL,
+    `permalink` varchar(80) NOT NULL,
+    `industry_id` int NOT NULL
+  )';
+  $wpdb->query($sql);
+
+  $wpdb->query('ALTER TABLE `winmo_industries`
+    ADD PRIMARY KEY (`id`),
+    ADD UNIQUE KEY `permalink` (`permalink`),
+    ADD UNIQUE KEY `industry_id` (`industry_id`),
+    ADD KEY `name` (`name`,`permalink`,`industry_id`)');
+  $wpdb->query($sql);
+
+  $wpdb->query('ALTER TABLE `winmo_industries`
+    MODIFY `id` int NOT NULL AUTO_INCREMENT');
+
+  $sql = 'CREATE TABLE IF NOT EXISTS `winmo_industries_companies` (
+    `id` int NOT NULL,
+    `api_id` int NOT NULL,
+    `industry_id` int NOT NULL
+  )';
+  $wpdb->query($sql);
+
+  $wpdb->query('ALTER TABLE `winmo_industries_companies`
+    ADD PRIMARY KEY (`id`),
+    ADD KEY `relation` (`api_id`,`industry_id`) USING BTREE');
+  $wpdb->query($sql);
+
+  $wpdb->query('ALTER TABLE `winmo_industries_companies`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT');
+
+/*
   $wpdb->query('CREATE TABLE `winmo_contacts` (
   `id` int NOT NULL,
   `api_id` int NOT NULL,
@@ -182,7 +216,7 @@ add_action('after_switch_theme', function () {
 
 
   $wpdb->query('ALTER TABLE `winmo_contacts`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT');
+  MODIFY `id` int NOT NULL AUTO_INCREMENT');*/
 }, 10);
 
 

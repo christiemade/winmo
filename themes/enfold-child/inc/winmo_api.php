@@ -176,10 +176,11 @@ function winmo_get_meta_response($type, $page = 1, $first_total = 0, $total = 0)
       global $wpdb;
 
       // Remove temp rows from the page being retried
-      $wpdb->delete('winmo_contacts', array(
+      error_log("XX - Removed, but this was deleting from a table that is supposedly not being used");
+      /*$wpdb->delete('winmo', array(
         'status' => 'temp',
         'page'   => $last_contact_page,
-      ));
+      ));*/
 
       $response['page'] = $last_contact_page;
 
