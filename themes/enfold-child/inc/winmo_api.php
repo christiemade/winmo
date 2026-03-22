@@ -5,237 +5,332 @@ use GuzzleHttp\Promise\RejectionException;
 
 function winmo_api($type, $page = 1)
 {
-  // Generate URL for API
   $url = 'https://api.winmo.com/web_api/seo/' . $type . '/?page=' . $page;
+
   $args = array(
     'headers' => array(
-      'Content-Type' => 'application/json',
-      'Authorization' => 'Bearer ' . WINMO_TOKEN
-    )
+      'Content-Type'  => 'application/json',
+      'Authorization' => 'Bearer ' . WINMO_TOKEN,
+    ),
+    'timeout' => 60,
   );
 
   $request = wp_remote_get($url, $args);
-  $error = false;
-  $body = 0;
 
-  if (!is_wp_error($request)) {
-    if ($request['response']['code'] == "404") {
-      $error =  new WP_Error('broke', 'Page not found.');
-    }
-    else {
-      $body = wp_remote_retrieve_body($request);
-      // A string means json, turn it into an array and assign it
-      if(gettype($body) == "string") {
-        $body = json_decode($body, true);
-      } else {
-        $error =  'There has been a problem with the data received.';
-      }
-    }
-  } else {
-    $error = $request->get_error_message();
-  }
+  // Turn this on only for the known failing case
+  $debug_this_request = ($type === 'agency_contacts' && (int) $page === 252);
 
-  if ($error === false) {
-    if (!$body) $body = json_decode(wp_remote_retrieve_body($request), true);
-    return $body;
-  } else {
-    $results = array(
-      'error' => $error
+  if (is_wp_error($request)) {
+    if ($debug_this_request) {
+      error_log('WINMO DEBUG wp_error type=' . $type . ' page=' . $page . ' msg=' . $request->get_error_message());
+      error_log('WINMO DEBUG url=' . $url);
+    }
+
+    return array(
+      'error' => $request->get_error_message()
     );
-    return $results;
   }
+
+  $code = wp_remote_retrieve_response_code($request);
+  $raw_body = wp_remote_retrieve_body($request);
+
+  if ($debug_this_request) {
+    error_log('WINMO DEBUG type=' . $type . ' page=' . $page);
+    error_log('WINMO DEBUG url=' . $url);
+    error_log('WINMO DEBUG http_code=' . $code);
+    error_log('WINMO DEBUG raw_body=' . substr($raw_body, 0, 8000));
+  }
+
+  if ((int) $code === 404) {
+    return array(
+      'error' => 'Page not found.'
+    );
+  }
+
+  if ((int) $code < 200 || (int) $code >= 300) {
+    return array(
+      'error' => 'HTTP ' . $code . ': ' . substr((string) $raw_body, 0, 1000)
+    );
+  }
+
+  if (!is_string($raw_body) || $raw_body === '') {
+    return array(
+      'error' => 'There has been a problem with the data received.'
+    );
+  }
+
+  $decoded = json_decode($raw_body, true);
+  $json_error = json_last_error_msg();
+
+  if ($debug_this_request) {
+    error_log('WINMO DEBUG json_last_error=' . $json_error);
+  }
+
+  if (json_last_error() !== JSON_ERROR_NONE) {
+    return array(
+      'error' => 'Invalid JSON from API: ' . $json_error . '. Raw body: ' . substr($raw_body, 0, 1000)
+    );
+  }
+
+  // If the API returns a JSON error payload, preserve it
+  if (is_array($decoded) && isset($decoded['error'])) {
+    if ($debug_this_request) {
+      error_log('WINMO DEBUG decoded_error=' . print_r($decoded['error'], true));
+    }
+
+    return array(
+      'error' => is_string($decoded['error']) ? $decoded['error'] : print_r($decoded['error'], true)
+    );
+  }
+
+  return $decoded;
 }
 
 add_action('wp_ajax_process_api_data', 'process_api_data');
 add_action('wp_ajax_nopriv_process_api_data', 'process_api_data');
 
-function process_api_data()
-{
-  if (isset($_POST['page'])) {
-    $page = stripslashes($_POST['page']);
-    $type = stripslashes($_POST['type']);
-    $grab = stripslashes($_POST['grab']);
-    $loop = stripslashes($_POST['loop']);
-    $per_page = isset($_POST['per_page']) ? stripslashes($_POST['per_page']) : '';
-    $first_total = 0;
-    $total = 0;
-    if (isset($_POST['total'])) $total = stripslashes($_POST['total']);
-    if (isset($_POST['first_total'])) $first_total = stripslashes($_POST['first_total']);
+function process_api_data() {
+  file_put_contents(WP_CONTENT_DIR . '/api-test.log', date('c') . " START\n", FILE_APPEND);
 
-    $promise = new Promise(function () use ($type, $page, $grab, $per_page, $total, $first_total, $loop, &$promise) {
-
-      $error = false;
-
-      // Just send meta information
-      if (($grab == "meta") && ($type != "company_contacts")) {
-
-        // Include total for both contact APIs
-        error_log("Meta check for type: " . $type);
-        if ($type === "contacts") {
-          error_log("First contacts check...");
-          $result = winmo_api("company_contacts", $page);
-          $contact_set2 = winmo_api("agency_contacts", $page);
-          $response = $result['meta'];
-          // Add results together
-          $response['first_total'] = $result['meta']['total_pages'];
-          $response['second_total'] = $contact_set2['meta']['total_pages'];
-          $response['first_per_page'] = $result['meta']['per_page'];
-          $response['second_per_page'] = $contact_set2['meta']['per_page'];
-          $response['per_page'] = $response['first_per_page'];
-          $response['total_pages'] = $result['meta']['total_pages'] + $contact_set2['meta']['total_pages'];
-          
-          error_log("First total after first meta check: " . $response['first_total']);
-          error_log("Total Pages: " . $response['total_pages']);
-          error_log("Per pages have been saved in response var ".$response['first_per_page']. " and ".$response['second_per_page']);
-          // Confirm we're actually rebuilding and not restarting from a failed attempt
-          $last_contact_page = get_transient('contacts_last_page');
-          error_log("last_contact_page :" . $last_contact_page);
-          if ($last_contact_page && ($last_contact_page > 1)) {
-            error_log("GoOD.");
-            // Removely previous added temp contacts from index for this page (to prevent duplicates)
-            global $wpdb;
-            $wpdb->delete('winmo_contacts', array('status' => 'temp', 'page' => $last_contact_page)); /// LOOKHERE, Why page?
-
-            // Set current page to the last saved page
-            $response['page'] = $last_contact_page;
-
-            // Check where we are between the two contact APIs
-            error_log($last_contact_page . " > " . $result['meta']['total_pages']);
-            if ($last_contact_page > $result['meta']['total_pages']) {
-              // We got through an entire API the last time, so we need to start on the second one now
-              $type = "agency_contacts";
-              $page = $last_contact_page;
-              $response['per_page'] = $contact_set2['meta']['per_page'];
-            }
-          }
-          error_log("The page we want to use is " . $response['page']);
-
-          //error_log("Total: " . $response['total_pages']);
-        }
-
-        if ($type == "agency_contacts") {
-          error_log("Second contacts check");
-          $contact_set2 = winmo_api("company_contacts", 1);
-          error_log("A" . json_encode($contact_set2['meta']));
-
-          // PAGE was wrong - fixed it to continue with current page - so hopefully this says 731
-          error_log("B" . $page . " - " . $contact_set2['meta']['total_pages']);
-
-          $agency_page_number = $page - $contact_set2['meta']['total_pages']; // Offset the page number
-          error_log("C: New page # for agencies: " . $agency_page_number . " but page page is still " . $page);
-
-          $result = winmo_api($type, $agency_page_number);
-          $response = $result['meta'];
-
-          // Add results together
-          $response['first_total'] = $contact_set2['meta']['total_pages'];
-          error_log("D. First total after first meta check: " . json_encode($response['first_total']));
-
-          $response['total_pages'] = $result['meta']['total_pages'] + $contact_set2['meta']['total_pages'];
-
-          // Original intent of this line is not working
-          // Trying this as total number of agencies.
-          $response['page'] =  $response['first_total'] + $agency_page_number;
-          error_log("E. Page set to: " . $response['page']);
-          $response['second_total'] = $result['meta']['total_pages'];
-        } elseif ($type != "contacts") {
-
-          $result = winmo_api($type, $page);
-
-          // Error check
-          if(is_array($result) && isset($result['error'])) {
-            $response = $result['error'];
-            $error = true;
-          } else {
-            $result['first_total'] = $result['meta']['total_pages'];
-            $response = $result['meta'];
-          }
-        }
-      } elseif (($grab == "meta") && ($type == "agency_contacts")) {
-
-        $response = array();
-      } else {
-
-        error_log("Page is: " . $page . " out of " . $total);
-
-        $type = $type == "company_contacts" ? "contacts" : $type;
-        $type = $type == "agency_contacts" ? "contacts" : $type;
-        $function = 'set_' . $type . '_information';
-        $last = false;
-
-        // Contacts broken into two API calls - second set here
-        if ($page > $first_total) {
-          error_log("Checking if " . $page . " >= " . $total);
-          if ($page >= $total) {
-            $last = true;
-          }
-
-          $page = (int)$page - (int)$first_total;
-
-          // Make sure this ONLY applies to contact queries
-          // We've gotten through the first total, so change which API is used now
-          if ($type == "contacts") $type = "agency_contacts";
-        } elseif ($type == "contacts") {
-          $type = "company_contacts";  // Change API call for (first round) specific type of contacts
-        }
-
-        //error_log("Grab page # " . $page . " for " . $type . " in " . $function . " first_page_total is " . $first_total);
-
-        $result = winmo_api($type, $page);
-        if ($total <= $page) $last = true;
-
-        $atts = array(
-          'page' => $page,
-          'total' => $total,
-          'last' => $last,
-          'type' => $type,
-          'first_total' => $first_total,
-          'per_page' => $per_page,
-          'loop' => $loop
-        );
-
-        error_log("Do we still have the loop at 197? ".$loop);
-
-        // API Error scenario
-        if(isset($result['error'])) {
-          error_log('API returned an error');
-          $atts['error'] = $result['error'];
-          $response = $result['error'];
-          $error = true;
-        } else {
-          $page = isset($result['page']) ? $result['page'] : $page;
-          $response = $function($result['data'], $atts); // Send to processer
-        }
-
-        // Sometimes pages drop - why?
-        if (gettype($response) == "string") {
-          error_log("Pages drop check - This should no longer be occuring.  winmo_api.php:197 " . $response);
-          error_log("Skipping Page ".$page);
-          $page++;
-          $atts['page'] = $page;
-          $result = winmo_api($type, page: $page);
-          $response = $function($result['data'], $atts); // Try again, skip this page
-          if (gettype($response) == "string") {
-            error_log("STILL not working.");
-          }
-        }
-      }
-
-      if ($error === false) {
-        $promise->resolve(json_encode($response));
-      } else {
-        $promise->reject(reason: $response);
-      }
-    });
-
-    // Calling wait will return the value of the promise.
-    try {
-      echo $promise->wait();
-    } catch (RejectionException $e) {
-      wp_send_json_error( $e->getReason() );
-    }
-  } else {
+  if (!isset($_POST['page'])) {
     wp_send_json_error('No data received.');
   }
-  die();
+
+  $page        = isset($_POST['page']) ? (int) wp_unslash($_POST['page']) : 1;
+  $type        = isset($_POST['type']) ? sanitize_text_field(wp_unslash($_POST['type'])) : '';
+  $grab        = isset($_POST['grab']) ? sanitize_text_field(wp_unslash($_POST['grab'])) : '';
+  $loop        = isset($_POST['loop']) ? (int) wp_unslash($_POST['loop']) : 0;
+  $per_page    = isset($_POST['per_page']) ? (int) wp_unslash($_POST['per_page']) : 0;
+  $first_total = isset($_POST['first_total']) ? (int) wp_unslash($_POST['first_total']) : 0;
+  $total       = isset($_POST['total']) ? (int) wp_unslash($_POST['total']) : 0;
+
+  $req_start = microtime(true);
+  error_log("API Call START type={$type} grab={$grab} page={$page} loop={$loop}");
+
+  if ($grab === 'meta') {
+    $response = winmo_get_meta_response($type, $page, $first_total, $total);
+
+    error_log("API Call END total request time: " . round(microtime(true) - $req_start, 2) . "s");
+
+    if (isset($response['error'])) {
+      wp_send_json_error($response['error']);
+    }
+
+    wp_send_json($response);
+  }
+
+  if ($grab === 'page') {
+    $response = winmo_process_page_response($type, $page, $total, $first_total, $per_page, $loop, $req_start);
+
+    if (is_array($response) && !empty($response['error'])) {
+      wp_send_json_error($response['error']);
+    } else {
+      wp_send_json($response);
+    }
+
+  }
+  
+  wp_send_json_error('Invalid grab type.');
+}
+
+
+function winmo_get_meta_response($type, $page = 1, $first_total = 0, $total = 0) {
+  error_log("Meta check for type: " . $type);
+
+  if ($type === 'contacts') {
+    $company_meta_result = winmo_api('company_contacts', 1);
+    $agency_meta_result  = winmo_api('agency_contacts', 1);
+
+    if (isset($company_meta_result['error'])) {
+      return array('error' => $company_meta_result['error']);
+    }
+
+    if (isset($agency_meta_result['error'])) {
+      return array('error' => $agency_meta_result['error']);
+    }
+
+    $company_total     = (int) $company_meta_result['meta']['total_pages'];
+    $agency_total      = (int) $agency_meta_result['meta']['total_pages'];
+    $company_per_page  = (int) $company_meta_result['meta']['per_page'];
+    $agency_per_page   = (int) $agency_meta_result['meta']['per_page'];
+
+    $response = array(
+      'page'            => 1,
+      'first_total'     => $company_total,
+      'second_total'    => $agency_total,
+      'first_per_page'  => $company_per_page,
+      'second_per_page' => $agency_per_page,
+      'per_page'        => $company_per_page,
+      'total_pages'     => $company_total + $agency_total,
+    );
+
+    error_log("First total: " . $response['first_total']);
+    error_log("Second total: " . $response['second_total']);
+    error_log("Total Pages: " . $response['total_pages']);
+
+    // Resume support
+    $last_contact_page = (int) get_transient('contacts_last_page');
+    error_log("last_contact_page: " . $last_contact_page);
+
+    if ($last_contact_page > 1) {
+      global $wpdb;
+
+      // Remove temp rows from the page being retried
+      $wpdb->delete('winmo_contacts', array(
+        'status' => 'temp',
+        'page'   => $last_contact_page,
+      ));
+
+      $response['page'] = $last_contact_page;
+
+      // If resuming after company contacts finished, switch per_page to agency
+      if ($last_contact_page > $company_total) {
+        $response['per_page'] = $agency_per_page;
+      }
+    }
+
+    error_log("Meta response page: " . $response['page']);
+
+    return $response;
+  }
+
+  // All non-combined import types
+  $result = winmo_api($type, $page);
+
+  if (isset($result['error'])) {
+    return array('error' => $result['error']);
+  }
+
+  $response = $result['meta'];
+  $response['first_total'] = (int) $result['meta']['total_pages'];
+
+  return $response;
+}
+
+
+function winmo_process_page_response($type, $page, $total, $first_total, $per_page, $loop, $req_start = null) {
+  error_log("Page is: {$page} out of {$total}");
+
+  $resolved = winmo_resolve_page_request($type, $page, $total, $first_total);
+
+  $api_type        = $resolved['api_type'];
+  $api_page        = $resolved['api_page'];
+  $processor_type  = $resolved['processor_type'];
+  $last            = $resolved['last'];
+
+  $function = 'set_' . $processor_type . '_information';
+
+  if (!function_exists($function)) {
+    return array('error' => 'Processor function does not exist: ' . $function);
+  }
+
+  $step = microtime(true);
+  $result = winmo_api($api_type, $api_page);
+  error_log("After winmo_api ({$api_type}, {$api_page}): " . round(microtime(true) - $step, 2) . "s");
+
+  $atts = array(
+    'page'        => $api_page,
+    'total'       => $total,
+    'last'        => $last,
+    'type'        => $api_type,
+    'first_total' => $first_total,
+    'per_page'    => $per_page,
+    'loop'        => $loop,
+  );
+
+  error_log("Loop value: " . $loop);
+
+  if (isset($result['error'])) {
+    error_log('API returned an error');
+    return array('error' => $result['error']);
+  }
+
+  $step = microtime(true);
+  $response = $function($result['data'], $atts);
+  error_log("After {$function}: " . round(microtime(true) - $step, 2) . "s");
+
+  // Retry once if processor returned a string unexpectedly
+  if (is_string($response)) {
+    error_log("Unexpected string response from {$function}: " . $response);
+    error_log("Retrying next page after skipping page " . $api_page);
+
+    $api_page++;
+    $atts['page'] = $api_page;
+
+    $result = winmo_api($api_type, $api_page);
+
+    if (isset($result['error'])) {
+      error_log('API returned an error for type ' . $api_type . ' page ' . $api_page . ': ' . print_r($result['error'], true));
+      return array('error' => $result['error']);
+    }
+
+    if (!function_exists($function)) {
+      error_log('Missing processor: ' . $function);
+      return array('error' => 'Processor function does not exist: ' . $function);
+    }
+
+    if (isset($result['error'])) {
+      return array('error' => $result['error']);
+    }
+
+    $response = $function($result['data'], $atts);
+
+    error_log('Processor response for ' . $function . ': ' . print_r($response, true));
+
+    if (is_string($response)) {
+      error_log("Retry also returned string response.");
+    }
+  }
+
+  if ($req_start !== null) {
+    error_log("API Call END total request time: " . round(microtime(true) - $req_start, 2) . "s");
+  }
+
+  return $response;
+}
+
+
+function winmo_resolve_page_request($type, $page, $total, $first_total) {
+  $page = (int) $page;
+  $total = (int) $total;
+  $first_total = (int) $first_total;
+
+  $resolved = array(
+    'api_type'       => $type,
+    'api_page'       => $page,
+    'processor_type' => $type,
+    'last'           => false,
+  );
+
+  // Combined contacts import:
+  // pages 1..first_total = company_contacts
+  // pages (first_total+1)..total = agency_contacts
+  if ($type === 'contacts' || $type === 'agency_contacts' || $type === 'company_contacts') {
+    $resolved['processor_type'] = 'contacts';
+
+    if ($page > $first_total && $first_total > 0) {
+      $resolved['api_type'] = 'agency_contacts';
+      $resolved['api_page'] = $page - $first_total;
+    } else {
+      $resolved['api_type'] = 'company_contacts';
+      $resolved['api_page'] = $page;
+    }
+
+    if ($page >= $total) {
+      $resolved['last'] = true;
+    }
+
+    return $resolved;
+  }
+
+  // Everything else
+  $resolved['api_type'] = $type;
+  $resolved['api_page'] = $page;
+  $resolved['processor_type'] = $type;
+
+  if ($total > 0 && $page >= $total) {
+    $resolved['last'] = true;
+  }
+
+  return $resolved;
 }

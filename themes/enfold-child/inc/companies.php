@@ -64,32 +64,32 @@ function set_companies_information($results = array(), $atts = array())
       $company_industries_local = array(); // Industries for this company
       if (is_array($list)) {
         $list  = array_unique($list); // I've notice lots of repeats in the industry arrays
-        error_log("Here is our industry list for ".$company['name']. " " . json_encode($list));
+        //error_log("Here is our industry list for ".$company['name']. " " . json_encode($list));
         foreach ($list as $industry) :
 
           // Turn industry into a machine name
           $industry_mx = preg_replace('/[^a-z0-9]+/', '-', strtolower(trim($industry)));
           $industry_mx = str_replace(array("---",".-","--","."), "-", $industry_mx);
-          error_log("Determined permalink: ".$industry_mx);
+          //error_log("Determined permalink: ".$industry_mx);
           
           // PROBLEM: By the time we get to BMW of North America, LLC 'dealerships' should exist already in $industries.
-          error_log("IF never gets called. Problem with our industries array. Is Data not going IN? Or is data not coming back?");
+          //error_log("IF never gets called. Problem with our industries array. Is Data not going IN? Or is data not coming back?");
           if ((!isset($industries[$industry_mx])) && !isset($company_industries[$industry_mx])) {
-            error_log("It's not found in Top or Middle , so add it to local with our new key made from COUNT ." . $count);
+            //error_log("It's not found in Top or Middle , so add it to local with our new key made from COUNT ." . $count);
             $company_industries_local[$industry_mx] = array($count, ucwords($industry)); // Send to import
-            error_log("COUNT only gets increased in this scenario.");
+            //error_log("COUNT only gets increased in this scenario.");
             $count++;
             
           } else {
-            error_log("We're in the else. So we should already know about this industry.");
+            //error_log("We're in the else. So we should already know about this industry.");
             $key = isset($industries[$industry_mx]) ? $industries[$industry_mx] : $company_industries[$industry_mx][0];
-            error_log("So the industry id we found to use is: " .$key);
+            //error_log("So the industry id we found to use is: " .$key);
             $company_industries_local[$industry_mx] = array($key, ucwords($industry)); // Send to API page
         
           }
         endforeach;
         $companies[$company['id']] = $company_industries_local;
-        error_log("Adding the contents of local to this company... (This is also what gets merged now into the Top array: " . json_encode($company_industries_local));
+        //error_log("Adding the contents of local to this company... (This is also what gets merged now into the Top array: " . json_encode($company_industries_local));
       }
       $company_industries = array_merge_recursive($company_industries, $company_industries_local); // Merge with other current API page newly found industry items
     endif;
@@ -123,8 +123,8 @@ function set_companies_information($results = array(), $atts = array())
 
       $industries_insert = $wpdb->query($industry_query);
       if($wpdb->last_error !== '') { 
-        error_log("Industry Query: ".$industry_query);
-        error_log($wpdb->last_error); 
+        //error_log("Industry Query: ".$industry_query);
+        //error_log($wpdb->last_error); 
         return array('data' => false); 
         exit;
       }
@@ -133,7 +133,7 @@ function set_companies_information($results = array(), $atts = array())
       //error_log("Howd the company go? ".$company_insert);
     }
   } else {
-    error_log("No companies?");
+    //error_log("No companies?");
   }
 
   // Run the bulk query for this entire API page
@@ -150,33 +150,33 @@ function set_companies_information($results = array(), $atts = array())
 
   $result = $wpdb->query( $sql );
   if($result === false) {
-    error_log("There was a problem importing page ".$page);
-    error_log($wpdb->last_error);
+    //error_log("There was a problem importing page ".$page);
+    //error_log($wpdb->last_error);
   } else {
     // Import successfull, put this in the sitemap
-    error_log("writing to sitemap").
+    //error_log("writing to sitemap").
     file_put_contents($file, $sitemap_contents, FILE_APPEND);
   }
       
   // Last page in the API
   if ($last) {
-    error_log("We're finishing, but I don't think we actually need to do anything anymore.");
+    //error_log("We're finishing, but I don't think we actually need to do anything anymore.");
     
     // Change temp to official
     $deletesql = "DELETE FROM winmo WHERE type = 'company'";
     $wpdb->query( $deletesql );
     if($wpdb->last_error !== '') { 
-      error_log("Ran into a problem deleting the old company items with ".$deletesql);
-      error_log($wpdb->last_error);
+      //error_log("Ran into a problem deleting the old company items with ".$deletesql);
+      //error_log($wpdb->last_error);
     } else {
       $updatesql = "UPDATE winmo SET type = 'company' WHERE type = 'company2'";
       $wpdb->query( $updatesql );
       if($wpdb->last_error !== '') { 
-        error_log("Ran into a problem updating company database ".$updatesql);
-        error_log($wpdb->last_error);
+        //error_log("Ran into a problem updating company database ".$updatesql);
+        //error_log($wpdb->last_error);
         mail("christie@launchsnap.com","Winmo Database Error","Company API Update successfully removed old entries but failed in adding new entries.");
       } else {
-        error_log("All IS WELL! LETS BE SUCCESSFULL!!!!!!");
+        //error_log("All IS WELL! LETS BE SUCCESSFULL!!!!!!");
         $last = true;
       }
     }

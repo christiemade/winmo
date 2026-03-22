@@ -5,6 +5,15 @@ jQuery(function ($) {
 
   // We only want to run this if it's one of ours
   $(document).on("ajaxError", function (e, xhr, settings, exception) {
+
+    console.log(settings.data);
+
+    // Only work with API data
+    if (!settings.data || settings.data.indexOf("action=process_api_data") === -1) {
+      console.log("Not our ajax");
+      return;
+    }
+
     const date = new Date(e.timeStamp);
     console.log(date.toDateString() + " " + date.toTimeString());
     if (settings.data) {
@@ -71,40 +80,41 @@ jQuery(function ($) {
     }
   });
 
-  const fetchData = async (type, progressBar, atts = []) => {
-    if (!atts["page"]) atts["page"] = 1;
+  const fetchData = async (type, progressBar, atts = {}) => {
+  if (!atts.page) atts.page = 1;
 
-    let metadata;
-    try {
-      metadata = await fetchMeta(type, atts, progressBar);
-    } catch (error) {
-      console.error("fetchMeta failed:", error);
-  
-      // Handle the UI if needed
-      updateBar(progressBar, "fail", {error: error});
-  
+  let metadata;
+
+  try {
+    metadata = atts.skipMeta ? atts : await fetchMeta(type, atts, progressBar);
+  } catch (error) {
+    console.error("fetchMeta failed:", error);
+    updateBar(progressBar, "fail", { error: error });
+    stopme = true;
+    return;
+  }
+    
+    let total = atts.total || metadata.total_pages;
+    let current_page = atts.page || metadata.page;
+    let per_page = atts.per_page || metadata.per_page || "";
+
+    if (!total) {
+      console.error("Missing total_pages", metadata);
+      updateBar(progressBar, "fail", { error: "Invalid metadata from API" });
       stopme = true;
-      return; // Exit early since fetchMeta failed
+      return;
     }
 
-    let total = metadata.total_pages;
-    let current_page = metadata.page;
-    let first_total = "";
-    let second_total = "";
-    let first_per_page = "";
-    let second_per_page = "";
-    let per_page = "";
-    let loop = 0;
+    let first_total = 0;
+    let second_total = 0;
+    let first_per_page = 0;
+    let second_per_page = 0;
 
-    if (type == "contacts" || type == "agency_contacts") {
-      first_total = metadata.first_total;
-      second_total = metadata.second_total;
-      first_per_page = metadata.first_per_page;
-      second_per_page = metadata.second_per_page;
-      per_page =  metadata.per_page;
-
-    } else {
-      first_total = metadata.total_pages;
+    if (type === "contacts" || type === "agency_contacts") {
+      first_total = atts.first_total || metadata.first_total || 0;
+      second_total = atts.second_total || metadata.second_total || 0;
+      first_per_page = atts.first_per_page || metadata.first_per_page || 0;
+      second_per_page = atts.second_per_page || metadata.second_per_page || 0;
     }
 
     // Build progress bar
@@ -114,6 +124,7 @@ jQuery(function ($) {
 
     var barWidth = $(progressBar).width();
     updateBar($(progressBar), 'pass', { current_page: current_page, total: total });
+    let loop = 0;
 
     for (current_page; current_page <= total; current_page++) {
       loop++;
@@ -122,7 +133,7 @@ jQuery(function ($) {
       }
 
       try {
-        const response = await jsdelay(type, current_page, total, first_total, per_page, loop);
+        const response = await jsdelay(type, current_page, total, first_total, per_page, loop, progressBar);
         console.log(response);
         if (response && response.data) {
           console.log(`Response recieved - Page ${current_page} processed successfully.`);
@@ -138,13 +149,20 @@ console.log("Loop: " + loop);
           if (type === "contacts" && current_page === first_total) {
             // We need to send total and first_total through
             atts = {
-              page: Math.ceil(current_page + 1),
-              first_total,
-              total,
-              per_page
+              page: current_page + 1,
+              total: total,
+              first_total: first_total,
+              second_total: second_total,
+              first_per_page: first_per_page,
+              second_per_page: second_per_page,
+              per_page: second_per_page,
+              skipMeta: true
             };
             
             await fetchData("agency_contacts", progressBar, atts);
+
+            stopme = true;
+            break;
           }
           
           // Finish
@@ -160,7 +178,7 @@ console.log("Loop: " + loop);
               .addClass("error");
             $(progressBar)
               .children("div")
-              .text(atts['error']);
+              .text(response?.error || "Unknown error");
             $(".row").removeClass("processing").addClass("loaded");
           }
           console.warn('No data for page:', current_page);
@@ -170,15 +188,15 @@ console.log("Loop: " + loop);
 
 
       } catch (error) {
-        console.error('Error in jsdelay or fetchPage:', error);
+        console.error('Error in jsdelay or fetchPage on page ' + current_page +':', error);
         stopme = true
         if ($(progressBar).hasClass('building')) {
           $(progressBar)
             .removeClass("building")
             .addClass("error");
           $(progressBar)
-            .children("div")
-            .text(atts['error']);
+          .children("div")
+          .text(String(error || "Unknown error"));
           $(".row").removeClass("processing").addClass("loaded");
         }
         break;
@@ -188,81 +206,56 @@ console.log("Loop: " + loop);
 
 
   async function fetchMeta(type, atts, progressBar) {
-    const thenable = {
-      then(resolve, reject) {
+    return new Promise((resolve, reject) => {
+      $.ajax({
+        url: apiAjax.ajaxurl,
+        type: "POST",
+        dataType: "json",
+        data: {
+          action: "process_api_data",
+          grab: "meta",
+          page: atts.page || 1,
+          total: atts.total,
+          first_total: atts.first_total,
+          type: type,
+          per_page: atts.per_page,
+          loop: 0
+        },
+        success: function (data) {
+          console.log(data);
 
-        // Fetch metadata from the API first
-        $.ajax({
-          url: apiAjax.ajaxurl,
-          type: "POST",
-          data: {
-            action: "process_api_data",
-            grab: "meta",
-            page: atts["page"],
-            total: atts["total"],
-            first_total: atts["first_total"],
-            type: type, // TYPE needs to be "agency_contacts"
-            per_page: atts['per_page'],
-            loop: 0
-          },
-          success: function (data) {
-            console.log(data);
-            // If error is in the data, lets reject
-            if(data.success === false) {
-              console.log(data.data);
-              reject(data.data);
-            }
-            else {
-              data = JSON.parse(data);
-              resolve(data);
-            }
-          },
-          statusCode: {
-            502: function (e) {
-              $(progressBar)
-                .removeClass("building")
-                .addClass("error");
-              $(progressBar)
-                .children("div")
-                .text("Server time out on page #" + page + "!");
-              $(".row").removeClass("processing").addClass("loaded");
-            },
-            500: function (e) {
-              console.log("Can I do something about THIS error?");
-            },
-          },
-          error: function (data, more, message) {
-            $(progressBar)
-              .removeClass("building").removeClass("loading")
-              .addClass("error");
-            $(progressBar)
-              .children("div")
-              .text("Test");
-            $(".row").removeClass("processing").addClass("loaded");
-          },
-        }).fail(function (jqXHR, textStatus, errorThrown) {
-          console.log("Fail field " + textStatus);
-          console.log(jqXHR);
-          console.log(errorThrown);
-          // Request failed. Show error message to user.
-          // errorThrown has error message, or "timeout" in case of timeout.
+          // WP error wrapper
+          if (data && data.success === false) {
+            reject(data.data || "Unknown error");
+            return;
+          }
+
+          // WP success wrapper
+          if (data && data.success === true) {
+            resolve(data.data);
+            return;
+          }
+
+          // Raw success payload from wp_send_json()
+          resolve(data);
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+          const msg = errorThrown || textStatus || "AJAX error";
+
           $(progressBar)
-            .removeClass("building")
+            .removeClass("building loading")
             .addClass("error");
+
           $(progressBar)
             .children("div")
-            .text("Server time out on page #!");
-          $(".row").removeClass("processing").addClass("loaded");
-        });
-      },
-    };
+            .text("Server error on page #" + (atts.page || 1) + ": " + msg);
 
-    try {
-      return await thenable;
-    } catch (err) {
-      console.error("Handled in fetchMeta:", err);
-      throw err;
-    }
+          $(".row").removeClass("processing").addClass("loaded");
+
+          reject(msg);
+        }
+      });
+    });
   }
 
   // Promise to wait x ms before continuing
@@ -282,61 +275,79 @@ console.log("Loop: " + loop);
     await timeout(4000);
 
     console.log('Calling fetchPage...');
-    return await fetchPage(type, current_page, total, first_total, per_page, loop);
+    return await fetchPage(type, current_page, total, first_total, per_page, loop, progressBar);
 
   }
 
   // Grab a single page from the API
-  async function fetchPage(type, page, total, first_total = 0, per_page, loop = 1) {
-    console.log("Inside fetchPage " + page + " loop: "+loop);
+  async function fetchPage(type, page, total, first_total = 0, per_page, loop = 1, progressBar) {
     return new Promise((resolve, reject) => {
-     
-        console.log("Inside then... so this is what gets send to PHP: " + page);
-        $.ajax({
-          url: apiAjax.ajaxurl,
-          type: "POST",
-          data: {
-            action: "process_api_data", // Your WP action hook
-            grab: "page",
-            page: page,
-            type: type,
+      $.ajax({
+        url: apiAjax.ajaxurl,
+        type: "POST",
+        dataType: "json",
+        data: {
+          action: "process_api_data",
+          grab: "page",
+          page: page,
+          type: type,
+          total: total,
+          first_total: first_total,
+          per_page: per_page,
+          loop: loop
+        },
+        success: function (data) {
+          console.log("fetchPage success raw data:", data);
+          console.log("fetchPage type/page:", type, page);
+
+          if (data && data.success === false) {
+            console.log("fetchPage rejected because success === false:", data);
+            reject(data.data || "Unknown error");
+            return;
+          }
+
+          const payload = (data && data.success === true) ? data.data : data;
+
+          console.log("fetchPage payload:", payload);
+
+          if (!payload) {
+            reject("Empty response payload");
+            return;
+          }
+
+          console.log("Is last? ", payload.last);
+
+          if (payload.last) {
+            stopme = true;
+            updateBar(progressBar, "end");
+          } else {
+            updateBar(progressBar, "pass", {
+              current_page: page,
+              total: total
+            });
+          }
+
+          resolve(payload);
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+          console.error("AJAX error on page " + page + ":", {
+            status: jqXHR.status,
+            textStatus,
+            errorThrown,
+            responseText: jqXHR.responseText
+          });
+
+          updateBar(progressBar, "fail", {
+            current_page: page,
             total: total,
-            first_total: first_total,
-            per_page: per_page,
-            loop: loop
-          },
-          success: function (data) {
-            //console.log("Eventually we got a parse issue here. Unexpected character at line one.");
-            console.log(data);
+            error: errorThrown || textStatus || ("HTTP " + jqXHR.status)
+          });
 
-            // If error is in the data, lets reject
-            if(data.success === false) {
-              console.log(data.data);
-              reject(data.data);
-            } else {
-
-              var decodeData = JSON.parse(data);
-
-              // This is the end of the script, clean up!
-              if (decodeData.last) {
-                stopme = true;
-                resolve(JSON.parse(data)); // Resolve the last page
-                updateBar(progressBar, "end");
-              } else {
-                resolve(JSON.parse(data)); // Resolve normally
-                updateBar(progressBar, "pass");
-              }
-            }
-          },
-          error: function (jqXHR, textStatus, errorThrown) {
-            console.log(errorThrown);
-            console.error('AJAX error:', textStatus, errorThrown);
-            reject(new Error('AJAX request failed'));
-            updateBar(progressBar, "fail", { current_page: page, total: total, error: textStatus });
-          },
-        });
+          reject(errorThrown || textStatus || ("HTTP " + jqXHR.status));
+        },
       });
-  }  
+    });
+  } 
 
   function updateBar(progressBar, action = "", atts = {}) {
     console.log("Make the bar... " + action);
